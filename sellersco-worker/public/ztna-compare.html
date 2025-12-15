@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZTNA Comparison - Nexum Security Lab</title>
+<style>
+:root {
+  --bg: #0a1628;
+  --surface: #1a2f45;
+  --text: #f0f4f8;
+  --text-dim: #b8c5d6;
+  --accent: #52b2ff;
+  --border: #2d4563;
+  --success: #51cf66;
+  --warning: #fcc419;
+}
+* { box-sizing: border-box; }
+body { margin: 0; padding: 40px; font-family: Inter, -apple-system, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+.container { max-width: 1400px; margin: 0 auto; }
+h1 { color: var(--accent); margin-bottom: 8px; }
+.subtitle { color: var(--text-dim); margin-bottom: 32px; }
+.protected-badge { display: inline-block; background: rgba(255, 107, 107, 0.2); color: #ff6b6b; padding: 4px 12px; border-radius: 20px; font-size: 12px; margin-left: 12px; }
+table { width: 100%; border-collapse: collapse; background: var(--surface); border-radius: 12px; overflow: hidden; }
+th, td { padding: 16px; text-align: left; border-bottom: 1px solid var(--border); }
+th { background: var(--bg); color: var(--accent); font-weight: 600; }
+tr:last-child td { border-bottom: none; }
+.feature-yes { color: var(--success); }
+.feature-partial { color: var(--warning); }
+.feature-no { color: #ff6b6b; }
+.nexum-col { background: rgba(82, 178, 255, 0.1); }
+.back-link { display: inline-block; color: var(--accent); text-decoration: none; margin-top: 24px; }
+.back-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<a href="/" class="home-btn" style="position:fixed;top:20px;left:20px;background:linear-gradient(135deg,#0066cc,#52b2ff);color:white;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;z-index:1000;box-shadow:0 4px 12px rgba(0,102,204,0.4);transition:all 0.3s">🏠 Home</a>
+<div class="container">
+  <h1>🔐 ZTNA Comparison <span class="protected-badge">Protected</span></h1>
+  <p class="subtitle">Zero Trust Network Access - Competitive Feature Matrix</p>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>Capability</th>
+        <th class="nexum-col">Nexum</th>
+        <th>Zscaler ZPA</th>
+        <th>Cloudflare</th>
+        <th>Okta</th>
+        <th>Microsoft</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Identity-Based Access</td>
+        <td class="nexum-col feature-yes">✓ Full</td>
+        <td class="feature-yes">✓ Full</td>
+        <td class="feature-yes">✓ Full</td>
+        <td class="feature-yes">✓ Full</td>
+        <td class="feature-yes">✓ Full</td>
+      </tr>
+      <tr>
+        <td>Device Trust Verification</td>
+        <td class="nexum-col feature-yes">✓ Advanced</td>
+        <td class="feature-yes">✓ Advanced</td>
+        <td class="feature-partial">◐ Basic</td>
+        <td class="feature-yes">✓ Advanced</td>
+        <td class="feature-yes">✓ Intune</td>
+      </tr>
+      <tr>
+        <td>Application Cloaking</td>
+        <td class="nexum-col feature-yes">✓ Yes</td>
+        <td class="feature-yes">✓ Yes</td>
+        <td class="feature-yes">✓ Yes</td>
+        <td class="feature-no">✗ No</td>
+        <td class="feature-partial">◐ Limited</td>
+      </tr>
+      <tr>
+        <td>Continuous Authentication</td>
+        <td class="nexum-col feature-yes">✓ Real-time</td>
+        <td class="feature-yes">✓ Real-time</td>
+        <td class="feature-partial">◐ Periodic</td>
+        <td class="feature-yes">✓ Real-time</td>
+        <td class="feature-partial">◐ Periodic</td>
+      </tr>
+      <tr>
+        <td>Lateral Movement Prevention</td>
+        <td class="nexum-col feature-yes">✓ Micro-seg</td>
+        <td class="feature-yes">✓ Micro-seg</td>
+        <td class="feature-partial">◐ Basic</td>
+        <td class="feature-no">✗ No</td>
+        <td class="feature-partial">◐ Basic</td>
+      </tr>
+      <tr>
+        <td>Legacy App Support</td>
+        <td class="nexum-col feature-yes">✓ Full</td>
+        <td class="feature-yes">✓ Full</td>
+        <td class="feature-partial">◐ Limited</td>
+        <td class="feature-partial">◐ Limited</td>
+        <td class="feature-yes">✓ Full</td>
+      </tr>
+      <tr>
+        <td>Clientless Access</td>
+        <td class="nexum-col feature-yes">✓ Yes</td>
+        <td class="feature-yes">✓ Yes</td>
+        <td class="feature-yes">✓ Yes</td>
+        <td class="feature-yes">✓ Yes</td>
+        <td class="feature-partial">◐ Browser</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <p style="color: var(--text-dim); font-size: 12px; margin-top: 20px;">
+    <strong>Legend:</strong> 
+    <span class="feature-yes">✓ Full Support</span> | 
+    <span class="feature-partial">◐ Partial/Limited</span> | 
+    <span class="feature-no">✗ Not Available</span>
+  </p>
+  
+  <a href="/sales-portal" class="back-link">← Back to Sales Portal</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-Powered Attack Patterns & Vendor Solutions | Nexum Security Lab</title>
+<style>
+:root{--bg:#0a1628;--surface:#1a2f45;--text:#f0f4f8;--primary:#0066cc;--accent:#52b2ff;--danger:#ff4444;--warning:#ffa500;--success:#51cf66}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+
+.header{background:linear-gradient(135deg,var(--bg),var(--surface));padding:20px;text-align:center;border-bottom:2px solid var(--primary)}
+.header h1{font-size:2rem;margin-bottom:10px;color:var(--accent)}
+.header p{color:var(--text);opacity:0.8}
+
+.slides-container{position:relative;max-width:1200px;margin:40px auto;padding:0 20px}
+.slide{background:var(--surface);border-radius:12px;padding:40px;box-shadow:0 8px 32px rgba(0,0,0,0.4);display:none;min-height:600px}
+.slide.active{display:block;animation:slideIn 0.5s ease}
+@keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+.slide h2{color:var(--accent);font-size:1.8rem;margin-bottom:20px;border-bottom:2px solid var(--primary);padding-bottom:10px}
+.slide h3{color:var(--primary);font-size:1.3rem;margin:25px 0 15px 0}
+
+.attack-card{background:rgba(255,68,68,0.1);border-left:4px solid var(--danger);padding:20px;margin:15px 0;border-radius:8px}
+.attack-card h4{color:var(--danger);margin-bottom:10px}
+.attack-card .tactics{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.attack-card .tactics span{background:rgba(255,68,68,0.2);padding:4px 10px;border-radius:4px;font-size:12px;font-weight:600}
+
+.vendor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:15px;margin:20px 0}
+.vendor-card{background:rgba(0,102,204,0.1);border:1px solid var(--primary);border-radius:8px;padding:15px;transition:all 0.3s}
+.vendor-card:hover{transform:translateY(-4px);box-shadow:0 6px 20px rgba(0,102,204,0.3);border-color:var(--accent)}
+.vendor-card h5{color:var(--accent);margin-bottom:8px;font-size:1rem}
+.vendor-card p{font-size:13px;line-height:1.6;opacity:0.9}
+.vendor-card .category{background:var(--primary);color:white;padding:2px 8px;border-radius:4px;font-size:11px;display:inline-block;margin-top:8px}
+
+.controls{display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:30px auto;padding:0 20px}
+.btn{background:linear-gradient(135deg,var(--primary),var(--accent));color:white;border:none;padding:12px 30px;border-radius:8px;font-weight:600;cursor:pointer;transition:all 0.3s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,102,204,0.4)}
+.btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.slide-counter{color:var(--accent);font-weight:600;font-size:1.1rem}
+
+.ai-badge{background:linear-gradient(135deg,#ff00ff,#00ffff);padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;display:inline-block;margin-left:10px;color:#000}
+
+.threat-level{display:inline-flex;align-items:center;gap:8px;margin:10px 0}
+.threat-level span{font-weight:600}
+.threat-bar{height:8px;width:200px;background:rgba(255,255,255,0.1);border-radius:4px;overflow:hidden}
+.threat-bar-fill{height:100%;background:linear-gradient(90deg,var(--warning),var(--danger));border-radius:4px}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px;margin:20px 0}
+.stat-box{background:rgba(0,102,204,0.15);padding:15px;border-radius:8px;text-align:center}
+.stat-box .number{font-size:2rem;font-weight:700;color:var(--accent)}
+.stat-box .label{font-size:12px;opacity:0.8;margin-top:5px}
+
+@media(max-width:768px){
+.header h1{font-size:1.5rem}
+.slide{padding:20px;min-height:auto}
+.vendor-grid{grid-template-columns:1fr}
+.controls{flex-direction:column;gap:15px}
+}
+</style>
+</head>
+<body>
+<a href="/" class="home-btn" style="position:fixed;top:20px;left:20px;background:linear-gradient(135deg,#0066cc,#52b2ff);color:white;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;z-index:1000;box-shadow:0 4px 12px rgba(0,102,204,0.4);transition:all 0.3s">🏠 Home</a>
+
+<div class="header">
+  <h1>🎯 AI-Powered Attack Patterns & Hybrid Cloud Defense</h1>
+  <p>Modern Threat Landscape | 80+ Vendor Solutions | Nexum Security Intelligence</p>
+</div>
+
+<div class="slides-container">
+
+<!-- Slide 1: Executive Overview -->
+<div class="slide active" data-slide="1">
+  <h2>Executive Overview: The Modern Threat Landscape</h2>
+  
+  <div class="stats">
+    <div class="stat-box">
+      <div class="number">87%</div>
+      <div class="label">Attacks Use AI</div>
+    </div>
+    <div class="stat-box">
+      <div class="number">23min</div>
+      <div class="label">Avg. Breach Detection</div>
+    </div>
+    <div class="stat-box">
+      <div class="number">$4.5M</div>
+      <div class="label">Avg. Breach Cost</div>
+    </div>
+    <div class="stat-box">
+      <div class="number">156</div>
+      <div class="label">Days to Contain</div>
+    </div>
+  </div>
+
+  <h3>Key Attack Vectors in Hybrid Cloud Environments</h3>
+  <ul style="line-height:2;margin-left:20px">
+    <li><strong>AI-Enhanced Phishing:</strong> GPT-powered spear phishing with 300% higher success rate</li>
+    <li><strong>Multi-Cloud Misconfigurations:</strong> Automated scanning of AWS, Azure, GCP attack surfaces</li>
+    <li><strong>Supply Chain Compromise:</strong> AI-driven malware injection in CI/CD pipelines</li>
+    <li><strong>Zero-Day Exploitation:</strong> Machine learning discovers vulnerabilities faster than vendors</li>
+    <li><strong>API Abuse:</strong> Intelligent bot networks attacking microservices architectures</li>
+    <li><strong>Ransomware 3.0:</strong> AI negotiation bots + data poisoning + exfiltration</li>
+  </ul>
+
+  <h3>Target Environments</h3>
+  <div class="attack-card">
+    <h4>🌐 Hybrid Cloud (AWS, Azure, GCP)</h4>
+    <p>Attackers exploit identity federation gaps, cross-cloud IAM misconfigurations, and container escape vulnerabilities.</p>
+  </div>
+  <div class="attack-card" style="border-color:var(--warning);background:rgba(255,165,0,0.1)">
+    <h4>🏢 On-Premises Data Centers</h4>
+    <p>Legacy systems, unpatched infrastructure, and weak network segmentation remain prime targets.</p>
+  </div>
+  <div class="attack-card" style="border-color:var(--success);background:rgba(81,207,102,0.1)">
+    <h4>🌍 Colocation Facilities</h4>
+    <p>Physical access risks, shared infrastructure vulnerabilities, and network eavesdropping opportunities.</p>
+  </div>
+</div>
+
+<!-- Slide 2: AI-Powered Reconnaissance -->
+<div class="slide" data-slide="2">
+  <h2>Phase 1: AI-Powered Reconnaissance <span class="ai-badge">AI-DRIVEN</span></h2>
+  
+  <div class="threat-level">
+    <span>Threat Level:</span>
+    <div class="threat-bar"><div class="threat-bar-fill" style="width:85%"></div></div>
+    <span style="color:var(--danger)">CRITICAL</span>
+  </div>
+
+  <div class="attack-card">
+    <h4>Attack Technique: Automated OSINT & Asset Discovery</h4>
+    <p><strong>MITRE ATT&CK:</strong> T1595 (Active Scanning), T1596 (Search Open Technical Databases)</p>
+    <div class="tactics">
+      <span>Reconnaissance</span>
+      <span>ML-Powered</span>
+      <span>Passive & Active</span>
+    </div>
+    <p style="margin-top:15px"><strong>How It Works:</strong> Attackers use GPT-4, Claude, and custom LLMs to scrape GitHub repos, S3 buckets, DNS records, SSL certificates, and employee LinkedIn profiles. AI correlates data to build comprehensive attack maps.</p>
+  </div>
+
+  <h3>🛡️ Vendor Solutions (15 products)</h3>
+  <div class="vendor-grid">
+    <div class="vendor-card">
+      <h5>Palo Alto Cortex XSOAR</h5>
+      <p>AI-driven threat intelligence aggregation with automated asset discovery correlation</p>
+      <span class="category">SOAR</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Recorded Future</h5>
+      <p>Real-time threat intelligence using NLP to monitor dark web, paste sites, and forums</p>
+      <span class="category">Threat Intel</span>
+    </div>
+    <div class="vendor-card">
+      <h5>CrowdStrike Falcon Intelligence</h5>
+      <p>Adversary intelligence with AI attribution linking recon activity to threat actors</p>
+      <span class="category">EDR + Intel</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Mandiant Advantage</h5>
+      <p>Frontline threat intel with exposure validation across cloud and on-prem assets</p>
+      <span class="category">Threat Intel</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Cisco Talos Intelligence</h5>
+      <p>Global threat telemetry with ML-powered anomaly detection for scanning activity</p>
+      <span class="category">Threat Intel</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Tenable.io</h5>
+      <p>Continuous asset discovery with vulnerability prioritization using ML models</p>
+      <span class="category">Vuln Mgmt</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Qualys VMDR</h5>
+      <p>Cloud-based asset inventory with AI-driven risk scoring for exposed services</p>
+      <span class="category">Vuln Mgmt</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Rapid7 InsightVM</h5>
+      <p>Live vulnerability assessment with attacker perspective modeling</p>
+      <span class="category">Vuln Mgmt</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Shodan Enterprise</h5>
+      <p>Internet-wide asset discovery showing exact attack surface exposure</p>
+      <span class="category">Attack Surface</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Censys</h5>
+      <p>Continuous external attack surface monitoring with certificate tracking</p>
+      <span class="category">Attack Surface</span>
+    </div>
+    <div class="vendor-card">
+      <h5>BinaryEdge</h5>
+      <p>Global scanning platform detecting exposed databases and misconfigured services</p>
+      <span class="category">Attack Surface</span>
+    </div>
+    <div class="vendor-card">
+      <h5>GreyNoise Intelligence</h5>
+      <p>Differentiates targeted attacks from mass internet scanning noise</p>
+      <span class="category">Threat Intel</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Expanse (Palo Alto)</h5>
+      <p>Cloud-native attack surface management with shadow IT discovery</p>
+      <span class="category">Attack Surface</span>
+    </div>
+    <div class="vendor-card">
+      <h5>RiskIQ (Microsoft)</h5>
+      <p>Digital footprint monitoring with brand protection and typosquatting detection</p>
+      <span class="category">Attack Surface</span>
+    </div>
+    <div class="vendor-card">
+      <h5>SecurityScorecard</h5>
+      <p>Third-party risk assessment with continuous external monitoring</p>
+      <span class="category">Risk Mgmt</span>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 3: Initial Access & Phishing -->
+<div class="slide" data-slide="3">
+  <h2>Phase 2: AI-Enhanced Phishing & Initial Access <span class="ai-badge">AI-DRIVEN</span></h2>
+  
+  <div class="threat-level">
+    <span>Threat Level:</span>
+    <div class="threat-bar"><div class="threat-bar-fill" style="width:95%"></div></div>
+    <span style="color:var(--danger)">CRITICAL</span>
+  </div>
+
+  <div class="attack-card">
+    <h4>Attack Technique: GPT-Powered Spear Phishing & Credential Harvesting</h4>
+    <p><strong>MITRE ATT&CK:</strong> T1566 (Phishing), T1078 (Valid Accounts), T1110 (Brute Force)</p>
+    <div class="tactics">
+      <span>Initial Access</span>
+      <span>Social Engineering</span>
+      <span>LLM-Generated</span>
+    </div>
+    <p style="margin-top:15px"><strong>How It Works:</strong> Attackers use ChatGPT/Claude to craft personalized phishing emails analyzing LinkedIn, GitHub commits, and corporate blogs. AI clones executive writing styles and creates deepfake voice messages for vishing attacks.</p>
+  </div>
+
+  <h3>🛡️ Vendor Solutions (18 products)</h3>
+  <div class="vendor-grid">
+    <div class="vendor-card">
+      <h5>Proofpoint Email Protection</h5>
+      <p>AI-powered email security blocking AI-generated phishing with behavioral analysis</p>
+      <span class="category">Email Security</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Mimecast Targeted Threat Protection</h5>
+      <p>URL sandboxing and impersonation protection using ML classification</p>
+      <span class="category">Email Security</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Microsoft Defender for Office 365</h5>
+      <p>Zero-hour auto purge with AI detecting polymorphic phishing campaigns</p>
+      <span class="category">Email Security</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Abnormal Security</h5>
+      <p>Behavioral AI detecting anomalous email patterns and account takeover</p>
+      <span class="category">Email Security</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Darktrace Email</h5>
+      <p>Self-learning AI modeling normal communication patterns to catch outliers</p>
+      <span class="category">AI Email Security</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Cofense PhishMe</h5>
+      <p>Phishing simulation training with AI-generated realistic attack scenarios</p>
+      <span class="category">Security Awareness</span>
+    </div>
+    <div class="vendor-card">
+      <h5>KnowBe4</h5>
+      <p>Security awareness training with AI phishing tests and risk scoring</p>
+      <span class="category">Security Awareness</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Duo Security (Cisco)</h5>
+      <p>Multi-factor authentication preventing credential stuffing and phishing</p>
+      <span class="category">MFA</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Okta Adaptive MFA</h5>
+      <p>Risk-based authentication with device trust and behavior analytics</p>
+      <span class="category">Identity/MFA</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Ping Identity</h5>
+      <p>Identity security platform with AI-powered risk detection for logins</p>
+      <span class="category">Identity</span>
+    </div>
+    <div class="vendor-card">
+      <h5>CyberArk Identity</h5>
+      <p>Privileged access management with AI anomaly detection for admin accounts</p>
+      <span class="category">PAM</span>
+    </div>
+    <div class="vendor-card">
+      <h5>BeyondTrust</h5>
+      <p>Privileged remote access with session recording and threat analytics</p>
+      <span class="category">PAM</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Delinea (Thycotic)</h5>
+      <p>Secrets management with ML detecting abnormal credential usage</p>
+      <span class="category">PAM</span>
+    </div>
+    <div class="vendor-card">
+      <h5>HashiCorp Vault</h5>
+      <p>Dynamic secrets rotation preventing long-term credential compromise</p>
+      <span class="category">Secrets Mgmt</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Zscaler Phishing Protection</h5>
+      <p>Inline cloud proxy blocking malicious URLs before user click</p>
+      <span class="category">Cloud Security</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Netskope Threat Protection</h5>
+      <p>Cloud threat defense with AI-powered phishing site detection</p>
+      <span class="category">CASB/SSE</span>
+    </div>
+    <div class="vendor-card">
+      <h5>IRONSCALES</h5>
+      <p>Self-learning email security detecting AI-generated business email compromise</p>
+      <span class="category">Email Security</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Barracuda Sentinel</h5>
+      <p>AI fraud detection preventing account takeover and wire transfer fraud</p>
+      <span class="category">Email Security</span>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 4: Cloud Exploitation -->
+<div class="slide" data-slide="4">
+  <h2>Phase 3: Multi-Cloud Exploitation & Lateral Movement</h2>
+  
+  <div class="threat-level">
+    <span>Threat Level:</span>
+    <div class="threat-bar"><div class="threat-bar-fill" style="width:90%"></div></div>
+    <span style="color:var(--danger)">CRITICAL</span>
+  </div>
+
+  <div class="attack-card">
+    <h4>Attack Technique: Cloud Misconfigurations & IAM Privilege Escalation</h4>
+    <p><strong>MITRE ATT&CK:</strong> T1078 (Valid Accounts), T1098 (Account Manipulation), T1537 (Cloud Storage Object Discovery)</p>
+    <div class="tactics">
+      <span>Privilege Escalation</span>
+      <span>Persistence</span>
+      <span>Lateral Movement</span>
+    </div>
+    <p style="margin-top:15px"><strong>How It Works:</strong> Attackers exploit overly permissive IAM roles, unencrypted S3 buckets, exposed Kubernetes APIs, and cross-account trust relationships. AI tools automatically enumerate cloud resources and identify privilege escalation paths.</p>
+  </div>
+
+  <h3>🛡️ Vendor Solutions (20 products)</h3>
+  <div class="vendor-grid">
+    <div class="vendor-card">
+      <h5>Wiz</h5>
+      <p>Cloud security posture management with attack path analysis across AWS/Azure/GCP</p>
+      <span class="category">CNAPP</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Orca Security</h5>
+      <p>Agentless cloud security scanning with context-aware risk prioritization</p>
+      <span class="category">CNAPP</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Prisma Cloud (Palo Alto)</h5>
+      <p>Comprehensive CSPM/CWPP with compliance monitoring and threat detection</p>
+      <span class="category">CNAPP</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Check Point CloudGuard</h5>
+      <p>Multi-cloud security with automated remediation and workload protection</p>
+      <span class="category">CNAPP</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Lacework</h5>
+      <p>AI-driven anomaly detection for cloud workloads with behavior baselining</p>
+      <span class="category">CWPP</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Aqua Security</h5>
+      <p>Container and Kubernetes security with runtime threat detection</p>
+      <span class="category">Container Security</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Sysdig Secure</h5>
+      <p>Cloud-native application protection with eBPF-based runtime visibility</p>
+      <span class="category">CNAPP</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Snyk</h5>
+      <p>Developer-first security scanning for IaC, containers, and dependencies</p>
+      <span class="category">DevSecOps</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Ermetic (Tenable)</h5>
+      <p>CIEM solution detecting toxic IAM combinations and privilege misuse</p>
+      <span class="category">CIEM</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Sonrai Security</h5>
+      <p>Cloud identity security with graph-based attack path visualization</p>
+      <span class="category">CIEM</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Datadog Cloud Security</h5>
+      <p>Real-time threat detection with observability-driven security insights</p>
+      <span class="category">CSPM</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Crowdstrike Falcon Cloud Security</h5>
+      <p>Agentless CSPM with cloud workload protection and breach prevention</p>
+      <span class="category">CNAPP</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Trend Micro Cloud One</h5>
+      <p>Multi-layer cloud security with automated compliance and file integrity</p>
+      <span class="category">CWPP</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Microsoft Defender for Cloud</h5>
+      <p>Native Azure/AWS/GCP security with integrated threat intelligence</p>
+      <span class="category">CSPM</span>
+    </div>
+    <div class="vendor-card">
+      <h5>AWS GuardDuty</h5>
+      <p>ML-powered threat detection analyzing AWS CloudTrail, VPC Flow, DNS logs</p>
+      <span class="category">Cloud Detection</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Google Security Command Center</h5>
+      <p>GCP-native security management with asset discovery and vulnerability scanning</p>
+      <span class="category">CSPM</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Zscaler Cloud Workload Protection</h5>
+      <p>Zero trust segmentation for workloads with microsegmentation policies</p>
+      <span class="category">CWPP</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Illumio CloudSecure</h5>
+      <p>Zero trust segmentation visualizing cloud workload communication patterns</p>
+      <span class="category">Microsegmentation</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Fugue</h5>
+      <p>Cloud infrastructure compliance ensuring IaC aligns with security policies</p>
+      <span class="category">CSPM</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Dome9 (Check Point)</h5>
+      <p>Cloud compliance and governance with automated policy enforcement</p>
+      <span class="category">CSPM</span>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 5: Network & Endpoint -->
+<div class="slide" data-slide="5">
+  <h2>Phase 4: Network Infiltration & Endpoint Compromise</h2>
+  
+  <div class="threat-level">
+    <span>Threat Level:</span>
+    <div class="threat-bar"><div class="threat-bar-fill" style="width:88%"></div></div>
+    <span style="color:var(--danger)">HIGH</span>
+  </div>
+
+  <div class="attack-card">
+    <h4>Attack Technique: Network Segmentation Bypass & Living-off-the-Land</h4>
+    <p><strong>MITRE ATT&CK:</strong> T1021 (Remote Services), T1070 (Indicator Removal), T1562 (Impair Defenses)</p>
+    <div class="tactics">
+      <span>Lateral Movement</span>
+      <span>Defense Evasion</span>
+      <span>Collection</span>
+    </div>
+    <p style="margin-top:15px"><strong>How It Works:</strong> Attackers use AI to identify weak network segmentation, pivot through trusted zones, and deploy fileless malware using PowerShell, WMI, and native OS tools. Machine learning models adapt to EDR signatures in real-time.</p>
+  </div>
+
+  <h3>🛡️ Vendor Solutions (17 products)</h3>
+  <div class="vendor-grid">
+    <div class="vendor-card">
+      <h5>CrowdStrike Falcon</h5>
+      <p>AI-powered EDR with behavioral IOA detection and managed threat hunting</p>
+      <span class="category">EDR</span>
+    </div>
+    <div class="vendor-card">
+      <h5>SentinelOne Singularity</h5>
+      <p>Autonomous EDR with AI-driven remediation and rollback capabilities</p>
+      <span class="category">EDR/XDR</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Microsoft Defender for Endpoint</h5>
+      <p>Native Windows protection with integrated threat intelligence and automation</p>
+      <span class="category">EDR</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Palo Alto Cortex XDR</h5>
+      <p>Extended detection and response correlating network, endpoint, and cloud data</p>
+      <span class="category">XDR</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Cisco Secure Endpoint</h5>
+      <p>Advanced malware protection with sandboxing and retrospective detection</p>
+      <span class="category">EDR</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Carbon Black (VMware)</h5>
+      <p>Cloud-native endpoint protection with continuous monitoring and response</p>
+      <span class="category">EDR</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Trend Micro Vision One</h5>
+      <p>XDR platform with AI correlation across email, endpoint, server, and cloud</p>
+      <span class="category">XDR</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Cybereason Defense</h5>
+      <p>Operation-centric EDR visualizing full attack chains with MalOp detection</p>
+      <span class="category">EDR</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Fortinet FortiEDR</h5>
+      <p>Real-time threat protection with automated response playbooks</p>
+      <span class="category">EDR</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Sophos Intercept X</h5>
+      <p>Deep learning malware detection with ransomware file protection</p>
+      <span class="category">EDR</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Darktrace Antigena</h5>
+      <p>Autonomous response AI taking action on detected threats in real-time</p>
+      <span class="category">AI NDR</span>
+    </div>
+    <div class="vendor-card">
+      <h5>ExtraHop Reveal(x)</h5>
+      <p>Network detection and response with ML analyzing East-West traffic</p>
+      <span class="category">NDR</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Vectra AI</h5>
+      <p>AI-driven threat detection for hybrid/multi-cloud with attack signal correlation</p>
+      <span class="category">NDR</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Corelight</h5>
+      <p>Network visibility platform turning Zeek logs into actionable intelligence</p>
+      <span class="category">NDR</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Gigamon ThreatINSIGHT</h5>
+      <p>Network traffic analysis with ML detecting encrypted threats</p>
+      <span class="category">NDR</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Cisco Secure Network Analytics</h5>
+      <p>Flow-based threat detection with entity modeling and anomaly scoring</p>
+      <span class="category">NDR</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Fortinet FortiNDR</h5>
+      <p>AI-powered network detection with automated incident response</p>
+      <span class="category">NDR</span>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 6: Data Exfiltration & Ransomware -->
+<div class="slide" data-slide="6">
+  <h2>Phase 5: Data Exfiltration & Ransomware Deployment</h2>
+  
+  <div class="threat-level">
+    <span>Threat Level:</span>
+    <div class="threat-bar"><div class="threat-bar-fill" style="width:100%"></div></div>
+    <span style="color:var(--danger)">CRITICAL</span>
+  </div>
+
+  <div class="attack-card">
+    <h4>Attack Technique: Double Extortion Ransomware + AI-Negotiated Ransom</h4>
+    <p><strong>MITRE ATT&CK:</strong> T1486 (Data Encrypted for Impact), T1048 (Exfiltration Over Alternative Protocol), T1565 (Data Manipulation)</p>
+    <div class="tactics">
+      <span>Exfiltration</span>
+      <span>Impact</span>
+      <span>Extortion</span>
+    </div>
+    <p style="margin-top:15px"><strong>How It Works:</strong> Ransomware groups use AI to identify high-value data, exfiltrate via covert channels, and deploy encryption with anti-forensics. Chatbots negotiate ransoms analyzing victim finances and cyber insurance policies.</p>
+  </div>
+
+  <h3>🛡️ Vendor Solutions (10 products)</h3>
+  <div class="vendor-grid">
+    <div class="vendor-card">
+      <h5>Rubrik Zero Trust Data Security</h5>
+      <p>Immutable backups with AI-powered ransomware recovery and data observability</p>
+      <span class="category">Backup/Recovery</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Cohesity DataProtect</h5>
+      <p>AI-driven backup with threat detection on backup snapshots</p>
+      <span class="category">Backup</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Veeam Backup & Replication</h5>
+      <p>Ransomware-hardened storage with instant recovery capabilities</p>
+      <span class="category">Backup</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Druva Data Resiliency Cloud</h5>
+      <p>SaaS backup with air-gapped storage and ML anomaly detection</p>
+      <span class="category">Cloud Backup</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Commvault Complete Data Protection</h5>
+      <p>Ransomware defense with early warning detection and automated recovery</p>
+      <span class="category">Backup</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Varonis Data Security Platform</h5>
+      <p>Data classification with AI detecting abnormal file access and exfiltration</p>
+      <span class="category">Data Security</span>
+    </div>
+    <div class="vendor-card">
+      <h5>BigID</h5>
+      <p>Data discovery and privacy platform with ML-powered sensitive data classification</p>
+      <span class="category">Data Discovery</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Forcepoint DLP</h5>
+      <p>Data loss prevention with behavioral analytics and insider threat detection</p>
+      <span class="category">DLP</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Digital Guardian</h5>
+      <p>Managed DLP with visibility into data movement across endpoints and cloud</p>
+      <span class="category">DLP</span>
+    </div>
+    <div class="vendor-card">
+      <h5>Nightfall AI</h5>
+      <p>Cloud DLP using ML to detect sensitive data in SaaS apps and APIs</p>
+      <span class="category">Cloud DLP</span>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 7: Defense Strategy -->
+<div class="slide" data-slide="7">
+  <h2>🛡️ Unified Defense Strategy: Zero Trust Architecture</h2>
+  
+  <h3>Recommended Security Stack for Hybrid Environments</h3>
+  
+  <div class="vendor-grid" style="grid-template-columns:1fr">
+    <div class="attack-card" style="background:rgba(81,207,102,0.1);border-color:var(--success)">
+      <h4>Layer 1: Identity & Access (SASE/SSE)</h4>
+      <p><strong>Vendors:</strong> Zscaler ZIA/ZPA, Netskope, Palo Alto Prisma Access, Cloudflare Access, Fortinet SASE</p>
+      <p style="margin-top:10px"><strong>Controls:</strong> Zero trust network access, conditional access policies, device posture validation, SWG/CASB integration</p>
+    </div>
+    
+    <div class="attack-card" style="background:rgba(81,207,102,0.1);border-color:var(--success)">
+      <h4>Layer 2: Endpoint & Workload Protection (EDR/XDR)</h4>
+      <p><strong>Vendors:</strong> CrowdStrike, SentinelOne, Microsoft Defender, Palo Alto Cortex XDR, Wiz Cloud Security</p>
+      <p style="margin-top:10px"><strong>Controls:</strong> Real-time threat detection, behavioral analysis, automated response, cloud workload protection</p>
+    </div>
+    
+    <div class="attack-card" style="background:rgba(81,207,102,0.1);border-color:var(--success)">
+      <h4>Layer 3: Network Visibility & Segmentation (NDR/ZTNA)</h4>
+      <p><strong>Vendors:</strong> Darktrace, Vectra AI, Illumio, Cisco Secure Network Analytics, ExtraHop</p>
+      <p style="margin-top:10px"><strong>Controls:</strong> East-West traffic monitoring, microsegmentation, anomaly detection, encrypted traffic analysis</p>
+    </div>
+    
+    <div class="attack-card" style="background:rgba(81,207,102,0.1);border-color:var(--success)">
+      <h4>Layer 4: Data Protection & Resilience (DLP/Backup)</h4>
+      <p><strong>Vendors:</strong> Rubrik, Varonis, Forcepoint, Veeam, Cohesity</p>
+      <p style="margin-top:10px"><strong>Controls:</strong> Data classification, DLP policies, immutable backups, rapid recovery orchestration</p>
+    </div>
+    
+    <div class="attack-card" style="background:rgba(81,207,102,0.1);border-color:var(--success)">
+      <h4>Layer 5: Threat Intelligence & SOAR</h4>
+      <p><strong>Vendors:</strong> Palo Alto XSOAR, Splunk SOAR, IBM Resilient, Recorded Future, Mandiant</p>
+      <p style="margin-top:10px"><strong>Controls:</strong> Automated playbooks, threat intel feeds, incident orchestration, vulnerability prioritization</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:30px">Key Metrics for Success</h3>
+  <div class="stats">
+    <div class="stat-box">
+      <div class="number" style="color:var(--success)">< 5min</div>
+      <div class="label">Mean Time to Detect</div>
+    </div>
+    <div class="stat-box">
+      <div class="number" style="color:var(--success)">< 15min</div>
+      <div class="label">Mean Time to Respond</div>
+    </div>
+    <div class="stat-box">
+      <div class="number" style="color:var(--success)">99.9%</div>
+      <div class="label">Threat Detection Rate</div>
+    </div>
+    <div class="stat-box">
+      <div class="number" style="color:var(--success)">< 0.1%</div>
+      <div class="label">False Positive Rate</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="controls">
+  <button class="btn" id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+  <div class="slide-counter">
+    <span id="currentSlide">1</span> / <span id="totalSlides">7</span>
+  </div>
+  <button class="btn" id="nextBtn" onclick="changeSlide(1)">Next →</button>
+</div>
+
+<script>
+let currentSlide = 1;
+const totalSlides = 7;
+
+function showSlide(n) {
+  const slides = document.querySelectorAll('.slide');
+  if (n > totalSlides) currentSlide = totalSlides;
+  if (n < 1) currentSlide = 1;
+  
+  slides.forEach(slide => slide.classList.remove('active'));
+  slides[currentSlide - 1].classList.add('active');
+  
+  document.getElementById('currentSlide').textContent = currentSlide;
+  document.getElementById('prevBtn').disabled = currentSlide === 1;
+  document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+  
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function changeSlide(n) {
+  currentSlide += n;
+  showSlide(currentSlide);
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowLeft') changeSlide(-1);
+  if (e.key === 'ArrowRight') changeSlide(1);
+});
+
+showSlide(currentSlide);
+</script>
+
+</body>
+</html>

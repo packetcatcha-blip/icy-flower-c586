@@ -1,32 +1,762 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Hello, World!</title>
-	</head>
-	<body>
-		<h1 id="heading"></h1>
-		<p>This page comes from a static asset stored at `public/index.html` as configured in `wrangler.jsonc`.</p>
-		<button id="button" type="button">Fetch a random UUID</button>
-		<output id="random" for="button"></output>
-		<script>
-			fetch('/message')
-				.then((resp) => resp.text())
-				.then((text) => {
-					const h1 = document.getElementById('heading');
-					h1.textContent = text;
-				});
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-			const button = document.getElementById("button");
-			button.addEventListener("click", () => {
-				fetch('/random')
-					.then((resp) => resp.text())
-					.then((text) => {
-						const random = document.getElementById('random');
-						random.textContent = text;
-					});
-			});
-		</script>
-	</body>
+<!-- SEO Meta Tags -->
+<title>Nexum Security Lab - Advanced Cyber Research & Training Platform</title>
+<meta name="description" content="Nexum Inc's security research lab by James Sellers. Enterprise-grade ethical hacking, threat modeling, and cloud security testing for cybersecurity professionals.">
+<meta name="keywords" content="Nexum security, managed security services, ethical hacking, SASE, ZTNA, zero trust, cloud security, penetration testing, OWASP, cyber threat intelligence">
+<meta name="author" content="James Sellers, Nexum Inc">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://sellersco.net/">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sellersco.net/">
+<meta property="og:title" content="Nexum Security Lab - Advanced Cyber Research Platform">
+<meta property="og:description" content="Enterprise security research and training platform by Nexum Inc. Practice ethical hacking, zero trust, and cloud security in a controlled environment.">
+<meta property="og:image" content="https://sellersco.net/images/mainpage.png">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://sellersco.net/">
+<meta property="twitter:title" content="Nexum Security Lab - Advanced Cyber Research Platform">
+<meta property="twitter:description" content="Enterprise security research and training platform by Nexum Inc.">
+<meta property="twitter:image" content="https://sellersco.net/images/mainpage.png">
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Nexum Inc - Security Research Lab",
+  "url": "https://sellersco.net",
+  "logo": "https://sellersco.net/images/sellerrco.png",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "jsellers@nexuminc.com",
+    "contactType": "Technical Support"
+  },
+  "sameAs": [
+    "https://www.linkedin.com/in/jim-sellers-5ba5606/"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Nexum Security Lab",
+  "url": "https://sellersco.net",
+  "description": "Advanced Cybersecurity Research and Training Platform",
+  "author": {
+    "@type": "Person",
+    "name": "James Sellers"
+  }
+}
+</script>
+
+<style>
+  /* Nexum Color Palette & Design System */
+  :root{
+    /* Colors - Nexum Blue Theme */
+    --bg:#0a1628;
+    --bg-alt:#0f1f35;
+    --surface:#1a2f45;
+    --text:#f0f4f8;
+    --text-dim:#b8c5d6;
+    --primary:#0066cc;
+    --primary-hover:#0052a3;
+    --accent:#52b2ff;
+    --secondary:#00a3e0;
+    --border:#2d4563;
+    --border-light:rgba(82,178,255,0.15);
+    
+    /* Spacing System */
+    --space-xs:8px;
+    --space-sm:16px;
+    --space-md:24px;
+    --space-lg:32px;
+    --space-xl:48px;
+    
+    /* Design Tokens */
+    --radius:8px;
+    --radius-lg:12px;
+    --shadow:0 4px 20px rgba(0,0,0,0.3);
+    --shadow-lg:0 8px 32px rgba(0,0,0,0.4);
+    --font:Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --transition:all 0.3s ease;
+  }
+  
+  /* Base Styles */
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;padding:0}
+  body{color:var(--text);background:var(--bg);font-family:var(--font);line-height:1.6}
+  
+  /* Animated Background */
+  .lines{position:absolute;inset:0;pointer-events:none;opacity:0.3}
+  .lines i{position:absolute;display:block;width:1px;height:100px;background:linear-gradient(to bottom, rgba(82,178,255,0), rgba(82,178,255,0.6));filter:blur(0.5px);animation:drip 8s linear infinite}
+  .lines i.alt{background:linear-gradient(to bottom, rgba(0,163,224,0), rgba(0,163,224,0.6));animation-duration:10s}
+  @keyframes drip{0%{transform:translateY(-100px)}100%{transform:translateY(100vh)}}
+  @media (prefers-reduced-motion: reduce){.lines i{animation:none}}
+  
+  /* Navigation */
+  header.nav{
+    backdrop-filter:blur(12px);
+    background:linear-gradient(180deg, rgba(10,22,40,0.95), rgba(10,22,40,0.85));
+    border-bottom:1px solid var(--border);
+    position:sticky;
+    top:0;
+    z-index:1000;
+    padding:var(--space-sm);
+  }
+  header.nav a{color:var(--text);text-decoration:none;transition:var(--transition)}
+  header.nav a:hover{color:var(--accent)}
+  
+  /* Buttons - Nexum Style */
+  .btn{
+    display:inline-block;
+    padding:10px 20px;
+    border-radius:var(--radius);
+    border:1px solid var(--border-light);
+    color:var(--text);
+    background:rgba(255,255,255,0.05);
+    text-decoration:none;
+    font-weight:500;
+    font-size:13px;
+    transition:var(--transition);
+    cursor:pointer;
+  }
+  .btn:hover{
+    background:rgba(255,255,255,0.1);
+    border-color:var(--accent);
+    transform:translateY(-2px);
+    box-shadow:0 4px 16px rgba(0,102,204,0.3);
+  }
+  
+  button, .btn.primary{
+    background:linear-gradient(135deg, var(--primary), var(--secondary));
+    border:none;
+    color:#ffffff;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    padding:10px 24px;
+  }
+  button:hover, .btn.primary:hover{
+    background:linear-gradient(135deg, var(--primary-hover), var(--primary));
+    transform:translateY(-2px);
+    box-shadow:0 6px 20px rgba(0,102,204,0.4);
+  }
+  
+  /* Form Elements */
+  input, textarea, select{
+    background:rgba(255,255,255,0.05);
+    color:var(--text);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:12px 16px;
+    font-family:var(--font);
+    font-size:14px;
+    transition:var(--transition);
+  }
+  input:focus, textarea:focus, select:focus{
+    outline:none;
+    border-color:var(--primary);
+    box-shadow:0 0 0 3px rgba(0,102,204,0.2);
+  }
+  
+  /* Footer */
+  footer.site{
+    backdrop-filter:blur(8px);
+    background:linear-gradient(180deg, rgba(10,22,40,0.0), rgba(10,22,40,0.95));
+    border-top:1px solid var(--border);
+    color:var(--text-dim);
+    padding:var(--space-md) var(--space-sm);
+  }
+
+  /* Mobile Navigation */
+  .hamburger{
+    display:none;
+    flex-direction:column;
+    cursor:pointer;
+    padding:var(--space-xs);
+    gap:5px;
+    background:var(--surface);
+    border-radius:var(--radius);
+    border:1px solid var(--border-light);
+  }
+  .hamburger span{width:24px;height:2px;background:var(--text);transition:var(--transition);border-radius:2px}
+  .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(7px, 7px)}
+  .hamburger.active span:nth-child(2){opacity:0}
+  .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(7px, -7px)}
+  .nav-links{display:flex;gap:var(--space-xs);flex-wrap:wrap;align-items:center}
+  
+  /* Main Content Container */
+  .main-content{
+    padding:var(--space-xl) var(--space-md);
+    max-width:1400px;
+    margin:0 auto;
+  }
+  
+  /* Card Components */
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:var(--space-lg);
+    box-shadow:var(--shadow);
+    margin:var(--space-lg) 0;
+  }
+  
+  /* About Section */
+  .about-section{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:var(--space-xl);
+    margin:var(--space-xl) 0;
+    box-shadow:var(--shadow-lg);
+  }
+  .about-section h2{margin-top:0;color:var(--accent);font-size:1.75rem;font-weight:600}
+  .about-section p{font-size:16px;line-height:1.8;margin:var(--space-md) 0}
+  .about-buttons{
+    margin-top:var(--space-lg);
+    display:flex;
+    gap:var(--space-sm);
+    flex-wrap:wrap;
+  }
+  .about-buttons a{
+    display:inline-flex;
+    align-items:center;
+    gap:var(--space-xs);
+    padding:12px 24px;
+    text-decoration:none;
+    border-radius:var(--radius);
+    font-weight:600;
+    font-size:14px;
+    transition:var(--transition);
+  }
+  .about-buttons a.primary{
+    background:linear-gradient(135deg, var(--primary), var(--secondary));
+    color:#fff;
+    border:none;
+  }
+  .about-buttons a.secondary{
+    background:rgba(255,255,255,0.05);
+    border:1px solid var(--border-light);
+    color:var(--text);
+  }
+  .about-buttons a:hover{
+    transform:translateY(-3px);
+    box-shadow:0 6px 20px rgba(0,102,204,0.4);
+  }
+  
+  /* Hero Image */
+  .hero-image{
+    position:relative;
+    width:100%;
+    height:500px;
+    border-radius:var(--radius-lg);
+    overflow:hidden;
+    border:1px solid var(--border);
+    box-shadow:var(--shadow-lg);
+    margin-bottom:var(--space-xl);
+  }
+  .hero-image img{width:100%;height:100%;object-fit:cover}
+  
+  /* Typography */
+  h1{
+    font-size:2.5rem;
+    font-weight:700;
+    margin:0 0 var(--space-md) 0;
+    color:var(--text);
+    line-height:1.2;
+  }
+  h2{
+    color:var(--accent);
+    margin:var(--space-xl) 0 var(--space-md) 0;
+    font-size:1.75rem;
+    font-weight:600;
+  }
+  
+  /* Lists */
+  ul{
+    line-height:2;
+    margin:var(--space-md) 0;
+    padding-left:var(--space-lg);
+  }
+  ul li{margin-bottom:var(--space-xs)}
+  ul a{
+    color:var(--accent);
+    text-decoration:none;
+    transition:var(--transition);
+  }
+  ul a:hover{
+    color:var(--secondary);
+    text-decoration:underline;
+  }
+  
+  /* Pro Tip Box */
+  .tip-box{
+    margin-top:var(--space-xl);
+    padding:var(--space-md);
+    background:rgba(0,102,204,0.1);
+    border-left:4px solid var(--primary);
+    border-radius:var(--radius);
+  }
+  .tip-box strong{color:var(--accent)}
+  
+  /* Protected Nav */
+  .protected-nav{display:none}
+  .protected-nav.show{display:inline-block}
+  
+  /* Modal Styles */
+  .modal{
+    display:none;
+    position:fixed;
+    z-index:2000;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.8);
+    align-items:center;
+    justify-content:center;
+  }
+  .modal.show{display:flex}
+  .modal-content{
+    background:var(--surface);
+    padding:var(--space-xl);
+    border-radius:var(--radius-lg);
+    border:1px solid var(--border);
+    box-shadow:var(--shadow-lg);
+    max-width:400px;
+    width:90%;
+  }
+  .modal-content h2{margin-top:0;color:var(--accent)}
+  .modal-content input{
+    width:100%;
+    margin-bottom:var(--space-sm);
+    padding:12px;
+  }
+  .modal-content button{width:100%;margin-top:var(--space-sm)}
+  .close-modal{
+    float:right;
+    font-size:28px;
+    font-weight:bold;
+    cursor:pointer;
+    color:var(--text-dim);
+    line-height:1;
+  }
+  .close-modal:hover{color:var(--accent)}
+  .error-msg{color:#ff4444;margin-top:var(--space-sm);display:none}
+  .error-msg.show{display:block}
+  
+  /* User Info Display */
+  .user-info{
+    display:none;
+    align-items:center;
+    gap:var(--space-sm);
+    padding:var(--space-xs) var(--space-sm);
+    background:rgba(255,255,255,0.05);
+    border-radius:var(--radius);
+    border:1px solid var(--border-light);
+  }
+  .user-info.show{display:flex}
+  .user-info .email{color:var(--accent);font-weight:600;font-size:13px}
+  
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .hamburger{display:flex}
+    .nav-links{
+      display:none;
+      position:absolute;
+      top:100%;
+      left:0;
+      right:0;
+      background:var(--bg-alt);
+      flex-direction:column;
+      padding:var(--space-md);
+      border-bottom:1px solid var(--border);
+      box-shadow:var(--shadow-lg);
+    }
+    .nav-links.active{display:flex}
+    .nav-links .btn{width:100%;text-align:center;margin:4px 0}
+    
+    .main-content{padding:var(--space-md)}
+    .about-section{padding:var(--space-md)}
+    .hero-image{height:400px}
+    h1{font-size:2rem}
+    h2{font-size:1.5rem}
+  }
+  
+  @media (max-width: 768px) {
+    header.nav{flex-direction:column;gap:var(--space-sm)}
+    .main-content{padding:var(--space-sm)}
+    .about-section{padding:var(--space-md)}
+    .about-buttons{flex-direction:column}
+    .about-buttons a{width:100%;justify-content:center}
+    .hero-image{height:300px}
+    h1{font-size:1.75rem}
+    h2{font-size:1.35rem}
+    
+    footer.site{
+      flex-direction:column;
+      text-align:center;
+      gap:var(--space-sm);
+      position:relative;
+    }
+    #ticker{width:100%;text-align:center}
+  }
+  
+  @media (max-width: 480px) {
+    .main-content{padding:var(--space-xs)}
+    .about-section{padding:var(--space-sm)}
+    .hero-image{height:250px}
+    h1{font-size:1.5rem}
+    h2{font-size:1.25rem}
+    ul{padding-left:var(--space-md);font-size:14px}
+    .nav-links .btn{font-size:12px;padding:8px 16px}
+  }
+  
+  @keyframes scroll{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
+  
+  /* Z-index and positioning wrapper */
+  .z-index-wrapper{position:relative;z-index:5}
+  
+  /* Header nav layout */
+  header.nav{display:flex;align-items:center;justify-content:space-between}
+  
+  /* Logo container */
+  .logo-container{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border-light);border-radius:var(--radius-lg);padding:12px 16px;box-shadow:var(--shadow)}
+  .logo-container img{width:50px;height:50px;object-fit:contain;border-radius:var(--radius)}
+  .logo-link{display:flex;align-items:center;text-decoration:none}
+  
+  /* Footer positioning */
+  footer.site{position:fixed;bottom:0;left:0;width:100%;display:flex;justify-content:space-between;align-items:center;z-index:10}
+  
+  /* Ticker styles */
+  #ticker{overflow:hidden;white-space:nowrap;animation:scroll 30s linear infinite}
+  
+  /* About section buttons */
+  .about-buttons a svg{width:16px;height:16px}
+  
+  /* Footer links */
+  footer.site a{color:var(--text);text-decoration:none;display:flex;align-items:center;gap:6px}
+  footer.site a span{font-weight:600}
+</style>
+</head>
+<body>
+<div id="bg">
+  <div class="lines">
+    <i style="left:15%; animation-delay:0s"></i>
+    <i class="alt" style="left:35%; animation-delay:2s"></i>
+    <i style="left:55%; animation-delay:4s"></i>
+    <i class="alt" style="left:75%; animation-delay:6s"></i>
+    <i style="left:90%; animation-delay:8s"></i>
+  </div>
+</div>
+
+<div style="position:relative; z-index:5;">
+  <header class="nav" style="display:flex;align-items:center;justify-content:space-between;">
+    <a href="/" style="display:flex;align-items:center;">
+      <div style="display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border-light);border-radius:var(--radius-lg);padding:12px 16px;box-shadow:var(--shadow);">
+        <img src="/images/sellerrco.png" alt="Nexum Security Lab Logo" style="width:50px;height:50px;object-fit:contain;border-radius:var(--radius);" />
+      </div>
+    </a>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav class="nav-links" id="navLinks">
+      <a href="/post-quantum" class="btn">Post Quantum</a>
+      <a href="/owasp-range" class="btn">OWASP Range</a>
+      <a href="/hybrid-warroom" class="btn">Hybrid Warroom</a>
+      <a href="/ai-gateway-arena" class="btn">AI Gateway</a>
+      <a href="/stormcenter" class="btn">Storm Center</a>
+      <a href="/troubletoolbox" class="btn">Tools</a>
+      <a href="/traps-lab" class="btn">Security By Deception</a>
+      <a href="/threat-modeler" class="btn">Threat Model</a>
+      <a href="/multicloud-sim" class="btn">Multi-Cloud</a>
+      <a href="/attack-patterns" class="btn">ATT&CK</a>
+      
+      <!-- Protected Nav Buttons (hidden until logged in) -->
+      <a href="/sales-portal" class="btn protected-nav">Sales Portal</a>
+      <a href="/sase-compare" class="btn protected-nav">SASE Compare</a>
+      <a href="/ztna-compare" class="btn protected-nav">ZTNA Compare</a>
+      <a href="/sase-phase2" class="btn protected-nav">SASE Phase 2</a>
+      <a href="/ztna-phase2" class="btn protected-nav">ZTNA Phase 2</a>
+      <a href="/regulations" class="btn protected-nav">Regulations</a>
+      <a href="/gartner-mq-live" class="btn protected-nav">Gartner MQ</a>
+      <a href="/deal-negotiator" class="btn protected-nav">Negotiator</a>
+      <a href="/metrics-scorecard" class="btn protected-nav">Metrics</a>
+      <a href="/fusion-dash" class="btn protected-nav">Fusion Dash</a>
+      
+      <!-- Auth Buttons -->
+      <button onclick="showLogin()" id="loginBtn" class="btn primary">Login</button>
+      <button onclick="showRegister()" id="registerBtn" class="btn primary">Register</button>
+      
+      <!-- User Info (hidden until logged in) -->
+      <div class="user-info" id="userInfo">
+        <span class="email" id="userEmail"></span>
+        <button onclick="logout()" class="btn">Logout</button>
+      </div>
+    </nav>
+  </header>
+</div>
+
+<!-- Login Modal -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal" onclick="closeLogin()">&times;</span>
+    <h2>Login</h2>
+    <input type="email" id="loginEmail" placeholder="Email (@nexuminc.com)" required>
+    <input type="password" id="loginPassword" placeholder="Password" required>
+    <button onclick="login()">Login</button>
+    <div class="error-msg" id="loginError"></div>
+  </div>
+</div>
+
+<!-- Register Modal -->
+<div id="registerModal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal" onclick="closeRegister()">&times;</span>
+    <h2>Register</h2>
+    <p style="color:var(--text-dim);font-size:14px">Only @nexuminc.com emails are allowed</p>
+    <input type="email" id="regEmail" placeholder="Email (@nexuminc.com)" required>
+    <input type="password" id="regPassword" placeholder="Password" required>
+    <input type="text" id="regName" placeholder="Full Name" required>
+    <button onclick="register()">Register</button>
+    <div class="error-msg" id="registerError"></div>
+  </div>
+</div>
+
+<div class="main-content">
+  <div class="hero-image">
+    <img src="/images/mainpage.png" alt="Nexum Security Lab" />
+  </div>
+  
+  <!-- About Me Section -->
+  <div class="about-section">
+    <h2 style="margin-top:0;">About James Sellers</h2>
+    <p style="font-size:16px;line-height:1.8;color:var(--text);">
+      Security architect and researcher at <strong>Nexum Inc</strong>, specializing in enterprise cybersecurity solutions, zero trust architecture, and cloud security. Creator of this security research lab environment designed to provide hands-on training and real-world testing scenarios for cybersecurity professionals.
+    </p>
+    <p style="font-size:16px;line-height:1.8;color:var(--text);">
+      With extensive experience in managed security services, SASE implementations, and threat intelligence, I focus on building practical tools and training environments that help security teams defend against evolving cyber threats.
+    </p>
+    <div class="about-buttons">
+      <a href="mailto:jsellers@nexuminc.com" class="primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        Contact Me
+      </a>
+      <a href="https://www.linkedin.com/in/jim-sellers-5ba5606/" target="_blank" rel="noopener" class="secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.9 6 2.5 6S0 4.88 0 3.5 1.1 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.5h4.52V23H.24V8.5zm7.41 0h4.33v2h.06c.6-1.1 2.06-2.25 4.24-2.25 4.53 0 5.37 2.82 5.37 6.49V23h-4.52v-6.5c0-1.55-.03-3.54-2.16-3.54-2.16 0-2.49 1.68-2.49 3.42V23H7.65V8.5z"/></svg>
+        LinkedIn Profile
+      </a>
+    </div>
+  </div>
+  
+  <p style="font-size:16px;line-height:1.8;color:var(--text);margin-bottom:var(--space-xl);">
+    Welcome to Nexum Inc's enterprise security research platform. This lab environment provides hands-on training and testing for cybersecurity professionals, featuring real-world scenarios for SASE, Zero Trust, threat modeling, and cloud security.
+  </p>
+  
+  <h2>Core Security Labs</h2>
+  <ul>
+    <li><a href="/vuln-lab">Vulnerability Lab</a> - Practice secure attack techniques (XSS, SQLi, CSRF)</li>
+    <li><a href="/owasp-range">OWASP Top 10 Range</a> - Exploit scenarios with vendor mitigation strategies</li>
+    <li><a href="/traps-lab">Security By Deception</a> - AI-driven honeypots and sandbox traps</li>
+    <li><a href="/stormcenter">Security Storm Center</a> - Live threat intelligence feeds</li>
+    <li><a href="/troubletoolbox">Security Tools</a> - Network and security diagnostic utilities</li>
+  </ul>
+  
+  <h2>Advanced Enterprise Scenarios</h2>
+  <ul>
+    <li><a href="/hybrid-warroom">Hybrid Cloud War Room</a> - Visualize and secure complex hybrid environments</li>
+    <li><a href="/ai-gateway-arena">AI Gateway Arena</a> - Test AI security gateways and prompt injection</li>
+    <li><a href="/auth-fusion">Auth-Fusion Hub</a> - Multi-IDP authentication flow simulation</li>
+    <li><a href="/cloud-chaos">Cloud-Chaos Simulator</a> - Multi-cloud firewall and network path testing</li>
+    <li><a href="/dns-hunt">DNS Hunt</a> - DNS resolution and security analysis</li>
+    <li><a href="/zt-sim">Zero Trust Simulator</a> - Design and test ZTNA policies</li>
+  </ul>
+  
+  <h2>Monitoring & Intelligence</h2>
+  <ul>
+    <li><a href="/fusion-dash">Fusion Dashboard</a> - Security logs, heatmaps, and threat intelligence</li>
+    <li><a href="/attack-map">Live Attack Map</a> - Real-time global cyber attack visualization</li>
+    <li><a href="/hall-of-fame">Hall of Fame</a> - Top performers leaderboard</li>
+    <li><a href="/trace">Multi-Colo Trace</a> - View your connection path through global edge network</li>
+  </ul>
+  
+  <div class="tip-box">
+    <strong>Pro Tip:</strong> Enable <a href="?chaos=1" style="color:var(--accent);">Chaos Mode</a> for AI-randomized security challenges.
+  </div>
+</div>
+
+<footer class="site" style="position:fixed; bottom:0; left:0; width:100%; display:flex; justify-content:space-between; align-items:center; z-index:10;">
+  <span style="font-size:14px;">&copy; 2025 Nexum Inc - Security Research Lab</span>
+  <a href="mailto:jsellers@nexuminc.com" style="color:var(--text);font-size:14px;">jsellers@nexuminc.com</a>
+  <a href="https://www.linkedin.com/in/jim-sellers-5ba5606/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px;color:var(--text);text-decoration:none;">
+    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.9 6 2.5 6S0 4.88 0 3.5 1.1 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.5h4.52V23H.24V8.5zm7.41 0h4.33v2h.06c.6-1.1 2.06-2.25 4.24-2.25 4.53 0 5.37 2.82 5.37 6.49V23h-4.52v-6.5c0-1.55-.03-3.54-2.16-3.54-2.16 0-2.49 1.68-2.49 3.42V23H7.65V8.5z"/></svg>
+    <span style="font-weight:600;">LinkedIn</span>
+  </a>
+  <div id="ticker" style="overflow:hidden; white-space:nowrap; animation:scroll 30s linear infinite;">Loading threat intelligence...</div>
+</footer>
+
+<script>
+// Hamburger Menu Toggle
+function toggleMenu() {
+  document.querySelector('.hamburger').classList.toggle('active');
+  document.getElementById('navLinks').classList.toggle('active');
+}
+
+// Auth State Management
+function checkAuth() {
+  const token = localStorage.getItem('auth_token');
+  const email = localStorage.getItem('user_email');
+  if (token && email) {
+    showAuthenticatedState(email);
+  }
+}
+
+function showAuthenticatedState(email) {
+  document.getElementById('loginBtn').style.display = 'none';
+  document.getElementById('registerBtn').style.display = 'none';
+  document.getElementById('userInfo').classList.add('show');
+  document.getElementById('userEmail').textContent = email;
+  document.querySelectorAll('.protected-nav').forEach(el => el.classList.add('show'));
+}
+
+function logout() {
+  localStorage.removeItem('auth_token');
+  localStorage.removeItem('user_email');
+  document.getElementById('loginBtn').style.display = 'inline-block';
+  document.getElementById('registerBtn').style.display = 'inline-block';
+  document.getElementById('userInfo').classList.remove('show');
+  document.querySelectorAll('.protected-nav').forEach(el => el.classList.remove('show'));
+}
+
+// Modal Functions
+function showLogin() {
+  document.getElementById('loginModal').classList.add('show');
+}
+
+function closeLogin() {
+  document.getElementById('loginModal').classList.remove('show');
+  document.getElementById('loginError').classList.remove('show');
+}
+
+function showRegister() {
+  document.getElementById('registerModal').classList.add('show');
+}
+
+function closeRegister() {
+  document.getElementById('registerModal').classList.remove('show');
+  document.getElementById('registerError').classList.remove('show');
+}
+
+// Login Function
+async function login() {
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+  
+  if (!email.endsWith('@nexuminc.com')) {
+    const errorEl = document.getElementById('loginError');
+    errorEl.textContent = 'Only @nexuminc.com emails are allowed';
+    errorEl.classList.add('show');
+    return;
+  }
+  
+  try {
+    const response = await fetch('/api/login', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email, password})
+    });
+    
+    const data = await response.json();
+    
+    if (response.ok) {
+      localStorage.setItem('auth_token', data.token);
+      localStorage.setItem('user_email', email);
+      showAuthenticatedState(email);
+      closeLogin();
+    } else {
+      const errorEl = document.getElementById('loginError');
+      errorEl.textContent = data.error || 'Login failed';
+      errorEl.classList.add('show');
+    }
+  } catch (error) {
+    const errorEl = document.getElementById('loginError');
+    errorEl.textContent = 'Network error';
+    errorEl.classList.add('show');
+  }
+}
+
+// Register Function
+async function register() {
+  const email = document.getElementById('regEmail').value;
+  const password = document.getElementById('regPassword').value;
+  const name = document.getElementById('regName').value;
+  
+  if (!email.endsWith('@nexuminc.com')) {
+    const errorEl = document.getElementById('registerError');
+    errorEl.textContent = 'Only @nexuminc.com emails are allowed';
+    errorEl.classList.add('show');
+    return;
+  }
+  
+  try {
+    const response = await fetch('/api/register', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email, password, name})
+    });
+    
+    const data = await response.json();
+    
+    if (response.ok) {
+      alert('Registration submitted! Please check your email for approval from jsellers@nexuminc.com');
+      closeRegister();
+    } else {
+      const errorEl = document.getElementById('registerError');
+      errorEl.textContent = data.error || 'Registration failed';
+      errorEl.classList.add('show');
+    }
+  } catch (error) {
+    const errorEl = document.getElementById('registerError');
+    errorEl.textContent = 'Network error';
+    errorEl.classList.add('show');
+  }
+}
+
+// Ticker
+async function loadTicker() {
+  try {
+    const res = await fetch('/get-ticker');
+    const data = await res.json();
+    document.getElementById('ticker').innerText = data.items.map(i => i.title).join(' +++ ');
+  } catch (error) {
+    document.getElementById('ticker').innerText = 'Failed to load ticker';
+  }
+}
+
+// Initialize
+checkAuth();
+loadTicker();
+
+// Close modals on background click
+window.onclick = function(event) {
+  if (event.target.classList.contains('modal')) {
+    event.target.classList.remove('show');
+  }
+}
+</script>
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"5dc3f7ae5bec40e6933a5a728bd7f020","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfOrigin":true}}' crossorigin="anonymous"></script>
+</body>
 </html>

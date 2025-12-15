@@ -1,5 +1,15 @@
 {
 	"files.associations": {
 		"wrangler.json": "jsonc"
-	}
+	},
+	"github.copilot.enableMatrixRain": false,
+	"github.copilot.enableSnowfall": false,
+	"github.copilot.enableExperiments": false,
+	"continue.enableTabAutocomplete": true,
+	"cline.allowFileEdits": true,
+	// Auto-deployment settings
+	"workbench.autoDeployOnSave": true,
+	"deployment.autoConfirm": true,
+	"deployment.requireTests": true,
+	"deployment.testScript": "./scripts/test-all-links.ps1"
 }

@@ -1,0 +1,69 @@
+{
+  "models": [
+    {
+      "provider": "ollama",
+      "contextLength": 32768,
+      "apiBase": "http://localhost:11434",
+      "model": "gpt-oss:120b-cloud",
+      "title": "gpt-oss:120b-cloud (116.8B)"
+    },
+    {
+      "provider": "ollama",
+      "contextLength": 32768,
+      "apiBase": "http://localhost:11434",
+      "model": "devstral-2:latest",
+      "title": "devstral-2:latest (125.0B)"
+    },
+    {
+      "provider": "ollama",
+      "contextLength": 128000,
+      "apiBase": "http://localhost:11434",
+      "model": "llama3.1:70b",
+      "title": "llama3.1:70b (70.6B)"
+    },
+    {
+      "provider": "ollama",
+      "contextLength": 32768,
+      "apiBase": "http://localhost:11434",
+      "model": "gpt-oss:120b",
+      "title": "gpt-oss:120b (116.8B)"
+    },
+    {
+      "provider": "lmstudio",
+      "apiBase": "http://localhost:1234/v1",
+      "model": "text-embedding-nomic-embed-text-v1.5",
+      "title": "LM Studio: text-embedding-nomic-embed-text-v1.5"
+    },
+    {
+      "provider": "lmstudio",
+      "apiBase": "http://localhost:1234/v1",
+      "model": "pixtral-12b-ollama",
+      "title": "LM Studio: pixtral-12b-ollama"
+    },
+    {
+      "provider": "lmstudio",
+      "apiBase": "http://localhost:1234/v1",
+      "model": "llama-3.2-3b-instruct",
+      "title": "LM Studio: llama-3.2-3b-instruct"
+    },
+    {
+      "provider": "lmstudio",
+      "apiBase": "http://localhost:1234/v1",
+      "model": "meta/llama-3.3-70b",
+      "title": "LM Studio: meta/llama-3.3-70b"
+    },
+    {
+      "provider": "lmstudio",
+      "apiBase": "http://localhost:1234/v1",
+      "model": "nousresearch/hermes-4-70b",
+      "title": "LM Studio: nousresearch/hermes-4-70b"
+    },
+    {
+      "provider": "lmstudio",
+      "apiBase": "http://localhost:1234/v1",
+      "model": "deepseek/deepseek-r1-0528-qwen3-8b",
+      "title": "LM Studio: deepseek/deepseek-r1-0528-qwen3-8b"
+    }
+  ],
+  "detected_at": "2025-12-14 22:31:57"
+}

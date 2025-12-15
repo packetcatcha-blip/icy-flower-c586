@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Portal - Nexum Security Lab</title>
+<style>
+:root {
+  --bg: #0a1628;
+  --bg-alt: #0f1f35;
+  --surface: #1a2f45;
+  --text: #f0f4f8;
+  --text-dim: #b8c5d6;
+  --primary: #0066cc;
+  --accent: #52b2ff;
+  --border: #2d4563;
+  --success: #51cf66;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 40px;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+.container { max-width: 1200px; margin: 0 auto; }
+h1 { color: var(--accent); margin-bottom: 8px; }
+.subtitle { color: var(--text-dim); margin-bottom: 32px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.card:hover { transform: translateY(-4px); border-color: var(--accent); }
+.card h3 { margin-top: 0; color: var(--text); }
+.card p { color: var(--text-dim); font-size: 14px; }
+.card-icon { font-size: 32px; margin-bottom: 12px; }
+.protected-badge {
+  display: inline-block;
+  background: rgba(255, 107, 107, 0.2);
+  color: #ff6b6b;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  margin-left: 12px;
+}
+.back-link {
+  display: inline-block;
+  color: var(--accent);
+  text-decoration: none;
+  margin-top: 24px;
+}
+.back-link:hover { text-decoration: underline; }
+a.card { text-decoration: none; color: inherit; display: block; }
+</style>
+</head>
+<body>
+<a href="/" class="home-btn" style="position:fixed;top:20px;left:20px;background:linear-gradient(135deg,#0066cc,#52b2ff);color:white;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;z-index:1000;box-shadow:0 4px 12px rgba(0,102,204,0.4);transition:all 0.3s">🏠 Home</a>
+<div class="container">
+  <h1>💼 Sales Portal <span class="protected-badge">Protected</span></h1>
+  <p class="subtitle">Nexum Inc. Sales Resources and Tools</p>
+  
+  <div class="grid">
+    <a href="/sase-compare" class="card">
+      <div class="card-icon">📊</div>
+      <h3>SASE Comparison</h3>
+      <p>Compare Nexum's SASE solution against competitors with detailed feature matrices.</p>
+    </a>
+    
+    <a href="/ztna-compare" class="card">
+      <div class="card-icon">🔐</div>
+      <h3>ZTNA Comparison</h3>
+      <p>Zero Trust Network Access competitive analysis and positioning guides.</p>
+    </a>
+    
+    <a href="/sase-phase2" class="card">
+      <div class="card-icon">🚀</div>
+      <h3>SASE Phase 2</h3>
+      <p>Advanced SASE implementation roadmap and customer success stories.</p>
+    </a>
+    
+    <a href="/ztna-phase2" class="card">
+      <div class="card-icon">🛡️</div>
+      <h3>ZTNA Phase 2</h3>
+      <p>Zero Trust maturity model progression and deployment strategies.</p>
+    </a>
+    
+    <a href="/product-verticals" class="card">
+      <div class="card-icon">🏢</div>
+      <h3>Product Verticals</h3>
+      <p>Industry-specific solution positioning for healthcare, finance, and more.</p>
+    </a>
+    
+    <a href="/regulations" class="card">
+      <div class="card-icon">📋</div>
+      <h3>Regulations</h3>
+      <p>Compliance mapping: HIPAA, PCI-DSS, SOC 2, GDPR coverage.</p>
+    </a>
+    
+    <a href="/gartner-mq-live" class="card">
+      <div class="card-icon">📈</div>
+      <h3>Gartner MQ Live</h3>
+      <p>Real-time Magic Quadrant positioning and market analysis.</p>
+    </a>
+    
+    <a href="/deal-negotiator" class="card">
+      <div class="card-icon">🤝</div>
+      <h3>Deal Negotiator</h3>
+      <p>Pricing calculator and deal structuring assistance.</p>
+    </a>
+    
+    <a href="/metrics-scorecard" class="card">
+      <div class="card-icon">📉</div>
+      <h3>Metrics Scorecard</h3>
+      <p>ROI calculators and business impact quantification tools.</p>
+    </a>
+    
+    <a href="/fusion-dash" class="card">
+      <div class="card-icon">🔮</div>
+      <h3>Fusion Dashboard</h3>
+      <p>Unified sales intelligence and pipeline analytics.</p>
+    </a>
+  </div>
+  
+  <a href="/" class="back-link">← Back to Home</a>
+</div>
+</body>
+</html>

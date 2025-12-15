@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZTNA Phase 2 - Nexum Security Lab</title>
+<style>
+:root { --bg: #0a1628; --surface: #1a2f45; --text: #f0f4f8; --text-dim: #b8c5d6; --accent: #52b2ff; --border: #2d4563; --success: #51cf66; }
+* { box-sizing: border-box; }
+body { margin: 0; padding: 40px; font-family: Inter, -apple-system, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+.container { max-width: 1000px; margin: 0 auto; }
+h1 { color: var(--accent); margin-bottom: 8px; }
+.subtitle { color: var(--text-dim); margin-bottom: 32px; }
+.protected-badge { display: inline-block; background: rgba(255, 107, 107, 0.2); color: #ff6b6b; padding: 4px 12px; border-radius: 20px; font-size: 12px; margin-left: 12px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+.card h2 { margin-top: 0; color: var(--accent); }
+.maturity-level { display: flex; gap: 12px; margin: 24px 0; }
+.level { flex: 1; text-align: center; padding: 20px; border-radius: 8px; border: 2px solid var(--border); }
+.level.active { border-color: var(--accent); background: rgba(82, 178, 255, 0.1); }
+.level h4 { margin: 0 0 8px 0; color: var(--accent); }
+.level p { margin: 0; font-size: 12px; color: var(--text-dim); }
+.back-link { display: inline-block; color: var(--accent); text-decoration: none; margin-top: 24px; }
+.back-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<a href="/" class="home-btn" style="position:fixed;top:20px;left:20px;background:linear-gradient(135deg,#0066cc,#52b2ff);color:white;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;z-index:1000;box-shadow:0 4px 12px rgba(0,102,204,0.4);transition:all 0.3s">🏠 Home</a>
+<div class="container">
+  <h1>🛡️ ZTNA Phase 2 Maturity Model <span class="protected-badge">Protected</span></h1>
+  <p class="subtitle">Zero Trust Network Access progression and deployment strategies</p>
+  
+  <div class="card">
+    <h2>Zero Trust Maturity Levels</h2>
+    <div class="maturity-level">
+      <div class="level">
+        <h4>Level 1</h4>
+        <p>Traditional<br>Perimeter</p>
+      </div>
+      <div class="level">
+        <h4>Level 2</h4>
+        <p>Basic<br>Identity</p>
+      </div>
+      <div class="level active">
+        <h4>Level 3</h4>
+        <p>Contextual<br>Access</p>
+      </div>
+      <div class="level">
+        <h4>Level 4</h4>
+        <p>Continuous<br>Verification</p>
+      </div>
+      <div class="level">
+        <h4>Level 5</h4>
+        <p>Autonomous<br>Zero Trust</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="card">
+    <h2>Phase 2 Objectives</h2>
+    <ul>
+      <li>Implement contextual access policies based on user, device, location, and behavior</li>
+      <li>Deploy device trust verification across all endpoints</li>
+      <li>Enable application-level micro-segmentation</li>
+      <li>Integrate with existing IAM infrastructure (Okta, Azure AD, Ping)</li>
+      <li>Establish continuous monitoring and adaptive authentication</li>
+    </ul>
+  </div>
+  
+  <div class="card">
+    <h2>Success Metrics</h2>
+    <ul>
+      <li>100% visibility into application access</li>
+      <li>Zero exposed attack surface for internal applications</li>
+      <li>50% reduction in access-related security incidents</li>
+      <li>Compliance audit pass rate >95%</li>
+    </ul>
+  </div>
+  
+  <a href="/sales-portal" class="back-link">← Back to Sales Portal</a>
+</div>
+</body>
+</html>

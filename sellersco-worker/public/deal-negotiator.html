@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deal Negotiator - Nexum Security Lab</title>
+<style>
+:root { --bg: #0a1628; --surface: #1a2f45; --text: #f0f4f8; --text-dim: #b8c5d6; --accent: #52b2ff; --border: #2d4563; --success: #51cf66; }
+* { box-sizing: border-box; }
+body { margin: 0; padding: 40px; font-family: Inter, -apple-system, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+.container { max-width: 800px; margin: 0 auto; }
+h1 { color: var(--accent); margin-bottom: 8px; }
+.subtitle { color: var(--text-dim); margin-bottom: 32px; }
+.protected-badge { display: inline-block; background: rgba(255, 107, 107, 0.2); color: #ff6b6b; padding: 4px 12px; border-radius: 20px; font-size: 12px; margin-left: 12px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+.card h2 { margin-top: 0; color: var(--accent); }
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; margin-bottom: 8px; font-weight: 500; }
+.form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 14px; }
+.form-group input:focus, .form-group select:focus { outline: none; border-color: var(--accent); }
+.btn { background: var(--accent); color: var(--bg); padding: 12px 24px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: opacity 0.2s; }
+.btn:hover { opacity: 0.9; }
+.result-box { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-top: 20px; }
+.result-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); }
+.result-row:last-child { border-bottom: none; }
+.result-label { color: var(--text-dim); }
+.result-value { font-weight: 600; color: var(--success); }
+.back-link { display: inline-block; color: var(--accent); text-decoration: none; margin-top: 24px; }
+.back-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<a href="/" class="home-btn" style="position:fixed;top:20px;left:20px;background:linear-gradient(135deg,#0066cc,#52b2ff);color:white;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;z-index:1000;box-shadow:0 4px 12px rgba(0,102,204,0.4);transition:all 0.3s">🏠 Home</a>
+<div class="container">
+  <h1>🤝 Deal Negotiator <span class="protected-badge">Protected</span></h1>
+  <p class="subtitle">Pricing calculator and deal structuring assistance</p>
+  
+  <div class="card">
+    <h2>Deal Configuration</h2>
+    <div class="form-group">
+      <label>Solution Type</label>
+      <select id="solution">
+        <option value="sase">SASE Complete</option>
+        <option value="ztna">ZTNA Only</option>
+        <option value="sdwan">SD-WAN Only</option>
+        <option value="bundle">Enterprise Bundle</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Number of Users</label>
+      <input type="number" id="users" placeholder="e.g., 500" value="500">
+    </div>
+    <div class="form-group">
+      <label>Contract Term</label>
+      <select id="term">
+        <option value="1">1 Year</option>
+        <option value="3" selected>3 Years</option>
+        <option value="5">5 Years</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Discount Tier</label>
+      <select id="discount">
+        <option value="0">Standard (0%)</option>
+        <option value="10">Partner (10%)</option>
+        <option value="15">Enterprise (15%)</option>
+        <option value="20">Strategic (20%)</option>
+      </select>
+    </div>
+    <button class="btn" onclick="calculateDeal()">Calculate Deal</button>
+    
+    <div class="result-box" id="results" style="display: none;">
+      <div class="result-row">
+        <span class="result-label">List Price (Annual)</span>
+        <span class="result-value" id="listPrice">$0</span>
+      </div>
+      <div class="result-row">
+        <span class="result-label">Discount Applied</span>
+        <span class="result-value" id="discountAmt">$0</span>
+      </div>
+      <div class="result-row">
+        <span class="result-label">Net Annual Price</span>
+        <span class="result-value" id="netPrice">$0</span>
+      </div>
+      <div class="result-row">
+        <span class="result-label">Total Contract Value</span>
+        <span class="result-value" id="tcv">$0</span>
+      </div>
+    </div>
+  </div>
+  
+  <a href="/sales-portal" class="back-link">← Back to Sales Portal</a>
+</div>
+<script>
+function calculateDeal() {
+  const prices = { sase: 45, ztna: 25, sdwan: 30, bundle: 65 };
+  const solution = document.getElementById('solution').value;
+  const users = parseInt(document.getElementById('users').value) || 0;
+  const term = parseInt(document.getElementById('term').value);
+  const discount = parseInt(document.getElementById('discount').value);
+  
+  const listPrice = prices[solution] * users * 12;
+  const discountAmt = listPrice * (discount / 100);
+  const netPrice = listPrice - discountAmt;
+  const tcv = netPrice * term;
+  
+  document.getElementById('listPrice').textContent = '$' + listPrice.toLocaleString();
+  document.getElementById('discountAmt').textContent = '-$' + discountAmt.toLocaleString();
+  document.getElementById('netPrice').textContent = '$' + netPrice.toLocaleString();
+  document.getElementById('tcv').textContent = '$' + tcv.toLocaleString();
+  document.getElementById('results').style.display = 'block';
+}
+</script>
+</body>
+</html>

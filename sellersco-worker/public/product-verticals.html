@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Verticals - Nexum Security Lab</title>
+<style>
+:root { --bg: #0a1628; --surface: #1a2f45; --text: #f0f4f8; --text-dim: #b8c5d6; --accent: #52b2ff; --border: #2d4563; }
+* { box-sizing: border-box; }
+body { margin: 0; padding: 40px; font-family: Inter, -apple-system, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+.container { max-width: 1200px; margin: 0 auto; }
+h1 { color: var(--accent); margin-bottom: 8px; }
+.subtitle { color: var(--text-dim); margin-bottom: 32px; }
+.protected-badge { display: inline-block; background: rgba(255, 107, 107, 0.2); color: #ff6b6b; padding: 4px 12px; border-radius: 20px; font-size: 12px; margin-left: 12px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+.vertical-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+.vertical-card h3 { margin-top: 0; color: var(--accent); display: flex; align-items: center; gap: 12px; }
+.vertical-card .icon { font-size: 28px; }
+.vertical-card ul { color: var(--text-dim); font-size: 14px; padding-left: 20px; }
+.back-link { display: inline-block; color: var(--accent); text-decoration: none; margin-top: 24px; }
+.back-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<a href="/" class="home-btn" style="position:fixed;top:20px;left:20px;background:linear-gradient(135deg,#0066cc,#52b2ff);color:white;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;z-index:1000;box-shadow:0 4px 12px rgba(0,102,204,0.4);transition:all 0.3s">🏠 Home</a>
+<div class="container">
+  <h1>🏢 Product Verticals <span class="protected-badge">Protected</span></h1>
+  <p class="subtitle">Industry-specific security solutions and positioning</p>
+  
+  <div class="grid">
+    <div class="vertical-card">
+      <h3><span class="icon">🏥</span> Healthcare</h3>
+      <ul>
+        <li>HIPAA-compliant data protection</li>
+        <li>Medical device security (IoMT)</li>
+        <li>Telehealth session protection</li>
+        <li>PHI/ePHI encryption at rest and in transit</li>
+        <li>Third-party vendor risk management</li>
+      </ul>
+    </div>
+    
+    <div class="vertical-card">
+      <h3><span class="icon">🏦</span> Financial Services</h3>
+      <ul>
+        <li>PCI-DSS compliance automation</li>
+        <li>Real-time fraud detection</li>
+        <li>Secure trading platform access</li>
+        <li>SOX audit trail support</li>
+        <li>Multi-factor authentication for all access</li>
+      </ul>
+    </div>
+    
+    <div class="vertical-card">
+      <h3><span class="icon">🏭</span> Manufacturing</h3>
+      <ul>
+        <li>OT/IT convergence security</li>
+        <li>Industrial IoT protection</li>
+        <li>Supply chain security</li>
+        <li>Remote facility access</li>
+        <li>SCADA system protection</li>
+      </ul>
+    </div>
+    
+    <div class="vertical-card">
+      <h3><span class="icon">🏛️</span> Government</h3>
+      <ul>
+        <li>FedRAMP authorized solutions</li>
+        <li>CMMC compliance support</li>
+        <li>Classified network protection</li>
+        <li>Citizen data protection</li>
+        <li>Zero Trust Architecture (ZTA) alignment</li>
+      </ul>
+    </div>
+    
+    <div class="vertical-card">
+      <h3><span class="icon">🎓</span> Education</h3>
+      <ul>
+        <li>FERPA compliance</li>
+        <li>Remote learning security</li>
+        <li>Research data protection</li>
+        <li>Campus network segmentation</li>
+        <li>Student privacy protection</li>
+      </ul>
+    </div>
+    
+    <div class="vertical-card">
+      <h3><span class="icon">🛒</span> Retail</h3>
+      <ul>
+        <li>PCI-DSS compliance</li>
+        <li>E-commerce fraud prevention</li>
+        <li>Point-of-sale security</li>
+        <li>Customer data protection</li>
+        <li>Multi-location network security</li>
+      </ul>
+    </div>
+  </div>
+  
+  <a href="/sales-portal" class="back-link">← Back to Sales Portal</a>
+</div>
+</body>
+</html>

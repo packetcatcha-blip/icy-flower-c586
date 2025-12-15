@@ -4,19 +4,122 @@
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "sellersco-worker",
+	"name": "sellerso",
 	"main": "src/index.js",
 	"compatibility_date": "2025-12-11",
+	"routes": [
+		"sellersco.net/*"
+	],
 	"compatibility_flags": [
 		"nodejs_compat",
 		"global_fetch_strictly_public"
 	],
 	"assets": {
 		// The path to the directory containing the `index.html` file to be served at `/`
-		"directory": "./public"
+		"directory": "./public",
+		// Match protected routes and handle them in the fetch handler instead of serving directly
+		"not_found_handling": "none"
 	},
+	"account_id": "df60ef551fee860119d73fec244100db",
+	"r2_buckets": [
+		{
+			"binding": "IMAGES",
+			"bucket_name": "sellersco"
+		}
+	],
+	// "vectorize": [
+	// 	{
+	// 		"binding": "VECTORIZE_INDEX",
+	// 		"index_name": "security-knowledge-base"
+	// 	}
+	// ],
+	"ai": {
+		"binding": "AI"
+	},
+	// "d1_databases": [
+	// 	{
+	// 		"binding": "DB",
+	// 		"database_name": "security_lab_db",
+	// 		"database_id": "placeholder-create-db-first"
+	// 	}
+	// ],
 	"observability": {
 		"enabled": true
+	},
+	// Quantum module bindings - ULTRA-BADASS FEATURES
+	// NOTE: Uncomment these after creating resources with deploy-quantum.ps1
+	// "vectorize": [
+	// 	{
+	// 		"binding": "VECTORIZE_INDEX",
+	// 		"index_name": "quantum-docs-index"
+	// 	}
+	// ],
+	// "d1_databases": [
+	// 	{
+	// 		"binding": "D1_DB",
+	// 		"database_name": "quantum_sessions_db",
+	// 		"database_id": "placeholder-quantum-db"
+	// 	}
+	// ],
+	// "queues": {
+	// 	"consumers": [
+	// 		{
+	// 			"queue": "quantum-sims",
+	// 			"max_batch_size": 10,
+	// 			"max_batch_timeout": 30,
+	// 			"max_retries": 3,
+	// 			"dead_letter_queue": "quantum-sims-dlq"
+	// 		}
+	// 	]
+	// },
+	// "durable_objects": {
+	// 	"bindings": [
+	// 		{
+	// 			"name": "QUANTUM_DO",
+	// 			"class_name": "QuantumDurableObject",
+	// 			"script_name": "sellerso"
+	// 		}
+	// 	]
+	// },
+	// "kv_namespaces": [
+	// 	{
+	// 		"binding": "QUANTUM_KV",
+	// 		"id": "placeholder-quantum-kv-id",
+	// 		"preview_id": "placeholder-quantum-kv-preview"
+	// 	}
+	// ],
+	// streaming enabled for large quantum response payloads (now default)
+	"compatibility_flags": [
+		"nodejs_compat",
+		"global_fetch_strictly_public"
+	],
+	"env": {
+		"dev": {
+			"name": "sellerso-dev",
+			"r2_buckets": [
+				{
+					"binding": "IMAGES",
+					"bucket_name": "sellersco"
+				}
+			],
+			"ai": {
+				"binding": "AI"
+			}
+		},
+		"production": {
+			"routes": [
+				"sellersco.net/*"
+			],
+			"r2_buckets": [
+				{
+					"binding": "IMAGES",
+					"bucket_name": "sellersco"
+				}
+			],
+			"ai": {
+				"binding": "AI"
+			}
+		}
 	}
 	/**
 	 * Smart Placement

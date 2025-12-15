@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regulations & Compliance - Nexum Security Lab</title>
+<style>
+:root { --bg: #0a1628; --surface: #1a2f45; --text: #f0f4f8; --text-dim: #b8c5d6; --accent: #52b2ff; --border: #2d4563; --success: #51cf66; }
+* { box-sizing: border-box; }
+body { margin: 0; padding: 40px; font-family: Inter, -apple-system, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+.container { max-width: 1200px; margin: 0 auto; }
+h1 { color: var(--accent); margin-bottom: 8px; }
+.subtitle { color: var(--text-dim); margin-bottom: 32px; }
+.protected-badge { display: inline-block; background: rgba(255, 107, 107, 0.2); color: #ff6b6b; padding: 4px 12px; border-radius: 20px; font-size: 12px; margin-left: 12px; }
+.reg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.reg-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+.reg-card h3 { margin-top: 0; color: var(--accent); }
+.coverage { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+.coverage-item { display: flex; justify-content: space-between; margin: 8px 0; font-size: 14px; }
+.coverage-item .check { color: var(--success); }
+.back-link { display: inline-block; color: var(--accent); text-decoration: none; margin-top: 24px; }
+.back-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<a href="/" class="home-btn" style="position:fixed;top:20px;left:20px;background:linear-gradient(135deg,#0066cc,#52b2ff);color:white;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;z-index:1000;box-shadow:0 4px 12px rgba(0,102,204,0.4);transition:all 0.3s">🏠 Home</a>
+<div class="container">
+  <h1>📋 Regulations & Compliance <span class="protected-badge">Protected</span></h1>
+  <p class="subtitle">Nexum compliance coverage mapping for key regulations</p>
+  
+  <div class="reg-grid">
+    <div class="reg-card">
+      <h3>🏥 HIPAA</h3>
+      <p style="color: var(--text-dim); font-size: 14px;">Health Insurance Portability and Accountability Act</p>
+      <div class="coverage">
+        <div class="coverage-item"><span>Access Controls</span><span class="check">✓ Covered</span></div>
+        <div class="coverage-item"><span>Audit Controls</span><span class="check">✓ Covered</span></div>
+        <div class="coverage-item"><span>Integrity Controls</span><span class="check">✓ Covered</span></div>
+        <div class="coverage-item"><span>Transmission Security</span><span class="check">✓ Covered</span></div>
+      </div>
+    </div>
+    
+    <div class="reg-card">
+      <h3>💳 PCI-DSS</h3>
+      <p style="color: var(--text-dim); font-size: 14px;">Payment Card Industry Data Security Standard</p>
+      <div class="coverage">
+        <div class="coverage-item"><span>Firewall Configuration</span><span class="check">✓ Covered</span></div>
+        <div class="coverage-item"><span>Encryption</span><span class="check">✓ Covered</span></div>
+        <div class="coverage-item"><span>Access Control</span><span class="check">✓ Covered</span></div>
+        <div class="coverage-item"><span>Network Monitoring</span><span class="check">✓ Covered</span></div>
+      </div>
+    </div>
+    
+    <div class="reg-card">
+      <h3>🔒 SOC 2</h3>
+      <p style="color: var(--text-dim); font-size: 14px;">Service Organization Control Type 2</p>
+      <div class="coverage">
+        <div class="coverage-item"><span>Security</span><span class="check">✓ Covered</span></div>
+        <div class="coverage-item"><span>Availability</span><span class="check">✓ Covered</span></div>
+        <div class="coverage-item"><span>Confidentiality</span><span class="check">✓ Covered</span></div>
+        <div class="coverage-item"><span>Privacy</span><span class="check">✓ Covered</span></div>
+      </div>
+    </div>
+    
+    <div class="reg-card">
+      <h3>🌍 GDPR</h3>
+      <p style="color: var(--text-dim); font-size: 14px;">General Data Protection Regulation</p>
+      <div class="coverage">
+        <div class="coverage-item"><span>Data Encryption</span><span class="check">✓ Covered</span></div>
+        <div class="coverage-item"><span>Access Logging</span><span class="check">✓ Covered</span></div>
+        <div class="coverage-item"><span>Data Portability</span><span class="check">✓ Covered</span></div>
+        <div class="coverage-item"><span>Breach Notification</span><span class="check">✓ Covered</span></div>
+      </div>
+    </div>
+    
+    <div class="reg-card">
+      <h3>🛡️ CMMC</h3>
+      <p style="color: var(--text-dim); font-size: 14px;">Cybersecurity Maturity Model Certification</p>
+      <div class="coverage">
+        <div class="coverage-item"><span>Access Control</span><span class="check">✓ Covered</span></div>
+        <div class="coverage-item"><span>Incident Response</span><span class="check">✓ Covered</span></div>
+        <div class="coverage-item"><span>Risk Management</span><span class="check">✓ Covered</span></div>
+        <div class="coverage-item"><span>System Security</span><span class="check">✓ Covered</span></div>
+      </div>
+    </div>
+    
+    <div class="reg-card">
+      <h3>🏦 SOX</h3>
+      <p style="color: var(--text-dim); font-size: 14px;">Sarbanes-Oxley Act</p>
+      <div class="coverage">
+        <div class="coverage-item"><span>Access Controls</span><span class="check">✓ Covered</span></div>
+        <div class="coverage-item"><span>Audit Trails</span><span class="check">✓ Covered</span></div>
+        <div class="coverage-item"><span>Change Management</span><span class="check">✓ Covered</span></div>
+        <div class="coverage-item"><span>Data Integrity</span><span class="check">✓ Covered</span></div>
+      </div>
+    </div>
+  </div>
+  
+  <a href="/sales-portal" class="back-link">← Back to Sales Portal</a>
+</div>
+</body>
+</html>

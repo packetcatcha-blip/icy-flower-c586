@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SASE Phase 2 - Nexum Security Lab</title>
+<style>
+:root { --bg: #0a1628; --surface: #1a2f45; --text: #f0f4f8; --text-dim: #b8c5d6; --accent: #52b2ff; --border: #2d4563; --success: #51cf66; }
+* { box-sizing: border-box; }
+body { margin: 0; padding: 40px; font-family: Inter, -apple-system, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+.container { max-width: 1000px; margin: 0 auto; }
+h1 { color: var(--accent); margin-bottom: 8px; }
+.subtitle { color: var(--text-dim); margin-bottom: 32px; }
+.protected-badge { display: inline-block; background: rgba(255, 107, 107, 0.2); color: #ff6b6b; padding: 4px 12px; border-radius: 20px; font-size: 12px; margin-left: 12px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+.card h2 { margin-top: 0; color: var(--accent); }
+.phase { display: flex; align-items: flex-start; gap: 20px; margin: 16px 0; }
+.phase-num { background: var(--accent); color: var(--bg); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; }
+.phase-content h3 { margin: 0 0 8px 0; }
+.phase-content p { margin: 0; color: var(--text-dim); font-size: 14px; }
+.status-badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 12px; margin-left: 8px; }
+.status-complete { background: rgba(81, 207, 102, 0.2); color: var(--success); }
+.status-current { background: rgba(82, 178, 255, 0.2); color: var(--accent); }
+.status-upcoming { background: rgba(184, 197, 214, 0.2); color: var(--text-dim); }
+.back-link { display: inline-block; color: var(--accent); text-decoration: none; margin-top: 24px; }
+.back-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<a href="/" class="home-btn" style="position:fixed;top:20px;left:20px;background:linear-gradient(135deg,#0066cc,#52b2ff);color:white;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;z-index:1000;box-shadow:0 4px 12px rgba(0,102,204,0.4);transition:all 0.3s">🏠 Home</a>
+<div class="container">
+  <h1>🚀 SASE Phase 2 Implementation <span class="protected-badge">Protected</span></h1>
+  <p class="subtitle">Advanced deployment roadmap for enterprise SASE adoption</p>
+  
+  <div class="card">
+    <h2>Implementation Timeline</h2>
+    
+    <div class="phase">
+      <div class="phase-num">1</div>
+      <div class="phase-content">
+        <h3>Foundation <span class="status-badge status-complete">Complete</span></h3>
+        <p>SD-WAN deployment, basic traffic steering, initial policy framework</p>
+      </div>
+    </div>
+    
+    <div class="phase">
+      <div class="phase-num">2</div>
+      <div class="phase-content">
+        <h3>Security Integration <span class="status-badge status-current">Current</span></h3>
+        <p>SWG deployment, CASB integration, DLP policy enforcement</p>
+      </div>
+    </div>
+    
+    <div class="phase">
+      <div class="phase-num">3</div>
+      <div class="phase-content">
+        <h3>Zero Trust Overlay <span class="status-badge status-upcoming">Upcoming</span></h3>
+        <p>ZTNA implementation, identity-based access, micro-segmentation</p>
+      </div>
+    </div>
+    
+    <div class="phase">
+      <div class="phase-num">4</div>
+      <div class="phase-content">
+        <h3>Advanced Threat Protection <span class="status-badge status-upcoming">Upcoming</span></h3>
+        <p>AI/ML threat detection, sandboxing, advanced malware prevention</p>
+      </div>
+    </div>
+    
+    <div class="phase">
+      <div class="phase-num">5</div>
+      <div class="phase-content">
+        <h3>Optimization & Automation <span class="status-badge status-upcoming">Upcoming</span></h3>
+        <p>Full automation, self-healing networks, predictive analytics</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="card">
+    <h2>Key Deliverables</h2>
+    <ul>
+      <li>Unified policy management console</li>
+      <li>Real-time traffic analytics dashboard</li>
+      <li>Automated compliance reporting</li>
+      <li>24/7 SOC integration</li>
+    </ul>
+  </div>
+  
+  <a href="/sales-portal" class="back-link">← Back to Sales Portal</a>
+</div>
+</body>
+</html>
