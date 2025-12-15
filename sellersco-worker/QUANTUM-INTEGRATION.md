@@ -1,8 +1,15 @@
 # 🎯 QUANTUM FEATURE INTEGRATION GUIDE
 
+## ⚠️ CRITICAL: Production vs Staging
+
+**Production Worker**: `icy-flower-c586.jsellers.workers.dev` (DNS CNAME → sellersco.net)  
+**ALWAYS TEST ON STAGING WORKER FIRST** before deploying quantum features to production
+
+---
+
 ## What You've Just Integrated
 
-Your `sellersco.net` Cloudflare Worker now has a complete **Post-Quantum Revolution** experience built-in. This is not a separate service—it's fully integrated into your existing worker with route handling at `/quantum/*`.
+Your `icy-flower-c586.jsellers.workers.dev` Cloudflare Worker now has a complete **Post-Quantum Revolution** experience built-in. This is not a separate service—it's fully integrated into your existing worker with route handling at `/quantum/*`.
 
 ---
 

@@ -2,6 +2,29 @@
 
 # 🚀 QUANTUM FEATURE DEPLOYMENT QUICK-START
 # Run this script to deploy the Post-Quantum Revolution feature
+# 
+# ⚠️  CRITICAL: Always test on staging worker first!
+#     ./deploy-quantum.ps1 -WorkerName [YOUR-TEST-WORKER]  # Test first
+#     ./deploy-quantum.ps1                                  # Production
+
+param(
+    [string]$WorkerName = "",  # Empty = deploy to production (icy-flower-c586)
+    [switch]$Help
+)
+
+if ($Help) {
+    Write-Host "
+QUANTUM FEATURE DEPLOYMENT
+
+Usage: 
+  ./deploy-quantum.ps1                        # Deploy to production
+  ./deploy-quantum.ps1 -WorkerName my-test   # Deploy to staging worker first
+  ./deploy-quantum.ps1 -Help                  # Show this help
+
+⚠️  ALWAYS test on staging (-WorkerName) before production!
+" -ForegroundColor Cyan
+    exit 0
+}
 
 Write-Host "
 ╔════════════════════════════════════════════════════════════════╗
@@ -10,8 +33,23 @@ Write-Host "
 ║                                                                ║
 ║  Ultra-Badass Interactive Quantum Cryptography Experience    ║
 ║                                                                ║
+║  Production: icy-flower-c586.jsellers.workers.dev            ║
+║  (DNS CNAME → sellersco.net)                                  ║
+║                                                                ║
 ╚════════════════════════════════════════════════════════════════╝
 " -ForegroundColor Cyan
+
+if ($WorkerName) {
+    Write-Host "📌 Deploying to STAGING worker: $WorkerName" -ForegroundColor Yellow
+} else {
+    Write-Host "⚠️  Deploying to PRODUCTION: icy-flower-c586" -ForegroundColor Red
+    Write-Host "   (Make sure you tested on staging first!)" -ForegroundColor Yellow
+    $confirm = Read-Host "Continue? (yes/no)"
+    if ($confirm -ne "yes") {
+        Write-Host "Deployment cancelled" -ForegroundColor Gray
+        exit 0
+    }
+}
 
 # Check if wrangler is installed
 if (-not (Get-Command wrangler -ErrorAction SilentlyContinue)) {
@@ -98,18 +136,28 @@ Write-Host "`n📋 STEP 4: Deploy to Cloudflare" -ForegroundColor Yellow
 Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Gray
 
 Write-Host "`n▶ Deploying worker..." -ForegroundColor Cyan
-wrangler deploy
+if ($WorkerName) {
+    wrangler deploy --name $WorkerName
+} else {
+    wrangler deploy
+}
 if ($LASTEXITCODE -eq 0) {
     Write-Host "`n✅ Deployment successful!" -ForegroundColor Green
 } else {
-    Write-Host "`n❌ Deployment failed. Check logs with: wrangler tail --env production" -ForegroundColor Red
+    Write-Host "`n❌ Deployment failed. Check logs with: wrangler tail" -ForegroundColor Red
     exit 1
 }
 
 Write-Host "`n📋 STEP 5: Test Quantum Routes" -ForegroundColor Yellow
 Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Gray
 
-$domain = "sellersco.net"  # Update if different
+if ($WorkerName) {
+    $domain = "$WorkerName.jsellers.workers.dev"
+    Write-Host "`n Testing on staging: https://$domain" -ForegroundColor Yellow
+} else {
+    $domain = "icy-flower-c586.jsellers.workers.dev"
+    Write-Host "`n Testing on production: https://$domain" -ForegroundColor Cyan
+}
 
 Write-Host "`n▶ Testing /quantum (hero page)..." -ForegroundColor Cyan
 $response = Invoke-WebRequest -Uri "https://$domain/quantum" -TimeoutSec 10 -ErrorAction SilentlyContinue

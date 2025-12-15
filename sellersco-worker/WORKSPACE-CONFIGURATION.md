@@ -25,19 +25,22 @@ New test script: `scripts/test-all-links.ps1`
 - Provides detailed success/failure report
 - Exit code 0 on success, 1 on failure
 
-### 4. Auto-Deployment Policy Configured ✅
-**Policy:** Once accepted, always deploy automatically without prompting
+### 4. Testing & Deployment Protocol ✅
+**CRITICAL:** Always test on staging worker FIRST, then deploy to production
 
-**Configured In:**
-- `.github/copilot-instructions.md` - AI instructions
-- `.github/auto-deploy-policy.md` - Full policy documentation
-- `.vscode/settings.json` - VS Code automation
-- `scripts/deploy-auto.ps1` - Automated deployment script
+**PRODUCTION WORKER:** `icy-flower-c586.jsellers.workers.dev` (DNS CNAME → sellersco.net)  
+**STAGING:** Use separate test worker for all testing before production
 
 **Deployment Flow:**
 ```
-Change Code → Deploy Dev → Test Dev → Auto-Deploy Production → Test Production
+Change Code → Deploy Staging → Test Staging (PASS) → Deploy Production → Test Production
 ```
+
+**Key Files:**
+- `.github/copilot-instructions.md` - Manual deployment instructions
+- `DEPLOYMENT.md` - Detailed deployment workflow
+- `TESTING.md` - Complete testing procedures
+- `scripts/deploy-auto.ps1` - Helper script (but manual verification required)
 
 ### 5. Local LLM Integration ✅
 - Detects Ollama and LM Studio models automatically
@@ -126,24 +129,28 @@ To complete the setup:
 
 ### Testing
 ```powershell
-# Test production
-.\scripts\test-all-links.ps1
+# Test on staging worker (ALWAYS first!)
+.\test-links.ps1 -Environment staging
 
-# Test dev
-.\scripts\test-all-links.ps1 -BaseUrl "https://sellerso-dev.jsellers.workers.dev"
+# Test production (after staging passes)
+.\test-links.ps1 -Environment production
 
 # Detailed output
-.\scripts\test-all-links.ps1 -Detailed
+.\test-links.ps1 -Environment staging -Detailed
 ```
 
 ### Deployment
 ```powershell
-# Auto-deployment (dev → test → production)
-.\scripts\deploy-auto.ps1
+# Deploy to staging worker first
+npx wrangler deploy --name [YOUR-TEST-WORKER]
 
-# Manual deployment
-npx wrangler deploy --env dev
-npx wrangler deploy --env production
+# Test staging worker...
+
+# Only then deploy to production (icy-flower-c586)
+npx wrangler deploy
+
+# Verify production
+.\test-links.ps1 -Environment production
 ```
 
 ### Local LLMs

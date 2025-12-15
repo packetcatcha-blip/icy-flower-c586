@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sales Workflows Builder - Nexum</title>
+  <meta name="description" content="Visual workflow builder for sales processes. Build custom security solution stacks with drag-and-drop components.">
+  
+  <style>
+    :root {
+      --bg: #0a0e27;
+      --bg-secondary: #0f1438;
+      --bg-tertiary: #141a35;
+      --primary: #003366;
+      --accent: #52b2ff;
+      --secondary: #00ff88;
+      --quantum: #a300ff;
+      --border: #2a3f7f;
+      --text: #e0e6ff;
+      --text-dim: #8892b0;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      background: linear-gradient(135deg, var(--bg) 0%, var(--bg-secondary) 100%);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      overflow: hidden;
+      height: 100vh;
+    }
+    
+    .main-container {
+      display: grid;
+      grid-template-columns: 250px 1fr 300px;
+      height: 100vh;
+    }
+    
+    /* Header */
+    .header {
+      grid-column: 1 / -1;
+      background: rgba(10, 14, 39, 0.8);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+    
+    .header h1 {
+      color: var(--quantum);
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    
+    .btn {
+      background: linear-gradient(135deg, var(--quantum), var(--accent));
+      border: none;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+      font-size: 12px;
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(163, 0, 255, 0.3);
+    }
+    
+    .btn-secondary {
+      background: rgba(82, 178, 255, 0.2);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(82, 178, 255, 0.3);
+    }
+    
+    a {
+      color: var(--text);
+      text-decoration: none;
+    }
+    
+    /* Sidebar - Components */
+    .sidebar-left {
+      background: var(--bg-tertiary);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      padding: 16px;
+    }
+    
+    .sidebar-left h3 {
+      font-size: 12px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+    
+    .component-item {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      border-radius: 4px;
+      cursor: move;
+      margin-bottom: 8px;
+      font-size: 12px;
+      transition: all 0.3s;
+    }
+    
+    .component-item:hover {
+      border-color: var(--quantum);
+      background: rgba(163, 0, 255, 0.1);
+    }
+    
+    .component-item strong {
+      color: var(--accent);
+    }
+    
+    /* Canvas - Center */
+    .canvas-area {
+      background: linear-gradient(135deg, rgba(10, 14, 39, 0.5) 0%, rgba(20, 26, 53, 0.5) 100%);
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .canvas-area.has-items {
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding: 30px;
+    }
+    
+    .canvas-placeholder {
+      text-align: center;
+      color: var(--text-dim);
+    }
+    
+    .canvas-placeholder h2 {
+      font-size: 24px;
+      margin-bottom: 8px;
+      color: var(--text-dim);
+    }
+    
+    .canvas-placeholder p {
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+    
+    .workflow-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 100%;
+    }
+    
+    .workflow-step {
+      background: var(--bg-secondary);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      min-width: 250px;
+      position: relative;
+      transition: all 0.3s;
+    }
+    
+    .workflow-step:hover {
+      border-color: var(--quantum);
+      box-shadow: 0 0 20px rgba(163, 0, 255, 0.2);
+    }
+    
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    
+    .step-title {
+      font-weight: 600;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .step-remove {
+      background: rgba(255, 23, 68, 0.2);
+      border: 1px solid #FF1744;
+      color: #FF1744;
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      transition: all 0.3s;
+    }
+    
+    .step-remove:hover {
+      background: #FF1744;
+      color: white;
+    }
+    
+    .step-description {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-bottom: 10px;
+    }
+    
+    .step-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    
+    .tag {
+      background: rgba(82, 178, 255, 0.1);
+      color: var(--accent);
+      padding: 4px 8px;
+      border-radius: 3px;
+      font-size: 11px;
+      border: 1px solid rgba(82, 178, 255, 0.3);
+    }
+    
+    .step-arrow {
+      text-align: center;
+      color: var(--quantum);
+      font-size: 20px;
+      margin: 10px 0;
+    }
+    
+    /* Sidebar - Properties */
+    .sidebar-right {
+      background: var(--bg-tertiary);
+      border-left: 1px solid var(--border);
+      overflow-y: auto;
+      padding: 16px;
+    }
+    
+    .sidebar-right h3 {
+      font-size: 12px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+    
+    .property-group {
+      margin-bottom: 16px;
+    }
+    
+    .property-label {
+      font-size: 11px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+    
+    .property-value {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    
+    .summary-box {
+      background: rgba(0, 255, 136, 0.1);
+      border: 1px solid var(--secondary);
+      border-radius: 6px;
+      padding: 12px;
+      margin-top: 16px;
+    }
+    
+    .summary-box h4 {
+      color: var(--secondary);
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+    
+    .summary-item {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+    }
+    
+    /* Scrollbars */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: rgba(10, 14, 39, 0.5);
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: rgba(82, 178, 255, 0.5);
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(82, 178, 255, 0.8);
+    }
+    
+    @media (max-width: 1200px) {
+      .main-container {
+        grid-template-columns: 200px 1fr 250px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .main-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .sidebar-left, .sidebar-right {
+        display: none;
+      }
+      
+      .header h1 {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <!-- Header -->
+    <div class="header">
+      <h1>⚙️ Sales Workflows Builder</h1>
+      <div class="header-actions">
+        <button class="btn btn-secondary" onclick="exportWorkflow()">📤 Export</button>
+        <button class="btn btn-secondary" onclick="resetWorkflow()">🔄 Reset</button>
+        <button class="btn" onclick="saveWorkflow()">💾 Save & Share</button>
+        <a href="/" class="btn btn-secondary">← Back</a>
+      </div>
+    </div>
+    
+    <!-- Left Sidebar - Components -->
+    <div class="sidebar-left">
+      <h3>Components</h3>
+      
+      <div class="component-item" draggable="true" ondragstart="dragStart(event, 'assess')">
+        <strong>📊 Assessment</strong>
+        <div style="font-size: 10px; color: var(--text-dim); margin-top: 4px;">Security posture evaluation</div>
+      </div>
+      
+      <div class="component-item" draggable="true" ondragstart="dragStart(event, 'plan')">
+        <strong>📋 Planning</strong>
+        <div style="font-size: 10px; color: var(--text-dim); margin-top: 4px;">Roadmap & strategy</div>
+      </div>
+      
+      <div class="component-item" draggable="true" ondragstart="dragStart(event, 'implement')">
+        <strong>🛠️ Implementation</strong>
+        <div style="font-size: 10px; color: var(--text-dim); margin-top: 4px;">Deploy solutions</div>
+      </div>
+      
+      <div class="component-item" draggable="true" ondragstart="dragStart(event, 'monitor')">
+        <strong>👁️ Monitoring</strong>
+        <div style="font-size: 10px; color: var(--text-dim); margin-top: 4px;">24/7 operations</div>
+      </div>
+      
+      <div class="component-item" draggable="true" ondragstart="dragStart(event, 'mss')">
+        <strong>🔐 MSS</strong>
+        <div style="font-size: 10px; color: var(--text-dim); margin-top: 4px;">Managed services</div>
+      </div>
+      
+      <div class="component-item" draggable="true" ondragstart="dragStart(event, 'training')">
+        <strong>🎓 Training</strong>
+        <div style="font-size: 10px; color: var(--text-dim); margin-top: 4px;">Team education</div>
+      </div>
+    </div>
+    
+    <!-- Center Canvas -->
+    <div class="canvas-area" id="canvas" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <div class="canvas-placeholder" id="placeholder">
+        <h2>🎨 Drag components here</h2>
+        <p>Build your custom sales workflow</p>
+      </div>
+      <div class="workflow-container" id="workflowContainer" style="display: none;"></div>
+    </div>
+    
+    <!-- Right Sidebar - Properties -->
+    <div class="sidebar-right">
+      <h3>Workflow Summary</h3>
+      
+      <div class="property-group">
+        <label class="property-label">Steps Added</label>
+        <div class="property-value" id="stepCount">0</div>
+      </div>
+      
+      <div class="property-group">
+        <label class="property-label">Duration</label>
+        <div class="property-value" id="duration">—</div>
+      </div>
+      
+      <div class="property-group">
+        <label class="property-label">Team Size</label>
+        <div class="property-value" id="teamSize">—</div>
+      </div>
+      
+      <div class="property-group">
+        <label class="property-label">Est. Cost</label>
+        <div class="property-value" id="estCost">—</div>
+      </div>
+      
+      <div class="summary-box">
+        <h4>Next Steps</h4>
+        <div class="summary-item">✓ Add at least 3 components</div>
+        <div class="summary-item">✓ Review sequence</div>
+        <div class="summary-item">✓ Save & share with team</div>
+        <div class="summary-item">✓ Execute workflow</div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    const componentDetails = {
+      assess: {
+        title: '📊 Assessment',
+        desc: 'Security posture evaluation & risk analysis',
+        duration: '2-4 weeks',
+        team: 'Security Analyst + CTO',
+        cost: '$15K-25K'
+      },
+      plan: {
+        title: '📋 Planning',
+        desc: 'Strategic roadmap & implementation plan',
+        duration: '1-2 weeks',
+        team: 'Solutions Architect',
+        cost: '$8K-12K'
+      },
+      implement: {
+        title: '🛠️ Implementation',
+        desc: 'Deploy, configure, integrate solutions',
+        duration: '4-12 weeks',
+        team: 'Implementation Team (2-3)',
+        cost: '$50K-150K'
+      },
+      monitor: {
+        title: '👁️ Monitoring',
+        desc: 'Continuous monitoring & alerting setup',
+        duration: '1-2 weeks',
+        team: 'SOC Team',
+        cost: '$5K-10K'
+      },
+      mss: {
+        title: '🔐 MSS',
+        desc: 'Managed security services & support',
+        duration: 'Ongoing',
+        team: '24/7 SOC Team',
+        cost: '$30K-80K/month'
+      },
+      training: {
+        title: '🎓 Training',
+        desc: 'Team training & knowledge transfer',
+        duration: '1 week',
+        team: 'Training Specialist',
+        cost: '$5K-10K'
+      }
+    };
+    
+    let workflow = [];
+    let draggedData = null;
+    
+    function dragStart(event, componentType) {
+      draggedData = componentType;
+      event.dataTransfer.effectAllowed = 'copy';
+    }
+    
+    function allowDrop(event) {
+      event.preventDefault();
+      event.dataTransfer.dropEffect = 'copy';
+    }
+    
+    function drop(event) {
+      event.preventDefault();
+      
+      if (!draggedData) return;
+      
+      workflow.push(draggedData);
+      renderWorkflow();
+      updateSummary();
+      draggedData = null;
+    }
+    
+    function renderWorkflow() {
+      const placeholder = document.getElementById('placeholder');
+      const container = document.getElementById('workflowContainer');
+      
+      if (workflow.length === 0) {
+        placeholder.style.display = 'block';
+        container.style.display = 'none';
+        return;
+      }
+      
+      placeholder.style.display = 'none';
+      container.style.display = 'flex';
+      container.innerHTML = '';
+      
+      workflow.forEach((step, idx) => {
+        const detail = componentDetails[step];
+        const stepEl = document.createElement('div');
+        stepEl.className = 'workflow-step';
+        stepEl.innerHTML = `
+          <div class="step-header">
+            <div class="step-title">${detail.title}</div>
+            <div class="step-remove" onclick="removeStep(${idx})">✕</div>
+          </div>
+          <div class="step-description">${detail.desc}</div>
+          <div class="step-tags">
+            <div class="tag">⏱️ ${detail.duration}</div>
+            <div class="tag">👥 ${detail.team}</div>
+            <div class="tag">💰 ${detail.cost}</div>
+          </div>
+        `;
+        container.appendChild(stepEl);
+        
+        if (idx < workflow.length - 1) {
+          const arrow = document.createElement('div');
+          arrow.className = 'step-arrow';
+          arrow.textContent = '↓';
+          container.appendChild(arrow);
+        }
+      });
+    }
+    
+    function removeStep(idx) {
+      workflow.splice(idx, 1);
+      renderWorkflow();
+      updateSummary();
+    }
+    
+    function updateSummary() {
+      document.getElementById('stepCount').textContent = workflow.length;
+      
+      if (workflow.length > 0) {
+        const totalWeeks = workflow.reduce((sum, step) => {
+          const weeks = parseInt(componentDetails[step].duration) || 0;
+          return sum + weeks;
+        }, 0);
+        document.getElementById('duration').textContent = `${totalWeeks}+ weeks`;
+        
+        const teams = new Set();
+        workflow.forEach(step => {
+          teams.add(componentDetails[step].team);
+        });
+        document.getElementById('teamSize').textContent = `${teams.size} teams`;
+        
+        const totalCost = workflow.reduce((sum, step) => {
+          const cost = componentDetails[step].cost;
+          const match = cost.match(/\$(\d+)K/);
+          return sum + (match ? parseInt(match[1]) : 0);
+        }, 0);
+        document.getElementById('estCost').textContent = totalCost > 0 ? `$${totalCost}K+` : '—';
+      } else {
+        document.getElementById('duration').textContent = '—';
+        document.getElementById('teamSize').textContent = '—';
+        document.getElementById('estCost').textContent = '—';
+      }
+    }
+    
+    function saveWorkflow() {
+      if (workflow.length === 0) {
+        alert('Add components to your workflow first!');
+        return;
+      }
+      
+      const workflowName = prompt('Enter workflow name:', 'My Workflow');
+      if (!workflowName) return;
+      
+      const data = {
+        name: workflowName,
+        steps: workflow.map(s => componentDetails[s]),
+        savedAt: new Date().toLocaleString()
+      };
+      
+      localStorage.setItem(`workflow-${Date.now()}`, JSON.stringify(data));
+      alert('✅ Workflow saved! Share this with your team.');
+    }
+    
+    function exportWorkflow() {
+      if (workflow.length === 0) {
+        alert('No workflow to export!');
+        return;
+      }
+      
+      const text = workflow.map((step, idx) => {
+        const detail = componentDetails[step];
+        return `${idx + 1}. ${detail.title}\n   ${detail.desc}\n   Duration: ${detail.duration} | Team: ${detail.team} | Cost: ${detail.cost}`;
+      }).join('\n\n');
+      
+      const blob = new Blob([text], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'workflow.txt';
+      link.click();
+    }
+    
+    function resetWorkflow() {
+      if (confirm('Reset workflow? This cannot be undone.')) {
+        workflow = [];
+        renderWorkflow();
+        updateSummary();
+      }
+    }
+  </script>
+</body>
+</html>

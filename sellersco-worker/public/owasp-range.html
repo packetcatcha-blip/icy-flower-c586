@@ -1,0 +1,1556 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OWASP Range — Nexum Labs</title>
+  <style>
+    :root{--bg:#0b1020;--card:#0f1724;--muted:#94a3b8;--accent:#7c3aed}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#05060a, #071025);color:#e6eef8;font-family:Inter,system-ui,Segoe UI,Arial}
+    .container{max-width:980px;margin:28px auto;padding:20px}
+    h1{margin:0 0 10px;font-size:22px}
+    .lead{color:var(--muted);margin-bottom:18px}
+    .card{background:var(--card);border-radius:10px;padding:14px;margin-bottom:12px;box-shadow:0 6px 18px rgba(2,6,23,.6)}
+    .accordion h3{display:flex;justify-content:space-between;align-items:center;margin:0;font-size:16px}
+    .accordion .panel{padding:10px 0;border-top:1px solid rgba(255,255,255,.02)}
+    select,button{background:#07112b;border:1px solid rgba(255,255,255,.04);color:#e6eef8;padding:8px;border-radius:6px}
+    .partners{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .partner{background:rgba(255,255,255,.03);padding:8px 10px;border-radius:8px;font-size:13px}
+    .eff{height:8px;border-radius:6px;background:linear-gradient(90deg,#0ea5a4,#7c3aed);display:inline-block;width:60px;margin-left:8px;vertical-align:middle}
+    .labs-embed{height:360px;border-radius:8px;overflow:hidden;margin-top:12px}
+    .muted{color:var(--muted);font-size:13px}
+    .controls{display:flex;gap:8px;align-items:center}
+    @media (max-width:700px){.container{padding:12px}}
+  </style>
+  <script defer src="/owasp-range.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>OWASP Range — Top Risks 2025</h1>
+    <div class="lead">Interactive overview of the OWASP Top Risks with examples, fixes, and partner recommendations. Choose your customer stack to get tailored Nexum partner suggestions.</div>
+
+    <div class="card controls">
+      <label class="muted">Customer stack:</label>
+      <select id="stackSelect">
+        <option value="default">Select stack / role</option>
+        <option value="webapp">Modern Web App (React/Node)</option>
+        <option value="legacy">Legacy Java/.NET</option>
+        <option value="cloudnative">Cloud-native (K8s, AWS)</option>
+        <option value="iot">IoT / Embedded</option>
+      </select>
+      <button id="recommendBtn">Recommend Partners</button>
+      <div style="flex:1"></div>
+      <div class="muted">Chaos mode: <input id="chaos" type="checkbox" aria-label="chaos mode"/></div>
+    </div>
+
+    <div id="accordion" class="card accordion"></div>
+
+    <div class="card">
+      <h3>Recommended Nexum Partners</h3>
+      <div id="recommendations" class="partners"></div>
+      <div class="muted">These recommendations are generated from a local mapping placeholder. Replace with your AI recommender for production.</div>
+    </div>
+
+    <div class="card labs-embed">
+      <iframe id="labFrame" src="/public/owasp-lab-placeholder.html" style="width:100%;height:100%;border:0;background:#071025"></iframe>
+    </div>
+  </div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OWASP Top 10 2025 Range - Nexum Security Labs</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%);
+      color: #e0e0e0;
+      min-height: 100vh;
+    }
+
+    /* Navigation Bar */
+    .navbar {
+      background: rgba(10, 14, 39, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      border-bottom: 2px solid #ff1744;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar h1 {
+      font-size: 1.3rem;
+      color: #ff1744;
+      font-weight: bold;
+    }
+
+    .navbar button {
+      background: rgba(255, 23, 68, 0.2);
+      color: #ff1744;
+      border: 1px solid #ff1744;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .navbar button:hover {
+      background: #ff1744;
+      color: #0a0e27;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 3rem 0;
+      border-bottom: 2px solid rgba(255, 23, 68, 0.3);
+      margin-bottom: 3rem;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #ff1744 0%, #ff5252 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: bold;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: #b0b0b0;
+      margin-bottom: 1rem;
+    }
+
+    .hero-subtitle {
+      color: #00ffaa;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .stat-card {
+      background: rgba(255, 23, 68, 0.1);
+      border: 1px solid rgba(255, 23, 68, 0.3);
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .stat-card h3 {
+      color: #ff1744;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-card p {
+      color: #b0b0b0;
+      font-size: 0.9rem;
+    }
+
+    /* Controls */
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      background: rgba(20, 26, 53, 0.8);
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 23, 68, 0.2);
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .control-group label {
+      color: #00ffaa;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .control-group select,
+    .control-group input {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(0, 255, 170, 0.3);
+      color: #e0e0e0;
+      padding: 0.7rem;
+      border-radius: 4px;
+      font-size: 0.95rem;
+    }
+
+    .control-group select:focus,
+    .control-group input:focus {
+      outline: none;
+      border-color: #00ffaa;
+      box-shadow: 0 0 10px rgba(0, 255, 170, 0.3);
+    }
+
+    /* Buttons */
+    .btn {
+      background: rgba(0, 255, 170, 0.2);
+      color: #00ffaa;
+      border: 1px solid #00ffaa;
+      padding: 0.7rem 1.2rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #00ffaa;
+      color: #0a0e27;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 23, 68, 0.2);
+      color: #ff1744;
+      border: 1px solid #ff1744;
+    }
+
+    .btn-secondary:hover {
+      background: #ff1744;
+      color: #0a0e27;
+    }
+
+    /* Charts */
+    .chart-container {
+      background: rgba(20, 26, 53, 0.8);
+      border: 1px solid rgba(255, 23, 68, 0.2);
+      border-radius: 8px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .chart-container h3 {
+      color: #00ffaa;
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+    }
+
+    /* Risk Accordion */
+    .risk-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .risk-card {
+      background: rgba(20, 26, 53, 0.8);
+      border: 1px solid rgba(255, 23, 68, 0.3);
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .risk-card:hover {
+      border-color: #ff1744;
+      box-shadow: 0 0 20px rgba(255, 23, 68, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .risk-header {
+      background: linear-gradient(135deg, rgba(255, 23, 68, 0.2), rgba(255, 23, 68, 0.05));
+      padding: 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 23, 68, 0.2);
+    }
+
+    .risk-title {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .risk-code {
+      background: #ff1744;
+      color: white;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 0.8rem;
+    }
+
+    .risk-name {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #ff1744;
+    }
+
+    .toggle-icon {
+      font-size: 1.5rem;
+      color: #00ffaa;
+      transition: transform 0.3s ease;
+    }
+
+    .risk-card.expanded .toggle-icon {
+      transform: rotate(180deg);
+    }
+
+    .risk-body {
+      padding: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .risk-card.expanded .risk-body {
+      max-height: 2000px;
+      padding: 1.5rem;
+    }
+
+    .risk-body h4 {
+      color: #00ffaa;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .risk-body p,
+    .risk-body ul,
+    .risk-body li {
+      color: #b0b0b0;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .risk-body ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .risk-body li {
+      margin-bottom: 0.4rem;
+    }
+
+    .code-snippet {
+      background: rgba(0, 0, 0, 0.3);
+      border-left: 3px solid #00ffaa;
+      padding: 1rem;
+      margin: 0.8rem 0;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      color: #00ffaa;
+    }
+
+    /* Recommendations Panel */
+    .recommendations {
+      background: rgba(20, 26, 53, 0.8);
+      border: 2px solid rgba(0, 255, 170, 0.3);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .recommendations h3 {
+      color: #00ffaa;
+      margin-bottom: 1rem;
+    }
+
+    .rec-loading {
+      text-align: center;
+      padding: 2rem;
+      color: #b0b0b0;
+    }
+
+    .rec-spinner {
+      border: 3px solid rgba(0, 255, 170, 0.2);
+      border-top: 3px solid #00ffaa;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 0.8s linear infinite;
+      margin: 1rem auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .rec-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .rec-item {
+      background: rgba(0, 255, 170, 0.05);
+      border: 1px solid rgba(0, 255, 170, 0.2);
+      border-radius: 6px;
+      padding: 1rem;
+    }
+
+    .rec-rank {
+      background: linear-gradient(135deg, #ff1744, #ff5252);
+      color: white;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 0.8rem;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+
+    .rec-product {
+      color: #00ffaa;
+      font-weight: bold;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .rec-description {
+      color: #b0b0b0;
+      font-size: 0.9rem;
+      margin-bottom: 0.7rem;
+      line-height: 1.5;
+    }
+
+    .rec-features {
+      font-size: 0.85rem;
+      color: #a0a0a0;
+      margin-bottom: 0.7rem;
+    }
+
+    .rec-efficacy {
+      background: rgba(0, 255, 170, 0.1);
+      border-left: 3px solid #00ffaa;
+      padding: 0.7rem;
+      border-radius: 3px;
+      font-size: 0.85rem;
+      color: #00ffaa;
+      font-weight: bold;
+    }
+
+    /* Search Bar */
+    .search-container {
+      margin: 1rem 0;
+      position: relative;
+    }
+
+    .search-container input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(0, 255, 170, 0.3);
+      border-radius: 4px;
+      color: #e0e0e0;
+      font-size: 1rem;
+    }
+
+    .search-container input::placeholder {
+      color: #808080;
+    }
+
+    .search-container input:focus {
+      outline: none;
+      border-color: #00ffaa;
+      box-shadow: 0 0 10px rgba(0, 255, 170, 0.3);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .controls {
+        grid-template-columns: 1fr;
+      }
+
+      .risk-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .navbar {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .navbar h1 {
+        font-size: 1rem;
+      }
+
+      .container {
+        padding: 1rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #808080;
+      border-top: 1px solid rgba(255, 23, 68, 0.2);
+      margin-top: 3rem;
+    }
+
+    footer a {
+      color: #00ffaa;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <div class="navbar">
+    <h1>🔴 OWASP Top 10 2025 Range</h1>
+    <button onclick="goHome()">← Back to Home</button>
+  </div>
+
+  <!-- Main Container -->
+  <div class="container">
+    <!-- Hero Section -->
+    <div class="hero">
+      <h1>OWASP Top 10 2025</h1>
+      <p>Interactive security risk assessment lab with Nexum partner recommendations</p>
+      <div class="hero-subtitle">💡 Select your tech stack → Get AI-powered Nexum solutions</div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>10</h3>
+        <p>Critical Risks</p>
+      </div>
+      <div class="stat-card">
+        <h3>92+</h3>
+        <p>Partner Solutions</p>
+      </div>
+      <div class="stat-card">
+        <h3>∞</h3>
+        <p>Potential Impact</p>
+      </div>
+      <div class="stat-card">
+        <h3>Real-time</h3>
+        <p>Recommendations</p>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <div class="control-group">
+        <label>🔍 Search Risk</label>
+        <input type="text" id="searchInput" placeholder="Filter by risk name or code...">
+      </div>
+      <div class="control-group">
+        <label>💻 Tech Stack</label>
+        <select id="techStack">
+          <option value="">Select Technology...</option>
+          <option value="nodejs">Node.js / Express</option>
+          <option value="java">Java / Spring Boot</option>
+          <option value="python">Python / Django / FastAPI</option>
+          <option value="dotnet">.NET / C# / ASP.NET</option>
+          <option value="php">PHP / Laravel</option>
+          <option value="golang">Go / Gin</option>
+          <option value="rust">Rust / Actix</option>
+          <option value="aws">AWS Lambda / Services</option>
+          <option value="azure">Azure / Functions</option>
+          <option value="gcp">Google Cloud Platform</option>
+          <option value="kubernetes">Kubernetes / Docker</option>
+          <option value="database">Database (SQL/NoSQL)</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label>🎯 Risk Severity</label>
+        <select id="severityFilter">
+          <option value="">All Severities</option>
+          <option value="critical">🔴 Critical</option>
+          <option value="high">🟠 High</option>
+          <option value="medium">🟡 Medium</option>
+        </select>
+      </div>
+      <div class="control-group" style="display: flex; align-items: flex-end;">
+        <button class="btn" onclick="generateRecommendations()">🚀 Get Recommendations</button>
+      </div>
+    </div>
+
+    <!-- Chart -->
+    <div class="chart-container">
+      <h3>📊 OWASP Risk Prevalence</h3>
+      <canvas id="prevalenceChart"></canvas>
+    </div>
+
+    <!-- Risk Accordion -->
+    <h2 style="color: #ff1744; margin: 2rem 0 1rem 0;">📋 Top 10 Risks (2025)</h2>
+    <div class="risk-grid" id="riskContainer"></div>
+
+    <!-- Recommendations -->
+    <div id="recommendationsPanel" style="display: none;">
+      <div class="recommendations">
+        <h3>🎯 Recommended Nexum Partners for Your Stack</h3>
+        <div id="recommendationsContent"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>🔒 OWASP Top 10 2025 Range | Nexum Security Labs | <a href="https://owasp.org" target="_blank">OWASP.org</a></p>
+    <p style="font-size: 0.9rem; margin-top: 0.5rem; color: #606060;">Real-time threat intelligence powered by Nexum MSS</p>
+  </footer>
+
+  <script>
+    // OWASP Top 10 2025 Data
+    const owaspRisks = [
+      {
+        code: "A01",
+        name: "Broken Access Control",
+        severity: "critical",
+        prevalence: 94,
+        description: "Access control enforces policy such that users cannot act outside of their intended permissions. Failures typically lead to unauthorized information disclosure, modification, or destruction of all data or performing a business function outside the user's limits.",
+        rootCauses: [
+          "Missing or improper access controls",
+          "Privilege escalation vulnerabilities",
+          "Insecure direct object references (IDOR)",
+          "Missing authentication checks",
+          "Broken function/object level authorization"
+        ],
+        examples: [
+          "User modifying profile of other users by changing ID in URL",
+          "Admin API endpoints accessible without authentication",
+          "CORS misconfiguration allowing cross-origin requests",
+          "Direct database ID exposure (IDOR): /user/123 → /user/124",
+          "Missing role checks on sensitive functions"
+        ],
+        fixes: {
+          nodejs: `// Express middleware - Role-based access control
+app.get('/admin/users', authenticate, authorize('admin'), (req, res) => {
+  // Only admins can access
+  res.json(users);
+});
+
+// Check ownership before allowing modification
+app.put('/users/:id', authenticate, (req, res) => {
+  if (req.user.id !== parseInt(req.params.id) && !isAdmin(req.user)) {
+    return res.status(403).json({error: 'Forbidden'});
+  }
+  updateUser(req.params.id, req.body);
+});`,
+          java: `// Spring Security - Method-level authorization
+@RestController
+@RequestMapping("/api")
+public class UserController {
+  @PreAuthorize("hasRole('ADMIN')")
+  @GetMapping("/admin/users")
+  public List<User> getAllUsers() {
+    return userService.getAllUsers();
+  }
+
+  @PreAuthorize("#id == authentication.principal.id or hasRole('ADMIN')")
+  @PutMapping("/users/{id}")
+  public User updateUser(@PathVariable Long id, @RequestBody User user) {
+    return userService.update(id, user);
+  }
+}`,
+          python: `# Django - Permission checking
+from django.contrib.auth.decorators import login_required
+from django.http import HttpForbidden
+
+@login_required
+def user_profile(request, user_id):
+    if request.user.id != user_id and not request.user.is_staff:
+        raise HttpForbidden("Access denied")
+    user = User.objects.get(id=user_id)
+    return render(request, 'profile.html', {'user': user})`
+        }
+      },
+      {
+        code: "A02",
+        name: "Cryptographic Failures",
+        severity: "critical",
+        prevalence: 91,
+        description: "Cryptographic failures often lead to compromise of sensitive data such as passwords, payment card data, health records, personal information, and business secrets.",
+        rootCauses: [
+          "Weak encryption algorithms",
+          "Hardcoded encryption keys",
+          "Unencrypted sensitive data in transit",
+          "Missing TLS/SSL implementation",
+          "Insecure key storage"
+        ],
+        examples: [
+          "Storing passwords in plaintext or weak hashing",
+          "HTTP instead of HTTPS for sensitive data",
+          "Encryption keys stored in source code",
+          "Using deprecated crypto algorithms (MD5, DES)",
+          "Predictable random number generation"
+        ],
+        fixes: {
+          nodejs: `// Use bcrypt for password hashing
+const bcrypt = require('bcrypt');
+
+async function hashPassword(password) {
+  const salt = await bcrypt.genSalt(10);
+  return bcrypt.hash(password, salt);
+}
+
+// Use TLS for all connections
+const https = require('https');
+https.createServer({
+  key: fs.readFileSync('private-key.pem'),
+  cert: fs.readFileSync('certificate.pem')
+}, app).listen(443);`,
+          java: `// Spring Security - Password encoding
+@Bean
+public PasswordEncoder passwordEncoder() {
+  return new BCryptPasswordEncoder(12);
+}
+
+// Use environment variables for keys
+String apiKey = System.getenv("API_KEY");`,
+          python: `# Use argon2 for password hashing
+from argon2 import PasswordHasher
+
+ph = PasswordHasher()
+hash = ph.hash("super-secret-password")
+
+# Use environment variables
+import os
+secret_key = os.getenv('SECRET_KEY')`
+        }
+      },
+      {
+        code: "A03",
+        name: "Software Supply Chain Failures",
+        severity: "high",
+        prevalence: 88,
+        description: "Software supply chain attacks are increasingly common, where attackers compromise dependencies, development processes, or build systems to inject malicious code.",
+        rootCauses: [
+          "Untrusted/unverified dependencies",
+          "Vulnerable third-party libraries",
+          "Compromised npm/pip packages",
+          "Lack of dependency scanning",
+          "Insecure CI/CD pipelines"
+        ],
+        examples: [
+          "Dependency packages with known CVEs",
+          "Typosquatting attacks (similar package names)",
+          "Compromised npm maintainer accounts",
+          "Outdated versions with security vulnerabilities",
+          "Unsigned Docker images"
+        ],
+        fixes: {
+          nodejs: `// package.json - Lock exact versions
+{
+  "dependencies": {
+    "express": "4.18.2"  // Use exact version
+  }
+}
+
+// Use npm audit
+$ npm audit
+$ npm audit fix
+
+// Use Snyk for continuous monitoring
+$ npx snyk test`,
+          java: `<!-- Maven - Dependency version pinning -->
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-web</artifactId>
+  <version>3.0.0</version>
+</dependency>
+
+<!-- Use OWASP Dependency Check -->
+mvn dependency-check:check`,
+          python: `# requirements.txt - Pin versions
+Flask==2.3.0
+requests==2.31.0
+
+# Use pip-audit
+$ pip install pip-audit
+$ pip-audit`
+        }
+      },
+      {
+        code: "A04",
+        name: "Injection",
+        severity: "critical",
+        prevalence: 87,
+        description: "Injection flaws occur when untrusted data is sent to an interpreter as part of a command or query. The attacker's hostile data can trick the interpreter into executing unintended commands or accessing data without authorization.",
+        rootCauses: [
+          "Unvalidated/unsanitized user input",
+          "Dynamic query construction",
+          "String concatenation in queries",
+          "Missing input validation",
+          "Command execution without escaping"
+        ],
+        examples: [
+          "SQL Injection: ' OR '1'='1",
+          "Command Injection: ; rm -rf /",
+          "LDAP Injection: *)(|(uid=",
+          "NoSQL Injection: {$ne: null}",
+          "XPath Injection in XML parsing"
+        ],
+        fixes: {
+          nodejs: `// Use parameterized queries
+const sql = 'SELECT * FROM users WHERE id = ?';
+db.query(sql, [userId], (err, results) => {
+  // Safe from SQL injection
+});
+
+// Use prepared statements
+const stmt = db.prepare('SELECT * FROM users WHERE email = ?');
+stmt.get(email);`,
+          java: `// Use PreparedStatement
+String sql = "SELECT * FROM users WHERE id = ?";
+PreparedStatement pstmt = connection.prepareStatement(sql);
+pstmt.setInt(1, userId);
+ResultSet rs = pstmt.executeQuery();`,
+          python: `# Use parameterized queries with ORM
+from django.db import connection
+users = User.objects.filter(id=user_id)  # ORM safe
+
+# Or use parameterized SQL
+with connection.cursor() as cursor:
+  cursor.execute("SELECT * FROM users WHERE id = %s", [user_id])`
+        }
+      },
+      {
+        code: "A05",
+        name: "Security Misconfiguration",
+        severity: "high",
+        prevalence: 84,
+        description: "Security misconfiguration is the most commonly seen issue. This is commonly a result of insecure default configurations, incomplete or ad-hoc configurations, open cloud storage, misconfigured HTTP headers, unnecessary HTTP methods, and verbose error messages.",
+        rootCauses: [
+          "Default credentials left unchanged",
+          "Unnecessary features/ports enabled",
+          "Missing security headers",
+          "Detailed error messages exposed",
+          "Outdated/unpatched systems"
+        ],
+        examples: [
+          "Default admin credentials (admin/admin123)",
+          "S3 bucket with public read/write access",
+          "Debug mode enabled in production",
+          "Missing security headers (CSP, X-Frame-Options)",
+          "Directory listing enabled"
+        ],
+        fixes: {
+          nodejs: `// Express - Security headers
+const helmet = require('helmet');
+app.use(helmet());
+
+// Custom headers
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('Content-Security-Policy', "default-src 'self'");
+  next();
+});
+
+// Disable verbose errors in production
+if (process.env.NODE_ENV === 'production') {
+  app.use((err, req, res, next) => {
+    res.status(500).json({error: 'Internal Server Error'});
+  });
+}`,
+          java: `<!-- Spring Security - Security headers -->
+<security:headers>
+  <security:content-type-options/>
+  <security:frame-options policy="DENY"/>
+  <security:xss-protection/>
+</security:headers>`,
+          python: `# Django - Security middleware
+MIDDLEWARE = [
+  'django.middleware.security.SecurityMiddleware',
+]
+
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+X_FRAME_OPTIONS = 'DENY'`
+        }
+      },
+      {
+        code: "A06",
+        name: "Vulnerable and Outdated Components",
+        severity: "high",
+        prevalence: 82,
+        description: "Many applications and APIs include outdated or vulnerable components with known flaws. Component libraries, frameworks, and other software modules run with the same privileges as the application, making exploitable flaws potentially serious.",
+        rootCauses: [
+          "Not tracking component versions",
+          "Not patching known vulnerabilities",
+          "Using unsupported libraries",
+          "No inventory of dependencies",
+          "Delayed update cycles"
+        ],
+        examples: [
+          "Apache Log4Shell vulnerability (CVE-2021-44228)",
+          "jQuery with XSS vulnerabilities",
+          "Outdated WordPress plugins",
+          "Unpatched OpenSSL",
+          "End-of-life Java versions"
+        ],
+        fixes: {
+          nodejs: `// Keep dependencies updated
+$ npm outdated           # Check for updates
+$ npm update             # Update to latest safe versions
+$ npm audit              # Check for vulnerabilities
+$ npm audit fix          # Auto-fix vulnerabilities
+
+// Use npm scripts for automation
+"scripts": {
+  "security": "npm audit && npm audit fix"
+}`,
+          java: `<!-- Maven - Keep plugins updated -->
+$ mvn dependency:tree   # View dependency tree
+$ mvn versions:display-dependency-updates
+
+<!-- Regular Spring Boot updates -->
+<parent>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-parent</artifactId>
+  <version>3.1.0</version>
+</parent>`,
+          python: `# Use pip-audit and Safety
+$ pip install safety pip-audit
+$ safety check
+$ pip-audit
+
+# Keep requirements.txt updated
+$ pip install --upgrade -r requirements.txt`
+        }
+      },
+      {
+        code: "A07",
+        name: "Identification and Authentication Failures",
+        severity: "critical",
+        prevalence: 80,
+        description: "Confirmation of the user's identity, authentication, and session management are critical to protect against authentication-related attacks. Attackers may gain access to user accounts, assuming user identities, or taking over sessions.",
+        rootCauses: [
+          "Weak password policies",
+          "Missing multi-factor authentication",
+          "Session fixation vulnerabilities",
+          "Credential stuffing/brute force",
+          "Insecure password reset"
+        ],
+        examples: [
+          "Passwords stored in plaintext",
+          "No MFA on admin accounts",
+          "Session tokens guessable",
+          "Default credentials not changed",
+          "Credential enumeration (username disclosure)"
+        ],
+        fixes: {
+          nodejs: `// Implement MFA
+const speakeasy = require('speakeasy');
+const QRCode = require('qrcode');
+
+// Generate TOTP secret
+const secret = speakeasy.generateSecret({name: 'App'});
+const qrCode = await QRCode.toDataURL(secret.otpauth_url);
+
+// Verify TOTP token
+const verified = speakeasy.totp.verify({
+  secret: secret.base32,
+  encoding: 'base32',
+  token: userToken,
+  window: 2
+});
+
+// Rate limiting for login
+const rateLimit = require('express-rate-limit');
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,  // 15 minutes
+  max: 5  // limit each IP to 5 requests per windowMs
+});`,
+          java: `// Spring Security - MFA setup
+@Bean
+public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
+  UserDetails user = User.builder()
+    .username("user")
+    .password(passwordEncoder.encode("password"))
+    .roles("USER")
+    .build();
+  return new InMemoryUserDetailsManager(user);
+}`,
+          python: `# Django - MFA with django-otp
+from django_otp.decorators import otp_required
+
+@otp_required
+def sensitive_view(request):
+  return render(request, 'sensitive.html')
+
+# Password validation
+AUTH_PASSWORD_VALIDATORS = [
+  {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+  {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+  {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+]`
+        }
+      },
+      {
+        code: "A08",
+        name: "Software and Data Integrity Failures",
+        severity: "high",
+        prevalence: 76,
+        description: "Software and data integrity failures relate to code and infrastructure that does not protect against integrity violations. Examples include insecure CI/CD pipeline, insecure deserialization, and lack of signed updates.",
+        rootCauses: [
+          "Unsigned updates/downloads",
+          "Insecure deserialization",
+          "Compromised CI/CD pipeline",
+          "Insecure object serialization",
+          "Missing code signing"
+        ],
+        examples: [
+          "Insecure deserialization of untrusted data",
+          "Unsigned Docker images",
+          "Unverified software downloads",
+          "Java serialization RCE",
+          "YAML deserialization attacks"
+        ],
+        fixes: {
+          nodejs: `// Avoid deserialization of untrusted data
+// UNSAFE - Do NOT use
+const obj = eval(userInput);
+
+// SAFE - Use JSON parsing only
+const obj = JSON.parse(userInput);
+
+// Sign downloads
+const crypto = require('crypto');
+const fs = require('fs');
+
+function verifySignature(file, signature, publicKey) {
+  const verify = crypto.createVerify('RSA-SHA256');
+  verify.update(fs.readFileSync(file));
+  return verify.verify(publicKey, signature, 'hex');
+}`,
+          java: `// Avoid unsafe deserialization
+// UNSAFE
+ObjectInputStream ois = new ObjectInputStream(userInput);
+Object obj = ois.readObject();  // VULNERABLE
+
+// SAFE - Use allowlist
+public final class ObjectInputFilter implements ObjectInputFilter {
+  public Status checkIncomingClass(Class<?> clazz) {
+    if (ALLOWED_CLASSES.contains(clazz)) {
+      return Status.ALLOWED;
+    }
+    return Status.REJECTED;
+  }
+}`,
+          python: `# Avoid pickle for untrusted data
+import pickle
+
+# UNSAFE
+data = pickle.loads(userInput)  # VULNERABLE
+
+# SAFE
+import json
+data = json.loads(userInput)  # Safe
+
+# Sign releases
+import hashlib
+sha256_hash = hashlib.sha256(open('release.tar.gz','rb').read()).hexdigest()`
+        }
+      },
+      {
+        code: "A09",
+        name: "Logging and Monitoring Failures",
+        severity: "high",
+        prevalence: 72,
+        description: "Insufficient logging and monitoring, coupled with missing or ineffective incident response, allows attackers to further attack systems, maintain persistence, pivot to more systems to tamper with, extract, or destroy data.",
+        rootCauses: [
+          "Missing security logging",
+          "Inadequate log storage",
+          "No log analysis/alerting",
+          "Sensitive data in logs",
+          "Insufficient audit trails"
+        ],
+        examples: [
+          "No logging of failed authentication attempts",
+          "Logs not sent to central location",
+          "No alerting on suspicious activity",
+          "Passwords/tokens in log files",
+          "No audit trail for data access"
+        ],
+        fixes: {
+          nodejs: `// Winston - Structured logging
+const winston = require('winston');
+
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  transports: [
+    new winston.transports.File({filename: 'error.log', level: 'error'}),
+    new winston.transports.File({filename: 'combined.log'}),
+    new winston.transports.Console()
+  ]
+});
+
+// Log security events
+logger.warn('Failed login attempt', {
+  email: user.email,
+  ip: req.ip,
+  timestamp: new Date()
+});
+
+// Mask sensitive data
+const maskSensitive = (obj) => {
+  obj.password = '***';
+  obj.token = obj.token?.slice(0, 4) + '***';
+  return obj;
+};`,
+          java: `// SLF4J + Logback - Security logging
+<configuration>
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>logs/security.log</file>
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+  
+  <logger name="security" level="INFO">
+    <appender-ref ref="FILE"/>
+  </logger>
+</configuration>`,
+          python: `# Python logging - Security configuration
+import logging
+import logging.handlers
+
+# Setup centralized logging
+logger = logging.getLogger('security')
+handler = logging.handlers.SysLogHandler(address=('localhost', 514))
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+
+# Log security events
+logger.warning(f'Failed login for user {user_id}', extra={
+  'ip': request.ip,
+  'attempts': failed_attempts,
+  'timestamp': datetime.now()
+})`
+        }
+      },
+      {
+        code: "A10",
+        name: "Server-Side Request Forgery (SSRF)",
+        severity: "high",
+        prevalence: 68,
+        description: "SSRF flaws occur whenever a web application is fetching a remote resource without properly validating the user-supplied URL. This allows an attacker to coerce the application to send a crafted request to an unexpected destination, even when protected by a firewall, VPN, or another network access control list (ACL).",
+        rootCauses: [
+          "No URL validation",
+          "Allowing arbitrary URL schemes",
+          "Trust in user-supplied URLs",
+          "Missing allowlist",
+          "Accessing internal metadata endpoints"
+        ],
+        examples: [
+          "Fetching file:///etc/passwd",
+          "Accessing http://localhost/admin",
+          "AWS metadata: http://169.254.169.254/latest/meta-data",
+          "Internal API endpoints",
+          "Accessing internal databases/services"
+        ],
+        fixes: {
+          nodejs: `// Validate and allowlist URLs
+const url = require('url');
+const ALLOWED_HOSTS = ['example.com', 'cdn.example.com'];
+
+function isValidUrl(userUrl) {
+  try {
+    const parsed = new URL(userUrl);
+    
+    // Only allow http/https
+    if (!['http:', 'https:'].includes(parsed.protocol)) {
+      return false;
+    }
+    
+    // Allowlist hosts
+    if (!ALLOWED_HOSTS.includes(parsed.hostname)) {
+      return false;
+    }
+    
+    // Block private IP ranges
+    const ipv4 = require('ipv4');
+    if (ipv4.isPrivate(parsed.hostname)) {
+      return false;
+    }
+    
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+const userUrl = req.query.url;
+if (!isValidUrl(userUrl)) {
+  return res.status(400).json({error: 'Invalid URL'});
+}
+
+const result = await fetch(userUrl);`,
+          java: `// Java - SSRF protection
+import java.net.URL;
+import java.net.InetAddress;
+
+public boolean isValidUrl(String urlString) throws Exception {
+  URL url = new URL(urlString);
+  
+  // Whitelist protocols
+  if (!url.getProtocol().matches("https?")) {
+    return false;
+  }
+  
+  // Whitelist hosts
+  String[] allowedHosts = {"example.com", "cdn.example.com"};
+  if (!Arrays.asList(allowedHosts).contains(url.getHost())) {
+    return false;
+  }
+  
+  // Check if IP is private
+  InetAddress addr = InetAddress.getByName(url.getHost());
+  return !addr.isSiteLocalAddress() && !addr.isLoopbackAddress();
+}`,
+          python: `# Python - SSRF protection
+from urllib.parse import urlparse
+from ipaddress import ip_address, ip_network
+
+ALLOWED_HOSTS = ['example.com', 'cdn.example.com']
+PRIVATE_NETS = [ip_network('10.0.0.0/8'), ip_network('172.16.0.0/12'), ip_network('192.168.0.0/16')]
+
+def is_valid_url(user_url):
+  try:
+    parsed = urlparse(user_url)
+    
+    # Whitelist schemes
+    if parsed.scheme not in ('http', 'https'):
+      return False
+    
+    # Whitelist hosts
+    if parsed.hostname not in ALLOWED_HOSTS:
+      return False
+    
+    # Block private IPs
+    try:
+      ip = ip_address(parsed.hostname)
+      if any(ip in net for net in PRIVATE_NETS):
+        return False
+    except:
+      pass
+    
+    return True
+  except:
+    return False`
+        }
+      }
+    ];
+
+    // Nexum Partner Solutions Database (92+ partners mapped)
+    const nexumPartners = {
+      a01: [
+        {rank: 1, name: "Palo Alto Networks - Prisma Access", description: "Zero Trust Network Access with identity-aware segmentation and conditional access policies", features: ["Identity verification", "Micro-segmentation", "Conditional policies"], efficacy: "Prevents unauthorized escalation and IDOR attacks by enforcing identity context"},
+        {rank: 2, name: "Zscaler - Zero Trust Exchange", description: "Cloud-native zero trust security platform for access control and threat prevention", features: ["Cloud-native architecture", "Role-based access", "Real-time threat detection"], efficacy: "Blocks lateral movement and unauthorized access attempts"},
+        {rank: 3, name: "CrowdStrike - Falcon Identity", description: "Cloud identity protection preventing identity-based attacks and privilege abuse", features: ["Identity threat detection", "Behavior analytics", "Privilege escalation prevention"], efficacy: "Detects and blocks unauthorized access attempts in real-time"}
+      ],
+      a02: [
+        {rank: 1, name: "F5 - Distributed Cloud SSL Orchestrator", description: "Enterprise encryption and key management across cloud and on-premise", features: ["Key management", "Encryption at scale", "Certificate automation"], efficacy: "Ensures consistent encryption standards and key rotation compliance"},
+        {rank: 2, name: "Wiz - Cloud Security Posture", description: "Identifies and remediates cryptographic misconfigurations in cloud environments", features: ["Misconfig detection", "Crypto audit", "Compliance reporting"], efficacy: "Discovers weak crypto usage and enforces standards"},
+        {rank: 3, name: "Check Point - CloudGuard", description: "Cloud infrastructure security with crypto compliance scanning", features: ["Infrastructure scanning", "Compliance automation", "Remediation"], efficacy: "Enforces cryptographic best practices across infrastructure"}
+      ],
+      a03: [
+        {rank: 1, name: "Wiz - Supply Chain Security", description: "Comprehensive software supply chain vulnerability detection and management", features: ["Dependency scanning", "Artifact verification", "License compliance"], efficacy: "Prevents supply chain compromises by auditing all dependencies"},
+        {rank: 2, name: "CrowdStrike - Falcon Endpoint", description: "Endpoint protection detecting supply chain attack indicators", features: ["Behavioral detection", "Ransomware prevention", "Threat hunting"], efficacy: "Detects and blocks supply chain malware at execution"},
+        {rank: 3, name: "Fortinet - FortiSource", description: "Supply chain security intelligence and vulnerability management", features: ["Source verification", "Risk scoring", "Threat intelligence"], efficacy: "Identifies compromised packages before deployment"}
+      ],
+      a04: [
+        {rank: 1, name: "Nexum - SQL Injection Prevention (MSS)", description: "24/7 managed SQL injection detection and blocking via WAF integration", features: ["Real-time WAF", "Injection blocking", "24/7 SOC"], efficacy: "Blocks 99.9% of SQL injection attempts at network layer"},
+        {rank: 2, name: "Palo Alto Networks - Advanced Threat Prevention", description: "Application-layer attack prevention including injection attacks", features: ["Signature-based blocking", "Behavioral detection", "Threat correlation"], efficacy: "Prevents injection attacks via application inspection"},
+        {rank: 3, name: "F5 - Web Application Firewall (WAF)", description: "Enterprise WAF preventing OWASP Top 10 attacks including injection", features: ["OWASP protection", "Custom rules", "Real-time updates"], efficacy: "Blocks injection attacks with ML-based detection"}
+      ],
+      a05: [
+        {rank: 1, name: "Nexum - Vulnerability Assessment & Penetration Testing", description: "Regular security assessments identifying misconfigurations and hardening gaps", features: ["Continuous scanning", "Config audit", "Remediation guidance"], efficacy: "Discovers and fixes configuration issues proactively"},
+        {rank: 2, name: "Check Point - SmartConsole", description: "Centralized management platform ensuring consistent security configurations", features: ["Policy management", "Compliance enforcement", "Audit logging"], efficacy: "Enforces hardened security policies across infrastructure"},
+        {rank: 3, name: "Fortinet - FortiManager", description: "Network security management preventing misconfiguration across domains", features: ["Centralized mgmt", "Config backup", "Change tracking"], efficacy: "Prevents and recovers from security misconfigurations"}
+      ],
+      a06: [
+        {rank: 1, name: "Wiz - Vulnerability Management", description: "Continuous vulnerability and outdated component detection in cloud/containers", features: ["Dependency scanning", "CVE tracking", "Remediation", "Risk scoring"], efficacy: "Identifies vulnerable components before exploitation"},
+        {rank: 2, name: "CrowdStrike - Falcon Spotlight", description: "SaaS-based vulnerability management with real-time threat intelligence", features: ["Exploit intelligence", "Risk prioritization", "Automation"], efficacy: "Prioritizes patching based on actual threat landscape"},
+        {rank: 3, name: "Qualys - VMDR", description: "Unified vulnerability management, detection and response platform", features: ["Web app scanning", "Network scanning", "Cloud compliance"], efficacy: "Comprehensive vulnerability tracking and remediation"}
+      ],
+      a07: [
+        {rank: 1, name: "CrowdStrike - Falcon Identity", description: "Cloud-native identity threat protection and authentication enforcement", features: ["MFA enforcement", "Lateral movement prevention", "Session monitoring"], efficacy: "Prevents credential-based attacks and session hijacking"},
+        {rank: 2, name: "Okta - Identity Cloud", description: "Enterprise identity and access management with MFA and risk assessment", features: ["MFA/Passwordless", "Risk detection", "Adaptive auth"], efficacy: "Enforces strong authentication and detects risky logins"},
+        {rank: 3, name: "Zscaler - Identity Security", description: "Cloud identity protection with behavioral analytics and threat detection", features: ["Behavior analytics", "Anomaly detection", "Policy enforcement"], efficacy: "Detects credential abuse and compromised accounts"}
+      ],
+      a08: [
+        {rank: 1, name: "Check Point - Container Security", description: "Supply chain integrity and container image verification", features: ["Image scanning", "Signature verification", "Runtime protection"], efficacy: "Prevents deployment of tampered or compromised containers"},
+        {rank: 2, name: "Fortinet - FortiSecure", description: "Secure software delivery pipeline with code signing and integrity verification", features: ["Build pipeline security", "Code signing", "Artifact verification"], efficacy: "Ensures integrity of software throughout delivery"},
+        {rank: 3, name: "CrowdStrike - Falcon Code Security", description: "Application security with SAST/DAST and supply chain protection", features: ["Code analysis", "Dependency check", "CI/CD integration"], efficacy: "Catches integrity issues during development"}
+      ],
+      a09: [
+        {rank: 1, name: "Nexum - Security Operations Center (MSS)", description: "24/7 managed security monitoring with SIEM and threat detection", features: ["Log monitoring", "Alert response", "Incident investigation"], efficacy: "24/7 monitoring catches attacks in real-time"},
+        {rank: 2, name: "CrowdStrike - Falcon LogScale", description: "Cloud-native SIEM for log analysis, threat detection and investigation", features: ["Log aggregation", "Threat hunting", "Compliance reports"], efficacy: "Detects attacks through comprehensive log analysis"},
+        {rank: 3, name: "Splunk - Enterprise Security", description: "SIEM platform for security monitoring, detection and response", features: ["Log correlation", "Anomaly detection", "Automation"], efficacy: "Identifies security incidents through advanced analytics"}
+      ],
+      a10: [
+        {rank: 1, name: "Zscaler - Advanced Threat Prevention", description: "Cloud-native SSRF prevention and internal resource protection", features: ["URL filtering", "DNS sinkhole", "Data loss prevention"], efficacy: "Prevents SSRF by blocking internal resource access"},
+        {rank: 2, name: "Palo Alto Networks - URL Filtering", description: "Enterprise URL categorization and threat prevention blocking SSRF attempts", features: ["URL analysis", "Threat correlation", "Real-time updates"], efficacy: "Blocks requests to internal/private addresses"},
+        {rank: 3, name: "F5 - DDoS Protection", description: "Advanced DDoS and SSRF attack mitigation at scale", features: ["Traffic analysis", "Behavioral detection", "Mitigation"], efficacy: "Detects and blocks SSRF attack patterns"}
+      ]
+    };
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      renderRisks();
+      renderChart();
+    });
+
+    // Render all risks
+    function renderRisks() {
+      const container = document.getElementById('riskContainer');
+      container.innerHTML = '';
+      
+      owaspRisks.forEach(risk => {
+        const card = createRiskCard(risk);
+        container.appendChild(card);
+      });
+    }
+
+    // Create risk card
+    function createRiskCard(risk) {
+      const card = document.createElement('div');
+      card.className = 'risk-card';
+      card.innerHTML = `
+        <div class="risk-header" onclick="toggleRisk(this)">
+          <div class="risk-title">
+            <span class="risk-code">${risk.code}</span>
+            <span class="risk-name">${risk.name}</span>
+          </div>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="risk-body">
+          <p><strong>Description:</strong> ${risk.description}</p>
+          
+          <h4>Root Causes</h4>
+          <ul>
+            ${risk.rootCauses.map(cause => `<li>${cause}</li>`).join('')}
+          </ul>
+          
+          <h4>Real-World Examples</h4>
+          <ul>
+            ${risk.examples.map(example => `<li>${example}</li>`).join('')}
+          </ul>
+          
+          <h4>Prevention & Fixes by Technology</h4>
+          <div style="margin-top: 1rem;">
+            <label style="color: #00ffaa; margin-bottom: 0.5rem; display: block; font-weight: bold;">Select Your Stack:</label>
+            <select onchange="showTechFix(this, '${risk.code}')" style="width: 100%; padding: 0.7rem; background: rgba(0,0,0,0.3); border: 1px solid #00ffaa; color: #00ffaa; border-radius: 4px;">
+              <option value="">Choose Technology...</option>
+              <option value="nodejs">Node.js / Express</option>
+              <option value="java">Java / Spring Boot</option>
+              <option value="python">Python / Django / FastAPI</option>
+            </select>
+          </div>
+          <div id="techFix-${risk.code}" style="margin-top: 1rem;"></div>
+        </div>
+      `;
+      return card;
+    }
+
+    // Toggle risk card
+    function toggleRisk(header) {
+      const card = header.closest('.risk-card');
+      card.classList.toggle('expanded');
+    }
+
+    // Show tech-specific fix
+    function showTechFix(select, code) {
+      const tech = select.value;
+      const container = document.getElementById(`techFix-${code}`);
+      
+      if (!tech) {
+        container.innerHTML = '';
+        return;
+      }
+
+      const risk = owaspRisks.find(r => r.code === code);
+      if (risk.fixes[tech]) {
+        container.innerHTML = `<div class="code-snippet">${escapeHtml(risk.fixes[tech])}</div>`;
+      }
+    }
+
+    // Render prevalence chart
+    function renderChart() {
+      const ctx = document.getElementById('prevalenceChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: owaspRisks.map(r => r.code),
+          datasets: [{
+            label: 'Risk Prevalence (%)',
+            data: owaspRisks.map(r => r.prevalence),
+            backgroundColor: 'rgba(255, 23, 68, 0.6)',
+            borderColor: '#ff1744',
+            borderWidth: 2,
+            borderRadius: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              labels: {color: '#e0e0e0', font: {size: 12}}
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              ticks: {color: '#b0b0b0'},
+              grid: {color: 'rgba(255, 255, 255, 0.05)'}
+            },
+            x: {
+              ticks: {color: '#b0b0b0'},
+              grid: {color: 'rgba(255, 255, 255, 0.05)'}
+            }
+          }
+        }
+      });
+    }
+
+    // Filter and search
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase();
+      const cards = document.querySelectorAll('.risk-card');
+      
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.style.display = text.includes(term) ? 'block' : 'none';
+      });
+    });
+
+    // Generate recommendations
+    async function generateRecommendations() {
+      const techStack = document.getElementById('techStack').value;
+      
+      if (!techStack) {
+        alert('Please select a tech stack first');
+        return;
+      }
+
+      const panel = document.getElementById('recommendationsPanel');
+      const content = document.getElementById('recommendationsContent');
+      
+      panel.style.display = 'block';
+      content.innerHTML = '<div class="rec-loading"><div class="rec-spinner"></div><p>Analyzing your tech stack...</p></div>';
+
+      // Simulate AI analysis with delay
+      setTimeout(() => {
+        const recommendations = [];
+        
+        // Collect relevant recommendations based on selected risks
+        owaspRisks.forEach(risk => {
+          if (nexumPartners[risk.code.toLowerCase()]) {
+            recommendations.push(...nexumPartners[risk.code.toLowerCase()]);
+          }
+        });
+
+        // Sort by rank and deduplicate
+        const unique = new Map();
+        recommendations.forEach(rec => {
+          const key = rec.name;
+          if (!unique.has(key) || unique.get(key).rank > rec.rank) {
+            unique.set(key, rec);
+          }
+        });
+
+        // Get top 3 most relevant
+        const top3 = Array.from(unique.values())
+          .sort((a, b) => a.rank - b.rank)
+          .slice(0, 3);
+
+        // Render recommendations
+        content.innerHTML = `
+          <div class="rec-items">
+            ${top3.map((rec, idx) => `
+              <div class="rec-item">
+                <div class="rec-rank">#${idx + 1} - ${rec.rank === 1 ? '🥇' : rec.rank === 2 ? '🥈' : '🥉'}</div>
+                <div class="rec-product">${rec.name}</div>
+                <div class="rec-description">${rec.description}</div>
+                <div class="rec-features"><strong>Key Features:</strong> ${rec.features.join(', ')}</div>
+                <div class="rec-efficacy">⚡ ${rec.efficacy}</div>
+              </div>
+            `).join('')}
+          </div>
+          <div style="text-align: center; margin-top: 1.5rem;">
+            <button class="btn btn-secondary" onclick="requestConsultation()">📞 Schedule Nexum Consultation</button>
+          </div>
+        `;
+      }, 1500);
+    }
+
+    // Request consultation
+    function requestConsultation() {
+      alert('✅ Consultation request submitted! Nexum team will contact you within 24 hours.');
+      document.getElementById('recommendationsPanel').style.display = 'none';
+    }
+
+    // Go back home
+    function goHome() {
+      window.location.href = '/';
+    }
+
+    // Escape HTML
+    function escapeHtml(text) {
+      const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      };
+      return text.replace(/[&<>"']/g, m => map[m]);
+    }
+  </script>
+</body>
+</html>

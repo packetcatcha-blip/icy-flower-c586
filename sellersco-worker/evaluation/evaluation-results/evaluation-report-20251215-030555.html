@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sellersco.net Evaluation Report</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        header { text-align: center; padding: 2rem 0; border-bottom: 2px solid #1e293b; margin-bottom: 2rem; }
+        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; color: #f1f5f9; }
+        .subtitle { color: #94a3b8; font-size: 1rem; }
+        .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .metric-card { background: #1e293b; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #3b82f6; }
+        .metric-value { font-size: 2.5rem; font-weight: bold; color: #f1f5f9; }
+        .metric-label { color: #94a3b8; font-size: 0.9rem; margin-top: 0.5rem; }
+        .progress-bar { width: 100%; height: 12px; background: #0f172a; border-radius: 6px; overflow: hidden; margin-top: 1rem; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #10b981, #3b82f6); transition: width 0.3s; }
+        .grade-box { background: #ef4444; color: white; padding: 2rem; border-radius: 8px; text-align: center; margin: 2rem 0; }
+        .grade-letter { font-size: 4rem; font-weight: bold; }
+        .results-table { width: 100%; border-collapse: collapse; margin: 2rem 0; background: #1e293b; border-radius: 8px; overflow: hidden; }
+        .results-table th { background: #0f172a; padding: 1rem; text-align: left; font-weight: 600; border-bottom: 1px solid #334155; }
+        .results-table td { padding: 1rem; border-bottom: 1px solid #334155; }
+        .results-table tr:last-child td { border-bottom: none; }
+        .pass { color: #10b981; }
+        .fail { color: #ef4444; }
+        .footer { text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #1e293b; color: #94a3b8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Sellersco.net Evaluation Report</h1>
+            <p class="subtitle">Deployment & SEO Validation</p>
+            <p class="subtitle">2025-12-15T03:05:43.764082</p>
+        </header>
+        
+        <div class="metrics">
+            <div class="metric-card">
+                <div class="metric-value">25/39</div>
+                <div class="metric-label">Tests Passed</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 64.1025641025641%"></div>
+                </div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-value" style="color: #10b981;">64.1%</div>
+                <div class="metric-label">Overall Pass Rate</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-value" style="color: #3b82f6;">4</div>
+                <div class="metric-label">Test Categories</div>
+            </div>
+        </div>
+        
+        <div class="grade-box">
+            <div class="grade-letter">F</div>
+            <p>Grade: F</p>
+        </div>
+        
+        <h2 style="margin-top: 2rem; margin-bottom: 1rem;">Category Breakdown</h2>
+        <table class="results-table">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Tests</th>
+                    <th>Passed</th>
+                    <th>Rate</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>Route Availability</td>
+                    <td>15</td>
+                    <td>15</td>
+                    <td><span class="pass">100.0%</span></td>
+                </tr>
+
+                <tr>
+                    <td>Feature Completeness</td>
+                    <td>7</td>
+                    <td>1</td>
+                    <td><span class="fail">14.3%</span></td>
+                </tr>
+
+                <tr>
+                    <td>Data Freshness</td>
+                    <td>8</td>
+                    <td>2</td>
+                    <td><span class="fail">25.0%</span></td>
+                </tr>
+
+                <tr>
+                    <td>Seo Validation</td>
+                    <td>9</td>
+                    <td>7</td>
+                    <td><span class="fail">77.8%</span></td>
+                </tr>
+
+            </tbody>
+        </table>
+        
+        <div class="footer">
+            <p>Evaluation Framework for sellersco.net</p>
+            <p>Covers: Route Availability, Feature Completeness, Data Freshness, SEO Validation</p>
+        </div>
+    </div>
+</body>
+</html>

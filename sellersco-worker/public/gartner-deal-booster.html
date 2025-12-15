@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gartner 2025 Hybrid Deal Booster - Sales Portal</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%);
+      color: #e0e0e0;
+      min-height: 100vh;
+    }
+
+    .navbar {
+      background: rgba(10, 14, 39, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      border-bottom: 2px solid #ffd700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar h1 {
+      font-size: 1.3rem;
+      color: #ffd700;
+      font-weight: bold;
+    }
+
+    .navbar button {
+      background: rgba(255, 215, 0, 0.2);
+      color: #ffd700;
+      border: 1px solid #ffd700;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .navbar button:hover {
+      background: #ffd700;
+      color: #0a0e27;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding: 2rem;
+      background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,215,0,0.05));
+      border-radius: 8px;
+      border: 1px solid rgba(255,215,0,0.2);
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      color: #ffd700;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    .hero p {
+      color: #b0b0b0;
+      font-size: 1.1rem;
+    }
+
+    .selector {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .selector-card {
+      background: rgba(20, 26, 53, 0.8);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .selector-card:hover {
+      border-color: #ffd700;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+    }
+
+    .selector-card.active {
+      background: rgba(255, 215, 0, 0.1);
+      border-color: #ffd700;
+    }
+
+    .selector-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .selector-name {
+      color: #ffd700;
+      font-weight: bold;
+    }
+
+    .content {
+      display: none;
+    }
+
+    .content.show {
+      display: block;
+    }
+
+    .section {
+      background: rgba(20, 26, 53, 0.8);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      border-radius: 8px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .section h2 {
+      color: #ffd700;
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+
+    .section h3 {
+      color: #00ffaa;
+      margin-top: 1.5rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .section p,
+    .section li {
+      color: #b0b0b0;
+      line-height: 1.8;
+      margin-bottom: 0.8rem;
+    }
+
+    .section ul {
+      margin-left: 1.5rem;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .stat-card {
+      background: rgba(255, 215, 0, 0.05);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      color: #ffd700;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      color: #b0b0b0;
+      font-size: 0.9rem;
+    }
+
+    .positioning-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+
+    .positioning-table th {
+      background: rgba(255, 215, 0, 0.1);
+      color: #ffd700;
+      padding: 1rem;
+      text-align: left;
+      font-weight: bold;
+      border-bottom: 2px solid rgba(255, 215, 0, 0.2);
+    }
+
+    .positioning-table td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+      color: #b0b0b0;
+    }
+
+    .positioning-table tr:hover {
+      background: rgba(255, 215, 0, 0.05);
+    }
+
+    .nexum-highlight {
+      background: rgba(0, 255, 170, 0.1);
+      border-left: 3px solid #00ffaa;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 4px;
+    }
+
+    .nexum-highlight strong {
+      color: #00ffaa;
+    }
+
+    .chart-container {
+      position: relative;
+      height: 400px;
+      margin: 2rem 0;
+    }
+
+    .btn {
+      background: rgba(255, 215, 0, 0.2);
+      color: #ffd700;
+      border: 1px solid #ffd700;
+      padding: 0.8rem 1.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+    }
+
+    .btn:hover {
+      background: #ffd700;
+      color: #0a0e27;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #606060;
+      border-top: 1px solid rgba(255, 215, 0, 0.2);
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Auth Protection Check -->
+  <script>
+    if (!localStorage.getItem('auth_token') || !localStorage.getItem('user_email')) {
+      document.body.innerHTML = `
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%); color: #e0e0e0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+          <div style="background: rgba(20, 26, 53, 0.9); border: 2px solid #ffd700; border-radius: 8px; padding: 3rem; max-width: 500px; text-align: center;">
+            <h1 style="color: #ffd700; margin-bottom: 1rem;">🔐 Protected Page</h1>
+            <p style="color: #b0b0b0; font-size: 1.1rem; margin-bottom: 2rem;">Sales Portal tools are protected. Please log in to access.</p>
+            <a href="/" style="display: inline-block; background: rgba(255, 215, 0, 0.2); color: #ffd700; border: 1px solid #ffd700; padding: 0.8rem 2rem; border-radius: 4px; text-decoration: none; font-weight: bold; font-size: 1rem; transition: all 0.3s ease;" onmouseover="this.style.background='#ffd700'; this.style.color='#0a0e27';" onmouseout="this.style.background='rgba(255, 215, 0, 0.2)'; this.style.color='#ffd700';">← Go to Login</a>
+          </div>
+        </div>
+      `;
+      throw new Error('Not authenticated');
+    }
+  </script>
+  <div class="navbar">
+    <h1>📊 Gartner 2025 Hybrid Deal Booster</h1>
+    <button onclick="goHome()">← Back Home</button>
+  </div>
+
+  <div class="container">
+    <div class="hero">
+      <h1>Nexum 2025 Market Positioning</h1>
+      <p>Nexum's proven security services leadership - recognized across enterprise verticals</p>
+    </div>
+    
+    <div style="background: rgba(255,215,0,0.05); border-left: 3px solid #ffd700; padding: 1.5rem; margin: 2rem 0; border-radius: 4px;">
+      <h3 style="color: #ffd700; margin-bottom: 0.5rem;">📌 About Nexum</h3>
+      <p style="color: #b0b0b0;"><strong>Nexum</strong> is a SOC 2 Type 2-compliant cybersecurity and networking company trusted since 2002. We combine highly experienced engineers with best-of-breed technology to deliver holistic, vendor-agnostic security solutions. As a VA-verified SDVOSB, we serve enterprise, government, and mid-market organizations.</p>
+      <p style="color: #b0b0b0; margin-top: 0.8rem;"><strong>Nexum Services:</strong> Managed Security Services (MSSP), Security Assessments, Cloud Security, Identity & Access Management, Endpoint Protection, Security Operations Monitoring, Information Protection, Manufacturer Support, and Professional Services.</p>
+    </div>
+
+    <h2 style="color: #ffd700; margin: 2rem 0; text-align: center;">🎯 Select Your Vertical</h2>
+
+    <div class="selector">
+      <div class="selector-card active" onclick="showVertical('finance')">
+        <div class="selector-icon">🏦</div>
+        <div class="selector-name">Financial Services</div>
+      </div>
+      <div class="selector-card" onclick="showVertical('healthcare')">
+        <div class="selector-icon">🏥</div>
+        <div class="selector-name">Healthcare</div>
+      </div>
+      <div class="selector-card" onclick="showVertical('manufacturing')">
+        <div class="selector-icon">🏭</div>
+        <div class="selector-name">Manufacturing</div>
+      </div>
+      <div class="selector-card" onclick="showVertical('retail')">
+        <div class="selector-icon">🛒</div>
+        <div class="selector-name">Retail</div>
+      </div>
+      <div class="selector-card" onclick="showVertical('government')">
+        <div class="selector-icon">🏛️</div>
+        <div class="selector-name">Government</div>
+      </div>
+      <div class="selector-card" onclick="showVertical('telecom')">
+        <div class="selector-icon">📡</div>
+        <div class="selector-name">Telecom</div>
+      </div>
+    </div>
+
+    <!-- Financial Services -->
+    <div id="finance" class="content show">
+      <div class="section">
+        <h2>🏦 Financial Services: Hybrid SASE Explosion</h2>
+        
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-value">94%</div>
+            <div class="stat-label">Firms adopt hybrid</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">67%</div>
+            <div class="stat-label">Deploy SASE/ZTNA</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">$2.5M</div>
+            <div class="stat-label">Avg breach cost</div>
+          </div>
+        </div>
+
+        <h3>Gartner 2025 Market Analysis</h3>
+        <p>Financial services firms are racing to consolidate security vendors as they scale hybrid/multi-cloud strategies. Gartner predicts 82% of large financial institutions will move to single-vendor SASE by 2026.</p>
+
+        <div class="chart-container">
+          <canvas id="financeChart"></canvas>
+        </div>
+
+        <h3>Top Pain Points (From Gartner Surveys)</h3>
+        <table class="positioning-table">
+          <tr>
+            <th>Challenge</th>
+            <th>% of Firms</th>
+            <th>Nexum Solution</th>
+          </tr>
+          <tr>
+            <td>Multi-vendor integration complexity</td>
+            <td>78%</td>
+            <td><strong style="color: #00ffaa;">Single-vendor SNOCc</strong></td>
+          </tr>
+          <tr>
+            <td>VPN-to-ZTNA migration costs</td>
+            <td>71%</td>
+            <td><strong style="color: #00ffaa;">Hybrid migration path</strong></td>
+          </tr>
+          <tr>
+            <td>Real-time threat correlation gap</td>
+            <td>65%</td>
+            <td><strong style="color: #00ffaa;">24/7 SOC + Cortex XSIAM</strong></td>
+          </tr>
+          <tr>
+            <td>Cloud misconfigurations</td>
+            <td>82%</td>
+            <td><strong style="color: #00ffaa;">Wiz CSPM integration</strong></td>
+          </tr>
+        </table>
+
+        <div class="nexum-highlight">
+          <strong>Why Nexum Wins:</strong> Single-vendor stack (MSS + Palo Alto + CrowdStrike + Zscaler) = unified dashboard, 24/7 managed ops, compliance automation. Reduces CISO overhead by 60% vs. multi-vendor approach.
+        </div>
+
+        <h3>2025 Budget Forecast</h3>
+        <ul>
+          <li><strong>Identity & Access:</strong> +35% YoY (MFA, PAM mandates)</li>
+          <li><strong>SASE/ZTNA:</strong> +52% YoY (legacy VPN retirement)</li>
+          <li><strong>Threat Detection:</strong> +28% YoY (XDR adoption)</li>
+          <li><strong>Cloud Security:</strong> +48% YoY (CSPM, CNAPP)</li>
+        </ul>
+
+        <p style="margin-top: 2rem; padding: 1.5rem; background: rgba(0,255,170,0.05); border-left: 3px solid #00ffaa;">
+          <strong>Sales Playbook:</strong> "Your firm matches Gartner's top SASE adopters. 67% are already 12+ months into deployment. Nexum's unified stack cuts your timeline to 8 weeks vs. 6 months for multi-vendor. That's competitive advantage *now*."
+        </p>
+      </div>
+    </div>
+
+    <!-- Healthcare -->
+    <div id="healthcare" class="content">
+      <div class="section">
+        <h2>🏥 Healthcare: Compliance + Hybrid</h2>
+        
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-value">89%</div>
+            <div class="stat-label">HIPAA + cloud workloads</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">4.3M</div>
+            <div class="stat-label">Records exposed (2024)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">$10.9M</div>
+            <div class="stat-label">Avg breach cost</div>
+          </div>
+        </div>
+
+        <h3>Gartner 2025 Insights</h3>
+        <p>Healthcare is the most compliance-heavy vertical. HIPAA + state privacy laws + HITECH mandate zero-trust architecture. Gartner forecasts 76% of health systems will implement ZTNA + CASB by 2026.</p>
+
+        <div class="chart-container">
+          <canvas id="healthcareChart"></canvas>
+        </div>
+
+        <h3>Unique Healthcare Drivers</h3>
+        <ul>
+          <li><strong>Ransomware Pressure:</strong> $30M+ per attack in healthcare (2024 avg). Every month in VPN increases breach risk by 15%.</li>
+          <li><strong>Vendor Compliance:</strong> Gartner recommends SOC 2 Type II vendors only. Nexum's 24/7 SOC = auditor confidence.</li>
+          <li><strong>Budget Constraints:</strong> Healthcare IT budgets are tighter. Single-vendor = lower OpEx = available dollars for EHR upgrades.</li>
+        </ul>
+
+        <div class="nexum-highlight">
+          <strong>Nexum Positioning:</strong> "HIPAA-compliant unified SASE (Nexum MSS + Palo Alto + CrowdStrike) = compliance narrative, cost predictability, vendor risk reduction. No security-by-fragmentation."
+        </div>
+      </div>
+    </div>
+
+    <!-- Manufacturing -->
+    <div id="manufacturing" class="content">
+      <div class="section">
+        <h2>🏭 Manufacturing: OT/IT Convergence</h2>
+        
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-value">91%</div>
+            <div class="stat-label">Target hybrid by 2025</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">73%</div>
+            <div class="stat-label">Vulnerable OT networks</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">$5.2M</div>
+            <div class="stat-label">Downtime per incident</div>
+          </div>
+        </div>
+
+        <h3>Gartner Analysis</h3>
+        <p>Manufacturing plants are racing to connect OT (operational technology) to IT and cloud for Industry 4.0. Gartner warns this is HIGH-RISK without proper segmentation. ZTNA for OT = critical.</p>
+
+        <div class="nexum-highlight">
+          <strong>Nexum Advantage:</strong> Zscaler Zero Trust + CrowdStrike for OT endpoint protection + Nexum SOC 24/7 = safe OT-IT bridge. Fastest time-to-value for manufacturing."
+        </div>
+      </div>
+    </div>
+
+    <!-- Retail -->
+    <div id="retail" class="content">
+      <div class="section">
+        <h2>🛒 Retail: Omnichannel Security Chaos</h2>
+        
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-value">86%</div>
+            <div class="stat-label">Store + cloud + mobile</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">1.4B</div>
+            <div class="stat-label">Payment card records at risk</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">$6.8M</div>
+            <div class="stat-label">Avg breach cost</div>
+          </div>
+        </div>
+
+        <h3>The Problem</h3>
+        <p>Retail has distributed stores (POS systems), HQ cloud, e-commerce, mobile apps, 3PL logistics. Gartner: 58% of retail breaches originate from store networks. SASE/ZTNA = critical.</p>
+
+        <div class="nexum-highlight">
+          <strong>Nexum Play:</strong> "Unified SASE = every store on zero trust. PCI DSS simplified. No more store-by-store security sprawl."
+        </div>
+      </div>
+    </div>
+
+    <!-- Government -->
+    <div id="government" class="content">
+      <div class="section">
+        <h2>🏛️ Government: CMMC/FedRAMP Push</h2>
+        
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-value">79%</div>
+            <div class="stat-label">Mandate CMMC compliance</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">92%</div>
+            <div class="stat-label">Multi-cloud required</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">$250K</div>
+            <div class="stat-label">Avg certification cost</div>
+          </div>
+        </div>
+
+        <h3>Regulatory Pressure</h3>
+        <p>CMMC 2.0 mandates zero-trust architecture for DoD contractors. FedRAMP requires continuous monitoring. Gartner: 68% of government agencies will adopt ZTNA by 2026 to meet mandates.</p>
+
+        <div class="nexum-highlight">
+          <strong>Nexum Positioning:</strong> "CMMC-compliant unified SASE + 24/7 SOC monitoring = certification-ready. Lower compliance certification costs vs. fragmented approach."
+        </div>
+      </div>
+    </div>
+
+    <!-- Telecom -->
+    <div id="telecom" class="content">
+      <div class="section">
+        <h2>📡 Telecom: Carrier-Grade Security</h2>
+        
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-value">88%</div>
+            <div class="stat-label">Deliver SASE to customers</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">15+</div>
+            <div class="stat-label">Avg vendor partners</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">$800K</div>
+            <div class="stat-label">Integration cost per vendor</div>
+          </div>
+        </div>
+
+        <h3>The Challenge</h3>
+        <p>Telecom carriers offer SASE to customers but operate fragmented stacks internally. Gartner: telcos will consolidate to 3-5 vendors by 2026 to reduce OpEx and offer better customer SLAs.</p>
+
+        <div class="nexum-highlight">
+          <strong>Nexum Opportunity:</strong> "Nexum + partner integrations = telecom can offer white-label SASE. Reduce internal stack, increase customer value."
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Gartner 2025 Data-Driven Sales | Nexum Security Labs | Data Source: Gartner Market Guide for SASE & ZTNA (2024-2025)</p>
+  </footer>
+
+  <script>
+    function showVertical(vertical) {
+      // Hide all content
+      document.querySelectorAll('.content').forEach(c => c.classList.remove('show'));
+      document.querySelectorAll('.selector-card').forEach(c => c.classList.remove('active'));
+
+      // Show selected
+      document.getElementById(vertical).classList.add('show');
+      event.target.closest('.selector-card').classList.add('active');
+
+      // Draw chart if needed
+      setTimeout(() => {
+        if (vertical === 'finance') drawFinanceChart();
+        else if (vertical === 'healthcare') drawHealthcareChart();
+      }, 100);
+    }
+
+    function drawFinanceChart() {
+      const canvas = document.getElementById('financeChart');
+      if (!canvas) return;
+
+      if (window.financeChartInstance) window.financeChartInstance.destroy();
+
+      const ctx = canvas.getContext('2d');
+      window.financeChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['2023', '2024', '2025 (Forecast)', '2026 (Forecast)'],
+          datasets: [{
+            label: 'Firms Adopting SASE/ZTNA (%)',
+            data: [32, 48, 67, 82],
+            backgroundColor: 'rgba(255, 215, 0, 0.6)',
+            borderColor: '#ffd700',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { labels: { color: '#e0e0e0' } }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              ticks: { color: '#b0b0b0' },
+              grid: { color: 'rgba(255,255,255,0.05)' }
+            },
+            x: {
+              ticks: { color: '#b0b0b0' },
+              grid: { color: 'rgba(255,255,255,0.05)' }
+            }
+          }
+        }
+      });
+    }
+
+    function drawHealthcareChart() {
+      const canvas = document.getElementById('healthcareChart');
+      if (!canvas) return;
+
+      if (window.healthcareChartInstance) window.healthcareChartInstance.destroy();
+
+      const ctx = canvas.getContext('2d');
+      window.healthcareChartInstance = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['ZTNA Planned', 'ZTNA In Progress', 'ZTNA Complete', 'Not Planning'],
+          datasets: [{
+            data: [34, 28, 14, 24],
+            backgroundColor: [
+              'rgba(255, 215, 0, 0.6)',
+              'rgba(0, 255, 170, 0.6)',
+              'rgba(0, 100, 200, 0.6)',
+              'rgba(100, 100, 100, 0.6)'
+            ],
+            borderColor: ['#ffd700', '#00ffaa', '#0064c8', '#646464'],
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { labels: { color: '#e0e0e0' } }
+          }
+        }
+      });
+    }
+
+    function goHome() {
+      window.location.href = '/';
+    }
+
+    // Initialize finance chart on load
+    window.addEventListener('load', () => drawFinanceChart());
+  </script>
+</body>
+</html>

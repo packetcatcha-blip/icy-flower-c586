@@ -1,0 +1,929 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Post-Quantum Lab — Nexum Labs</title>
+  <style>
+    :root{--bg:#050714;--card:#0b1630;--muted:#9fb0c8;--accent:#00d4ff}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#030418,#071025);color:#e9f5ff;font-family:Inter,system-ui,Segoe UI,Arial}
+    .wrap{max-width:1100px;margin:20px auto;padding:18px}
+    h1{margin:0 0 6px;font-size:22px}
+    .muted{color:var(--muted)}
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:12px;margin-top:12px}
+    .card{background:var(--card);padding:12px;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.6)}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:8px;border-bottom:1px solid rgba(255,255,255,.03)}
+    .timeline{height:120px;padding:12px}
+    .partners{display:flex;flex-wrap:wrap;gap:8px}
+    .partner{background:rgba(255,255,255,.03);padding:6px 8px;border-radius:6px}
+    .sim-controls{display:flex;gap:8px;margin-top:8px}
+    .btn{background:#061229;color:#eaf6ff;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.04)}
+    @media (max-width:900px){.grid{grid-template-columns:1fr;}.wrap{padding:12px}}
+  </style>
+  <script defer src="/post-quantum.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Post-Quantum Lab — NIST 2025 Overview</h1>
+    <div class="muted">Standards snapshot, migration timeline, hybrid demo, and Nexum partner guidance.</div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Standards Comparison</h3>
+        <table id="pqTable">
+          <thead><tr><th>Category</th><th>Candidate</th><th>Strength</th><th>Notes</th></tr></thead>
+          <tbody></tbody>
+        </table>
+
+        <div style="margin-top:12px">
+          <h4>Migration Timeline</h4>
+          <div class="timeline" id="timeline"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Hybrid Demo</h3>
+        <div class="muted">Simulate hybrid classical+post-quantum KEM handshake and compare ciphertext sizes / latency.</div>
+        <div style="margin-top:10px"><strong>Demo output</strong></div>
+        <pre id="simOut" style="background:#06122a;padding:10px;border-radius:6px;height:150px;overflow:auto;margin-top:8px">Ready.</pre>
+        <div class="sim-controls">
+          <button id="runSim" class="btn">Run Hybrid KEM</button>
+          <button id="toggleVerbose" class="btn">Verbose: Off</button>
+        </div>
+
+        <div style="margin-top:12px">
+          <h4>Nexum Partners</h4>
+          <div class="partners" id="pqPartners"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+      <h3>Notes & Guidance</h3>
+      <ul class="muted">
+        <li>Hybrid deployment recommended: classical signature + PQ signature during transition.</li>
+        <li>Key lifecycle: rotate, monitor size/latency, and update cert/tooling.</li>
+        <li>Replace this placeholder with real cryptography demos (WebCrypto / WASM libs) for production.</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post-Quantum Cryptography Lab - NIST 2025 Standards</title>
+  <meta name="description" content="Interactive Post-Quantum Cryptography Lab. Learn NIST 2025 standards (ML-KEM, ML-DSA, SLH-DSA, FN-DSA), algorithm comparisons, migration timeline, and hands-on simulations.">
+  
+  <!-- Leaflet for mapping partners -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
+  <!-- Chart.js for timeline -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <style>
+    /* Nexum Color Palette & Design System */
+    :root {
+      /* Colors - Nexum Blue Theme with Quantum Purple */
+      --bg: #0a0e27;
+      --bg-secondary: #0f1438;
+      --bg-tertiary: #141a35;
+      --primary: #003366;
+      --primary-light: #1a5fa0;
+      --accent: #52b2ff;
+      --secondary: #00ff88;
+      --quantum-purple: #a300ff;
+      --border: #2a3f7f;
+      --text: #e0e6ff;
+      --text-dim: #8892b0;
+      --shadow: rgba(0, 51, 102, 0.3);
+      --shadow-lg: 0 8px 24px rgba(0, 51, 102, 0.4);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      
+      /* Spacing */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      
+      /* Border & Radius */
+      --radius: 6px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      background: linear-gradient(135deg, var(--bg) 0%, var(--bg-secondary) 100%);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    
+    /* Header */
+    header {
+      background: rgba(10, 14, 39, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 16px 0;
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+      color: var(--accent);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: var(--radius);
+      transition: var(--transition);
+    }
+    
+    nav a:hover {
+      background: var(--primary);
+      color: var(--accent);
+    }
+    
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+    
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 60px 16px;
+      background: linear-gradient(135deg, rgba(163, 0, 255, 0.1) 0%, rgba(82, 178, 255, 0.05) 100%);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+    
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--quantum-purple), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .hero p {
+      font-size: 18px;
+      color: var(--text-dim);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    /* Sections */
+    .section {
+      margin-bottom: 40px;
+    }
+    
+    .section h2 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: var(--quantum-purple);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .section h3 {
+      font-size: 20px;
+      margin-top: 20px;
+      margin-bottom: 12px;
+      color: var(--accent);
+    }
+    
+    /* Grid Layout */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .card {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      transition: var(--transition);
+    }
+    
+    .card:hover {
+      border-color: var(--quantum-purple);
+      box-shadow: 0 0 20px rgba(163, 0, 255, 0.2);
+    }
+    
+    .card h4 {
+      color: var(--quantum-purple);
+      margin-bottom: 12px;
+    }
+    
+    .card p {
+      color: var(--text-dim);
+      font-size: 14px;
+    }
+    
+    /* Algorithm Table */
+    .table-wrapper {
+      overflow-x: auto;
+      margin-bottom: 20px;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+    
+    th {
+      background: rgba(163, 0, 255, 0.1);
+      border-bottom: 2px solid var(--quantum-purple);
+      padding: 16px;
+      text-align: left;
+      color: var(--quantum-purple);
+      font-weight: 600;
+    }
+    
+    td {
+      border-bottom: 1px solid var(--border);
+      padding: 14px 16px;
+      color: var(--text);
+    }
+    
+    tr:hover {
+      background: rgba(163, 0, 255, 0.05);
+    }
+    
+    /* Timeline Chart */
+    #timelineChart {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    
+    /* Migration Status */
+    .migration-box {
+      background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(82, 178, 255, 0.1) 100%);
+      border-left: 4px solid var(--secondary);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .migration-status {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    
+    .status-item {
+      flex: 1;
+    }
+    
+    .status-label {
+      font-size: 12px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    
+    .status-value {
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--secondary);
+    }
+    
+    /* Lab Simulator */
+    .lab-simulator {
+      background: var(--bg-tertiary);
+      border: 2px solid var(--quantum-purple);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    
+    .simulator-input {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    
+    .input-group {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .input-group label {
+      color: var(--accent);
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    
+    select, input {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: var(--radius);
+      font-size: 14px;
+    }
+    
+    select:focus, input:focus {
+      outline: none;
+      border-color: var(--quantum-purple);
+      box-shadow: 0 0 10px rgba(163, 0, 255, 0.2);
+    }
+    
+    .button {
+      background: linear-gradient(135deg, var(--quantum-purple), var(--accent));
+      border: none;
+      color: white;
+      padding: 12px 24px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+    
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(163, 0, 255, 0.3);
+    }
+    
+    .simulator-output {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-top: 16px;
+      max-height: 300px;
+      overflow-y: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+    }
+    
+    .output-line {
+      margin-bottom: 6px;
+      color: var(--secondary);
+    }
+    
+    /* Partner Logos */
+    .partners-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    
+    .partner-card {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      text-align: center;
+      transition: var(--transition);
+    }
+    
+    .partner-card:hover {
+      border-color: var(--quantum-purple);
+      background: rgba(163, 0, 255, 0.05);
+    }
+    
+    .partner-name {
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--accent);
+    }
+    
+    .partner-desc {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      padding: 32px 16px;
+      text-align: center;
+      color: var(--text-dim);
+      margin-top: 60px;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .section h2 { font-size: 22px; }
+      .grid { grid-template-columns: 1fr; }
+      table { font-size: 12px; }
+      td, th { padding: 10px; }
+      .migration-status { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <a href="/" class="logo">⚛️ Post-Quantum Lab</a>
+      <nav>
+        <a href="/">← Back</a>
+      </nav>
+    </div>
+  </header>
+  
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="container">
+      <h1>Quantum Threat & PQC Readiness</h1>
+      <p>Navigate Post-Quantum Cryptography standards, timeline, and enterprise migration strategies in this interactive lab</p>
+    </div>
+  </div>
+  
+  <!-- Main Content -->
+  <div class="container">
+    
+    <!-- NIST 2025 Standards Section -->
+    <div class="section">
+      <h2>🔐 NIST 2025 Post-Quantum Standards</h2>
+      <p style="color: var(--text-dim); margin-bottom: 20px;">
+        NIST standardized four Post-Quantum Cryptography (PQC) algorithms to protect against quantum computing threats.
+      </p>
+      
+      <div class="grid">
+        <div class="card">
+          <h4>ML-KEM (Kyber)</h4>
+          <p><strong>Purpose:</strong> Key Encapsulation Mechanism (encryption)</p>
+          <p><strong>Key Size:</strong> 768/1024 bits</p>
+          <p><strong>Efficiency:</strong> High-speed, compact keys</p>
+          <p style="margin-top: 12px; color: var(--secondary);">🟢 Recommended for all use cases</p>
+        </div>
+        
+        <div class="card">
+          <h4>ML-DSA (Dilithium)</h4>
+          <p><strong>Purpose:</strong> Digital Signatures</p>
+          <p><strong>Key Size:</strong> 2,460–3,293 bytes</p>
+          <p><strong>Speed:</strong> Fast signature generation</p>
+          <p style="margin-top: 12px; color: var(--secondary);">🟢 Standard for general signatures</p>
+        </div>
+        
+        <div class="card">
+          <h4>SLH-DSA (SPHINCS+)</h4>
+          <p><strong>Purpose:</strong> Stateless Digital Signatures</p>
+          <p><strong>Key Size:</strong> 64 bytes (smallest)</p>
+          <p><strong>Trade-off:</strong> Larger signature size (~17KB)</p>
+          <p style="margin-top: 12px; color: var(--secondary);">🟡 For lightweight devices</p>
+        </div>
+        
+        <div class="card">
+          <h4>FN-DSA (Falcon)</h4>
+          <p><strong>Purpose:</strong> Compact Signature Scheme</p>
+          <p><strong>Key Size:</strong> 897–1,793 bytes</p>
+          <p><strong>Advantage:</strong> Smallest signatures in PQC</p>
+          <p style="margin-top: 12px; color: var(--secondary);">🟡 Backup/specialized</p>
+        </div>
+        
+        <div class="card">
+          <h4>HQC (Hamming Quasi-Cyclic)</h4>
+          <p><strong>Purpose:</strong> Backup KEM algorithm</p>
+          <p><strong>Status:</strong> Still under evaluation</p>
+          <p><strong>Use:</strong> Diversity in deployments</p>
+          <p style="margin-top: 12px; color: var(--accent);">ℹ️ Secondary standard</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Algorithm Comparison Table -->
+    <div class="section">
+      <h2>📊 Algorithm Comparison Matrix</h2>
+      
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Algorithm</th>
+              <th>Category</th>
+              <th>Public Key</th>
+              <th>Signature Size</th>
+              <th>Speed</th>
+              <th>Use Case</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>ML-KEM (Kyber)</strong></td>
+              <td>Key Encapsulation</td>
+              <td>800–1,568 bytes</td>
+              <td>768–1,088 bytes</td>
+              <td>⚡ Very Fast</td>
+              <td>General-purpose encryption</td>
+            </tr>
+            <tr>
+              <td><strong>ML-DSA (Dilithium)</strong></td>
+              <td>Digital Signature</td>
+              <td>1,312–2,544 bytes</td>
+              <td>2,420–3,309 bytes</td>
+              <td>⚡ Fast</td>
+              <td>General-purpose signatures</td>
+            </tr>
+            <tr>
+              <td><strong>SLH-DSA (SPHINCS+)</strong></td>
+              <td>Digital Signature</td>
+              <td>64 bytes</td>
+              <td>17,088 bytes</td>
+              <td>🐢 Slower</td>
+              <td>IoT/lightweight devices</td>
+            </tr>
+            <tr>
+              <td><strong>FN-DSA (Falcon)</strong></td>
+              <td>Digital Signature</td>
+              <td>897–1,793 bytes</td>
+              <td>666–1,280 bytes</td>
+              <td>⚡ Fast</td>
+              <td>Compact signature requirement</td>
+            </tr>
+            <tr>
+              <td><strong>HQC</strong></td>
+              <td>Key Encapsulation</td>
+              <td>2,249–4,522 bytes</td>
+              <td>N/A</td>
+              <td>🐢 Moderate</td>
+              <td>Algorithm diversity</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <!-- Migration Timeline -->
+    <div class="section">
+      <h2>📅 PQC Migration Timeline</h2>
+      
+      <div class="migration-box">
+        <div class="migration-status">
+          <div class="status-item">
+            <div class="status-label">Current Status</div>
+            <div class="status-value">🟡 Hybrid</div>
+          </div>
+          <div class="status-item">
+            <div class="status-label">Target Deadline</div>
+            <div class="status-value">2030</div>
+          </div>
+          <div class="status-item">
+            <div class="status-label">Full Migration</div>
+            <div class="status-value">2035</div>
+          </div>
+        </div>
+      </div>
+      
+      <div id="timelineChart">
+        <canvas id="migrationChart"></canvas>
+      </div>
+      
+      <div class="grid">
+        <div class="card">
+          <h4>Phase 1: Hybrid (2024–2026)</h4>
+          <p><strong>🔄 Current:</strong> Use classical + PQC together</p>
+          <p style="margin-top: 8px;">Run RSA/ECC and ML-KEM side-by-side. If classical fails, PQC protects.</p>
+        </div>
+        
+        <div class="card">
+          <h4>Phase 2: Migration (2027–2030)</h4>
+          <p><strong>⏳ Recommended Deadline:</strong> Full crypto audit</p>
+          <p style="margin-top: 8px;">Identify all cryptographic dependencies. Begin replacing classical algorithms.</p>
+        </div>
+        
+        <div class="card">
+          <h4>Phase 3: Full PQC (2031–2035)</h4>
+          <p><strong>🔒 Final Target:</strong> Deprecate classical crypto</p>
+          <p style="margin-top: 8px;">All new systems use PQC-only. Legacy systems decommissioned or migrated.</p>
+        </div>
+      </div>
+      
+      <div style="background: rgba(255, 0, 0, 0.1); border-left: 4px solid #FF1744; padding: 16px; border-radius: 6px; margin-top: 20px;">
+        <strong style="color: #FF1744;">⚠️ "Harvest Now, Decrypt Later" Risk</strong>
+        <p style="margin-top: 8px; color: var(--text-dim);">Adversaries are already recording encrypted data today to decrypt once quantum computers arrive. Begin hybrid encryption now.</p>
+      </div>
+    </div>
+    
+    <!-- Partner Ecosystem -->
+    <div class="section">
+      <h2>🤝 Nexum Partner Solutions</h2>
+      <p style="color: var(--text-dim); margin-bottom: 20px;">
+        Enterprise partners providing PQC readiness tools and services
+      </p>
+      
+      <div class="partners-grid">
+        <div class="partner-card">
+          <div class="partner-name">F5 CalypsoAI</div>
+          <div class="partner-desc">Quantum-safe guardrails for AI models. Detects classical cryptographic weaknesses in ML pipelines.</div>
+        </div>
+        
+        <div class="partner-card">
+          <div class="partner-name">Palo Alto Networks</div>
+          <div class="partner-desc">Quantum-ready endpoint protection. ADSP compliance & crypto agility in firewalls.</div>
+        </div>
+        
+        <div class="partner-card">
+          <div class="partner-name">CrowdStrike Falcon</div>
+          <div class="partner-desc">PQC-aware EDR. Monitor for weak crypto in endpoints. ADSP certified.</div>
+        </div>
+        
+        <div class="partner-card">
+          <div class="partner-name">Nexum MSS</div>
+          <div class="partner-desc">Managed PQC migration services. Crypto inventory audit, hybrid deployment, training.</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Hands-On Lab Simulator -->
+    <div class="section">
+      <h2>🧪 Hands-On: Crypto Vulnerability Scanner</h2>
+      <p style="color: var(--text-dim); margin-bottom: 20px;">
+        Simulate a cryptographic inventory scan. Detect RSA/ECC vulnerabilities and generate hybrid migration recommendations.
+      </p>
+      
+      <div class="lab-simulator">
+        <div class="simulator-input">
+          <div class="input-group">
+            <label for="systemType">System Type:</label>
+            <select id="systemType">
+              <option value="web">Web Application</option>
+              <option value="api">REST API</option>
+              <option value="iot">IoT Device</option>
+              <option value="blockchain">Blockchain</option>
+            </select>
+          </div>
+          
+          <div class="input-group">
+            <label for="cryptoAlgo">Current Crypto Algorithm:</label>
+            <select id="cryptoAlgo">
+              <option value="rsa-2048">RSA-2048</option>
+              <option value="rsa-4096">RSA-4096</option>
+              <option value="ecdsa-p256">ECDSA P-256</option>
+              <option value="ecdsa-p384">ECDSA P-384</option>
+              <option value="sha256">SHA-256</option>
+            </select>
+          </div>
+          
+          <div class="input-group">
+            <label for="deploymentYear">Deployment Year:</label>
+            <input type="number" id="deploymentYear" placeholder="2020" min="2000" max="2025" value="2020">
+          </div>
+          
+          <div class="input-group">
+            <label for="dataClassification">Data Classification:</label>
+            <select id="dataClassification">
+              <option value="public">Public</option>
+              <option value="internal">Internal</option>
+              <option value="confidential">Confidential</option>
+              <option value="top-secret">Top Secret / Long-term</option>
+            </select>
+          </div>
+        </div>
+        
+        <button class="button" onclick="runScan()">▶️ Run Vulnerability Scan</button>
+        
+        <div id="scanOutput" class="simulator-output" style="display:none;">
+          <div id="outputContent"></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Hybrid Crypto Demo -->
+    <div class="section">
+      <h2>🔄 Hybrid Key Exchange Demo</h2>
+      <p style="color: var(--text-dim); margin-bottom: 20px;">
+        Simulate a hybrid encryption handshake combining classical RSA with post-quantum ML-KEM
+      </p>
+      
+      <div class="lab-simulator">
+        <button class="button" onclick="runHybridDemo()">▶️ Start Hybrid Key Exchange</button>
+        
+        <div id="hybridOutput" class="simulator-output" style="display:none;">
+          <div id="hybridContent"></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Resources -->
+    <div class="section">
+      <h2>📚 Resources & References</h2>
+      
+      <div class="grid">
+        <div class="card">
+          <h4>NIST Official Standards</h4>
+          <p><a href="https://csrc.nist.gov/projects/post-quantum-cryptography/standards" target="_blank" style="color: var(--accent); text-decoration: underline;">FIPS 203–206 Download</a></p>
+          <p style="font-size: 12px; color: var(--text-dim); margin-top: 8px;">Cryptographic Standards & Guidelines</p>
+        </div>
+        
+        <div class="card">
+          <h4>Open Quantum Safe (OQS)</h4>
+          <p><a href="https://openquantumsafe.org/" target="_blank" style="color: var(--accent); text-decoration: underline;">OQS Library & Examples</a></p>
+          <p style="font-size: 12px; color: var(--text-dim); margin-top: 8px;">Open-source implementations of PQC algorithms</p>
+        </div>
+        
+        <div class="card">
+          <h4>Quantum Computing Threat</h4>
+          <p><a href="https://www.nist.gov/news-events/news-releases/2023-quantum-safe-cryptography-timeline" target="_blank" style="color: var(--accent); text-decoration: underline;">NIST Timeline Article</a></p>
+          <p style="font-size: 12px; color: var(--text-dim); margin-top: 8px;">When quantum computers will break RSA/ECC</p>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Nexum Inc Security Lab - Post-Quantum Cryptography Research | <strong style="color: #F76722;">Powered by Cloudflare</strong></p>
+  </footer>
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Initialize Timeline Chart
+    function initChart() {
+      const ctx = document.getElementById('migrationChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['2024-2026\nHybrid Phase', '2027-2030\nMigration', '2031-2035\nFull PQC'],
+          datasets: [{
+            label: 'PQC Adoption %',
+            data: [30, 70, 100],
+            backgroundColor: [
+              'rgba(163, 0, 255, 0.3)',
+              'rgba(82, 178, 255, 0.3)',
+              'rgba(0, 255, 136, 0.3)'
+            ],
+            borderColor: [
+              '#A300FF',
+              '#52b2ff',
+              '#00ff88'
+            ],
+            borderWidth: 2,
+            borderRadius: 6
+          }],
+          plugins: {
+            legend: {
+              display: false
+            }
+          }
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              ticks: { color: '#8892b0' },
+              grid: { color: '#2a3f7f' },
+              title: { display: true, text: 'Adoption %', color: '#e0e6ff' }
+            },
+            x: {
+              ticks: { color: '#8892b0' },
+              grid: { display: false }
+            }
+          },
+          plugins: {
+            legend: { labels: { color: '#e0e6ff' } },
+            tooltip: {
+              backgroundColor: 'rgba(10, 14, 39, 0.8)',
+              titleColor: '#52b2ff',
+              bodyColor: '#e0e6ff'
+            }
+          }
+        }
+      });
+    }
+    
+    // Run Vulnerability Scan
+    function runScan() {
+      const systemType = document.getElementById('systemType').value;
+      const cryptoAlgo = document.getElementById('cryptoAlgo').value;
+      const year = parseInt(document.getElementById('deploymentYear').value);
+      const classification = document.getElementById('dataClassification').value;
+      
+      const output = document.getElementById('scanOutput');
+      const content = document.getElementById('outputContent');
+      
+      let risk = 'LOW';
+      let recommendation = 'Standard monitoring';
+      
+      if (year < 2015 || classification === 'top-secret') {
+        risk = 'CRITICAL';
+        recommendation = 'Immediate action required - begin hybrid deployment within 6 months';
+      } else if (year < 2018 || classification === 'confidential') {
+        risk = 'HIGH';
+        recommendation = 'Plan PQC migration for next 12-18 months';
+      } else if (year < 2021) {
+        risk = 'MEDIUM';
+        recommendation = 'Schedule PQC assessment in 6 months';
+      }
+      
+      const pqcAlgo = cryptoAlgo.includes('rsa') || cryptoAlgo.includes('ecdsa') ? 'ML-KEM + ' + cryptoAlgo : 'ML-DSA';
+      
+      content.innerHTML = `
+<div class="output-line">📋 SCAN REPORT - ${new Date().toLocaleString()}</div>
+<div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+<div class="output-line">🎯 System Type: ${systemType.toUpperCase()}</div>
+<div class="output-line">🔐 Current Algorithm: ${cryptoAlgo}</div>
+<div class="output-line">📅 Deployment Year: ${year}</div>
+<div class="output-line">🏷️  Classification: ${classification.toUpperCase()}</div>
+<div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+<div class="output-line" style="color: ${risk === 'CRITICAL' ? '#FF1744' : risk === 'HIGH' ? '#FFA500' : '#00ff88'};">
+  ⚠️ RISK LEVEL: ${risk}
+</div>
+<div class="output-line">💡 Recommendation: ${recommendation}</div>
+<div class="output-line">🔄 Hybrid Migration Target: ${pqcAlgo}</div>
+<div class="output-line">⏱️  Estimated Timeline: ${risk === 'CRITICAL' ? '6 months' : risk === 'HIGH' ? '12-18 months' : '24+ months'}</div>
+<div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+<div class="output-line">✅ Scan completed. Contact Nexum MSS for detailed migration plan.</div>
+      `;
+      
+      output.style.display = 'block';
+    }
+    
+    // Hybrid Key Exchange Demo
+    function runHybridDemo() {
+      const output = document.getElementById('hybridOutput');
+      const content = document.getElementById('hybridContent');
+      
+      const steps = [
+        '🤝 CLIENT → SERVER: Initiating TLS 1.3 handshake with hybrid cipher',
+        '🔐 SERVER: Generating RSA-4096 key pair (classical)',
+        '⚛️  SERVER: Generating ML-KEM-1024 key pair (post-quantum)',
+        '📤 SERVER → CLIENT: Sending dual public keys + certificate',
+        '🔑 CLIENT: Deriving shared secret from RSA-4096 (classical)',
+        '🔑 CLIENT: Deriving shared secret from ML-KEM-1024 (post-quantum)',
+        '🔀 CLIENT: XOR-combining both shared secrets into final key',
+        '📤 CLIENT → SERVER: Sending encapsulated ciphertexts',
+        '✅ SERVER: Decapsulating both secrets, verifying match',
+        '🔒 SECURE CHANNEL: Hybrid encryption now active',
+        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+        '💪 Result: Even if RSA is broken, ML-KEM protects. Even if ML-KEM falters, RSA remains valid.'
+      ];
+      
+      content.innerHTML = '';
+      let delay = 0;
+      
+      steps.forEach((step, idx) => {
+        setTimeout(() => {
+          const line = document.createElement('div');
+          line.className = 'output-line';
+          line.textContent = step;
+          if (step.includes('✅') || step.includes('💪')) {
+            line.style.color = '#00ff88';
+            line.style.fontWeight = 'bold';
+          }
+          content.appendChild(line);
+          content.scrollTop = content.scrollHeight;
+        }, delay);
+        delay += 300;
+      });
+      
+      output.style.display = 'block';
+    }
+    
+    // Initialize on page load
+    window.addEventListener('load', initChart);
+  </script>
+</body>
+</html>

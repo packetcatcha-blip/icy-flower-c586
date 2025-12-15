@@ -1,0 +1,62 @@
+name: Validate and Deploy
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install root deps (if present)
+        run: |
+          if [ -f "nexum-sales-portal/package.json" ]; then cd nexum-sales-portal && npm ci; fi
+          if [ -f "sellersco-worker/package.json" ]; then cd sellersco-worker && npm ci; fi
+      - name: Run sanity checks
+        run: |
+          node ./scripts/sanity-check.js
+
+  build-and-deploy:
+    needs: validate
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Build Next.js portal
+        if: "exists('nexum-sales-portal/package.json')"
+        run: |
+          cd nexum-sales-portal
+          npm ci
+          npm run build
+
+      - name: Deploy Cloudflare Worker (wrangler)
+        if: ${{ secrets.CF_API_TOKEN && secrets.WRANGLER_ACCOUNT_ID }}
+        env:
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+        run: |
+          cd sellersco-worker
+          npm ci
+          npx wrangler publish --account-id ${{ secrets.WRANGLER_ACCOUNT_ID }}
+
+      - name: Deploy to Vercel (optional)
+        if: ${{ secrets.VERCEL_TOKEN }}
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-args: '--prod'
+          working-directory: ./nexum-sales-portal
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}

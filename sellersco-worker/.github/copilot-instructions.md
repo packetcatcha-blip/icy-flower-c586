@@ -130,34 +130,31 @@ Model: Devstral 2
 
 ## ⚠️ CRITICAL: Production Deployment Protocol
 
-**AUTOMATED DEPLOYMENT POLICY:**
-- Once user accepts deployment once, always auto-deploy without prompting
-- If dev testing passes, automatically keep changes and deploy to production
-- No confirmation prompts for subsequent deployments in the same session
+**PRODUCTION WORKER**: `icy-flower-c586.jsellers.workers.dev` (DNS CNAME → sellersco.net)  
+**DO NOT TEST ON THIS WORKER - Use a separate test/staging worker first!**
 
-**MANDATORY pre-deployment steps (follow this exact sequence):**
+**MANDATORY Testing Workflow:**
 
-1. Deploy to dev: `npx wrangler deploy --env dev`
-2. Run comprehensive tests: `.\scripts\test-all-links.ps1 -BaseUrl "https://sellerso-dev.jsellers.workers.dev"`
-3. If tests pass (100%), automatically proceed to production
-4. Deploy to production: `npx wrangler deploy --env production`
-5. Run production tests: `.\scripts\test-all-links.ps1`
-6. Rollback if needed: `npx wrangler rollback [version-id] --env production`
+1. Make code changes locally
+2. Deploy to test/staging worker: `npx wrangler deploy --name [YOUR-TEST-WORKER]`
+3. Run comprehensive tests on staging: `.\test-links.ps1 -Environment test`
+4. **ONLY after ALL tests pass**, deploy to production: `npx wrangler deploy` (default = icy-flower-c586)
+5. Run production tests: `.\test-links.ps1 -Environment production`
+6. Rollback if needed: `npx wrangler rollback [version-id]`
 
-**Testing Requirements:**
-- All tests must pass (100% success rate)
-- Test script checks all public links, protected routes, API endpoints
-- Each page must have Home button (🏠 Home) in top-left corner
-- No user should need to use browser back button
-
-See [DEPLOYMENT.md](../DEPLOYMENT.md) and [TESTING.md](../TESTING.md) for details.
+**CRITICAL: NO automatic deployments to production!**
+- Always verify on staging worker first
+- Always run full test suite before production deploy
+- Manual confirmation required at each step
+- See [DEPLOYMENT.md](../DEPLOYMENT.md) and [TESTING.md](../TESTING.md) for complete details
 
 ---
 
 ## Project Stack
 
 **Stack:** Cloudflare Workers + R2 Storage + AI/Vectorize + D1 Database  
-**Production:** https://sellersco.net
+**Production Worker**: `icy-flower-c586.jsellers.workers.dev` (sellersco.net DNS CNAME)
+**Testing**: Use separate staging/test worker - NEVER test on production
 
 **Key Bindings:**
 - `IMAGES` (R2) - ✅ Operational
@@ -180,11 +177,11 @@ npx wrangler d1 create security_lab_db
 # 4. Create D1 tables - See D1-AUTH-MIGRATION.md
 ```
 
-## Deployment Test Results (Dev Environment)
+## Deployment Test Results (Staging Environment)
 
 **Last Tested:** December 14, 2025  
-**Environment:** https://sellerso-dev.jsellers.workers.dev  
-**Test Results:** ✅ 37/37 tests passing (100%)
+**Environment:** Use `[YOUR-TEST-WORKER]` - NOT icy-flower-c586.jsellers.workers.dev!  
+**Test Results:** ✅ 37/37 tests passing (100%) on staging before production deployment
 
 ### Working Components
 - ✅ Homepage with responsive navigation

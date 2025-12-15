@@ -1,5 +1,21 @@
 # 🚀 POST-QUANTUM REVOLUTION WORKER - SETUP GUIDE
 
+## ⚠️ CRITICAL: Production vs Staging
+
+**Production Worker**: `icy-flower-c586.jsellers.workers.dev` (DNS CNAME → sellersco.net)  
+**ALWAYS DEPLOY TO STAGING WORKER FIRST**: Use `--name [YOUR-TEST-WORKER]` before production
+
+**Deploy Command Examples:**
+```bash
+# Deploy to staging/test worker FIRST
+wrangler deploy --name my-quantum-test
+
+# After testing passes, deploy to production
+wrangler deploy  # Defaults to icy-flower-c586 (PRODUCTION)
+```
+
+---
+
 ## 🎯 Ultra-Badass Features Integrated
 
 This Cloudflare Worker implements the ultimate interactive quantum cryptography experience with:
@@ -102,14 +118,20 @@ Example quantum documents to index:
 - PQC migration guides
 - Common attack explanations
 
-### 3. Deploy
+### 3. Deploy to Staging FIRST, Then Production
 
 ```bash
-# Deploy to dev environment first
-wrangler deploy --env dev
+# Deploy to staging/test worker first
+wrangler deploy --name [YOUR-TEST-WORKER]
 
-# Then to production
-wrangler deploy
+# Test staging thoroughly...
+./test-links.ps1 -Environment staging
+
+# Only then deploy to production
+wrangler deploy  # Defaults to icy-flower-c586 (PRODUCTION)
+
+# Verify production
+./test-links.ps1 -Environment production
 ```
 
 ---

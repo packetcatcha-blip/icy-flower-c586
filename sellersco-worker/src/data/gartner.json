@@ -1,0 +1,98 @@
+{
+  "sase": {
+    "category": "SASE (Secure Access Service Edge)",
+    "leaders": ["Zscaler", "Netskope"],
+    "visionaries": ["Palo Alto Networks", "Fortinet"],
+    "niche_players": ["Check Point"],
+    "challengers": ["Cisco"],
+    "market_share": {
+      "zscaler": 0.28,
+      "netskope": 0.22,
+      "palo_alto": 0.18,
+      "fortinet": 0.15,
+      "others": 0.17
+    },
+    "growth": "45% CAGR 2023-2025",
+    "key_criteria": ["Architecture", "Performance", "Zero Trust", "DLP", "Cloud Integration"]
+  },
+  "edr": {
+    "category": "EDR (Endpoint Detection & Response)",
+    "leaders": ["Crowdstrike", "SentinelOne"],
+    "visionaries": ["Microsoft Defender", "Trend Micro"],
+    "niche_players": ["Carbon Black", "Cybereason"],
+    "challengers": ["Palo Alto EDR"],
+    "market_share": {
+      "crowdstrike": 0.32,
+      "sentinelone": 0.18,
+      "microsoft": 0.20,
+      "carbon_black": 0.12,
+      "others": 0.18
+    },
+    "growth": "28% CAGR 2023-2025",
+    "key_criteria": ["Detection Accuracy", "Automation", "SOAR Integration", "Threat Intel"]
+  },
+  "siem": {
+    "category": "SIEM (Security Information & Event Management)",
+    "leaders": ["Splunk", "Palo Alto Networks"],
+    "visionaries": ["Elastic", "IBM QRadar"],
+    "niche_players": ["ArcSight", "LogRhythm"],
+    "challengers": ["Sumo Logic"],
+    "market_share": {
+      "splunk": 0.28,
+      "palo_alto": 0.22,
+      "elastic": 0.15,
+      "ibm_qradar": 0.18,
+      "others": 0.17
+    },
+    "growth": "12% CAGR 2023-2025",
+    "key_criteria": ["Log Analysis", "Threat Detection", "Automation", "Cloud Native"]
+  },
+  "ddi": {
+    "category": "DDI (DNS/DHCP/IPAM)",
+    "leaders": ["Infoblox"],
+    "visionaries": ["Cisco Umbrella", "EfficientIP"],
+    "niche_players": ["Bluecat", "Menandmice"],
+    "challengers": ["Microsoft", "Alcatel-Lucent"],
+    "market_share": {
+      "infoblox": 0.42,
+      "cisco_umbrella": 0.20,
+      "efficientip": 0.15,
+      "bluecat": 0.12,
+      "others": 0.11
+    },
+    "growth": "18% CAGR 2023-2025",
+    "key_criteria": ["DNS Security", "Threat Prevention", "Network Visibility", "IoT Support"]
+  },
+  "ngfw": {
+    "category": "NGFW (Next-Gen Firewall)",
+    "leaders": ["Palo Alto Networks", "Fortinet"],
+    "visionaries": ["Check Point", "Cisco"],
+    "niche_players": ["Juniper", "Hillstone"],
+    "challengers": ["Stonesoft"],
+    "market_share": {
+      "palo_alto": 0.28,
+      "fortinet": 0.25,
+      "check_point": 0.18,
+      "cisco": 0.15,
+      "others": 0.14
+    },
+    "growth": "8% CAGR 2023-2025",
+    "key_criteria": ["Throughput", "Threat Prevention", "Cloud Integration", "Automation"]
+  },
+  "cloud_security": {
+    "category": "Cloud Security",
+    "leaders": ["Netskope", "Zscaler"],
+    "visionaries": ["Palo Alto Prisma", "Trend Micro"],
+    "niche_players": ["Check Point CloudGuard"],
+    "challengers": ["McAfee Cloud Defender"],
+    "market_share": {
+      "netskope": 0.25,
+      "zscaler": 0.22,
+      "palo_alto": 0.20,
+      "trend_micro": 0.15,
+      "others": 0.18
+    },
+    "growth": "42% CAGR 2023-2025",
+    "key_criteria": ["Multi-Cloud", "DLP", "Threat Protection", "Compliance"]
+  }
+}

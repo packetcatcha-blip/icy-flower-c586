@@ -1,0 +1,106 @@
+[
+  {
+    "id": "ransomware-detection-lag",
+    "title": "Ransomware detection lag",
+    "issue": "Current tool takes too long to detect encrypted files",
+    "severity": "CRITICAL",
+    "script": "Acknowledge: Your current tool is solid at perimeter defense. Question: What's your average time-to-detect when ransomware hits? Industry average is 228 days. Our EDR detects via behavioral heuristics in 2-4 hours. Advantage: Real-time file activity monitoring + AI behavioral analysis. Next: Let's do a side-by-side POC on 10 systems.",
+    "vertices": ["healthcare", "finance", "manufacturing"]
+  },
+  {
+    "id": "sase-complexity",
+    "title": "SASE deployment is too complex",
+    "issue": "Takes 6+ months to roll out across org",
+    "severity": "CRITICAL",
+    "script": "Understand: SASE is a big shift from traditional firewall. Pain: Long deployment = security gaps during transition. Our SASE: Agentless for 80% of use cases, 30-day pilot. Advantage: Cloud-native = faster than on-prem. Business case: 3-month faster to value = $500K savings. Next: Let's map your network topology.",
+    "vertices": ["enterprise", "finance", "government"]
+  },
+  {
+    "id": "ddi-visibility-gaps",
+    "title": "DNS/DDI visibility blind spots",
+    "issue": "Can't see internal DNS queries or DHCP leaks",
+    "severity": "HIGH",
+    "script": "Reality: 70% of lateral movement uses DNS tunneling. Current risk: Attackers hide command & control in DNS. Our DDI: Complete DNS/DHCP/IPAM visibility + threat blocking. Advantage: Stops C2 before it happens. ROI: Prevents 1-2 major incidents/year. Next: Network diagram review.",
+    "vertices": ["finance", "healthcare", "government"]
+  },
+  {
+    "id": "cloud-misconfig-undetected",
+    "title": "Cloud misconfigurations go undetected",
+    "issue": "S3 buckets, RDS publicly exposed, secrets unrotated",
+    "severity": "CRITICAL",
+    "script": "Challenge: Cloud ownership spans teams, config drift happens fast. Our scanner: Continuous compliance checks + auto-remediation. Advantage: Catches 95% of cloud misconfigs before breach. Business: Reduces breach cost by $4M average. Timeline: Deploy scanner in 2 weeks. Next: Show you the dashboard.",
+    "vertices": ["finance", "technology", "healthcare"]
+  },
+  {
+    "id": "zero-trust-gap",
+    "title": "Zero Trust implementation incomplete",
+    "issue": "Haven't fully implemented device trust or user verification",
+    "severity": "HIGH",
+    "script": "Partial ZT is partial security. Current state: 40% of employees use unverified devices. Our solution: Device posture verification + real-time user risk scoring. Advantage: Stops insider threats + compromised devices. Business case: 60% fewer endpoint breaches. Pilot: 100 users, 30 days. Next: Audit device posture.",
+    "vertices": ["finance", "government", "healthcare"]
+  },
+  {
+    "id": "budget-constraints",
+    "title": "Security budget was already spent",
+    "issue": "CFO says no budget for new tools until next fiscal year",
+    "severity": "HIGH",
+    "script": "Credible: Budgets are tight. Reframe: Our solution replaces tool X you're already paying for. Cost shift: Cut Palo Alto EDR ($X) + move to us ($X-20%). ROI: Faster detection = lower incident costs. Business: Justify via incident avoidance. Finance play: Position as operational efficiency, not CapEx. Next: Build 3-year TCO model.",
+    "vertices": ["all"]
+  },
+  {
+    "id": "vendor-consolidation",
+    "title": "We need FEWER tools, not more",
+    "issue": "Tool sprawl = management nightmare, 15+ vendors already",
+    "severity": "HIGH",
+    "script": "Understand: Tool sprawl kills SOC efficiency. Our advantage: Our EDR + threat intel covers 60% of your current stack. Consolidation play: Replace 3-4 point solutions with us. Advantage: Single console, unified data, 40% less management overhead. Business: Reduce SOC salaries by automating alert triage. Next: Tool stack audit.",
+    "vertices": ["enterprise", "finance", "healthcare"]
+  },
+  {
+    "id": "staff-skillset-gaps",
+    "title": "We don't have IT staff to manage this",
+    "issue": "Security team is overwhelmed, no budget to hire",
+    "severity": "MEDIUM",
+    "script": "Reality: Staffing is tight industry-wide. Our advantage: Fully managed service available for 30% premium. Automation: 80% of alert triage is automated, not manual. ROI: Saves 3-5 FTE headcount. Business: Show automation ROI vs hiring cost ($200K/FTE). Next: Discuss managed services option.",
+    "vertices": ["smb", "healthcare", "retail"]
+  },
+  {
+    "id": "open-source-preference",
+    "title": "Our CTO prefers open-source security tools",
+    "issue": "Committed to open-source-only architecture",
+    "severity": "MEDIUM",
+    "script": "Respect: Open-source has huge role. Reality: 99% of production use Wazuh + our commercial solution for threat intel. Our approach: We integrate with Wazuh, ELK, Kafka. Best of both: OSS foundation + our proprietary threat detection. Business: Avoid lock-in risk. Next: Show Wazuh integration.",
+    "vertices": ["startups", "technology"]
+  },
+  {
+    "id": "vendor-lock-in-fear",
+    "title": "Worried about vendor lock-in with proprietary solutions",
+    "issue": "Don't want to be stuck with one vendor",
+    "severity": "MEDIUM",
+    "script": "Legitimate concern: Switching costs are real. Our promise: All data exports to standard formats (STIX, JSON, logs). No lock-in: Leave anytime, take your data. Contract: Month-to-month terms available. Business advantage: Our performance speaks for itself, we don't need lock-in. Next: Discuss data portability contract.",
+    "vertices": ["enterprise", "finance"]
+  },
+  {
+    "id": "competitor-entrenched",
+    "title": "We're already locked into competitor X",
+    "issue": "Multi-year contract with Crowdstrike/Palo Alto/etc",
+    "severity": "MEDIUM",
+    "script": "Understand: Switching costs are real. Opportunity: Contracts end eventually, prepare now. Our strategy: Co-exist with your current tool, prove value in parallel. Advantage: You keep current tool, we cover gaps they have. Timeline: When contract renews, you'll be ready. Business: Reduce risk via defense-in-depth. Next: Discuss proof-of-concept.",
+    "vertices": ["enterprise", "finance", "government"]
+  },
+  {
+    "id": "compliance-burden",
+    "title": "Compliance/audit burden is overwhelming",
+    "issue": "HIPAA, SOC2, ISO27001 requirements",
+    "severity": "HIGH",
+    "script": "Compliance: We meet all major standards + provide audit reports. Our advantage: Built-in compliance logging for HIPAA, SOC2, PCI. Business: Accelerates audit process by 3-4 weeks. ROI: Save $50K-100K in consulting fees. Next: Show compliance dashboard.",
+    "vertices": ["healthcare", "finance", "government"]
+  },
+  {
+    "id": "feature-overlap-confusion",
+    "title": "Can't figure out which vendor handles which problem",
+    "issue": "10 vendors do similar things, can't compare features",
+    "severity": "MEDIUM",
+    "script": "Confusion: Normal when ecosystem is complex. Our solution: Feature comparison matrix shows exactly what covers what. Advantage: Transparent feature positioning. Business: Faster procurement decisions. Next: Show you the feature matrix.",
+    "vertices": ["enterprise", "all"]
+  }
+]

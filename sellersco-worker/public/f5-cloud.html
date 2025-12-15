@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>F5 Distributed Cloud 2025 | Nexum Security Lab</title>
+  
+  <style>
+    :root {
+      --bg: #0a1628;
+      --surface: #1a2f45;
+      --text: #f0f4f8;
+      --text-dim: #b8c5d6;
+      --accent: #52b2ff;
+      --border: #2d4563;
+      --f5-blue: #0a5eb8;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Inter, -apple-system, sans-serif; background: var(--bg); color: var(--text); }
+    
+    header {
+      background: linear-gradient(135deg, var(--f5-blue), #0066cc);
+      padding: 40px 20px;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    h1 { font-size: 2rem; margin-bottom: 8px; }
+    .subtitle { font-size: 14px; opacity: 0.9; }
+    .back-btn { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4); color: white; padding: 8px 16px; border-radius: 6px; cursor: pointer; text-decoration: none; }
+    
+    .container { max-width: 1400px; margin: 0 auto; padding: 40px 20px; }
+    
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 24px;
+    }
+    
+    .section h2 { color: var(--f5-blue); font-size: 1.5rem; margin-bottom: 16px; }
+    
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    
+    .feature-card {
+      background: #24395a;
+      border: 1px solid var(--border);
+      padding: 20px;
+      border-radius: 8px;
+      border-left: 4px solid var(--f5-blue);
+    }
+    
+    .feature-icon { font-size: 2rem; margin-bottom: 8px; }
+    .feature-title { font-weight: 700; margin-bottom: 8px; color: var(--accent); }
+    .feature-desc { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
+    
+    .acquisition-timeline {
+      background: linear-gradient(135deg, rgba(10, 94, 184, 0.1), rgba(82, 178, 255, 0.1));
+      border-left: 4px solid var(--f5-blue);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    
+    .timeline-item {
+      padding: 16px;
+      margin-bottom: 12px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 6px;
+      border-left: 3px solid var(--accent);
+    }
+    
+    .timeline-date { font-weight: 700; color: var(--accent); font-size: 12px; margin-bottom: 4px; }
+    .timeline-company { font-weight: 600; margin-bottom: 4px; }
+    .timeline-detail { font-size: 13px; color: var(--text-dim); }
+    
+    .partnership-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    
+    .partner-card {
+      background: #24395a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+    }
+    
+    .partner-logo { font-size: 2.5rem; margin-bottom: 12px; }
+    .partner-name { font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+    .partner-services { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
+    
+    .cta-button {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--f5-blue), #0066cc);
+      color: white;
+      padding: 12px 32px;
+      border-radius: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s;
+      margin-top: 16px;
+    }
+    
+    .cta-button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(10, 94, 184, 0.3); }
+    
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(10, 94, 184, 0.2), rgba(82, 178, 255, 0.2));
+      border-left: 4px solid var(--accent);
+      padding: 16px;
+      border-radius: 8px;
+      margin: 16px 0;
+      font-size: 13px;
+    }
+    
+    @media (max-width: 768px) {
+      header { padding: 24px 20px; }
+      h1 { font-size: 1.5rem; }
+      .feature-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-content">
+    <div>
+      <h1>☁️ F5 Distributed Cloud</h1>
+      <p class="subtitle">2025 Platform Innovation & Strategic Partnerships</p>
+    </div>
+    <a href="/" class="back-btn">← Back to Dashboard</a>
+  </div>
+</header>
+
+<div class="container">
+  
+  <!-- 2025 Platform Features -->
+  <div class="section">
+    <h2>🚀 2025 Platform Features</h2>
+    <p style="color: var(--text-dim); margin-bottom: 20px;">F5 Distributed Cloud delivers cloud-native security and application delivery across multi-cloud and edge environments</p>
+    
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🔐</div>
+        <div class="feature-title">Zero Trust Security</div>
+        <div class="feature-desc">Enforce least-privilege access across all cloud environments, on-premises, and edge with distributed policy enforcement</div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <div class="feature-title">Multi-Cloud Load Balancing</div>
+        <div class="feature-desc">Intelligent traffic management across AWS, Azure, Google Cloud, and on-premises with AI-driven optimization</div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">🛡️</div>
+        <div class="feature-title">API Protection</div>
+        <div class="feature-desc">Discover, classify, and protect APIs against DDoS, bot attacks, and API-specific vulnerabilities</div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <div class="feature-title">Real-Time Analytics</div>
+        <div class="feature-desc">Advanced threat intelligence and performance analytics with machine learning-powered anomaly detection</div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-title">Edge Computing Security</div>
+        <div class="feature-desc">Secure edge applications and IoT endpoints with distributed, low-latency security services</div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">🔄</div>
+        <div class="feature-title">Automated Compliance</div>
+        <div class="feature-desc">Built-in compliance frameworks for PCI, HIPAA, GDPR, FedRAMP with automated policy enforcement</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Strategic Acquisitions -->
+  <div class="section">
+    <h2>🎯 Strategic Acquisitions 2024-2025</h2>
+    <p style="color: var(--text-dim); margin-bottom: 20px;">F5's strategic M&A activity strengthens AI, observability, and cloud-native capabilities</p>
+    
+    <div class="acquisition-timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">August 2024</div>
+        <div class="timeline-company">CalypsoAI Acquisition</div>
+        <div class="timeline-detail">LLM security platform for detecting prompt injection, data exfiltration, and AI model attacks. Integrates threat detection directly into F5 DC DDoS and API security.</div>
+      </div>
+      
+      <div class="timeline-item">
+        <div class="timeline-date">June 2024</div>
+        <div class="timeline-company">MantisNet Acquisition</div>
+        <div class="timeline-detail">Advanced threat intelligence and behavioral analytics platform. Enhances F5 DC threat prevention with network telemetry at hyperscale.</div>
+      </div>
+      
+      <div class="timeline-item">
+        <div class="timeline-date">October 2024</div>
+        <div class="timeline-company">Fletch Analytics Acquisition</div>
+        <div class="timeline-detail">Cloud observability and data analytics platform. Provides unified insights across F5 DC services with predictive security capabilities.</div>
+      </div>
+      
+      <div class="timeline-item">
+        <div class="timeline-date">Q1 2025</div>
+        <div class="timeline-company">Console Enhancement Launch</div>
+        <div class="timeline-detail">AI-powered security console integrating CalypsoAI, MantisNet, and Fletch for unified threat detection and response across all cloud environments.</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- ADSP Partnership -->
+  <div class="section">
+    <h2>🤝 Advanced Distributed Security Partnership (ADSP)</h2>
+    <p style="color: var(--text-dim); margin-bottom: 20px;">F5's collaborative ecosystem with strategic security vendors</p>
+    
+    <div class="highlight-box">
+      <strong style="color: var(--accent);">ADSP Overview:</strong> The Advanced Distributed Security Partnership is F5's joint initiative with leading cybersecurity vendors to integrate best-of-breed threat detection, response, and prevention across multi-cloud environments.
+    </div>
+    
+    <div class="partnership-section">
+      <div class="partner-card">
+        <div class="partner-logo">🔴</div>
+        <div class="partner-name">CrowdStrike Falcon</div>
+        <div class="partner-services">
+          <strong>Integration:</strong><br>
+          • BIG-IP embedded EDR<br>
+          • Real-time threat correlation<br>
+          • Automated incident response<br>
+          • Zero-trust access enforcement
+        </div>
+      </div>
+      
+      <div class="partner-card">
+        <div class="partner-logo">🟦</div>
+        <div class="partner-name">Splunk Enterprise</div>
+        <div class="partner-services">
+          <strong>Integration:</strong><br>
+          • F5 DC SIEM integration<br>
+          • Behavioral analytics<br>
+          • Advanced threat detection<br>
+          • Compliance automation
+        </div>
+      </div>
+      
+      <div class="partner-card">
+        <div class="partner-logo">🟢</div>
+        <div class="partner-name">Fortinet FortiGate</div>
+        <div class="partner-services">
+          <strong>Integration:</strong><br>
+          • Multi-cloud firewall mesh<br>
+          • DDoS collaboration<br>
+          • Threat intelligence sharing<br>
+          • Policy synchronization
+        </div>
+      </div>
+      
+      <div class="partner-card">
+        <div class="partner-logo">🟠</div>
+        <div class="partner-name">Palo Alto Networks</div>
+        <div class="partner-services">
+          <strong>Integration:</strong><br>
+          • Cloud security integration<br>
+          • Threat prevention alignment<br>
+          • Risk assessment<br>
+          • Compliance reporting
+        </div>
+      </div>
+      
+      <div class="partner-card">
+        <div class="partner-logo">🟣</div>
+        <div class="partner-name">Microsoft Defender</div>
+        <div class="partner-services">
+          <strong>Integration:</strong><br>
+          • Azure/M365 integration<br>
+          • Incident correlation<br>
+          • Endpoint detection<br>
+          • XDR orchestration
+        </div>
+      </div>
+      
+      <div class="partner-card">
+        <div class="partner-logo">🟡</div>
+        <div class="partner-name">Elastic Security</div>
+        <div class="partner-services">
+          <strong>Integration:</strong><br>
+          • Open-source SIEM<br>
+          • Log analysis at scale<br>
+          • Threat hunting<br>
+          • Real-time alerting
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Nexum Integration -->
+  <div class="section">
+    <h2>🔗 Nexum Inc Integration</h2>
+    <p style="color: var(--text-dim); margin-bottom: 20px;">Nexum MSS services with F5 Distributed Cloud platform</p>
+    
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <div class="feature-title">F5 DC Architecture</div>
+        <div class="feature-desc">Design and deployment of multi-cloud security fabric with zero-trust access and DDoS protection</div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">📋</div>
+        <div class="feature-title">ADSP Implementation</div>
+        <div class="feature-desc">Integration of CrowdStrike, Splunk, and partner solutions into unified F5 DC security operations</div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <div class="feature-title">Threat Hunting</div>
+        <div class="feature-desc">Proactive threat hunting across multi-cloud environments with F5 DC analytics and MantisNet intelligence</div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">⚙️</div>
+        <div class="feature-title">24/7 SOC Services</div>
+        <div class="feature-desc">Managed security operations with incident detection, response, and escalation coordination</div>
+      </div>
+    </div>
+    
+    <button class="cta-button" onclick="alert('Contact jsellers@nexuminc.com for F5 Distributed Cloud MSS consultation')">📞 Schedule Consultation</button>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,11 +1,43 @@
-# Pre-Production Testing Guide
+# 🚀 Pre-Production Testing Guide
+
+## 🚨 MANDATORY TESTING WORKFLOW
+
+**NEVER DEPLOY DIRECTLY TO PRODUCTION!**
+
+You MUST follow this exact sequence:
+
+```
+Step 1: Test Locally
+   npx wrangler dev
+   └─ Test all features on http://localhost:8787
+
+Step 2: Deploy to Dev/Staging Worker  
+   npx wrangler deploy --name my-test-worker
+   └─ Test all features on https://my-test-worker.jsellers.workers.dev
+   └─ Run full test suite ✅ MUST PASS
+
+Step 3: ONLY After All Tests Pass → Deploy to Production
+   npx wrangler deploy
+   └─ Deploys to: icy-flower-c586.jsellers.workers.dev (sellersco.net)
+   └─ LIVE ON INTERNET - NO SECOND CHANCE
+```
+
+**PRODUCTION WORKER**: `icy-flower-c586.jsellers.workers.dev` → `sellersco.net` (DNS CNAME)  
+**STATUS**: 🔴 LIVE - PRODUCTION ONLY - NO TESTING
+
+---
 
 ## Overview
-This document outlines all tests that must be completed before deploying to production at sellersco.net.
+This document outlines all tests that MUST be completed BEFORE deploying to production at icy-flower-c586.jsellers.workers.dev (sellersco.net).
+
+⚠️ **CRITICAL**: Test locally FIRST → test on separate/staging worker SECOND → only then deploy to production THIRD
 
 ---
 
 ## 🔗 Internal Link Testing
+
+### Staging/Test Worker URL
+Use this for testing: `https://[your-test-worker].jsellers.workers.dev`
 
 ### Homepage Navigation (/)
 Test all navigation links from the main page:
@@ -21,6 +53,7 @@ Test all navigation links from the main page:
 - [ ] `/threat-modeler` - Threat Modeler
 - [ ] `/multicloud-sim` - Multi-Cloud Simulator
 - [ ] `/attack-patterns` - Attack Patterns (NOW WORKING ✅)
+- [ ] `/attack-map` - Live Attack Map (with heatmap)
 
 **Protected Navigation Links (requires @nexuminc.com auth):**
 - [ ] `/sales-portal` - Sales Portal
@@ -40,7 +73,6 @@ Test all navigation links from the main page:
 - [ ] `/cloud-chaos` - Cloud-Chaos Simulator
 - [ ] `/dns-hunt` - DNS Hunt
 - [ ] `/zt-sim` - Zero Trust Simulator
-- [ ] `/attack-map` - Live Attack Map
 - [ ] `/hall-of-fame` - Hall of Fame
 - [ ] `/trace` - Multi-Colo Trace
 
@@ -52,31 +84,35 @@ Test all navigation links from the main page:
 
 ## 🧪 API Endpoint Testing
 
-### Public Endpoints
+### Testing on Staging Worker FIRST
 ```bash
+# Replace [YOUR-TEST-WORKER] with your staging worker name
+
 # Test message endpoint
-curl https://sellerso-dev.jsellers.workers.dev/message
+curl https://[YOUR-TEST-WORKER].jsellers.workers.dev/message
 # Expected: "Hello, World!"
 
 # Test random UUID
-curl https://sellerso-dev.jsellers.workers.dev/random
+curl https://[YOUR-TEST-WORKER].jsellers.workers.dev/random
 # Expected: UUID format (e.g., "a1b2c3d4-...")
 
 # Test ticker endpoint
-curl https://sellerso-dev.jsellers.workers.dev/get-ticker
+curl https://[YOUR-TEST-WORKER].jsellers.workers.dev/get-ticker
 # Expected: JSON with CVE items
 ```
 
-### Authentication Endpoints
+### Authentication Endpoints (Test First)
 ```bash
+# Replace [YOUR-TEST-WORKER] with your staging worker name
+
 # Test registration (requires @nexuminc.com email)
-curl -X POST https://sellerso-dev.jsellers.workers.dev/api/register \
+curl -X POST https://[YOUR-TEST-WORKER].jsellers.workers.dev/api/register \
   -H "Content-Type: application/json" \
   -d '{"name":"Test User","email":"test@nexuminc.com","password":"test123"}'
 # Expected: {"success":true,"message":"Registration request submitted..."}
 
 # Test login
-curl -X POST https://sellerso-dev.jsellers.workers.dev/api/login \
+curl -X POST https://[YOUR-TEST-WORKER].jsellers.workers.dev/api/login \
   -H "Content-Type: application/json" \
   -d '{"email":"test@nexuminc.com","password":"test123"}'
 # Expected: {"success":true,"token":"..."}

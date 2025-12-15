@@ -2,13 +2,21 @@
 
 ## 📋 What You Have
 
-You now have a **complete, production-ready Cloudflare Worker** with an ultra-badass Post-Quantum Cryptography interactive experience fully integrated into your `sellersco.net` worker at `/quantum/*` routes.
+You now have a **complete, production-ready Cloudflare Worker** with an ultra-badass Post-Quantum Cryptography interactive experience fully integrated into your Cloudflare Worker at `/quantum/*` routes.
 
-### 🎯 Quick Start (3 minutes)
+### ⚠️ CRITICAL: Testing First!
 
+**Production Worker**: `icy-flower-c586.jsellers.workers.dev` (DNS CNAME → sellersco.net)
+
+**ALWAYS TEST ON A STAGING WORKER FIRST:**
 ```bash
 cd c:\demo\nuke-demo\icy-flower-c586\sellersco-worker
-.\deploy-quantum.ps1  # Automated deployment script
+.\deploy-quantum.ps1 --workerName [YOUR-TEST-WORKER]  # Test first!
+```
+
+**Deploy to Production ONLY after verification:**
+```bash
+.\deploy-quantum.ps1  # Deploys to icy-flower-c586 (PRODUCTION)
 ```
 
 ---

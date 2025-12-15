@@ -1,0 +1,102 @@
+[
+  {
+    "id": "case-1",
+    "company": "Fortune 500 Financial Services",
+    "vertical": "Finance",
+    "challenge": "Ransomware detection too slow (228-day industry avg dwell time)",
+    "previous_solution": "Palo Alto NGFW + basic EDR",
+    "nexum_solution": "EDR with behavioral analysis",
+    "results": "2-hour detection vs 228-day avg. Saved $40M in potential ransom + downtime",
+    "roi": "340% Year 1"
+  },
+  {
+    "id": "case-2",
+    "company": "Healthcare Network (200+ clinics)",
+    "vertical": "Healthcare",
+    "challenge": "HIPAA compliance burden, manual audit process",
+    "previous_solution": "Multiple point solutions (Splunk, EDR, Firewall)",
+    "nexum_solution": "Unified platform with audit logging",
+    "results": "Reduced audit time from 8 weeks to 2 weeks. Auto-compliance reporting",
+    "roi": "$150K savings in consulting fees"
+  },
+  {
+    "id": "case-3",
+    "company": "Tech Startup (500 employees)",
+    "vertical": "SaaS/Technology",
+    "challenge": "Tool sprawl (15+ vendors), SOC team only 3 people",
+    "previous_solution": "Wazuh (OSS) + multiple point solutions",
+    "nexum_solution": "Consolidated platform + Wazuh integration",
+    "results": "Reduced alerts by 70% via automation, team productivity +3x",
+    "roi": "Avoided $600K hiring 3 additional SOC staff"
+  },
+  {
+    "id": "case-4",
+    "company": "Manufacturing (10,000+ devices)",
+    "vertical": "Manufacturing",
+    "challenge": "IoT/OT network visibility, cloud misconfig risks",
+    "previous_solution": "Legacy firewall, no cloud monitoring",
+    "nexum_solution": "DDI + cloud security",
+    "results": "Discovered 247 misconfigurations, fixed before breach. Real-time IoT visibility",
+    "roi": "Prevented estimated $5M breach impact"
+  },
+  {
+    "id": "case-5",
+    "company": "Government Agency (50,000 users)",
+    "vertical": "Government",
+    "challenge": "Zero Trust transition from traditional perimeter",
+    "previous_solution": "Perimeter-based Cisco + Check Point",
+    "nexum_solution": "Zero Trust with device verification",
+    "results": "Implemented ZT policy for 10,000 users in 6 months vs estimated 18 months",
+    "roi": "2 years saved, $3M in consulting"
+  },
+  {
+    "id": "case-6",
+    "company": "Retail Chain (2,000 stores)",
+    "vertical": "Retail",
+    "challenge": "PCI-DSS compliance across distributed network",
+    "previous_solution": "Manual compliance checks",
+    "nexum_solution": "Automated compliance with continuous monitoring",
+    "results": "From manual to real-time compliance. 0 findings on audit",
+    "roi": "$2M operational efficiency"
+  },
+  {
+    "id": "case-7",
+    "company": "Education System (100+ schools)",
+    "vertical": "Education",
+    "challenge": "Ransomware attacks targeting student data",
+    "previous_solution": "Basic antivirus + basic firewall",
+    "nexum_solution": "EDR + threat intel + DDI",
+    "results": "6 ransomware attacks detected in 30 mins, all blocked pre-execution",
+    "roi": "$50M+ student data protected"
+  },
+  {
+    "id": "case-8",
+    "company": "Insurance Provider (5,000 employees)",
+    "vertical": "Finance",
+    "challenge": "Insider threat detection, compliance requirements",
+    "previous_solution": "SIEM + basic endpoint monitoring",
+    "nexum_solution": "XDR with behavioral analytics + user risk scoring",
+    "results": "Detected 12 insider threats before data exfiltration",
+    "roi": "Prevented $200M in potential fraud/data loss"
+  },
+  {
+    "id": "case-9",
+    "company": "Pharma Company (global operations)",
+    "vertical": "Healthcare",
+    "challenge": "Multi-region SASE deployment, compliance complexity",
+    "previous_solution": "Multiple regional firewalls + VPNs",
+    "nexum_solution": "Global SASE + unified compliance",
+    "results": "Deployed 3 regions in 8 weeks vs 6 months estimated. Compliance simplified",
+    "roi": "4 months accelerated time-to-market"
+  },
+  {
+    "id": "case-10",
+    "company": "Financial Trading Firm",
+    "vertical": "Finance",
+    "challenge": "Threat detection must be < 5 minutes for regulatory requirements",
+    "previous_solution": "Palo Alto + Splunk (latency issues)",
+    "nexum_solution": "Real-time EDR + streaming SIEM",
+    "results": "Average detection time: 2 minutes (vs 47-minute avg previously)",
+    "roi": "Maintained trading license, avoided $50M+ regulatory fines"
+  }
+]

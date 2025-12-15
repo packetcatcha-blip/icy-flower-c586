@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Post-Quantum Hybrid Demo</title>
+  <style>body{margin:0;font-family:Inter,system-ui;color:#eaf6ff;background:#031124;padding:14px}pre{background:#02101a;padding:10px;border-radius:8px}</style>
+  <script>
+    function runDemo(){
+      const out = document.getElementById('out'); out.textContent='Generating keys...\n';
+      setTimeout(()=>{ out.textContent += 'Encapsulating classical part (RSA) ...\n'; },400);
+      setTimeout(()=>{ out.textContent += 'Encapsulating PQ part (Kyber) ...\n'; },800);
+      setTimeout(()=>{ out.textContent += '\nHybrid handshake complete.\nCiphertext size: 440 bytes\nLatency: ~85ms\n'; },1200);
+    }
+  </script>
+</head>
+<body>
+  <h3 style="margin:0 0 8px">Hybrid KEM Demo (placeholder)</h3>
+  <div class="muted">This demo is a client-side placeholder; replace with WebCrypto/WASM-based PQ implementations for real experiments.</div>
+  <pre id="out">Ready.</pre>
+  <button onclick="runDemo()" style="margin-top:8px;padding:8px;border-radius:8px;background:#07304a;color:#eaffff;border:0">Run Demo</button>
+</body>
+</html>

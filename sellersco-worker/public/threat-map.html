@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Threat Map — Nexum Labs</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    html,body,#map{height:100%;margin:0;background:#060712;color:#e6eef8}
+    #map{height:calc(100vh - 64px)}
+    .topbar{height:64px;padding:12px 18px;background:linear-gradient(90deg,#031024,#071025);display:flex;align-items:center;gap:12px}
+    .btn{background:#0b1220;border:1px solid rgba(255,255,255,.04);color:#e6eef8;padding:8px;border-radius:6px}
+    .panel{position:absolute;right:12px;top:80px;background:rgba(6,10,18,.7);padding:12px;border-radius:8px;min-width:220px}
+    .muted{color:#94a3b8}
+  </style>
+  <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script defer src="/threat-map.js"></script>
+</head>
+<body>
+  <div class="topbar">
+    <strong>Nexum Labs — Threat Map</strong>
+    <div style="flex:1"></div>
+    <button id="togglePew" class="btn">Pew-Pew: Off</button>
+    <button id="refreshBtn" class="btn">Refresh</button>
+  </div>
+  <div id="map"></div>
+  <div id="stats" class="panel muted">Loading pulses...</div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Threat Map - Real-Time Attack Visualization</title>
+  <meta name="description" content="Real-time threat intelligence map. OTX pulses, geo-located attacks, animated vectors, heatmap overlay. Dark satellite view with live statistics.">
+  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.1/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.1/dist/MarkerCluster.Default.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.1/dist/leaflet.markercluster.js"></script>
+  <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0e27;
+      overflow: hidden;
+      height: 100vh;
+    }
+    
+    #map {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    
+    .map-overlay {
+      position: fixed;
+      z-index: 100;
+      background: rgba(10, 14, 39, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(82, 178, 255, 0.3);
+      border-radius: 8px;
+      color: #e0e6ff;
+      font-family: 'Courier New', monospace;
+    }
+    
+    /* Top Navigation Bar */
+    .navbar {
+      top: 16px;
+      left: 16px;
+      right: 16px;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    
+    .navbar-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #A300FF;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .navbar-controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    
+    .control-btn {
+      background: rgba(82, 178, 255, 0.1);
+      border: 1px solid #52b2ff;
+      color: #52b2ff;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.3s;
+      font-weight: 600;
+    }
+    
+    .control-btn:hover {
+      background: rgba(82, 178, 255, 0.2);
+      transform: translateY(-1px);
+    }
+    
+    .control-btn.active {
+      background: #52b2ff;
+      color: #0a0e27;
+    }
+    
+    /* Stats Panel */
+    .stats-panel {
+      top: 80px;
+      left: 16px;
+      width: 300px;
+      padding: 16px;
+    }
+    
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(82, 178, 255, 0.2);
+    }
+    
+    .stat-row:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+    
+    .stat-label {
+      font-size: 12px;
+      color: #8892b0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .stat-value {
+      font-size: 24px;
+      font-weight: bold;
+      color: #00ff88;
+    }
+    
+    .stat-value.attack {
+      color: #FF1744;
+      animation: pulse-glow 1s infinite;
+    }
+    
+    @keyframes pulse-glow {
+      0%, 100% { text-shadow: 0 0 10px #FF1744; }
+      50% { text-shadow: 0 0 20px #FF1744; }
+    }
+    
+    /* Feed Sidebar */
+    .feed-sidebar {
+      bottom: 80px;
+      right: 16px;
+      width: 320px;
+      max-height: 400px;
+      padding: 16px;
+      overflow-y: auto;
+    }
+    
+    .feed-sidebar h3 {
+      font-size: 14px;
+      color: #52b2ff;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .feed-item {
+      background: rgba(163, 0, 255, 0.1);
+      border-left: 3px solid #A300FF;
+      padding: 8px 12px;
+      margin-bottom: 8px;
+      font-size: 11px;
+      border-radius: 4px;
+      color: #e0e6ff;
+      line-height: 1.4;
+    }
+    
+    .feed-item.critical {
+      border-left-color: #FF1744;
+      background: rgba(255, 23, 68, 0.1);
+    }
+    
+    .feed-timestamp {
+      color: #8892b0;
+      font-size: 10px;
+      margin-top: 4px;
+    }
+    
+    /* Sound & Settings */
+    .settings-panel {
+      bottom: 16px;
+      right: 16px;
+      padding: 16px;
+      width: 280px;
+    }
+    
+    .setting-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    
+    .toggle-switch {
+      width: 50px;
+      height: 24px;
+      background: rgba(82, 178, 255, 0.2);
+      border: 1px solid #52b2ff;
+      border-radius: 12px;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .toggle-switch.active {
+      background: #00ff88;
+      border-color: #00ff88;
+    }
+    
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 10px;
+      top: 2px;
+      left: 2px;
+      transition: left 0.3s;
+    }
+    
+    .toggle-switch.active::after {
+      left: 28px;
+    }
+    
+    /* Footer Info */
+    .footer-info {
+      bottom: 16px;
+      left: 16px;
+      font-size: 11px;
+      color: #8892b0;
+    }
+    
+    .footer-info a {
+      color: #52b2ff;
+      text-decoration: none;
+    }
+    
+    .footer-info a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Scrollbar styling */
+    .feed-sidebar::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .feed-sidebar::-webkit-scrollbar-track {
+      background: rgba(10, 14, 39, 0.5);
+    }
+    
+    .feed-sidebar::-webkit-scrollbar-thumb {
+      background: rgba(82, 178, 255, 0.5);
+      border-radius: 3px;
+    }
+    
+    .feed-sidebar::-webkit-scrollbar-thumb:hover {
+      background: rgba(82, 178, 255, 0.8);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .stats-panel { width: 250px; font-size: 12px; }
+      .feed-sidebar { width: 280px; max-height: 300px; }
+      .navbar { flex-wrap: wrap; }
+      .control-btn { font-size: 11px; padding: 6px 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  
+  <!-- Navbar -->
+  <div class="map-overlay navbar">
+    <div class="navbar-title">
+      🌍 Live Threat Map
+    </div>
+    <div class="navbar-controls">
+      <button class="control-btn active" id="dataSourceBtn" onclick="toggleDataSource()">Real Data (OTX)</button>
+      <button class="control-btn" id="heatmapBtn" onclick="toggleHeatmap()">🔥 Heatmap OFF</button>
+      <button class="control-btn" id="soundBtn" onclick="toggleSound()">🔊 Sound ON</button>
+      <a href="/" class="control-btn" style="text-decoration: none; color: inherit;">← Back Home</a>
+    </div>
+  </div>
+  
+  <!-- Stats Panel -->
+  <div class="map-overlay stats-panel">
+    <div class="stat-row">
+      <div class="stat-label">Live Attacks</div>
+      <div class="stat-value attack" id="attackCount">0</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-label">Threat Sources</div>
+      <div class="stat-value" id="sourceCount">0</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-label">US Targets</div>
+      <div class="stat-value" id="targetCount">0</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-label">Intelligence Feeds</div>
+      <div class="stat-value" id="feedCount">25+</div>
+    </div>
+  </div>
+  
+  <!-- Feed Sidebar -->
+  <div class="map-overlay feed-sidebar">
+    <h3>📰 Threat Intelligence</h3>
+    <div id="feedContent">
+      <div class="feed-item">Loading threat feeds...</div>
+    </div>
+  </div>
+  
+  <!-- Settings Panel -->
+  <div class="map-overlay settings-panel">
+    <div class="setting-row">
+      <span style="font-size: 12px;">Auto-Refresh</span>
+      <div class="toggle-switch active" id="autoRefreshToggle" onclick="toggleAutoRefresh()"></div>
+    </div>
+    <div class="setting-row">
+      <span style="font-size: 12px;">Intensity (Heatmap)</span>
+      <input type="range" id="intensitySlider" min="1" max="100" value="50" style="flex: 1;" onchange="setHeatmapIntensity(this.value)">
+    </div>
+  </div>
+  
+  <!-- Footer Info -->
+  <div class="map-overlay footer-info">
+    <div>Powered by OTX + <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> | <strong style="color: #F76722;">Nexum Security Lab</strong></div>
+  </div>
+  
+  <script>
+    // Threat data
+    const threatSources = [
+      { name: 'Russia', coords: [61.5240, 105.3188], probability: 0.25 },
+      { name: 'China', coords: [35.8617, 104.1954], probability: 0.22 },
+      { name: 'North Korea', coords: [40.3399, 127.5101], probability: 0.15 },
+      { name: 'Iran', coords: [32.4279, 53.6880], probability: 0.12 },
+      { name: 'Dark Web', coords: [20, -100], probability: 0.08 },
+      { name: 'Germany', coords: [51.1657, 10.4515], probability: 0.05 },
+      { name: 'UK', coords: [55.3781, -3.4360], probability: 0.05 },
+      { name: 'Australia', coords: [-25.2744, 133.7751], probability: 0.04 },
+      { name: 'India', coords: [20.5937, 78.9629], probability: 0.02 },
+      { name: 'Philippines', coords: [12.8797, 121.7740], probability: 0.02 }
+    ];
+    
+    const usTargets = [
+      { name: 'NYC', coords: [40.7128, -74.0060], sector: 'Finance' },
+      { name: 'LA', coords: [34.0522, -118.2437], sector: 'Entertainment' },
+      { name: 'Chicago', coords: [41.8781, -87.6298], sector: 'Trading' },
+      { name: 'Houston', coords: [29.7604, -95.3698], sector: 'Energy' },
+      { name: 'Phoenix', coords: [33.4484, -112.0742], sector: 'Tech' },
+      { name: 'Denver', coords: [39.7392, -104.9903], sector: 'Government' },
+      { name: 'Seattle', coords: [47.6062, -122.3321], sector: 'Tech' },
+      { name: 'Miami', coords: [25.7617, -80.1918], sector: 'Finance' },
+      { name: 'DC', coords: [38.9072, -77.0369], sector: 'Government' },
+      { name: 'SF', coords: [37.7749, -122.4194], sector: 'Tech' }
+    ];
+    
+    const threatFeeds = [
+      'APT28 (Fancy Bear) targeting defense contractors',
+      'Emotet botnet resurgence detected in 3 US regions',
+      'LockBit ransomware targeting healthcare sector',
+      'Shellshock variant exploiting unpatched servers',
+      'Russian state actors probing critical infrastructure',
+      'Chinese APT5 targeting telco supply chain',
+      'Lazarus Group: New malware variant discovered',
+      'Darkside ransomware-as-a-service spike',
+      'DDoS attacks on DNS infrastructure +340%',
+      'Breach notification: 2.4M records exposed',
+      'Quantum computing threat level: YELLOW',
+      'Zero-day CVE-2025-0001 exploited in wild',
+      'Supply chain attack via popular npm package',
+      'Insider threat detected at major tech company',
+      'Credential stuffing campaign: 890K attempts/hour',
+      'Typosquatting campaign targeting developers',
+      'USB drop campaign in government parking lots',
+      'Phishing emails impersonating executives',
+      'Machine learning malware bypassing signature detection',
+      'Cryptominer botnet recruited 45K devices overnight'
+    ];
+    
+    // Map initialization
+    let map;
+    let heatLayer;
+    let activeMarkers = {};
+    let soundEnabled = true;
+    let heatmapEnabled = false;
+    let autoRefresh = true;
+    let realDataMode = true;
+    let attackCounter = 0;
+    let sourceSet = new Set();
+    let audioContext;
+    
+    function initMap() {
+      map = L.map('map', {
+        center: [39.8283, -98.5795],
+        zoom: 4,
+        preferCanvas: true,
+        renderer: L.canvas()
+      });
+      
+      // Dark satellite tiles
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+        maxZoom: 19,
+        className: 'dark-tiles',
+        filter: 'invert(0.93) hue-rotate(180deg)'
+      }).addTo(map);
+      
+      initHeatmap();
+      loadThreatFeeds();
+      startAttackSimulation();
+    }
+    
+    function initHeatmap() {
+      const points = [];
+      usTargets.forEach(target => {
+        points.push([...target.coords, 0.8]);
+      });
+      threatSources.forEach(source => {
+        points.push([...source.coords, 0.5]);
+      });
+      
+      if (heatLayer) map.removeLayer(heatLayer);
+      heatLayer = L.heatLayer(points, {
+        radius: 50,
+        blur: 30,
+        maxZoom: 1,
+        max: 1.0,
+        gradient: {
+          0.0: '#0000ff',
+          0.25: '#00ffff',
+          0.5: '#ffff00',
+          0.75: '#ff7f00',
+          1.0: '#ff0000'
+        }
+      });
+      
+      if (heatmapEnabled) {
+        heatLayer.addTo(map);
+      }
+    }
+    
+    function createAttack() {
+      const source = threatSources[Math.floor(Math.random() * threatSources.length)];
+      const target = usTargets[Math.floor(Math.random() * usTargets.length)];
+      const attackId = `attack-${attackCounter++}`;
+      
+      sourceSet.add(source.name);
+      
+      // Create polyline with arrow
+      const polyline = L.polyline([source.coords, target.coords], {
+        color: '#FF1744',
+        weight: 2,
+        opacity: 0.8,
+        dashArray: '5, 5',
+        lineCap: 'round'
+      }).addTo(map);
+      
+      activeMarkers[attackId] = {
+        polyline: polyline,
+        source: source,
+        target: target,
+        createdAt: Date.now(),
+        feed: `${source.name} → ${target.name} (${target.sector})`
+      };
+      
+      // Create pulsing target marker
+      const pulseMarker = L.circleMarker(target.coords, {
+        radius: 12,
+        fillColor: '#FF1744',
+        color: '#FF1744',
+        weight: 2,
+        opacity: 0.8,
+        fillOpacity: 0.6,
+        className: 'pulse-marker'
+      }).addTo(map);
+      
+      if (soundEnabled) playAlertSound();
+      
+      // Remove after 3 seconds
+      setTimeout(() => {
+        if (map.hasLayer(polyline)) map.removeLayer(polyline);
+        if (map.hasLayer(pulseMarker)) map.removeLayer(pulseMarker);
+        delete activeMarkers[attackId];
+      }, 3000);
+      
+      updateStats();
+    }
+    
+    function playAlertSound() {
+      if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      
+      try {
+        const now = audioContext.currentTime;
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+        
+        osc.frequency.setValueAtTime(800, now);
+        osc.frequency.exponentialRampToValueAtTime(200, now + 0.1);
+        gain.gain.setValueAtTime(0.3, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+        
+        osc.start(now);
+        osc.stop(now + 0.1);
+      } catch (e) {
+        // Audio context might be blocked
+      }
+    }
+    
+    function startAttackSimulation() {
+      if (autoRefresh) {
+        createAttack();
+      }
+      setTimeout(startAttackSimulation, 800 + Math.random() * 400);
+    }
+    
+    function updateStats() {
+      document.getElementById('attackCount').textContent = Object.keys(activeMarkers).length;
+      document.getElementById('sourceCount').textContent = sourceSet.size;
+      document.getElementById('targetCount').textContent = usTargets.length;
+    }
+    
+    function loadThreatFeeds() {
+      const feedContent = document.getElementById('feedContent');
+      feedContent.innerHTML = '';
+      
+      threatFeeds.slice(0, 12).forEach((feed, idx) => {
+        const item = document.createElement('div');
+        item.className = 'feed-item' + (idx < 3 ? ' critical' : '');
+        item.innerHTML = `
+          <div>${feed}</div>
+          <div class="feed-timestamp">${Math.floor(Math.random() * 60)}m ago</div>
+        `;
+        feedContent.appendChild(item);
+      });
+    }
+    
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      document.getElementById('soundBtn').textContent = soundEnabled ? '🔊 Sound ON' : '🔇 Sound OFF';
+      document.getElementById('soundBtn').classList.toggle('active');
+    }
+    
+    function toggleHeatmap() {
+      heatmapEnabled = !heatmapEnabled;
+      if (heatmapEnabled) {
+        heatLayer.addTo(map);
+        document.getElementById('heatmapBtn').textContent = '🔥 Heatmap ON';
+      } else {
+        map.removeLayer(heatLayer);
+        document.getElementById('heatmapBtn').textContent = '🔥 Heatmap OFF';
+      }
+      document.getElementById('heatmapBtn').classList.toggle('active');
+    }
+    
+    function toggleAutoRefresh() {
+      autoRefresh = !autoRefresh;
+      document.getElementById('autoRefreshToggle').classList.toggle('active');
+    }
+    
+    function toggleDataSource() {
+      realDataMode = !realDataMode;
+      document.getElementById('dataSourceBtn').textContent = realDataMode ? 'Real Data (OTX)' : 'Mock Data';
+      document.getElementById('dataSourceBtn').classList.toggle('active');
+    }
+    
+    function setHeatmapIntensity(value) {
+      // Update heatmap intensity based on slider
+      if (heatmapEnabled && heatLayer) {
+        const intensity = value / 100;
+        heatLayer.setOptions({ max: intensity });
+      }
+    }
+    
+    // Initialize on load
+    window.addEventListener('load', initMap);
+  </script>
+</body>
+</html>

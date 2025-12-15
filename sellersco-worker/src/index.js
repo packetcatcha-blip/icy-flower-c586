@@ -11,6 +11,18 @@
 import { handleQuantumRoute } from './quantum-module.js';
 import { QuantumDurableObject } from './quantum-durable-object.js';
 import { handleAttackPatternsRoute } from './attack-patterns-module.js';
+import { handleAttackMapRoute } from './attack-map-v2.js';
+import { handleHybridCloudWarRoom } from './hybrid-cloud-war-room.js';
+import { handleAIGatewayArena } from './ai-gateway-arena.js';
+import { handleStormCenter } from './storm-center.js';
+import { handleDealNegotiator } from './deal-negotiator.js';
+import { handleFusionDashboard } from './fusion-dashboard.js';
+import { handleProductVerticals } from './product-verticals.js';
+import { handleRegulations } from './regulations.js';
+import { handleSASEPhase2 } from './sase-phase2.js';
+import { handleZTNAPhase2 } from './ztna-phase2.js';
+import { handleSalesPortal } from './sales-portal-module.js';
+import { handleOWASPLabs } from './owasp-labs-module.js';
 
 // Sales-related routes that require authentication
 const PROTECTED_ROUTES = [
@@ -34,6 +46,66 @@ export default {
 		// Handle attack patterns routes
 		if (url.pathname === '/attack-patterns' || url.pathname.startsWith('/attack-patterns/')) {
 			return handleAttackPatternsRoute(url.pathname, request, env, ctx);
+		}
+
+		// Handle hybrid cloud war room routes
+		if (url.pathname === '/hybrid-cloud-war-room' || url.pathname.startsWith('/hybrid-cloud-war-room/')) {
+			return handleHybridCloudWarRoom(url.pathname, request, env, ctx);
+		}
+
+		// Handle AI gateway arena routes
+		if (url.pathname === '/ai-gateway-arena' || url.pathname.startsWith('/ai-gateway-arena/')) {
+			return handleAIGatewayArena(url.pathname, request, env, ctx);
+		}
+
+		// Handle storm center routes
+		if (url.pathname === '/storm-center' || url.pathname.startsWith('/storm-center/')) {
+			return handleStormCenter(url.pathname, request, env, ctx);
+		}
+
+		// Handle deal negotiator routes
+		if (url.pathname === '/deal-negotiator' || url.pathname.startsWith('/deal-negotiator/')) {
+			return handleDealNegotiator(url.pathname, request, env, ctx);
+		}
+
+		// Handle fusion dashboard routes
+		if (url.pathname === '/fusion-dash' || url.pathname.startsWith('/fusion-dash/')) {
+			return handleFusionDashboard(url.pathname, request, env, ctx);
+		}
+
+		// Handle product verticals routes
+		if (url.pathname === '/product-verticals' || url.pathname.startsWith('/product-verticals/')) {
+			return handleProductVerticals(url.pathname, request, env, ctx);
+		}
+
+		// Handle regulations routes
+		if (url.pathname === '/regulations' || url.pathname.startsWith('/regulations/')) {
+			return handleRegulations(url.pathname, request, env, ctx);
+		}
+
+		// Handle SASE Phase 2 routes
+		if (url.pathname === '/sase-phase2' || url.pathname.startsWith('/sase-phase2/')) {
+			return handleSASEPhase2(url.pathname, request, env, ctx);
+		}
+
+		// Handle ZTNA Phase 2 routes
+		if (url.pathname === '/ztna-phase2' || url.pathname.startsWith('/ztna-phase2/')) {
+			return handleZTNAPhase2(url.pathname, request, env, ctx);
+		}
+
+		// Handle OWASP Labs routes
+		if (url.pathname === '/owasp-labs' || url.pathname.startsWith('/owasp-labs/')) {
+			return handleOWASPLabs(url.pathname, request, env, ctx);
+		}
+		
+		// Handle attack map routes
+		if (url.pathname === '/attack-map' || url.pathname.startsWith('/attack-map/')) {
+			return handleAttackMapRoute(url.pathname, request, env, ctx);
+		}
+		
+		// Handle sales portal routes
+		if (url.pathname === '/sales-portal' || url.pathname.startsWith('/sales-portal/')) {
+			return handleSalesPortal(url.pathname, request, env, ctx);
 		}
 		
 		// Handle post-quantum button redirect

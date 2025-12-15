@@ -1,0 +1,367 @@
+[
+  {
+    "id": 1,
+    "route": "/",
+    "method": "GET",
+    "description": "Homepage - main landing page",
+    "category": "public",
+    "expected_status": 200,
+    "expected_content": ["Cloudflare", "Home", "Attack Map", "navigation"]
+  },
+  {
+    "id": 2,
+    "route": "/attack-map",
+    "method": "GET",
+    "description": "Live Attack Map with real OTX feeds and heatmap",
+    "category": "public",
+    "expected_status": 200,
+    "expected_content": ["attack", "map", "heatmap", "live"]
+  },
+  {
+    "id": 3,
+    "route": "/attack-patterns",
+    "method": "GET",
+    "description": "Attack Patterns page",
+    "category": "public",
+    "expected_status": 200,
+    "expected_content": ["attack", "patterns"]
+  },
+  {
+    "id": 4,
+    "route": "/quantum",
+    "method": "GET",
+    "description": "Post-Quantum Cryptography hero page",
+    "category": "public",
+    "expected_status": 200,
+    "expected_content": ["quantum", "post-quantum", "cryptography"]
+  },
+  {
+    "id": 5,
+    "route": "/quantum/threats",
+    "method": "GET",
+    "description": "Quantum threats visualization",
+    "category": "public",
+    "expected_status": 200,
+    "expected_content": ["threats", "quantum"]
+  },
+  {
+    "id": 6,
+    "route": "/quantum/solutions",
+    "method": "GET",
+    "description": "PQC solutions explorer",
+    "category": "public",
+    "expected_status": 200,
+    "expected_content": ["solutions", "PQC"]
+  },
+  {
+    "id": 7,
+    "route": "/quantum/sims",
+    "method": "GET",
+    "description": "Real-time quantum simulations",
+    "category": "public",
+    "expected_status": 200,
+    "expected_content": ["simulations", "quantum"]
+  },
+  {
+    "id": 8,
+    "route": "/quantum/quiz",
+    "method": "GET",
+    "description": "Quantum cryptography quiz",
+    "category": "public",
+    "expected_status": 200,
+    "expected_content": ["quiz", "quantum"]
+  },
+  {
+    "id": 9,
+    "route": "/owasp-range",
+    "method": "GET",
+    "description": "OWASP Top 10 interactive training",
+    "category": "public",
+    "expected_status": 200,
+    "expected_content": ["OWASP"]
+  },
+  {
+    "id": 10,
+    "route": "/hybrid-warroom",
+    "method": "GET",
+    "description": "Hybrid Cloud War Room",
+    "category": "public",
+    "expected_status": 200,
+    "expected_content": ["hybrid", "warroom"]
+  },
+  {
+    "id": 11,
+    "route": "/ai-gateway-arena",
+    "method": "GET",
+    "description": "AI Gateway Arena",
+    "category": "public",
+    "expected_status": 200,
+    "expected_content": ["AI", "gateway"]
+  },
+  {
+    "id": 12,
+    "route": "/stormcenter",
+    "method": "GET",
+    "description": "Storm Center",
+    "category": "public",
+    "expected_status": 200,
+    "expected_content": ["storm", "center"]
+  },
+  {
+    "id": 13,
+    "route": "/troubletoolbox",
+    "method": "GET",
+    "description": "Troubleshooting Toolbox",
+    "category": "public",
+    "expected_status": 200,
+    "expected_content": ["troubleshooting"]
+  },
+  {
+    "id": 14,
+    "route": "/traps-lab",
+    "method": "GET",
+    "description": "Security By Deception lab",
+    "category": "public",
+    "expected_status": 200,
+    "expected_content": ["traps", "deception"]
+  },
+  {
+    "id": 15,
+    "route": "/threat-modeler",
+    "method": "GET",
+    "description": "Threat Modeler",
+    "category": "public",
+    "expected_status": 200,
+    "expected_content": ["threat", "modeler"]
+  },
+  {
+    "id": 16,
+    "route": "/regulations",
+    "method": "GET",
+    "description": "Regulations Dashboard - protected route",
+    "category": "protected",
+    "expected_status": 401,
+    "expected_content": ["401", "Unauthorized", "Bearer"]
+  },
+  {
+    "id": 17,
+    "route": "/sales-portal",
+    "method": "GET",
+    "description": "Sales Portal - protected route",
+    "category": "protected",
+    "expected_status": 401,
+    "expected_content": ["401", "Unauthorized"]
+  },
+  {
+    "id": 18,
+    "route": "/sase-compare",
+    "method": "GET",
+    "description": "SASE Comparison - protected route",
+    "category": "protected",
+    "expected_status": 401,
+    "expected_content": ["401", "Unauthorized"]
+  },
+  {
+    "id": 19,
+    "route": "/ztna-compare",
+    "method": "GET",
+    "description": "ZTNA Comparison - protected route",
+    "category": "protected",
+    "expected_status": 401,
+    "expected_content": ["401", "Unauthorized"]
+  },
+  {
+    "id": 20,
+    "route": "/sase-phase2",
+    "method": "GET",
+    "description": "SASE Phase 2 - protected route",
+    "category": "protected",
+    "expected_status": 401,
+    "expected_content": ["401", "Unauthorized"]
+  },
+  {
+    "id": 21,
+    "route": "/ztna-phase2",
+    "method": "GET",
+    "description": "ZTNA Phase 2 - protected route",
+    "category": "protected",
+    "expected_status": 401,
+    "expected_content": ["401", "Unauthorized"]
+  },
+  {
+    "id": 22,
+    "route": "/gartner-mq-live",
+    "method": "GET",
+    "description": "Gartner Magic Quadrant - protected route",
+    "category": "protected",
+    "expected_status": 401,
+    "expected_content": ["401", "Unauthorized"]
+  },
+  {
+    "id": 23,
+    "route": "/deal-negotiator",
+    "method": "GET",
+    "description": "Deal Negotiator - protected route",
+    "category": "protected",
+    "expected_status": 401,
+    "expected_content": ["401", "Unauthorized"]
+  },
+  {
+    "id": 24,
+    "route": "/metrics-scorecard",
+    "method": "GET",
+    "description": "Metrics Scorecard - protected route",
+    "category": "protected",
+    "expected_status": 401,
+    "expected_content": ["401", "Unauthorized"]
+  },
+  {
+    "id": 25,
+    "route": "/fusion-dash",
+    "method": "GET",
+    "description": "Fusion Dashboard - protected route",
+    "category": "protected",
+    "expected_status": 401,
+    "expected_content": ["401", "Unauthorized"]
+  },
+  {
+    "id": 26,
+    "route": "/message",
+    "method": "GET",
+    "description": "API endpoint - returns JSON message",
+    "category": "api",
+    "expected_status": 200,
+    "expected_content": ["message", "timestamp"],
+    "content_type": "application/json"
+  },
+  {
+    "id": 27,
+    "route": "/random",
+    "method": "GET",
+    "description": "API endpoint - returns random number",
+    "category": "api",
+    "expected_status": 200,
+    "expected_content": ["random", "uuid"],
+    "content_type": "text/plain"
+  },
+  {
+    "id": 28,
+    "route": "/get-ticker",
+    "method": "GET",
+    "description": "API endpoint - returns security ticker data",
+    "category": "api",
+    "expected_status": 200,
+    "expected_content": ["security", "news"],
+    "content_type": "application/json"
+  },
+  {
+    "id": 29,
+    "route": "/api/register",
+    "method": "POST",
+    "description": "Authentication - user registration",
+    "category": "auth",
+    "expected_status": 200,
+    "body": {
+      "email": "test@nexuminc.com",
+      "name": "Test User",
+      "password": "TestPassword123!"
+    },
+    "expected_content": ["success", "registered", "email"]
+  },
+  {
+    "id": 30,
+    "route": "/api/login",
+    "method": "POST",
+    "description": "Authentication - user login",
+    "category": "auth",
+    "expected_status": 200,
+    "body": {
+      "email": "test@nexuminc.com",
+      "password": "TestPassword123!"
+    },
+    "expected_content": ["token", "success"]
+  },
+  {
+    "id": 31,
+    "route": "/images/sellerrco.png",
+    "method": "GET",
+    "description": "R2 image - seller logo",
+    "category": "images",
+    "expected_status": 200,
+    "expected_content_type": "image/png"
+  },
+  {
+    "id": 32,
+    "route": "/images/mainpage.png",
+    "method": "GET",
+    "description": "R2 image - main page graphic",
+    "category": "images",
+    "expected_status": 200,
+    "expected_content_type": "image/png"
+  },
+  {
+    "id": 33,
+    "route": "/images/hacker.png",
+    "method": "GET",
+    "description": "R2 image - hacker illustration",
+    "category": "images",
+    "expected_status": 200,
+    "expected_content_type": "image/png"
+  },
+  {
+    "id": 34,
+    "route": "/vuln-lab",
+    "method": "GET",
+    "description": "Vulnerability Lab - planned feature",
+    "category": "planned",
+    "expected_status": 404
+  },
+  {
+    "id": 35,
+    "route": "/auth-fusion",
+    "method": "GET",
+    "description": "Auth-Fusion Hub - planned feature",
+    "category": "planned",
+    "expected_status": 404
+  },
+  {
+    "id": 36,
+    "route": "/cloud-chaos",
+    "method": "GET",
+    "description": "Cloud-Chaos Simulator - planned feature",
+    "category": "planned",
+    "expected_status": 404
+  },
+  {
+    "id": 37,
+    "route": "/dns-hunt",
+    "method": "GET",
+    "description": "DNS Hunt - planned feature",
+    "category": "planned",
+    "expected_status": 404
+  },
+  {
+    "id": 38,
+    "route": "/zt-sim",
+    "method": "GET",
+    "description": "Zero Trust Simulator - planned feature",
+    "category": "planned",
+    "expected_status": 404
+  },
+  {
+    "id": 39,
+    "route": "/hall-of-fame",
+    "method": "GET",
+    "description": "Hall of Fame - planned feature",
+    "category": "planned",
+    "expected_status": 404
+  },
+  {
+    "id": 40,
+    "route": "/trace",
+    "method": "GET",
+    "description": "Multi-Colo Trace - planned feature",
+    "category": "planned",
+    "expected_status": 404
+  }
+]

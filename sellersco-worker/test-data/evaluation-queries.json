@@ -1,0 +1,438 @@
+{
+  "test_queries": [
+    {
+      "id": "route_home",
+      "description": "Test home page route",
+      "endpoint": "/",
+      "method": "GET",
+      "category": "route_availability",
+      "expected_status": 200,
+      "expected_contains": ["sellersco", "threat"]
+    },
+    {
+      "id": "route_attack_patterns",
+      "description": "Test attack patterns module",
+      "endpoint": "/attack-patterns",
+      "method": "GET",
+      "category": "route_availability",
+      "expected_status": 200,
+      "expected_contains": ["attack", "pattern"]
+    },
+    {
+      "id": "route_attack_map",
+      "description": "Test interactive attack map page",
+      "endpoint": "/attack-map",
+      "method": "GET",
+      "category": "feature_completeness",
+      "expected_status": 200,
+      "expected_contains": ["attack", "threat"]
+    },
+    {
+      "id": "route_attack_map_otx_api",
+      "description": "Test OTX threat feed API",
+      "endpoint": "/attack-map/api/otx",
+      "method": "GET",
+      "category": "data_freshness",
+      "expected_status": 200,
+      "expected_contains": ["threat", "pulse"]
+    },
+    {
+      "id": "route_post_quantum",
+      "description": "Test post-quantum cryptography module",
+      "endpoint": "/post-quantum",
+      "method": "GET",
+      "category": "route_availability",
+      "expected_status": 200,
+      "expected_contains": ["quantum", "crypto"]
+    },
+    {
+      "id": "route_quantum",
+      "description": "Test quantum crypto deep dive",
+      "endpoint": "/quantum",
+      "method": "GET",
+      "category": "route_availability",
+      "expected_status": 200,
+      "expected_contains": ["quantum", "safe"]
+    },
+    {
+      "id": "route_ai_gateway_arena",
+      "description": "Test AI gateway comparison arena",
+      "endpoint": "/ai-gateway-arena",
+      "method": "GET",
+      "category": "route_availability",
+      "expected_status": 200,
+      "expected_contains": ["gateway", "ai"]
+    },
+    {
+      "id": "route_sales_portal",
+      "description": "Test sales portal page loads",
+      "endpoint": "/sales-portal",
+      "method": "GET",
+      "category": "feature_completeness",
+      "expected_status": 200,
+      "expected_contains": ["sales", "portal"]
+    },
+    {
+      "id": "route_sales_portal_vendors",
+      "description": "Test vendor list API",
+      "endpoint": "/sales-portal/api/vendors",
+      "method": "GET",
+      "category": "data_freshness",
+      "expected_status": 200,
+      "expected_contains": ["name", "features"]
+    },
+    {
+      "id": "route_sales_portal_recommend",
+      "description": "Test AI vendor recommendation endpoint",
+      "endpoint": "/sales-portal/api/recommend",
+      "method": "POST",
+      "body": {
+        "vertical": "Healthcare",
+        "issues": ["ransomware", "compliance"],
+        "budget": "high"
+      },
+      "category": "feature_completeness",
+      "expected_status": 200,
+      "expected_contains": ["recommendation", "vendor"]
+    },
+    {
+      "id": "route_sase_compare",
+      "description": "Test SASE product comparison",
+      "endpoint": "/sase-compare",
+      "method": "GET",
+      "category": "route_availability",
+      "expected_status": 200,
+      "expected_contains": ["SASE", "compare"]
+    },
+    {
+      "id": "route_ztna_compare",
+      "description": "Test Zero Trust Network Access comparison",
+      "endpoint": "/ztna-compare",
+      "method": "GET",
+      "category": "route_availability",
+      "expected_status": 200,
+      "expected_contains": ["ZTNA", "Zero Trust"]
+    },
+    {
+      "id": "route_sase_phase2",
+      "description": "Test SASE phase 2 roadmap",
+      "endpoint": "/sase-phase2",
+      "method": "GET",
+      "category": "route_availability",
+      "expected_status": 200,
+      "expected_contains": ["phase", "SASE"]
+    },
+    {
+      "id": "route_ztna_phase2",
+      "description": "Test ZTNA phase 2 roadmap",
+      "endpoint": "/ztna-phase2",
+      "method": "GET",
+      "category": "route_availability",
+      "expected_status": 200,
+      "expected_contains": ["phase", "ZTNA"]
+    },
+    {
+      "id": "route_regulations",
+      "description": "Test compliance frameworks page",
+      "endpoint": "/regulations",
+      "method": "GET",
+      "category": "feature_completeness",
+      "expected_status": 200,
+      "expected_contains": ["compliance", "framework", "regulations"]
+    },
+    {
+      "id": "route_regulations_api",
+      "description": "Test regulations API endpoint",
+      "endpoint": "/regulations/api/frameworks",
+      "method": "GET",
+      "category": "data_freshness",
+      "expected_status": 200,
+      "expected_contains": ["HIPAA", "framework"]
+    },
+    {
+      "id": "route_regulations_check",
+      "description": "Test vendor compliance check",
+      "endpoint": "/regulations/api/check",
+      "method": "POST",
+      "body": {
+        "vendor": "CrowdStrike",
+        "framework": "HIPAA"
+      },
+      "category": "data_freshness",
+      "expected_status": 200,
+      "expected_contains": ["compliant", "controls"]
+    },
+    {
+      "id": "route_gartner_mq",
+      "description": "Test Gartner Magic Quadrant page",
+      "endpoint": "/gartner-mq-live",
+      "method": "GET",
+      "category": "feature_completeness",
+      "expected_status": 200,
+      "expected_contains": ["gartner", "quadrant"]
+    },
+    {
+      "id": "route_deal_negotiator",
+      "description": "Test deal negotiator with ROI calculator",
+      "endpoint": "/deal-negotiator",
+      "method": "GET",
+      "category": "route_availability",
+      "expected_status": 200,
+      "expected_contains": ["deal", "ROI", "negotiate"]
+    },
+    {
+      "id": "route_metrics_scorecard",
+      "description": "Test metrics scorecard dashboard",
+      "endpoint": "/metrics-scorecard",
+      "method": "GET",
+      "category": "route_availability",
+      "expected_status": 200,
+      "expected_contains": ["metrics", "scorecard"]
+    },
+    {
+      "id": "route_fusion_dash",
+      "description": "Test fusion dashboard",
+      "endpoint": "/fusion-dash",
+      "method": "GET",
+      "category": "route_availability",
+      "expected_status": 200,
+      "expected_contains": ["fusion", "dashboard"]
+    },
+    {
+      "id": "route_message",
+      "description": "Test message endpoint",
+      "endpoint": "/message",
+      "method": "GET",
+      "category": "route_availability",
+      "expected_status": 200,
+      "expected_contains": ["message"]
+    },
+    {
+      "id": "route_random",
+      "description": "Test random endpoint",
+      "endpoint": "/random",
+      "method": "GET",
+      "category": "route_availability",
+      "expected_status": 200
+    },
+    {
+      "id": "route_get_ticker",
+      "description": "Test ticker data endpoint",
+      "endpoint": "/get-ticker",
+      "method": "GET",
+      "category": "route_availability",
+      "expected_status": 200,
+      "expected_contains": ["ticker", "data"]
+    },
+    {
+      "id": "route_hybrid_warroom",
+      "description": "Test hybrid warroom (planned feature)",
+      "endpoint": "/hybrid-warroom",
+      "method": "GET",
+      "category": "planned_routes",
+      "expected_status": 404
+    },
+    {
+      "id": "route_stormcenter",
+      "description": "Test stormcenter (planned feature)",
+      "endpoint": "/stormcenter",
+      "method": "GET",
+      "category": "planned_routes",
+      "expected_status": 404
+    },
+    {
+      "id": "route_owasp_range",
+      "description": "Test OWASP range (planned feature)",
+      "endpoint": "/owasp-range",
+      "method": "GET",
+      "category": "planned_routes",
+      "expected_status": 404
+    },
+    {
+      "id": "feature_vendor_healthcare",
+      "description": "Test vendor recommendation for Healthcare vertical",
+      "endpoint": "/sales-portal/api/recommend",
+      "method": "POST",
+      "body": {
+        "vertical": "Healthcare",
+        "issues": ["ransomware", "patient_data_breach"],
+        "products": ["EDR", "Cloud_DLP"]
+      },
+      "category": "feature_completeness",
+      "expected_status": 200,
+      "expected_contains": ["CrowdStrike", "Palo Alto"]
+    },
+    {
+      "id": "feature_vendor_finance",
+      "description": "Test vendor recommendation for Finance vertical",
+      "endpoint": "/sales-portal/api/recommend",
+      "method": "POST",
+      "body": {
+        "vertical": "Finance",
+        "issues": ["insider_threat", "compliance"],
+        "products": ["SIEM", "SOAR"]
+      },
+      "category": "feature_completeness",
+      "expected_status": 200,
+      "expected_contains": ["vendor"]
+    },
+    {
+      "id": "data_otx_threat_intelligence",
+      "description": "Validate OTX threat feed integration with real data",
+      "endpoint": "/attack-map/api/otx",
+      "method": "GET",
+      "category": "data_freshness",
+      "expected_status": 200,
+      "validate_data": "otx_threats"
+    },
+    {
+      "id": "data_regulations_2025_updated",
+      "description": "Verify 2025 regulations are current (DORA, NIS2, SEC rules)",
+      "endpoint": "/regulations/api/frameworks",
+      "method": "GET",
+      "category": "data_freshness",
+      "expected_status": 200,
+      "expected_contains": ["DORA", "NIS2", "SEC", "2025"]
+    },
+    {
+      "id": "data_vendor_profiles_current",
+      "description": "Verify vendor profiles available",
+      "endpoint": "/sales-portal/api/vendors",
+      "method": "GET",
+      "category": "data_freshness",
+      "expected_status": 200,
+      "min_vendor_count": 10,
+      "expected_contains": ["name", "features"]
+    },
+    {
+      "id": "data_gartner_positioning",
+      "description": "Verify Gartner MQ positioning is accurate",
+      "endpoint": "/gartner-deal-booster.html",
+      "method": "GET",
+      "category": "data_freshness",
+      "expected_status": 200,
+      "expected_contains": ["Gartner", "2025"]
+    },
+    {
+      "id": "seo_meta_tags_home",
+      "description": "Validate meta tags on home page",
+      "endpoint": "/",
+      "method": "GET",
+      "category": "seo_validation",
+      "expected_status": 200,
+      "seo_checks": {
+        "has_title": true,
+        "has_meta_description": true,
+        "has_og_tags": true,
+        "has_charset": true,
+        "has_viewport": true
+      }
+    },
+    {
+      "id": "seo_schema_markup",
+      "description": "Validate JSON-LD schema markup",
+      "endpoint": "/",
+      "method": "GET",
+      "category": "seo_validation",
+      "expected_status": 200,
+      "seo_checks": {
+        "has_organization_schema": true,
+        "has_website_schema": true
+      }
+    },
+    {
+      "id": "seo_heading_hierarchy",
+      "description": "Validate heading structure (H1-H6)",
+      "endpoint": "/sales-portal",
+      "method": "GET",
+      "category": "seo_validation",
+      "expected_status": 200,
+      "seo_checks": {
+        "has_single_h1": true,
+        "proper_heading_hierarchy": true
+      }
+    },
+    {
+      "id": "seo_image_alt_text",
+      "description": "Validate all images have alt text",
+      "endpoint": "/attack-patterns",
+      "method": "GET",
+      "category": "seo_validation",
+      "expected_status": 200,
+      "seo_checks": {
+        "all_images_have_alt": true
+      }
+    },
+    {
+      "id": "seo_responsive_design",
+      "description": "Validate mobile responsiveness",
+      "endpoint": "/",
+      "method": "GET",
+      "category": "seo_validation",
+      "expected_status": 200,
+      "seo_checks": {
+        "has_viewport_meta": true,
+        "css_media_queries": true,
+        "mobile_friendly": true
+      }
+    },
+    {
+      "id": "seo_structured_data",
+      "description": "Validate robots.txt and sitemap.xml",
+      "endpoint": "/robots.txt",
+      "method": "GET",
+      "category": "seo_validation",
+      "expected_status": 200
+    },
+    {
+      "id": "seo_sitemap",
+      "description": "Validate sitemap.xml structure",
+      "endpoint": "/sitemap.xml",
+      "method": "GET",
+      "category": "seo_validation",
+      "expected_status": 200,
+      "expected_contains": ["urlset", "loc"]
+    },
+    {
+      "id": "seo_internal_links",
+      "description": "Validate internal linking structure",
+      "endpoint": "/sales-portal",
+      "method": "GET",
+      "category": "seo_validation",
+      "seo_checks": {
+        "has_internal_links": true,
+        "no_broken_links": true
+      }
+    },
+    {
+      "id": "seo_page_speed",
+      "description": "Validate Core Web Vitals performance",
+      "endpoint": "/",
+      "method": "GET",
+      "category": "seo_validation",
+      "performance_targets": {
+        "lcp": 2500,
+        "fid": 100,
+        "cls": 0.1
+      }
+    }
+  ],
+  "test_summary": {
+    "total_queries": 42,
+    "by_category": {
+      "route_availability": 18,
+      "feature_completeness": 7,
+      "data_freshness": 5,
+      "planned_routes": 3,
+      "seo_validation": 10
+    },
+    "coverage": {
+      "total_routes": 21,
+      "live_routes": 18,
+      "planned_routes": 3,
+      "feature_tests": 7,
+      "data_validation": 5,
+      "seo_tests": 10
+    }
+  }
+}

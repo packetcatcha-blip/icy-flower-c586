@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hybrid Attack Path Simulator - Nexum Sales Portal</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%);
+      color: #e0e0e0;
+      min-height: 100vh;
+    }
+
+    .navbar {
+      background: rgba(10, 14, 39, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      border-bottom: 2px solid #ff1744;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar h1 {
+      font-size: 1.3rem;
+      color: #ff1744;
+      font-weight: bold;
+    }
+
+    .navbar button {
+      background: rgba(255, 23, 68, 0.2);
+      color: #ff1744;
+      border: 1px solid #ff1744;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .navbar button:hover {
+      background: #ff1744;
+      color: white;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding: 2rem;
+      background: linear-gradient(135deg, rgba(255,23,68,0.1), rgba(255,23,68,0.05));
+      border-radius: 8px;
+      border: 1px solid rgba(255,23,68,0.2);
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      color: #ff1744;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    .hero p {
+      color: #b0b0b0;
+      font-size: 1.1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .card {
+      background: rgba(20, 26, 53, 0.8);
+      border: 1px solid rgba(255, 23, 68, 0.2);
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: #ff1744;
+      box-shadow: 0 0 20px rgba(255, 23, 68, 0.2);
+    }
+
+    .card h3 {
+      color: #ff1744;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .card label {
+      display: block;
+      color: #00ffaa;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .card input,
+    .card select {
+      width: 100%;
+      padding: 0.6rem;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 23, 68, 0.2);
+      color: #e0e0e0;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .card input:focus,
+    .card select:focus {
+      outline: none;
+      border-color: #ff1744;
+      box-shadow: 0 0 10px rgba(255, 23, 68, 0.2);
+    }
+
+    .btn {
+      background: rgba(255, 23, 68, 0.2);
+      color: #ff1744;
+      border: 1px solid #ff1744;
+      padding: 0.8rem 1.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+      width: 100%;
+    }
+
+    .btn:hover {
+      background: #ff1744;
+      color: white;
+    }
+
+    .simulation {
+      background: rgba(20, 26, 53, 0.8);
+      border: 2px solid rgba(255, 23, 68, 0.3);
+      border-radius: 8px;
+      padding: 2rem;
+      margin: 2rem 0;
+      display: none;
+    }
+
+    .simulation.show {
+      display: block;
+    }
+
+    .attack-path {
+      background: rgba(255, 23, 68, 0.05);
+      border: 1px solid #ff1744;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    .attack-step {
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.3);
+      border-left: 3px solid #ff1744;
+      margin: 0.8rem 0;
+      border-radius: 4px;
+    }
+
+    .attack-step strong {
+      color: #ff1744;
+    }
+
+    .recommendation {
+      background: rgba(0, 255, 170, 0.05);
+      border: 1px solid #00ffaa;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    .recommendation h4 {
+      color: #00ffaa;
+      margin-bottom: 0.8rem;
+    }
+
+    .nexum-product {
+      background: rgba(0, 255, 170, 0.1);
+      border-left: 3px solid #00ffaa;
+      padding: 1rem;
+      margin: 0.8rem 0;
+      border-radius: 4px;
+      color: #b0b0b0;
+    }
+
+    .nexum-product strong {
+      color: #00ffaa;
+    }
+
+    .risk-meter {
+      margin: 1rem 0;
+    }
+
+    .risk-meter h4 {
+      color: #ff1744;
+      margin-bottom: 0.5rem;
+    }
+
+    .risk-bar {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 4px;
+      height: 30px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 23, 68, 0.3);
+    }
+
+    .risk-fill {
+      background: linear-gradient(90deg, #ff1744, #ff5252);
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      transition: width 1s ease;
+    }
+
+    .chart-container {
+      position: relative;
+      height: 300px;
+      margin: 2rem 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #606060;
+      border-top: 1px solid rgba(255, 23, 68, 0.2);
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Auth Protection Check -->
+  <script>
+    if (!localStorage.getItem('auth_token') || !localStorage.getItem('user_email')) {
+      document.body.innerHTML = `
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%); color: #e0e0e0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+          <div style="background: rgba(20, 26, 53, 0.9); border: 2px solid #ffd700; border-radius: 8px; padding: 3rem; max-width: 500px; text-align: center;">
+            <h1 style="color: #ffd700; margin-bottom: 1rem;">🔐 Protected Page</h1>
+            <p style="color: #b0b0b0; font-size: 1.1rem; margin-bottom: 2rem;">Sales Portal tools are protected. Please log in to access.</p>
+            <a href="/" style="display: inline-block; background: rgba(255, 215, 0, 0.2); color: #ffd700; border: 1px solid #ffd700; padding: 0.8rem 2rem; border-radius: 4px; text-decoration: none; font-weight: bold; font-size: 1rem; transition: all 0.3s ease;" onmouseover="this.style.background='#ffd700'; this.style.color='#0a0e27';" onmouseout="this.style.background='rgba(255, 215, 0, 0.2)'; this.style.color='#ffd700';">← Go to Login</a>
+          </div>
+        </div>
+      `;
+      throw new Error('Not authenticated');
+    }
+  </script>
+  <div class="navbar">
+    <h1>⚔️ Hybrid Attack Path Simulator</h1>
+    <button onclick="goHome()">← Back Home</button>
+  </div>
+
+  <div class="container">
+    <div class="hero">
+      <h1>Hybrid Attack Path Simulator</h1>
+      <p>Visualize real attack paths across your on-prem, cloud, and SaaS environment</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>🖥️ On-Premises</h3>
+        <label>Number of Servers</label>
+        <input type="number" id="servers" value="50" min="1" max="1000">
+        
+        <label>Security Level</label>
+        <select id="onpremSecurity">
+          <option value="high">🟢 High (Modern)</option>
+          <option value="medium">🟡 Medium (Aging)</option>
+          <option value="low">🔴 Low (Legacy)</option>
+        </select>
+      </div>
+
+      <div class="card">
+        <h3>☁️ Cloud Infrastructure</h3>
+        <label>Cloud Provider(s)</label>
+        <select id="cloudProvider">
+          <option value="aws">AWS Only</option>
+          <option value="azure">Azure Only</option>
+          <option value="gcp">GCP Only</option>
+          <option value="multi">Multi-Cloud (High Risk)</option>
+        </select>
+
+        <label>Unsanctioned SaaS Apps</label>
+        <input type="number" id="shadowSaas" value="25" min="0" max="500">
+      </div>
+
+      <div class="card">
+        <h3>🔐 Current Security Posture</h3>
+        <label>Access Control</label>
+        <select id="accessControl">
+          <option value="vpn">VPN (Legacy)</option>
+          <option value="hybrid">Hybrid VPN/ZTNA</option>
+          <option value="ztna">Full ZTNA</option>
+        </select>
+
+        <label>MFA Adoption</label>
+        <input type="number" id="mfaAdoption" value="60" min="0" max="100">%
+      </div>
+
+      <div class="card">
+        <h3>🎯 Analyze Threats</h3>
+        <button class="btn" onclick="simulateAttack()">▶️ Run Simulation</button>
+      </div>
+    </div>
+
+    <div class="simulation" id="simulation">
+      <h2 style="color: #ff1744; margin-bottom: 1.5rem;">⚠️ Identified Attack Paths</h2>
+
+      <div class="attack-path">
+        <h3>Attack Path #1: Lateral Movement (On-Prem → Cloud)</h3>
+        <div class="attack-step">
+          <strong>Step 1 - Initial Access:</strong> Compromised employee credential (phishing)
+        </div>
+        <div class="attack-step">
+          <strong>Step 2 - Lateral Movement:</strong> VPN access to on-prem network → escape to cloud storage
+        </div>
+        <div class="attack-step">
+          <strong>Step 3 - Data Exfiltration:</strong> Access unsanctioned SaaS → steal customer data
+        </div>
+        <div class="attack-step">
+          <strong>Step 4 - Persistence:</strong> Create backdoor cloud admin account
+        </div>
+        <div class="risk-meter">
+          <h4>Overall Risk: <span id="riskPath1">85</span>%</h4>
+          <div class="risk-bar">
+            <div class="risk-fill" id="riskFill1" style="width: 85%;">85%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="attack-path">
+        <h3>Attack Path #2: Shadow IT Exploitation</h3>
+        <div class="attack-step">
+          <strong>Step 1:</strong> Unsanctioned SaaS account compromise (weak password)
+        </div>
+        <div class="attack-step">
+          <strong>Step 2:</strong> No DLP/CASB controls → unauthorized data sharing
+        </div>
+        <div class="attack-step">
+          <strong>Step 3:</strong> Cross-site scripting (XSS) to cloud app → credential theft
+        </div>
+        <div class="risk-meter">
+          <h4>Risk Level: <span id="riskPath2">72</span>%</h4>
+          <div class="risk-bar">
+            <div class="risk-fill" id="riskFill2" style="width: 72%;">72%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="recommendation">
+        <h4>🛡️ Nexum Recommended Stack to Block These Paths</h4>
+        
+        <div class="nexum-product">
+          <strong>1. Zscaler Zero Trust Network</strong> - Replace VPN with zero trust. Every request verified by identity + device + context. Blocks lateral movement across hybrid.
+        </div>
+
+        <div class="nexum-product">
+          <strong>2. Wiz Cloud Security Posture</strong> - Discover all SaaS apps + misconfigurations. Auto-remediate shadow IT risks before they're exploited.
+        </div>
+
+        <div class="nexum-product">
+          <strong>3. CrowdStrike Falcon XDR</strong> - Detects & blocks lateral movement in seconds. Prevents persistence with behavioral AI.
+        </div>
+
+        <div class="nexum-product">
+          <strong>4. Palo Alto Cortex XSIAM</strong> - Single-pane-of-glass across on-prem + cloud + SaaS. Correlates attacks across domains.
+        </div>
+
+        <div class="nexum-product">
+          <strong>5. Nexum Managed Security Services (MSS)</strong> - 24/7 SOC team monitors your hybrid stack. Instant incident response.
+        </div>
+      </div>
+
+      <div style="background: rgba(0, 255, 170, 0.05); border: 1px solid #00ffaa; border-radius: 8px; padding: 1.5rem; margin-top: 2rem;">
+        <h3 style="color: #00ffaa; margin-bottom: 1rem;">📊 Expected Impact with Nexum Stack</h3>
+        <ul style="color: #b0b0b0; line-height: 2;">
+          <li>✅ Attack Path Risk: <strong style="color: #00ffaa;">85% → 15%</strong> (82% risk reduction)</li>
+          <li>✅ Shadow IT Discovery: <strong style="color: #00ffaa;">100%</strong> visibility (previously <span id="shadowPercent">0</span>%)</li>
+          <li>✅ Lateral Movement Prevention: <strong style="color: #00ffaa;">99.9%</strong> block rate</li>
+          <li>✅ MTTR (Mean Time to Respond): <strong style="color: #00ffaa;">< 5 minutes</strong> vs. 2+ hours</li>
+          <li>✅ Estimated Cost of Breach Prevented: <strong style="color: #00ffaa;">$2.5M+</strong></li>
+        </ul>
+      </div>
+
+      <div class="chart-container">
+        <canvas id="riskChart"></canvas>
+      </div>
+
+      <div style="text-align: center; margin-top: 2rem;">
+        <button class="btn" onclick="scheduleConsultation()">📞 Schedule Nexum Consultation</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Hybrid Attack Path Simulator | Nexum Security Labs</p>
+  </footer>
+
+  <script>
+    function simulateAttack() {
+      const servers = parseInt(document.getElementById('servers').value);
+      const onpremSecurity = document.getElementById('onpremSecurity').value;
+      const cloudProvider = document.getElementById('cloudProvider').value;
+      const shadowSaas = parseInt(document.getElementById('shadowSaas').value);
+      const mfaAdoption = parseInt(document.getElementById('mfaAdoption').value);
+
+      // Calculate risk scores
+      let baseRisk = 85;
+      if (onpremSecurity === 'high') baseRisk -= 20;
+      else if (onpremSecurity === 'medium') baseRisk -= 10;
+
+      if (cloudProvider !== 'multi') baseRisk -= 10;
+      baseRisk += (shadowSaas / 10);
+      baseRisk -= (mfaAdoption / 10);
+
+      const path1Risk = Math.max(15, Math.min(95, baseRisk));
+      const path2Risk = Math.max(20, Math.min(90, baseRisk - 10));
+
+      // Update display
+      document.getElementById('riskPath1').textContent = Math.round(path1Risk);
+      document.getElementById('riskFill1').style.width = path1Risk + '%';
+      document.getElementById('riskFill1').textContent = Math.round(path1Risk) + '%';
+
+      document.getElementById('riskPath2').textContent = Math.round(path2Risk);
+      document.getElementById('riskFill2').style.width = path2Risk + '%';
+      document.getElementById('riskFill2').textContent = Math.round(path2Risk) + '%';
+
+      document.getElementById('shadowPercent').textContent = Math.round(shadowSaas / 5);
+
+      // Show simulation
+      document.getElementById('simulation').classList.add('show');
+
+      // Draw chart
+      drawChart(path1Risk, path2Risk);
+
+      // Scroll to results
+      setTimeout(() => {
+        document.getElementById('simulation').scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+
+    function drawChart(path1, path2) {
+      const ctx = document.getElementById('riskChart').getContext('2d');
+      
+      if (window.riskChart) {
+        window.riskChart.destroy();
+      }
+
+      window.riskChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Current Risk', 'With Nexum Stack'],
+          datasets: [
+            {
+              label: 'Attack Path #1: Lateral Movement',
+              data: [path1, 15],
+              backgroundColor: ['rgba(255, 23, 68, 0.7)', 'rgba(0, 255, 170, 0.7)'],
+              borderColor: ['#ff1744', '#00ffaa'],
+              borderWidth: 2
+            },
+            {
+              label: 'Attack Path #2: Shadow IT',
+              data: [path2, 20],
+              backgroundColor: ['rgba(255, 100, 100, 0.7)', 'rgba(0, 255, 170, 0.5)'],
+              borderColor: ['#ff6464', '#00ffaa'],
+              borderWidth: 2
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              labels: { color: '#e0e0e0' }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              ticks: { color: '#b0b0b0' },
+              grid: { color: 'rgba(255,255,255,0.05)' }
+            },
+            x: {
+              ticks: { color: '#b0b0b0' },
+              grid: { color: 'rgba(255,255,255,0.05)' }
+            }
+          }
+        }
+      });
+    }
+
+    function scheduleConsultation() {
+      alert('✅ Consultation request sent! Nexum team will contact you within 24 hours.');
+    }
+
+    function goHome() {
+      window.location.href = '/';
+    }
+  </script>
+</body>
+</html>

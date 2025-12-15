@@ -1,0 +1,528 @@
+{
+  "seo_audit_framework": {
+    "version": "1.0",
+    "created": "2025-12-15",
+    "purpose": "Comprehensive SEO audit for sellersco.net production worker",
+    "audit_categories": {
+      "technical_seo": {
+        "description": "Core technical SEO implementation",
+        "weight": 0.25,
+        "checks": [
+          {
+            "id": "tech_1",
+            "name": "Meta Tags on All Pages",
+            "description": "Every page has title tag (50-60 chars) and meta description (150-160 chars)",
+            "pages_to_test": ["/", "/sales-portal", "/regulations", "/attack-map", "/gartner-mq-live"],
+            "validation": {
+              "title_length_min": 30,
+              "title_length_max": 60,
+              "description_length_min": 120,
+              "description_length_max": 160,
+              "unique_titles": true,
+              "unique_descriptions": true
+            },
+            "expected_pass_rate": 1.0
+          },
+          {
+            "id": "tech_2",
+            "name": "Charset and Language Tags",
+            "description": "All pages declare UTF-8 charset and language attribute",
+            "pages_to_test": ["/", "/sales-portal", "/regulations", "/attack-patterns"],
+            "validation": {
+              "has_charset_meta": true,
+              "charset_is_utf8": true,
+              "has_lang_attribute": true
+            },
+            "expected_pass_rate": 1.0
+          },
+          {
+            "id": "tech_3",
+            "name": "Viewport Meta Tag",
+            "description": "Mobile responsive viewport configuration",
+            "pages_to_test": ["/", "/sales-portal", "/regulations", "/attack-map"],
+            "validation": {
+              "has_viewport_meta": true,
+              "includes_width_device_width": true,
+              "includes_initial_scale": true
+            },
+            "expected_pass_rate": 1.0
+          },
+          {
+            "id": "tech_4",
+            "name": "Open Graph Tags",
+            "description": "Social media sharing metadata (og:title, og:description, og:image)",
+            "pages_to_test": ["/", "/sales-portal", "/regulations", "/gartner-mq-live"],
+            "validation": {
+              "has_og_title": true,
+              "has_og_description": true,
+              "has_og_image": true,
+              "has_og_url": true,
+              "has_og_type": true
+            },
+            "expected_pass_rate": 0.95
+          },
+          {
+            "id": "tech_5",
+            "name": "Twitter Card Tags",
+            "description": "Twitter-specific sharing metadata",
+            "pages_to_test": ["/", "/sales-portal", "/regulations"],
+            "validation": {
+              "has_twitter_card": true,
+              "has_twitter_creator": true,
+              "has_twitter_site": true
+            },
+            "expected_pass_rate": 0.9
+          },
+          {
+            "id": "tech_6",
+            "name": "Robots.txt Configuration",
+            "description": "Proper robots.txt prevents crawling of admin/test pages",
+            "endpoint": "/robots.txt",
+            "validation": {
+              "file_exists": true,
+              "disallows_admin_paths": true,
+              "allows_public_paths": true,
+              "specifies_sitemap": true
+            },
+            "expected_pass_rate": 1.0
+          },
+          {
+            "id": "tech_7",
+            "name": "Sitemap.xml Structure",
+            "description": "Valid XML sitemap with all public routes",
+            "endpoint": "/sitemap.xml",
+            "validation": {
+              "file_exists": true,
+              "valid_xml": true,
+              "includes_all_routes": true,
+              "has_lastmod_dates": true,
+              "has_priority_values": true,
+              "max_urls": 50000
+            },
+            "expected_pass_rate": 1.0
+          },
+          {
+            "id": "tech_8",
+            "name": "Canonical Tags",
+            "description": "Self-referential canonical URLs prevent duplicate content",
+            "pages_to_test": ["/", "/sales-portal", "/regulations"],
+            "validation": {
+              "has_canonical": true,
+              "canonical_is_self_referential": true,
+              "canonical_is_absolute_url": true
+            },
+            "expected_pass_rate": 0.95
+          },
+          {
+            "id": "tech_9",
+            "name": "SSL/HTTPS Configuration",
+            "description": "All pages served over HTTPS",
+            "validation": {
+              "protocol": "https",
+              "ssl_certificate_valid": true,
+              "no_mixed_content": true
+            },
+            "expected_pass_rate": 1.0
+          },
+          {
+            "id": "tech_10",
+            "name": "HTTP Headers for SEO",
+            "description": "Proper HTTP headers (X-Robots-Tag, Cache-Control, etc)",
+            "validation": {
+              "has_cache_control": true,
+              "appropriate_caching": true,
+              "no_noindex_on_public_pages": true
+            },
+            "expected_pass_rate": 0.95
+          }
+        ]
+      },
+      "structured_data": {
+        "description": "JSON-LD and Schema.org markup",
+        "weight": 0.25,
+        "checks": [
+          {
+            "id": "schema_1",
+            "name": "Organization Schema",
+            "description": "Organization schema with name, logo, contact",
+            "pages_to_test": ["/"],
+            "validation": {
+              "has_organization_schema": true,
+              "has_name": true,
+              "has_logo": true,
+              "has_url": true,
+              "has_sameAs_social": true
+            },
+            "expected_pass_rate": 1.0
+          },
+          {
+            "id": "schema_2",
+            "name": "Website Schema",
+            "description": "Website schema with search action and site name",
+            "pages_to_test": ["/"],
+            "validation": {
+              "has_website_schema": true,
+              "has_search_action": true,
+              "has_site_name": true
+            },
+            "expected_pass_rate": 1.0
+          },
+          {
+            "id": "schema_3",
+            "name": "Product Schema",
+            "description": "Product schema for vendor profiles with rating/review",
+            "pages_to_test": ["/sales-portal"],
+            "validation": {
+              "has_product_schema": true,
+              "has_name": true,
+              "has_description": true,
+              "has_aggregateRating": true
+            },
+            "expected_pass_rate": 0.9
+          },
+          {
+            "id": "schema_4",
+            "name": "Article/NewsArticle Schema",
+            "description": "Article schema for threat intelligence and regulations pages",
+            "pages_to_test": ["/attack-patterns", "/regulations"],
+            "validation": {
+              "has_article_schema": true,
+              "has_headline": true,
+              "has_datePublished": true,
+              "has_author": true
+            },
+            "expected_pass_rate": 0.9
+          },
+          {
+            "id": "schema_5",
+            "name": "FAQPage Schema",
+            "description": "FAQ schema if Q&A content exists",
+            "pages_to_test": ["/"],
+            "validation": {
+              "has_faqpage_schema": true,
+              "proper_question_answer_pairs": true
+            },
+            "expected_pass_rate": 0.75
+          },
+          {
+            "id": "schema_6",
+            "name": "BreadcrumbList Schema",
+            "description": "Breadcrumb navigation schema for product pages",
+            "pages_to_test": ["/sales-portal", "/regulations"],
+            "validation": {
+              "has_breadcrumb_schema": true,
+              "proper_order": true,
+              "all_urls_match": true
+            },
+            "expected_pass_rate": 0.85
+          },
+          {
+            "id": "schema_7",
+            "name": "Valid JSON-LD Format",
+            "description": "All schema markup is valid JSON-LD",
+            "validation": {
+              "valid_json_syntax": true,
+              "no_parsing_errors": true,
+              "proper_context": true
+            },
+            "expected_pass_rate": 1.0
+          }
+        ]
+      },
+      "content_optimization": {
+        "description": "On-page content and keyword optimization",
+        "weight": 0.20,
+        "checks": [
+          {
+            "id": "content_1",
+            "name": "Heading Structure (H1-H6)",
+            "description": "Proper heading hierarchy with single H1 per page",
+            "pages_to_test": ["/", "/sales-portal", "/regulations", "/attack-patterns"],
+            "validation": {
+              "has_single_h1": true,
+              "proper_hierarchy_h1_to_h6": true,
+              "descriptive_headings": true,
+              "no_skipped_levels": true
+            },
+            "expected_pass_rate": 1.0
+          },
+          {
+            "id": "content_2",
+            "name": "Keyword Optimization",
+            "description": "Target keywords in title, H1, meta description, and body",
+            "target_keywords": {
+              "/": ["cybersecurity", "threat intelligence", "Nexum"],
+              "/sales-portal": ["vendor comparison", "security solutions", "partner"],
+              "/regulations": ["compliance framework", "HIPAA", "PCI-DSS", "GDPR"],
+              "/attack-patterns": ["threat patterns", "attack types", "cybersecurity"]
+            },
+            "validation": {
+              "keyword_in_title": true,
+              "keyword_in_h1": true,
+              "keyword_in_meta_description": true,
+              "keyword_density_optimal": true
+            },
+            "expected_pass_rate": 0.9
+          },
+          {
+            "id": "content_3",
+            "name": "Content Length",
+            "description": "Sufficient content for SEO (minimum word counts)",
+            "pages_to_test": ["/sales-portal", "/regulations", "/attack-patterns"],
+            "min_word_counts": {
+              "/sales-portal": 800,
+              "/regulations": 1000,
+              "/attack-patterns": 600
+            },
+            "validation": {
+              "meets_minimum_word_count": true,
+              "comprehensive_coverage": true
+            },
+            "expected_pass_rate": 0.95
+          },
+          {
+            "id": "content_4",
+            "name": "Image Optimization",
+            "description": "All images have descriptive alt text and proper naming",
+            "pages_to_test": ["/", "/sales-portal", "/attack-patterns"],
+            "validation": {
+              "all_images_have_alt": true,
+              "alt_text_descriptive": true,
+              "image_filenames_descriptive": true,
+              "images_have_title_attr": true
+            },
+            "expected_pass_rate": 0.95
+          },
+          {
+            "id": "content_5",
+            "name": "Internal Linking Strategy",
+            "description": "Strategic internal linking with descriptive anchor text",
+            "pages_to_test": ["/", "/sales-portal", "/regulations"],
+            "validation": {
+              "has_internal_links": true,
+              "descriptive_anchor_text": true,
+              "links_to_relevant_pages": true,
+              "no_excessive_links": true
+            },
+            "expected_pass_rate": 0.9
+          },
+          {
+            "id": "content_6",
+            "name": "No Duplicate Content",
+            "description": "No significant duplicate content within site",
+            "validation": {
+              "unique_content_per_page": true,
+              "no_near_duplicate_pages": true,
+              "no_duplicate_meta_descriptions": true
+            },
+            "expected_pass_rate": 0.95
+          }
+        ]
+      },
+      "technical_performance": {
+        "description": "Page speed and Core Web Vitals",
+        "weight": 0.15,
+        "checks": [
+          {
+            "id": "perf_1",
+            "name": "Largest Contentful Paint (LCP)",
+            "description": "LCP < 2.5 seconds (good) for desktop and mobile",
+            "target": 2500,
+            "unit": "milliseconds",
+            "pages_to_test": ["/", "/sales-portal", "/regulations"],
+            "validation": {
+              "lcp_desktop": 2500,
+              "lcp_mobile": 4000,
+              "consistent_performance": true
+            },
+            "expected_pass_rate": 0.85
+          },
+          {
+            "id": "perf_2",
+            "name": "First Input Delay (FID)",
+            "description": "FID < 100ms (good) for responsiveness",
+            "target": 100,
+            "unit": "milliseconds",
+            "validation": {
+              "fid_target": 100,
+              "no_jank": true
+            },
+            "expected_pass_rate": 0.9
+          },
+          {
+            "id": "perf_3",
+            "name": "Cumulative Layout Shift (CLS)",
+            "description": "CLS < 0.1 (good) for visual stability",
+            "target": 0.1,
+            "validation": {
+              "cls_target": 0.1,
+              "no_unexpected_layout_shifts": true
+            },
+            "expected_pass_rate": 0.95
+          },
+          {
+            "id": "perf_4",
+            "name": "First Contentful Paint (FCP)",
+            "description": "FCP < 1.8 seconds (good)",
+            "target": 1800,
+            "unit": "milliseconds",
+            "validation": {
+              "fcp_target": 1800
+            },
+            "expected_pass_rate": 0.85
+          },
+          {
+            "id": "perf_5",
+            "name": "Time to First Byte (TTFB)",
+            "description": "TTFB < 600ms (good server response)",
+            "target": 600,
+            "unit": "milliseconds",
+            "validation": {
+              "ttfb_target": 600
+            },
+            "expected_pass_rate": 0.9
+          },
+          {
+            "id": "perf_6",
+            "name": "JavaScript Bundle Size",
+            "description": "Minimize main JS bundle (target < 200KB gzipped)",
+            "target": 204800,
+            "unit": "bytes",
+            "validation": {
+              "main_bundle_gzipped": 204800,
+              "no_render_blocking_js": true
+            },
+            "expected_pass_rate": 0.8
+          }
+        ]
+      },
+      "mobile_optimization": {
+        "description": "Mobile-first and responsive design",
+        "weight": 0.10,
+        "checks": [
+          {
+            "id": "mobile_1",
+            "name": "Mobile Responsiveness",
+            "description": "Design responds correctly to mobile viewports",
+            "viewports": ["320px", "375px", "768px", "1024px"],
+            "validation": {
+              "responsive_css_media_queries": true,
+              "no_horizontal_scroll_mobile": true,
+              "touch_targets_min_48px": true
+            },
+            "expected_pass_rate": 1.0
+          },
+          {
+            "id": "mobile_2",
+            "name": "Mobile-First Approach",
+            "description": "CSS written mobile-first with media queries for desktop",
+            "validation": {
+              "base_styles_mobile": true,
+              "media_queries_for_larger_screens": true
+            },
+            "expected_pass_rate": 0.9
+          },
+          {
+            "id": "mobile_3",
+            "name": "Viewport Configuration",
+            "description": "Correct viewport meta tag for mobile scaling",
+            "validation": {
+              "viewport_width_device_width": true,
+              "initial_scale_1": true,
+              "user_scalable_yes": true
+            },
+            "expected_pass_rate": 1.0
+          },
+          {
+            "id": "mobile_4",
+            "name": "Touch-Friendly Design",
+            "description": "Buttons and links at least 48x48 pixels",
+            "validation": {
+              "minimum_touch_target_size": 48,
+              "adequate_spacing_between_targets": true
+            },
+            "expected_pass_rate": 0.95
+          },
+          {
+            "id": "mobile_5",
+            "name": "Mobile Performance",
+            "description": "Fast loading on mobile networks (3G/4G)",
+            "validation": {
+              "mobile_lcp": 4000,
+              "mobile_bundle_optimized": true,
+              "no_blocking_resources": true
+            },
+            "expected_pass_rate": 0.85
+          }
+        ]
+      },
+      "accessibility": {
+        "description": "WCAG 2.1 AA compliance (bonus for SEO)",
+        "weight": 0.05,
+        "checks": [
+          {
+            "id": "a11y_1",
+            "name": "ARIA Labels and Roles",
+            "description": "Proper ARIA labels for interactive elements",
+            "validation": {
+              "buttons_have_labels": true,
+              "form_inputs_have_labels": true,
+              "proper_aria_roles": true
+            },
+            "expected_pass_rate": 0.9
+          },
+          {
+            "id": "a11y_2",
+            "name": "Color Contrast",
+            "description": "Text contrast ratio >= 4.5:1 for normal text",
+            "validation": {
+              "contrast_ratio_minimum": 4.5,
+              "enhanced_contrast_18pt": 3.0
+            },
+            "expected_pass_rate": 0.95
+          },
+          {
+            "id": "a11y_3",
+            "name": "Keyboard Navigation",
+            "description": "All functionality accessible via keyboard",
+            "validation": {
+              "all_interactive_keyboard_accessible": true,
+              "visible_focus_indicator": true,
+              "logical_tab_order": true
+            },
+            "expected_pass_rate": 0.9
+          }
+        ]
+      }
+    },
+    "scoring_calculation": {
+      "formula": "sum(category_score * category_weight) for all categories",
+      "category_score": "average(check_pass_rates) for checks in category",
+      "overall_seo_score": "total_weighted_score / 100 * 100",
+      "grades": {
+        "A": [90, 100],
+        "B": [80, 89],
+        "C": [70, 79],
+        "D": [60, 69],
+        "F": [0, 59]
+      }
+    },
+    "recommendations": {
+      "minimum_targets": {
+        "seo_score": 85,
+        "lcp": 2500,
+        "cls": 0.1,
+        "mobile_pass_rate": 0.95,
+        "accessibility_pass_rate": 0.85
+      },
+      "priority_fixes": [
+        "Ensure all routes have unique, descriptive meta titles and descriptions",
+        "Implement JSON-LD schema markup for all content types",
+        "Optimize images with WebP format and responsive sizing",
+        "Create and submit sitemap.xml and robots.txt",
+        "Test Core Web Vitals on real devices and networks",
+        "Implement service worker for offline caching (PWA)"
+      ]
+    }
+  }
+}

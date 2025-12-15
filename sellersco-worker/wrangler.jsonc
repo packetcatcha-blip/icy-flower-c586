@@ -4,12 +4,9 @@
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "sellerso",
+	"name": "icy-flower-c586",
 	"main": "src/index.js",
 	"compatibility_date": "2025-12-11",
-	"routes": [
-		"sellersco.net/*"
-	],
 	"compatibility_flags": [
 		"nodejs_compat",
 		"global_fetch_strictly_public"
@@ -107,9 +104,10 @@
 			}
 		},
 		"production": {
-			"routes": [
-				"sellersco.net/*"
-			],
+			"assets": {
+				"directory": "./public",
+				"not_found_handling": "none"
+			},
 			"r2_buckets": [
 				{
 					"binding": "IMAGES",

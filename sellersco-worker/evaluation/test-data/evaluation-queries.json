@@ -1,0 +1,144 @@
+{
+  "test_queries": [
+    {
+      "id": "route_home_worker",
+      "category": "route_availability",
+      "endpoint": "/",
+      "method": "GET",
+      "expected_status": 200,
+      "description": "Worker home page"
+    },
+    {
+      "id": "route_home_public",
+      "category": "route_availability",
+      "endpoint": "https://sellersco.net/",
+      "method": "GET",
+      "expected_status": 200,
+      "description": "Public domain home page"
+    },
+    {
+      "id": "route_solution_builder_worker",
+      "category": "route_availability",
+      "endpoint": "/solution-diagram-builder.html",
+      "method": "GET",
+      "expected_status": 200,
+      "description": "Solution Diagram Builder (worker)"
+    },
+    {
+      "id": "route_solution_builder_public",
+      "category": "route_availability",
+      "endpoint": "https://sellersco.net/solution-diagram-builder.html",
+      "method": "GET",
+      "expected_status": 200,
+      "description": "Solution Diagram Builder (public domain)"
+    },
+    {
+      "id": "route_hybrid_worker",
+      "category": "route_availability",
+      "endpoint": "/hybrid-attack-simulator.html",
+      "method": "GET",
+      "expected_status": 200,
+      "description": "Hybrid Attack Simulator (worker)"
+    },
+    {
+      "id": "route_hybrid_public",
+      "category": "route_availability",
+      "endpoint": "https://sellersco.net/hybrid-attack-simulator.html",
+      "method": "GET",
+      "expected_status": 200,
+      "description": "Hybrid Attack Simulator (public)"
+    },
+    {
+      "id": "route_snocc_worker",
+      "category": "route_availability",
+      "endpoint": "/snocc-supercharger.html",
+      "method": "GET",
+      "expected_status": 200,
+      "description": "SNOCc Supercharger (worker)"
+    },
+    {
+      "id": "route_snocc_public",
+      "category": "route_availability",
+      "endpoint": "https://sellersco.net/snocc-supercharger.html",
+      "method": "GET",
+      "expected_status": 200,
+      "description": "SNOCc Supercharger (public)"
+    },
+    {
+      "id": "route_gartner_worker",
+      "category": "route_availability",
+      "endpoint": "/gartner-deal-booster.html",
+      "method": "GET",
+      "expected_status": 200,
+      "description": "Gartner Deal Booster (worker)"
+    },
+    {
+      "id": "route_gartner_public",
+      "category": "route_availability",
+      "endpoint": "https://sellersco.net/gartner-deal-booster.html",
+      "method": "GET",
+      "expected_status": 200,
+      "description": "Gartner Deal Booster (public)"
+    },
+    {
+      "id": "feature_home_contains",
+      "category": "feature_completeness",
+      "endpoint": "/",
+      "expected_contains": ["sellersco", "threat", "intelligence"],
+      "expected_status": 200,
+      "description": "Homepage contains key terms"
+    },
+    {
+      "id": "feature_solution_builder",
+      "category": "feature_completeness",
+      "endpoint": "/solution-diagram-builder.html",
+      "expected_contains": ["nexum", "diagram", "vendor", "pdf"],
+      "expected_status": 200,
+      "description": "Solution diagram builder contains product/vendor text"
+    },
+    {
+      "id": "feature_hybrid_attacks",
+      "category": "feature_completeness",
+      "endpoint": "/hybrid-attack-simulator.html",
+      "expected_contains": ["attack", "simulation", "risk"],
+      "expected_status": 200,
+      "description": "Hybrid attack simulator page contains attack/simulation terms"
+    },
+    {
+      "id": "data_vendors_freshness",
+      "category": "data_freshness",
+      "endpoint": "/solution-diagram-builder.html",
+      "expected_contains": ["palo alto", "crowdstrike", "okta"],
+      "min_vendor_count": 40,
+      "description": "Vendor list includes major vendors"
+    },
+    {
+      "id": "seo_home",
+      "category": "seo_validation",
+      "endpoint": "/",
+      "seo_checks": {
+        "has_title": true,
+        "has_meta_description": true,
+        "has_og_tags": false,
+        "has_charset": true,
+        "has_viewport": true,
+        "has_single_h1": true
+      },
+      "description": "Homepage SEO checks"
+    },
+    {
+      "id": "seo_solution_builder",
+      "category": "seo_validation",
+      "endpoint": "/solution-diagram-builder.html",
+      "seo_checks": {
+        "has_title": true,
+        "has_meta_description": true,
+        "has_og_tags": false,
+        "has_charset": true,
+        "has_viewport": true,
+        "has_single_h1": true
+      },
+      "description": "Solution diagram builder SEO checks"
+    }
+  ]
+}

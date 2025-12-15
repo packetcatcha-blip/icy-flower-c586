@@ -6,11 +6,19 @@
 		"deploy": "wrangler deploy",
 		"dev": "wrangler dev",
 		"start": "wrangler dev",
-		"test": "vitest"
+		"test": "vitest",
+		"eval": "python evaluation/cli.py"
 	},
 	"devDependencies": {
 		"@cloudflare/vitest-pool-workers": "^0.8.19",
 		"vitest": "~3.2.0",
 		"wrangler": "^4.54.0"
+	},
+	"dependencies": {
+		"@opentelemetry/api": "^1.9.0",
+		"@opentelemetry/auto-instrumentations-node": "^0.67.2",
+		"@opentelemetry/exporter-trace-otlp-http": "^0.208.0",
+		"@opentelemetry/sdk-node": "^0.208.0",
+		"@opentelemetry/sdk-trace-node": "^2.2.0"
 	}
 }

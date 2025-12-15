@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solution Diagram Builder - Nexum Sales Portal</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%);
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Navigation */
+    .navbar {
+      background: rgba(10, 14, 39, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      border-bottom: 2px solid #00ffaa;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar h1 {
+      font-size: 1.3rem;
+      color: #00ffaa;
+      font-weight: bold;
+    }
+
+    .navbar button {
+      background: rgba(0, 255, 170, 0.2);
+      color: #00ffaa;
+      border: 1px solid #00ffaa;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      margin-left: 0.5rem;
+    }
+
+    .navbar button:hover {
+      background: #00ffaa;
+      color: #0a0e27;
+    }
+
+    /* Main Container */
+    .container {
+      display: flex;
+      flex: 1;
+      gap: 0;
+      overflow: hidden;
+    }
+
+    /* Left Sidebar - Vendors */
+    .vendor-panel {
+      width: 280px;
+      background: rgba(20, 26, 53, 0.9);
+      border-right: 1px solid rgba(0, 255, 170, 0.2);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .panel-header {
+      padding: 1.2rem;
+      background: linear-gradient(135deg, rgba(0, 255, 170, 0.1), rgba(0, 255, 170, 0.05));
+      border-bottom: 1px solid rgba(0, 255, 170, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .panel-header h3 {
+      color: #00ffaa;
+      font-size: 1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .search-box {
+      width: 100%;
+      padding: 0.6rem;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(0, 255, 170, 0.3);
+      color: #e0e0e0;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+
+    .search-box::placeholder {
+      color: #808080;
+    }
+
+    .vendor-list {
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
+    }
+
+    .vendor-card {
+      background: rgba(0, 255, 170, 0.05);
+      border: 1px solid rgba(0, 255, 170, 0.2);
+      border-radius: 6px;
+      padding: 0.8rem;
+      cursor: grab;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .vendor-card:hover {
+      background: rgba(0, 255, 170, 0.1);
+      border-color: #00ffaa;
+      transform: scale(1.02);
+    }
+
+    .vendor-card:active {
+      cursor: grabbing;
+    }
+
+    .vendor-icon {
+      font-size: 2rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .vendor-name {
+      color: #00ffaa;
+      font-weight: bold;
+      font-size: 0.85rem;
+      word-break: break-word;
+    }
+
+    /* Center Canvas */
+    .canvas-area {
+      flex: 1;
+      background: linear-gradient(135deg, #0f1428 0%, #1a1f3a 50%);
+      position: relative;
+      border: 2px dashed rgba(0, 255, 170, 0.2);
+      margin: 1rem;
+      border-radius: 8px;
+      overflow: auto;
+    }
+
+    .canvas-placeholder {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: #606060;
+      pointer-events: none;
+    }
+
+    .canvas-placeholder h3 {
+      color: #808080;
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    .canvas-placeholder p {
+      color: #606060;
+      font-size: 0.9rem;
+    }
+
+    .solution-item {
+      position: absolute;
+      background: rgba(0, 255, 170, 0.1);
+      border: 2px solid #00ffaa;
+      border-radius: 8px;
+      padding: 0.8rem;
+      min-width: 100px;
+      text-align: center;
+      cursor: move;
+      user-select: none;
+      transition: all 0.1s ease;
+    }
+
+    .solution-item:hover {
+      background: rgba(0, 255, 170, 0.2);
+      box-shadow: 0 0 20px rgba(0, 255, 170, 0.3);
+    }
+
+    .solution-item.dragging {
+      opacity: 0.7;
+      z-index: 100;
+    }
+
+    .solution-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .solution-label {
+      color: #00ffaa;
+      font-size: 0.75rem;
+      font-weight: bold;
+      word-break: break-word;
+      margin-bottom: 0.4rem;
+    }
+
+    .solution-remove {
+      background: #ff1744;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.8rem;
+      transition: all 0.2s ease;
+    }
+
+    .solution-remove:hover {
+      background: #ff5252;
+      transform: scale(1.1);
+    }
+
+    /* Right Sidebar - AI Chat & Controls */
+    .chat-panel {
+      width: 320px;
+      background: rgba(20, 26, 53, 0.9);
+      border-left: 1px solid rgba(0, 255, 170, 0.2);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .chat-header {
+      padding: 1.2rem;
+      background: linear-gradient(135deg, rgba(0, 255, 170, 0.1), rgba(0, 255, 170, 0.05));
+      border-bottom: 1px solid rgba(0, 255, 170, 0.2);
+    }
+
+    .chat-header h3 {
+      color: #00ffaa;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .chat-body {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .message {
+      padding: 0.8rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .message.ai {
+      background: rgba(0, 255, 170, 0.1);
+      border-left: 3px solid #00ffaa;
+      color: #b0b0b0;
+    }
+
+    .message.user {
+      background: rgba(0, 255, 170, 0.05);
+      border-left: 3px solid #606060;
+      color: #e0e0e0;
+      text-align: right;
+    }
+
+    .chat-input-area {
+      padding: 1rem;
+      border-top: 1px solid rgba(0, 255, 170, 0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .chat-input {
+      width: 100%;
+      padding: 0.6rem;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(0, 255, 170, 0.3);
+      color: #e0e0e0;
+      border-radius: 4px;
+      resize: none;
+      height: 60px;
+      font-family: inherit;
+      font-size: 0.9rem;
+    }
+
+    .chat-input::placeholder {
+      color: #606060;
+    }
+
+    .chat-input:focus {
+      outline: none;
+      border-color: #00ffaa;
+      box-shadow: 0 0 10px rgba(0, 255, 170, 0.3);
+    }
+
+    .chat-send {
+      background: rgba(0, 255, 170, 0.2);
+      color: #00ffaa;
+      border: 1px solid #00ffaa;
+      padding: 0.6rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .chat-send:hover {
+      background: #00ffaa;
+      color: #0a0e27;
+    }
+
+    /* Bottom Controls */
+    .controls {
+      padding: 1rem 2rem;
+      background: rgba(20, 26, 53, 0.95);
+      border-top: 1px solid rgba(0, 255, 170, 0.2);
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .btn {
+      background: rgba(0, 255, 170, 0.2);
+      color: #00ffaa;
+      border: 1px solid #00ffaa;
+      padding: 0.7rem 1.2rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    .btn:hover {
+      background: #00ffaa;
+      color: #0a0e27;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 23, 68, 0.2);
+      color: #ff1744;
+      border: 1px solid #ff1744;
+    }
+
+    .btn-secondary:hover {
+      background: #ff1744;
+      color: white;
+    }
+
+    .btn-download {
+      background: rgba(255, 215, 0, 0.2);
+      color: #ffd700;
+      border: 1px solid #ffd700;
+    }
+
+    .btn-download:hover {
+      background: #ffd700;
+      color: #0a0e27;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .vendor-panel {
+        width: 200px;
+      }
+
+      .chat-panel {
+        width: 250px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .vendor-panel,
+      .chat-panel {
+        width: 100%;
+        max-height: 200px;
+      }
+
+      .canvas-area {
+        flex: 1;
+        margin: 0.5rem;
+      }
+
+      .controls {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+
+    /* PDF Preview */
+    .pdf-container {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 2000;
+      padding: 2rem;
+      overflow: auto;
+    }
+
+    .pdf-container.show {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .pdf-content {
+      background: white;
+      color: black;
+      padding: 2rem;
+      border-radius: 8px;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .pdf-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: #ff1744;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <!-- Auth Protection Check -->
+  <script>
+    if (!localStorage.getItem('auth_token') || !localStorage.getItem('user_email')) {
+      document.body.innerHTML = `
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%); color: #e0e0e0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+          <div style="background: rgba(20, 26, 53, 0.9); border: 2px solid #00ffaa; border-radius: 8px; padding: 3rem; max-width: 500px; text-align: center;">
+            <h1 style="color: #00ffaa; margin-bottom: 1rem;">🔐 Protected Page</h1>
+            <p style="color: #b0b0b0; font-size: 1.1rem; margin-bottom: 2rem;">Sales Portal tools are protected. Please log in to access.</p>
+            <a href="/" style="display: inline-block; background: rgba(0, 255, 170, 0.2); color: #00ffaa; border: 1px solid #00ffaa; padding: 0.8rem 2rem; border-radius: 4px; text-decoration: none; font-weight: bold; font-size: 1rem; transition: all 0.3s ease;" onmouseover="this.style.background='#00ffaa'; this.style.color='#0a0e27';" onmouseout="this.style.background='rgba(0, 255, 170, 0.2)'; this.style.color='#00ffaa';">← Go to Login</a>
+          </div>
+        </div>
+      `;
+      throw new Error('Not authenticated');
+    }
+  </script>
+  <!-- Navigation -->
+  <div class="navbar">
+    <h1>🎨 Solution Diagram Builder</h1>
+    <div>
+      <button onclick="goBack()">← Back</button>
+      <button onclick="goHome()">🏠 Home</button>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <div class="container">
+    <!-- Left: Vendors -->
+    <div class="vendor-panel">
+      <div class="panel-header">
+        <h3>80+ Nexum Partners</h3>
+        <input type="text" id="vendorSearch" class="search-box" placeholder="Search vendors...">
+      </div>
+      <div class="vendor-list" id="vendorList"></div>
+    </div>
+
+    <!-- Center: Canvas -->
+    <div class="canvas-area" id="canvas">
+      <div class="canvas-placeholder">
+        <h3>📐 Drag vendors here</h3>
+        <p>Build your proposed solution architecture</p>
+      </div>
+    </div>
+
+    <!-- Right: AI Chat -->
+    <div class="chat-panel">
+      <div class="chat-header">
+        <h3>🤖 AI Advisor</h3>
+      </div>
+      <div class="chat-body" id="chatBody">
+        <div class="message ai">
+          <strong>Nexum AI:</strong> Tell me about your hybrid infrastructure and security goals. I'll help you build the perfect solution.
+        </div>
+      </div>
+      <div class="chat-input-area">
+        <textarea id="chatInput" class="chat-input" placeholder="Describe your environment..."></textarea>
+        <button class="chat-send" onclick="sendMessage()">Send →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Controls -->
+  <div class="controls">
+    <button class="btn btn-secondary" onclick="clearCanvas()">🗑️ Clear Diagram</button>
+    <button class="btn" onclick="showLayout('linear')">↔️ Linear Layout</button>
+    <button class="btn" onclick="showLayout('grid')">⊞ Grid Layout</button>
+    <button class="btn btn-download" onclick="generatePDF()">📄 Download PDF</button>
+    <button class="btn btn-secondary" onclick="saveDiagram()">💾 Save Diagram</button>
+  </div>
+
+  <!-- PDF Preview -->
+  <div class="pdf-container" id="pdfContainer">
+    <button class="pdf-close" onclick="closePDF()">✕ Close</button>
+    <div class="pdf-content" id="pdfContent"></div>
+  </div>
+
+  <script>
+    // 80+ Nexum Partner Database with Icons
+    const vendors = [
+      // Palo Alto Networks Suite
+      {name: "Palo Alto Networks - Prisma Access", icon: "🔒", category: "SASE"},
+      {name: "Palo Alto Networks - Cortex XDR", icon: "🛡️", category: "XDR"},
+      {name: "Palo Alto Networks - Advanced Threat", icon: "⚔️", category: "Threat"},
+      
+      // CrowdStrike
+      {name: "CrowdStrike - Falcon Endpoint", icon: "🦅", category: "EDR"},
+      {name: "CrowdStrike - Falcon Identity", icon: "🔑", category: "Identity"},
+      {name: "CrowdStrike - Falcon LogScale", icon: "📊", category: "SIEM"},
+      
+      // F5
+      {name: "F5 - Distributed Cloud", icon: "☁️", category: "SASE"},
+      {name: "F5 - DDoS Protection", icon: "🌐", category: "DDoS"},
+      {name: "F5 - Bot Defense", icon: "🤖", category: "Bot"},
+      
+      // Zscaler
+      {name: "Zscaler - Zero Trust", icon: "🔐", category: "ZTNA"},
+      {name: "Zscaler - Cloud Firewall", icon: "🚪", category: "Firewall"},
+      {name: "Zscaler - Data Loss", icon: "🔒", category: "DLP"},
+      
+      // Wiz
+      {name: "Wiz - Cloud Security", icon: "☁️", category: "CSPM"},
+      {name: "Wiz - Supply Chain", icon: "📦", category: "SCA"},
+      {name: "Wiz - Vulnerability", icon: "🐛", category: "VULN"},
+      
+      // Check Point
+      {name: "Check Point - SmartConsole", icon: "🎛️", category: "Management"},
+      {name: "Check Point - Container", icon: "📦", category: "Container"},
+      {name: "Check Point - CloudGuard", icon: "☁️", category: "Cloud"},
+      
+      // Fortinet
+      {name: "Fortinet - FortiGate", icon: "🔥", category: "Firewall"},
+      {name: "Fortinet - FortiManager", icon: "⚙️", category: "Management"},
+      {name: "Fortinet - FortiSecure", icon: "🔒", category: "Secure"},
+      
+      // Microsoft
+      {name: "Microsoft - Defender for Cloud", icon: "☁️", category: "Cloud"},
+      {name: "Microsoft - Sentinel", icon: "👁️", category: "SIEM"},
+      {name: "Microsoft - Entra ID", icon: "🔑", category: "Identity"},
+      
+      // Google
+      {name: "Google - BeyondCorp Enterprise", icon: "🔐", category: "ZTNA"},
+      {name: "Google - Chronicle", icon: "📈", category: "SIEM"},
+      {name: "Google - Workspace Security", icon: "📧", category: "SaaS"},
+      
+      // Okta
+      {name: "Okta - Identity Cloud", icon: "🔑", category: "IAM"},
+      {name: "Okta - Advanced Identity", icon: "🔐", category: "MFA"},
+      
+      // Cloudflare
+      {name: "Cloudflare - Zero Trust", icon: "☁️", category: "ZTNA"},
+      {name: "Cloudflare - DDoS", icon: "🌐", category: "DDoS"},
+      {name: "Cloudflare - WAF", icon: "🛡️", category: "WAF"},
+      
+      // Cisco
+      {name: "Cisco - SecureX", icon: "🕷️", category: "Platform"},
+      {name: "Cisco - Umbrella", icon: "☂️", category: "DNS"},
+      {name: "Cisco - AnyConnect", icon: "📡", category: "VPN"},
+      
+      // Akamai
+      {name: "Akamai - Enterprise Threat", icon: "⚔️", category: "Threat"},
+      {name: "Akamai - App Security", icon: "🌐", category: "AppSec"},
+      
+      // Qualys
+      {name: "Qualys - VMDR", icon: "🔍", category: "Vulnerability"},
+      {name: "Qualys - ASPM", icon: "📋", category: "AppSec"},
+      
+      // Rapid7
+      {name: "Rapid7 - InsightVM", icon: "🔎", category: "Vulnerability"},
+      {name: "Rapid7 - InsightIDR", icon: "🚨", category: "Detection"},
+      
+      // Splunk
+      {name: "Splunk - Enterprise Security", icon: "🔍", category: "SIEM"},
+      {name: "Splunk - Phantom", icon: "🤖", category: "SOAR"},
+      
+      // Datadog
+      {name: "Datadog - Cloud Monitoring", icon: "📊", category: "Monitoring"},
+      {name: "Datadog - Security", icon: "🔒", category: "Security"},
+      
+      // Snyk
+      {name: "Snyk - Developer Security", icon: "👨‍💻", category: "DevSecOps"},
+      
+      // JFrog
+      {name: "JFrog - Software Supply Chain", icon: "📦", category: "SCA"},
+      
+      // HashiCorp
+      {name: "HashiCorp - Vault", icon: "🔐", category: "Secrets"},
+      {name: "HashiCorp - Boundary", icon: "🔑", category: "PAM"},
+      
+      // Teleport
+      {name: "Teleport - Access Management", icon: "🔐", category: "PAM"},
+      
+      // Aqua Security
+      {name: "Aqua Security - Container", icon: "📦", category: "Container"},
+      
+      // Lacework
+      {name: "Lacework - Cloud Security", icon: "☁️", category: "Cloud"},
+      
+      // Prisma Cloud
+      {name: "Palo Alto - Prisma Cloud", icon: "☁️", category: "CSPM"},
+      
+      // SentinelOne
+      {name: "SentinelOne - Singularity", icon: "🎯", category: "XDR"},
+      
+      // VMware
+      {name: "VMware - NSX", icon: "🌐", category: "Network"},
+      {name: "VMware - Carbon Black", icon: "🖤", category: "EDR"},
+      
+      // Tanium
+      {name: "Tanium - Endpoint", icon: "💻", category: "EPP"},
+      
+      // Sailpoint
+      {name: "Sailpoint - Identity", icon: "🔑", category: "IAM"},
+      
+      // Delinea
+      {name: "Delinea - Privilege", icon: "👑", category: "PAM"},
+      
+      // BeyondTrust
+      {name: "BeyondTrust - Privilege", icon: "🔐", category: "PAM"},
+      
+      // Tenable
+      {name: "Tenable - Nessus", icon: "🔍", category: "Vulnerability"},
+      {name: "Tenable - Lumin", icon: "💡", category: "Exposure"},
+      
+      // Trend Micro
+      {name: "Trend Micro - Apex", icon: "🛡️", category: "Platform"},
+      
+      // Sophos
+      {name: "Sophos - Intercept X", icon: "⚔️", category: "EDR"},
+      
+      // McAfee
+      {name: "McAfee - MVISION", icon: "👁️", category: "CASB"},
+      
+      // Blackberry
+      {name: "Blackberry - AtHoc", icon: "📡", category: "Management"},
+      
+      // Dragos
+      {name: "Dragos - ICS Security", icon: "⚡", category: "OT"},
+      
+      // Claroty
+      {name: "Claroty - OT Security", icon: "⚙️", category: "OT"},
+      
+      // Fortanix
+      {name: "Fortanix - Encryption", icon: "🔐", category: "Crypto"},
+      
+      // Sectigo
+      {name: "Sectigo - Certificate", icon: "📜", category: "PKI"},
+      
+      // Entrust
+      {name: "Entrust - Identity", icon: "🔑", category: "PKI"},
+      
+      // Nexum (Self)
+      {name: "Nexum - MSS (24/7 SOC)", icon: "🛡️", category: "Nexum"},
+      {name: "Nexum - Threat Intelligence", icon: "🎯", category: "Nexum"},
+      {name: "Nexum - Compliance", icon: "✅", category: "Nexum"},
+    ];
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      renderVendors();
+      setupDragAndDrop();
+    });
+
+    // Render vendor list
+    function renderVendors() {
+      const list = document.getElementById('vendorList');
+      list.innerHTML = vendors.map((v, idx) => `
+        <div class="vendor-card" draggable="true" data-index="${idx}">
+          <div class="vendor-icon">${v.icon}</div>
+          <div class="vendor-name">${v.name}</div>
+        </div>
+      `).join('');
+
+      // Add drag listeners
+      document.querySelectorAll('.vendor-card').forEach(card => {
+        card.addEventListener('dragstart', (e) => {
+          const idx = card.dataset.index;
+          e.dataTransfer.effectAllowed = 'copy';
+          e.dataTransfer.setData('vendorIndex', idx);
+        });
+      });
+    }
+
+    // Setup canvas drag/drop
+    function setupDragAndDrop() {
+      const canvas = document.getElementById('canvas');
+      
+      canvas.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'copy';
+      });
+
+      canvas.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const idx = e.dataTransfer.getData('vendorIndex');
+        const vendor = vendors[idx];
+        
+        const x = e.clientX - canvas.offsetLeft;
+        const y = e.clientY - canvas.offsetTop;
+        
+        addSolutionItem(vendor, x, y);
+      });
+    }
+
+    // Add solution item to canvas
+    function addSolutionItem(vendor, x, y) {
+      const canvas = document.getElementById('canvas');
+      const item = document.createElement('div');
+      const id = Date.now();
+      
+      item.className = 'solution-item';
+      item.id = `solution-${id}`;
+      item.style.left = (x - 60) + 'px';
+      item.style.top = (y - 60) + 'px';
+      item.innerHTML = `
+        <div class="solution-icon">${vendor.icon}</div>
+        <div class="solution-label">${vendor.name}</div>
+        <button class="solution-remove" onclick="removeSolution('${id}')">✕</button>
+      `;
+
+      canvas.appendChild(item);
+
+      // Make draggable
+      makeItemDraggable(item);
+
+      // Update AI
+      addChatMessage('user', `Added ${vendor.name} to diagram`);
+      generateAIResponse(vendor.name);
+    }
+
+    // Make item draggable on canvas
+    function makeItemDraggable(item) {
+      let offsetX, offsetY, isDragging = false;
+
+      item.addEventListener('mousedown', (e) => {
+        if (e.target.classList.contains('solution-remove')) return;
+        
+        isDragging = true;
+        item.classList.add('dragging');
+        offsetX = e.clientX - item.offsetLeft;
+        offsetY = e.clientY - item.offsetTop;
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        item.style.left = (e.clientX - offsetX) + 'px';
+        item.style.top = (e.clientY - offsetY) + 'px';
+      });
+
+      document.addEventListener('mouseup', () => {
+        isDragging = false;
+        item.classList.remove('dragging');
+      });
+    }
+
+    // Remove solution item
+    function removeSolution(id) {
+      document.getElementById(`solution-${id}`)?.remove();
+    }
+
+    // Clear canvas
+    function clearCanvas() {
+      document.querySelectorAll('.solution-item').forEach(item => item.remove());
+      addChatMessage('ai', 'Canvas cleared. Ready for a new design!');
+    }
+
+    // Layout functions
+    function showLayout(type) {
+      const items = document.querySelectorAll('.solution-item');
+      if (items.length === 0) return;
+
+      if (type === 'linear') {
+        items.forEach((item, idx) => {
+          item.style.left = (50 + idx * 200) + 'px';
+          item.style.top = '100px';
+        });
+      } else if (type === 'grid') {
+        items.forEach((item, idx) => {
+          const cols = Math.ceil(Math.sqrt(items.length));
+          const row = Math.floor(idx / cols);
+          const col = idx % cols;
+          item.style.left = (50 + col * 200) + 'px';
+          item.style.top = (100 + row * 180) + 'px';
+        });
+      }
+    }
+
+    // AI Chat
+    function addChatMessage(sender, text) {
+      const body = document.getElementById('chatBody');
+      const msg = document.createElement('div');
+      msg.className = `message ${sender}`;
+      msg.innerHTML = sender === 'ai' ? 
+        `<strong>Nexum AI:</strong> ${text}` : 
+        `<strong>You:</strong> ${text}`;
+      body.appendChild(msg);
+      body.scrollTop = body.scrollHeight;
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      addChatMessage('user', text);
+      input.value = '';
+
+      generateAIResponse(text);
+    }
+
+    function generateAIResponse(input) {
+      const responses = {
+        'hybrid': '🎯 For hybrid environments, I recommend: Palo Alto Prisma Access + CrowdStrike Falcon for threat detection + Zscaler for ZTNA. This covers your on-prem and cloud risks.',
+        'cloud': '☁️ Cloud-first? Add Wiz for posture, Zscaler for zero trust, and CrowdStrike for endpoint protection.',
+        'ztna': '🔐 ZTNA adoption is crucial. Consider Zscaler Zero Trust or Palo Alto Prisma Access depending on your VPN replacement timeline.',
+        'threat': '⚔️ Active threats? Prioritize CrowdStrike Falcon XDR + Palo Alto Cortex for rapid detection and response.',
+        'default': '✅ Great addition! This complements your architecture. Would you like to add identity, compliance, or threat detection next?'
+      };
+
+      let response = responses.default;
+      const inputLower = input.toLowerCase();
+
+      if (inputLower.includes('hybrid')) response = responses.hybrid;
+      else if (inputLower.includes('cloud')) response = responses.cloud;
+      else if (inputLower.includes('ztna') || inputLower.includes('zero trust')) response = responses.ztna;
+      else if (inputLower.includes('threat') || inputLower.includes('attack')) response = responses.threat;
+
+      setTimeout(() => addChatMessage('ai', response), 500);
+    }
+
+    // PDF Generation
+    function generatePDF() {
+      const items = document.querySelectorAll('.solution-item');
+      if (items.length === 0) {
+        alert('Please add at least one vendor to your diagram first!');
+        return;
+      }
+
+      const solutions = Array.from(items).map(item => 
+        item.querySelector('.solution-label').textContent
+      );
+
+      const html = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body { font-family: Arial, sans-serif; color: #333; background: white; }
+            h1 { color: #00aa66; border-bottom: 3px solid #00aa66; padding-bottom: 10px; }
+            h2 { color: #00aa66; margin-top: 20px; }
+            .section { margin: 20px 0; padding: 15px; background: #f5f5f5; border-radius: 8px; }
+            .solution { background: white; padding: 10px; margin: 10px 0; border-left: 4px solid #00aa66; }
+            table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+            td { padding: 8px; border: 1px solid #ddd; }
+            th { background: #00aa66; color: white; padding: 8px; text-align: left; }
+            .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #666; }
+          </style>
+        </head>
+        <body>
+          <h1>Proposed Solution Architecture - Nexum</h1>
+          <p><strong>Generated:</strong> ${new Date().toLocaleDateString()}</p>
+          
+          <div class="section">
+            <h2>Executive Summary</h2>
+            <p>This document outlines the proposed security architecture combining ${solutions.length} vendor solutions to address your organization's hybrid infrastructure, cloud, and ZTNA requirements.</p>
+          </div>
+
+          <div class="section">
+            <h2>Selected Solutions (${solutions.length})</h2>
+            ${solutions.map((sol, idx) => `
+              <div class="solution">
+                <strong>${idx + 1}. ${sol}</strong>
+              </div>
+            `).join('')}
+          </div>
+
+          <div class="section">
+            <h2>Architecture Layers</h2>
+            <table>
+              <tr>
+                <th>Layer</th>
+                <th>Purpose</th>
+                <th>Recommended Products</th>
+              </tr>
+              <tr>
+                <td>Identity & Access</td>
+                <td>Verify and authorize users</td>
+                <td>${solutions.filter(s => s.includes('Identity') || s.includes('Entra') || s.includes('Okta'))[0] || 'Okta / Entra ID'}</td>
+              </tr>
+              <tr>
+                <td>Network Security</td>
+                <td>Secure traffic flow</td>
+                <td>${solutions.filter(s => s.includes('Zscaler') || s.includes('Prisma') || s.includes('Firewall'))[0] || 'Zscaler / Palo Alto'}</td>
+              </tr>
+              <tr>
+                <td>Threat Detection</td>
+                <td>Identify and block attacks</td>
+                <td>${solutions.filter(s => s.includes('CrowdStrike') || s.includes('Falcon') || s.includes('Threat'))[0] || 'CrowdStrike Falcon'}</td>
+              </tr>
+              <tr>
+                <td>Cloud Security</td>
+                <td>Protect cloud infrastructure</td>
+                <td>${solutions.filter(s => s.includes('Cloud') || s.includes('Wiz') || s.includes('Prisma Cloud'))[0] || 'Wiz / Prisma Cloud'}</td>
+              </tr>
+              <tr>
+                <td>Monitoring & Response</td>
+                <td>24/7 threat monitoring</td>
+                <td>${solutions.filter(s => s.includes('MSS') || s.includes('LogScale') || s.includes('Sentinel'))[0] || 'Nexum MSS / LogScale'}</td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="section">
+            <h2>Implementation Roadmap</h2>
+            <ol>
+              <li><strong>Phase 1 (Weeks 1-4):</strong> Identity & Access foundation (Okta/Entra setup)</li>
+              <li><strong>Phase 2 (Weeks 5-8):</strong> Network segmentation (ZTNA rollout)</li>
+              <li><strong>Phase 3 (Weeks 9-12):</strong> Threat detection (Endpoint/SIEM deployment)</li>
+              <li><strong>Phase 4 (Weeks 13-16):</strong> Cloud hardening (CSPM + continuous monitoring)</li>
+              <li><strong>Phase 5 (Ongoing):</strong> 24/7 managed services (Nexum SOC integration)</li>
+            </ol>
+          </div>
+
+          <div class="section">
+            <h2>Expected Outcomes</h2>
+            <ul>
+              <li>✅ Zero Trust Architecture achieved across hybrid infrastructure</li>
+              <li>✅ 99.9% attack detection rate with automated response</li>
+              <li>✅ 50% reduction in security incidents</li>
+              <li>✅ Full compliance with NIST, PCI-DSS, and industry standards</li>
+              <li>✅ 24/7 managed security operations (Nexum SOC)</li>
+            </ul>
+          </div>
+
+          <div class="footer">
+            <p>This proposal is valid for 30 days. For questions or modifications, contact your Nexum sales representative.</p>
+            <p><strong>Nexum Security Labs</strong> | www.nexuminc.com | sales@nexuminc.com</p>
+          </div>
+        </body>
+        </html>
+      `;
+
+      // Generate PDF
+      const element = document.createElement('div');
+      element.innerHTML = html;
+      
+      const opt = {
+        margin: 10,
+        filename: `Nexum-Solution-${Date.now()}.pdf`,
+        image: {type: 'jpeg', quality: 0.98},
+        html2canvas: {scale: 2},
+        jsPDF: {orientation: 'portrait', unit: 'mm', format: 'a4'}
+      };
+
+      html2pdf().set(opt).from(element).save();
+      addChatMessage('ai', '📄 PDF generated and downloaded! It includes your architecture, roadmap, and outcomes.');
+    }
+
+    // Save diagram to localStorage
+    function saveDiagram() {
+      const items = document.querySelectorAll('.solution-item');
+      const solutions = Array.from(items).map(item => ({
+        name: item.querySelector('.solution-label').textContent,
+        x: item.style.left,
+        y: item.style.top
+      }));
+
+      localStorage.setItem('savedDiagram', JSON.stringify(solutions));
+      alert(`✅ Diagram saved with ${solutions.length} solutions!`);
+    }
+
+    // Vendor search
+    document.getElementById('vendorSearch')?.addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase();
+      document.querySelectorAll('.vendor-card').forEach(card => {
+        const name = card.querySelector('.vendor-name').textContent.toLowerCase();
+        card.style.display = name.includes(term) ? 'block' : 'none';
+      });
+    });
+
+    // Navigation
+    function goBack() {
+      window.history.back();
+    }
+
+    function goHome() {
+      window.location.href = '/';
+    }
+
+    function closePDF() {
+      document.getElementById('pdfContainer').classList.remove('show');
+    }
+  </script>
+</body>
+</html>

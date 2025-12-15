@@ -2,8 +2,26 @@
 ## Master Guide to All Modules & Implementation Resources
 
 **Last Updated**: December 15, 2025  
+**Production Worker**: `icy-flower-c586.jsellers.workers.dev` → `sellersco.net`  
 **Total Features**: 22 (2 live, 20 in progress)  
 **Single Worker**: Zero external services
+
+---
+
+## 🚨 IMPORTANT: Production Environment
+
+**Production Worker**: `icy-flower-c586.jsellers.workers.dev`
+- 🌐 **DNS**: CNAME to `sellersco.net`
+- 🔴 **Status**: LIVE on internet
+- ⚠️ **Testing Rule**: ALWAYS test on a different worker first!
+- 📢 **Deployment**: Only deploy to this worker after full validation on staging
+
+**Testing Workflow**:
+1. Deploy to a test worker: `npx wrangler deploy --name my-test-worker`
+2. Run full test suite on staging
+3. Only then deploy to production: `npx wrangler deploy`
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for complete procedures.
 
 ---
 
@@ -13,7 +31,8 @@
 1. **[START HERE](SELLERSCO-INTEGRATION-MASTER.md)** - High-level overview of all 22 features
 2. **[Feature Audit](FEATURE-AUDIT-MATRIX.md)** - What's live vs. what needs building
 3. **[Build Roadmap](BUILD-ROADMAP.md)** - Step-by-step implementation guide
-4. **[Quick Start Testing](QUICK-START.md)** - Testing & deployment procedures
+4. **[Deployment Guide](DEPLOYMENT.md)** - CRITICAL: Production worker info & testing procedures
+5. **[Quick Start Testing](QUICK-START.md)** - Testing & deployment commands
 
 ### **If you're BUILDING a specific module:**
 
@@ -27,14 +46,23 @@
 | **AI Gateway** 🤖 | ❌ Needs Build | [Build Roadmap](BUILD-ROADMAP.md) (Week 3) | HIGH |
 | **Storm Center** ⛈️ | ❌ Needs Build | [Build Roadmap](BUILD-ROADMAP.md) (Week 3) | MEDIUM |
 
-### **If you're DEPLOYING:**
-1. **[Build Roadmap](BUILD-ROADMAP.md)** - Deployment checklist
-2. **[Quick Start](QUICK-START.md)** - Testing before production
-3. **[Deployment Guide](DEPLOYMENT.md)** - Production procedures
+### **If you're DEPLOYING (CRITICAL - READ FIRST!):**
+1. **[DEPLOYMENT.md](DEPLOYMENT.md)** - ⚠️ Production worker details & testing requirements
+2. **[TESTING.md](TESTING.md)** - Complete test checklist before production
+3. **[QUICK-START.md](QUICK-START.md)** - Quick deployment commands
+4. **[Build Roadmap](BUILD-ROADMAP.md)** - Deployment checklist
 
 ---
 
 ## 📋 COMPLETE DOCUMENTATION MAP
+
+### **Deployment & Operations** (READ FIRST!)
+
+| File | Purpose | Best For |
+|------|---------|----------|
+| **[DEPLOYMENT.md](DEPLOYMENT.md)** | ⚠️ **CRITICAL**: Production worker (`icy-flower-c586.jsellers.workers.dev` → `sellersco.net`), testing requirements, step-by-step deployment | MUST READ before any production deployment |
+| **[TESTING.md](TESTING.md)** | Pre-production testing checklist and procedures | Testing before production, QA validation |
+| **[QUICK-START.md](QUICK-START.md)** | Quick reference for testing, deployment commands | Quick reference, common commands |
 
 ### **Architecture & Planning**
 

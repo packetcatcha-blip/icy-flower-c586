@@ -1,0 +1,561 @@
+{
+  "metadata": {
+    "timestamp": "2025-12-15T13:19:54.665630",
+    "worker_url": "https://icy-flower-c586.jsellers.workers.dev",
+    "total_queries": 39,
+    "passed_queries": 31,
+    "failed_queries": 8,
+    "overall_pass_rate": 0.7948717948717948
+  },
+  "by_category": {
+    "route_availability": {
+      "total": 15,
+      "passed": 15,
+      "pass_rate": 1.0
+    },
+    "feature_completeness": {
+      "total": 7,
+      "passed": 5,
+      "pass_rate": 0.7142857142857143
+    },
+    "data_freshness": {
+      "total": 8,
+      "passed": 4,
+      "pass_rate": 0.5
+    },
+    "seo_validation": {
+      "total": 9,
+      "passed": 7,
+      "pass_rate": 0.7777777777777778
+    }
+  },
+  "detailed_results": [
+    {
+      "status_match": true,
+      "actual_status": 200,
+      "expected_status": 200,
+      "has_content": true,
+      "content_length": 39304,
+      "score": 1.0,
+      "error": null,
+      "query_id": "route_home",
+      "endpoint": "/",
+      "description": "Test home page route"
+    },
+    {
+      "status_match": true,
+      "actual_status": 200,
+      "expected_status": 200,
+      "has_content": true,
+      "content_length": 33819,
+      "score": 1.0,
+      "error": null,
+      "query_id": "route_attack_patterns",
+      "endpoint": "/attack-patterns",
+      "description": "Test attack patterns module"
+    },
+    {
+      "status_match": true,
+      "actual_status": 200,
+      "expected_status": 200,
+      "has_content": true,
+      "content_length": 29177,
+      "score": 1.0,
+      "error": null,
+      "query_id": "route_post_quantum",
+      "endpoint": "/post-quantum",
+      "description": "Test post-quantum cryptography module"
+    },
+    {
+      "status_match": true,
+      "actual_status": 200,
+      "expected_status": 200,
+      "has_content": true,
+      "content_length": 4232,
+      "score": 1.0,
+      "error": null,
+      "query_id": "route_quantum",
+      "endpoint": "/quantum",
+      "description": "Test quantum crypto deep dive"
+    },
+    {
+      "status_match": true,
+      "actual_status": 200,
+      "expected_status": 200,
+      "has_content": true,
+      "content_length": 23439,
+      "score": 1.0,
+      "error": null,
+      "query_id": "route_ai_gateway_arena",
+      "endpoint": "/ai-gateway-arena",
+      "description": "Test AI gateway comparison arena"
+    },
+    {
+      "status_match": true,
+      "actual_status": 200,
+      "expected_status": 200,
+      "has_content": true,
+      "content_length": 4978,
+      "score": 1.0,
+      "error": null,
+      "query_id": "route_sase_compare",
+      "endpoint": "/sase-compare",
+      "description": "Test SASE product comparison"
+    },
+    {
+      "status_match": true,
+      "actual_status": 200,
+      "expected_status": 200,
+      "has_content": true,
+      "content_length": 4998,
+      "score": 1.0,
+      "error": null,
+      "query_id": "route_ztna_compare",
+      "endpoint": "/ztna-compare",
+      "description": "Test Zero Trust Network Access comparison"
+    },
+    {
+      "status_match": true,
+      "actual_status": 200,
+      "expected_status": 200,
+      "has_content": true,
+      "content_length": 4454,
+      "score": 1.0,
+      "error": null,
+      "query_id": "route_sase_phase2",
+      "endpoint": "/sase-phase2",
+      "description": "Test SASE phase 2 roadmap"
+    },
+    {
+      "status_match": true,
+      "actual_status": 200,
+      "expected_status": 200,
+      "has_content": true,
+      "content_length": 3667,
+      "score": 1.0,
+      "error": null,
+      "query_id": "route_ztna_phase2",
+      "endpoint": "/ztna-phase2",
+      "description": "Test ZTNA phase 2 roadmap"
+    },
+    {
+      "status_match": true,
+      "actual_status": 200,
+      "expected_status": 200,
+      "has_content": true,
+      "content_length": 5764,
+      "score": 1.0,
+      "error": null,
+      "query_id": "route_deal_negotiator",
+      "endpoint": "/deal-negotiator",
+      "description": "Test deal negotiator with ROI calculator"
+    },
+    {
+      "status_match": true,
+      "actual_status": 200,
+      "expected_status": 200,
+      "has_content": true,
+      "content_length": 5024,
+      "score": 1.0,
+      "error": null,
+      "query_id": "route_metrics_scorecard",
+      "endpoint": "/metrics-scorecard",
+      "description": "Test metrics scorecard dashboard"
+    },
+    {
+      "status_match": true,
+      "actual_status": 200,
+      "expected_status": 200,
+      "has_content": true,
+      "content_length": 5983,
+      "score": 1.0,
+      "error": null,
+      "query_id": "route_fusion_dash",
+      "endpoint": "/fusion-dash",
+      "description": "Test fusion dashboard"
+    },
+    {
+      "status_match": true,
+      "actual_status": 200,
+      "expected_status": 200,
+      "has_content": true,
+      "content_length": 13,
+      "score": 1.0,
+      "error": null,
+      "query_id": "route_message",
+      "endpoint": "/message",
+      "description": "Test message endpoint"
+    },
+    {
+      "status_match": true,
+      "actual_status": 200,
+      "expected_status": 200,
+      "has_content": true,
+      "content_length": 36,
+      "score": 1.0,
+      "error": null,
+      "query_id": "route_random",
+      "endpoint": "/random",
+      "description": "Test random endpoint"
+    },
+    {
+      "status_match": true,
+      "actual_status": 200,
+      "expected_status": 200,
+      "has_content": true,
+      "content_length": 254,
+      "score": 1.0,
+      "error": null,
+      "query_id": "route_get_ticker",
+      "endpoint": "/get-ticker",
+      "description": "Test ticker data endpoint"
+    },
+    {
+      "status_ok": true,
+      "actual_status": 200,
+      "expected_content_count": 2,
+      "found_content_count": 2,
+      "missing_content": [],
+      "content_match_rate": 1.0,
+      "score": 1.0,
+      "query_id": "route_attack_map",
+      "endpoint": "/attack-map",
+      "description": "Test interactive attack map page"
+    },
+    {
+      "status_ok": true,
+      "actual_status": 200,
+      "expected_content_count": 2,
+      "found_content_count": 2,
+      "missing_content": [],
+      "content_match_rate": 1.0,
+      "score": 1.0,
+      "query_id": "route_sales_portal",
+      "endpoint": "/sales-portal",
+      "description": "Test sales portal page loads"
+    },
+    {
+      "status_ok": true,
+      "actual_status": 200,
+      "expected_content_count": 2,
+      "found_content_count": 1,
+      "missing_content": [
+        "recommendation"
+      ],
+      "content_match_rate": 0.5,
+      "score": 0.25,
+      "query_id": "route_sales_portal_recommend",
+      "endpoint": "/sales-portal/api/recommend",
+      "description": "Test AI vendor recommendation endpoint"
+    },
+    {
+      "status_ok": true,
+      "actual_status": 200,
+      "expected_content_count": 3,
+      "found_content_count": 3,
+      "missing_content": [],
+      "content_match_rate": 1.0,
+      "score": 1.0,
+      "query_id": "route_regulations",
+      "endpoint": "/regulations",
+      "description": "Test compliance frameworks page"
+    },
+    {
+      "status_ok": true,
+      "actual_status": 200,
+      "expected_content_count": 2,
+      "found_content_count": 2,
+      "missing_content": [],
+      "content_match_rate": 1.0,
+      "score": 1.0,
+      "query_id": "route_gartner_mq",
+      "endpoint": "/gartner-mq-live",
+      "description": "Test Gartner Magic Quadrant page"
+    },
+    {
+      "status_ok": true,
+      "actual_status": 200,
+      "expected_content_count": 2,
+      "found_content_count": 0,
+      "missing_content": [
+        "CrowdStrike",
+        "Palo Alto"
+      ],
+      "content_match_rate": 0.0,
+      "score": 0.0,
+      "query_id": "feature_vendor_healthcare",
+      "endpoint": "/sales-portal/api/recommend",
+      "description": "Test vendor recommendation for Healthcare vertical"
+    },
+    {
+      "status_ok": true,
+      "actual_status": 200,
+      "expected_content_count": 1,
+      "found_content_count": 1,
+      "missing_content": [],
+      "content_match_rate": 1.0,
+      "score": 1.0,
+      "query_id": "feature_vendor_finance",
+      "endpoint": "/sales-portal/api/recommend",
+      "description": "Test vendor recommendation for Finance vertical"
+    },
+    {
+      "url": "https://icy-flower-c586.jsellers.workers.dev/attack-map/api/otx",
+      "status": 200,
+      "checks": {
+        "has_otx_threats": true,
+        "has_otx_source": true
+      },
+      "pulse_count": 3,
+      "score": 1.0,
+      "query_id": "route_attack_map_otx_api",
+      "endpoint": "/attack-map/api/otx",
+      "description": "Test OTX threat feed API"
+    },
+    {
+      "url": "https://icy-flower-c586.jsellers.workers.dev/sales-portal/api/vendors",
+      "status": 200,
+      "checks": {
+        "min_vendor_count": false,
+        "has_major_vendors": true,
+        "expected_keywords": true
+      },
+      "vendor_count": 11,
+      "found_keywords": [
+        "name",
+        "features"
+      ],
+      "estimated_vendor_count": 3,
+      "score": 0.6666666666666666,
+      "query_id": "route_sales_portal_vendors",
+      "endpoint": "/sales-portal/api/vendors",
+      "description": "Test vendor list API"
+    },
+    {
+      "url": "https://icy-flower-c586.jsellers.workers.dev/regulations/api/frameworks",
+      "status": 200,
+      "checks": {
+        "has_2025_standards": true
+      },
+      "found_standards": [
+        "HIPAA",
+        "PCI",
+        "GDPR",
+        "CMMC",
+        "NIS2",
+        "DORA",
+        "SEC"
+      ],
+      "score": 1.0,
+      "query_id": "route_regulations_api",
+      "endpoint": "/regulations/api/frameworks",
+      "description": "Test regulations API endpoint"
+    },
+    {
+      "url": "https://icy-flower-c586.jsellers.workers.dev/regulations/api/check",
+      "status": 200,
+      "checks": {
+        "expected_keywords": true
+      },
+      "found_keywords": [
+        "compliant",
+        "controls"
+      ],
+      "missing_keywords": [],
+      "score": 1.0,
+      "query_id": "route_regulations_check",
+      "endpoint": "/regulations/api/check",
+      "description": "Test vendor compliance check"
+    },
+    {
+      "url": "https://icy-flower-c586.jsellers.workers.dev/attack-map/api/otx",
+      "status": 200,
+      "checks": {
+        "has_otx_threats": false,
+        "has_otx_source": true
+      },
+      "pulse_count": 3,
+      "score": 0.5,
+      "query_id": "data_otx_threat_intelligence",
+      "endpoint": "/attack-map/api/otx",
+      "description": "Validate OTX threat feed integration with real data"
+    },
+    {
+      "url": "https://icy-flower-c586.jsellers.workers.dev/regulations/api/frameworks",
+      "status": 200,
+      "checks": {
+        "has_2025_standards": true
+      },
+      "found_standards": [
+        "HIPAA",
+        "PCI",
+        "GDPR",
+        "CMMC",
+        "NIS2",
+        "DORA",
+        "SEC"
+      ],
+      "score": 1.0,
+      "query_id": "data_regulations_2025_updated",
+      "endpoint": "/regulations/api/frameworks",
+      "description": "Verify 2025 regulations are current (DORA, NIS2, SEC rules)"
+    },
+    {
+      "url": "https://icy-flower-c586.jsellers.workers.dev/sales-portal/api/vendors",
+      "status": 200,
+      "checks": {
+        "min_vendor_count": false,
+        "has_major_vendors": true,
+        "expected_keywords": true
+      },
+      "vendor_count": 11,
+      "found_keywords": [
+        "name",
+        "features"
+      ],
+      "estimated_vendor_count": 3,
+      "score": 0.6666666666666666,
+      "query_id": "data_vendor_profiles_current",
+      "endpoint": "/sales-portal/api/vendors",
+      "description": "Verify vendor profiles available"
+    },
+    {
+      "url": "https://icy-flower-c586.jsellers.workers.dev/gartner-mq-live",
+      "status": 200,
+      "checks": {
+        "expected_keywords": false
+      },
+      "found_keywords": [
+        "Gartner"
+      ],
+      "missing_keywords": [
+        "2025"
+      ],
+      "score": 0.0,
+      "query_id": "data_gartner_positioning",
+      "endpoint": "/gartner-mq-live",
+      "description": "Verify Gartner MQ positioning is accurate"
+    },
+    {
+      "url": "https://icy-flower-c586.jsellers.workers.dev/",
+      "status": 200,
+      "checks": {
+        "has_title": true,
+        "has_meta_description": true,
+        "has_og_tags": true,
+        "has_charset": true,
+        "has_viewport": true
+      },
+      "passed_checks": 5,
+      "total_checks": 5,
+      "pass_rate": 1.0,
+      "score": 1.0,
+      "query_id": "seo_meta_tags_home",
+      "endpoint": "/",
+      "description": "Validate meta tags on home page"
+    },
+    {
+      "url": "https://icy-flower-c586.jsellers.workers.dev/",
+      "status": 200,
+      "checks": {
+        "has_organization_schema": true,
+        "has_website_schema": false
+      },
+      "passed_checks": 1,
+      "total_checks": 2,
+      "pass_rate": 0.5,
+      "score": 0.5,
+      "query_id": "seo_schema_markup",
+      "endpoint": "/",
+      "description": "Validate JSON-LD schema markup"
+    },
+    {
+      "url": "https://icy-flower-c586.jsellers.workers.dev/sales-portal",
+      "status": 200,
+      "checks": {
+        "has_single_h1": true,
+        "proper_heading_hierarchy": true
+      },
+      "h1_count": 1,
+      "passed_checks": 2,
+      "total_checks": 2,
+      "pass_rate": 1.0,
+      "score": 1.0,
+      "query_id": "seo_heading_hierarchy",
+      "endpoint": "/sales-portal",
+      "description": "Validate heading structure (H1-H6)"
+    },
+    {
+      "url": "https://icy-flower-c586.jsellers.workers.dev/attack-patterns",
+      "status": 200,
+      "checks": {
+        "all_images_have_alt": true
+      },
+      "image_alt_coverage": 1.0,
+      "passed_checks": 1,
+      "total_checks": 1,
+      "pass_rate": 1.0,
+      "score": 1.0,
+      "query_id": "seo_image_alt_text",
+      "endpoint": "/attack-patterns",
+      "description": "Validate all images have alt text"
+    },
+    {
+      "url": "https://icy-flower-c586.jsellers.workers.dev/",
+      "status": 200,
+      "checks": {
+        "mobile_friendly": true
+      },
+      "passed_checks": 1,
+      "total_checks": 1,
+      "pass_rate": 1.0,
+      "score": 1.0,
+      "query_id": "seo_responsive_design",
+      "endpoint": "/",
+      "description": "Validate mobile responsiveness"
+    },
+    {
+      "url": "https://icy-flower-c586.jsellers.workers.dev/robots.txt",
+      "status": 200,
+      "checks": {},
+      "passed_checks": 0,
+      "total_checks": 0,
+      "pass_rate": 1.0,
+      "score": 1.0,
+      "query_id": "seo_structured_data",
+      "endpoint": "/robots.txt",
+      "description": "Validate robots.txt and sitemap.xml"
+    },
+    {
+      "error": "HTTP 404",
+      "score": 0,
+      "query_id": "seo_sitemap",
+      "endpoint": "/sitemap.xml",
+      "description": "Validate sitemap.xml structure"
+    },
+    {
+      "url": "https://icy-flower-c586.jsellers.workers.dev/sales-portal",
+      "status": 200,
+      "checks": {},
+      "passed_checks": 0,
+      "total_checks": 0,
+      "pass_rate": 1.0,
+      "score": 1.0,
+      "query_id": "seo_internal_links",
+      "endpoint": "/sales-portal",
+      "description": "Validate internal linking structure"
+    },
+    {
+      "url": "https://icy-flower-c586.jsellers.workers.dev/",
+      "status": 200,
+      "checks": {},
+      "passed_checks": 0,
+      "total_checks": 0,
+      "pass_rate": 1.0,
+      "score": 1.0,
+      "query_id": "seo_page_speed",
+      "endpoint": "/",
+      "description": "Validate Core Web Vitals performance"
+    }
+  ]
+}

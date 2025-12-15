@@ -1,18 +1,41 @@
 # Deployment Workflow
 
+## 🚨 PRODUCTION ALERT
+
+**`icy-flower-c586.jsellers.workers.dev` = PRODUCTION**
+- 🌐 DNS CNAME → `sellersco.net` 
+- 🔴 LIVE on the internet
+- ⚡ Do NOT test on this worker
+- 🔒 Only deploy after full staging validation
+
+**📋 See [PRODUCTION-DNS-SETUP.md](./PRODUCTION-DNS-SETUP.md) for complete DNS configuration details**
+
+---
+
 ## Quick Reference
 
-### Dev Environment
+### Testing/Staging Environment
 ```bash
-npx wrangler deploy --env dev
+# Deploy to a TEST worker (not production!)
+npx wrangler deploy --name my-test-worker
 ```
-**URL**: https://sellersco-worker-dev.application-services-implementation-lab-zippy-operand.workers.dev
+**Use**: https://[your-test-worker].jsellers.workers.dev (for testing ONLY)
 
-### Production Environment
+### Production Environment (sellersco.net)
 ```bash
-npx wrangler deploy --env production
+# Deploy to PRODUCTION (icy-flower-c586 → sellersco.net)
+npx wrangler deploy
 ```
-**URL**: https://sellersco.net (requires custom domain setup)
+**URL**: https://icy-flower-c586.jsellers.workers.dev (PRODUCTION - DNS CNAME to sellersco.net)
+
+---
+
+## ⚠️ CRITICAL RULES
+
+**RULE #1**: Test on a separate worker first!  
+**RULE #2**: Run full test suite on staging before production!  
+**RULE #3**: NEVER test changes directly on icy-flower-c586.jsellers.workers.dev!  
+**RULE #4**: Production deploys must be intentional - no accidents!
 
 ---
 
@@ -20,65 +43,80 @@ npx wrangler deploy --env production
 
 ### CRITICAL: Pre-Production Checklist
 
+**📋 MANDATORY: Test on ANOTHER worker FIRST before touching icy-flower-c586.jsellers.workers.dev**
+
 **📋 MANDATORY: Complete [TESTING.md](./TESTING.md) checklist before ANY production deployment.**
 
-#### 1. Run Automated Tests
+#### Step 1: Make Changes Locally
 ```bash
-# Test all internal links
-./test-links.sh
+cd c:\demo\nuke-demo\icy-flower-c586\sellersco-worker
+# Edit files in public/ or src/
+```
+
+#### Step 2: Test on Staging Worker
+```bash
+# Deploy to YOUR test worker (NOT production!)
+npx wrangler deploy --name my-test-worker
+
+# Test all links on staging
+./test-links.ps1 -Environment staging
 
 # Run unit tests
 npm test
 
-# Manual testing checklist in TESTING.md
+# Manual verification on https://my-test-worker.jsellers.workers.dev
+curl https://my-test-worker.jsellers.workers.dev/
 ```
 
-#### 2. Backup Production
-```bash
-# Get current production version
-npx wrangler deployments list --env production
+#### Step 3: Verify Test Results
+- ✅ All public routes load (200)
+- ✅ Protected routes return 401
+- ✅ API endpoints respond correctly
+- ✅ R2 images load
+- ✅ No console errors
+- ✅ Responsive design works
+- ✅ See [TESTING.md](./TESTING.md) for complete checklist
 
-# Save the version ID from the most recent deployment
+#### Step 4: Backup Production
+```bash
+# Get current production versions
+npx wrangler deployments list
+
+# Save version ID for rollback if needed
 # Example: 4b5a62d2-f37e-4007-8e3d-d64ab10c671c
 
-# Backup production HTML
-curl https://sellersco.net > sellersco-backup-$(date +%Y%m%d-%H%M%S).html
+# Optional: Backup current production HTML
+curl https://icy-flower-c586.jsellers.workers.dev > backup-prod-$(date +%Y%m%d-%H%M%S).html
+curl https://sellersco.net > backup-sellersco-net-$(date +%Y%m%d-%H%M%S).html
 ```
 
-#### 3. If Rollback Needed
+#### Step 5: Deploy to Production (sellersco.net)
 ```bash
-npx wrangler rollback [version-id] --env production
+# ⚠️  THIS DEPLOYS TO PRODUCTION - icy-flower-c586.jsellers.workers.dev → sellersco.net
+
+npx wrangler deploy
 ```
 
-### Development & Deployment Steps
+#### Step 6: Verify Production Deployment
+```bash
+# Test production is working
+./test-links.ps1 -Environment production
 
-1. **Make changes locally** - Edit files in `public/` or `src/`
+# Test sellersco.net directly
+curl https://sellersco.net/
+curl https://icy-flower-c586.jsellers.workers.dev/
 
-2. **Test locally** (optional)
-   ```bash
-   npm run dev
-   # Visit http://localhost:8787
-   ```
+# Verify no errors
+```
 
-3. **Deploy to Dev** - Test changes on dev URL
-   ```bash
-   npx wrangler deploy --env dev
-   ```
-   Verify at: https://sellersco-worker-dev.application-services-implementation-lab-zippy-operand.workers.dev
+#### Step 7: If Rollback Needed
+```bash
+# Use version ID from Step 4
+npx wrangler rollback [version-id]
 
-4. **Complete Testing** - See [TESTING.md](./TESTING.md)
-   - Test all internal links
-   - Verify API endpoints
-   - Check responsive design
-   - Test authentication flow
-   - Verify R2 images load
-   - Test AI bindings (if applicable)
-
-5. **Deploy to Production** - Push to sellersco.net
-   ```bash
-   npx wrangler deploy --env production
-   ```
-   Verify at: https://sellersco.net
+# Test production restored
+curl https://sellersco.net/
+```
 
 ---
 
@@ -87,7 +125,7 @@ npx wrangler rollback [version-id] --env production
 ### Workers AI Binding
 The worker has access to Cloudflare's AI models via the `AI` binding.
 
-**Test AI access:**
+**Test AI access (on staging first!):**
 ```javascript
 // In src/index.js
 const response = await env.AI.run('@cf/meta/llama-2-7b-chat-int8', {

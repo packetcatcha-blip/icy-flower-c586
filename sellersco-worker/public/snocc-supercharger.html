@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexum SNOCc Supercharger - Sales Portal</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%);
+      color: #e0e0e0;
+      min-height: 100vh;
+    }
+
+    .navbar {
+      background: rgba(10, 14, 39, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      border-bottom: 2px solid #a300ff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar h1 {
+      font-size: 1.3rem;
+      color: #a300ff;
+      font-weight: bold;
+    }
+
+    .navbar button {
+      background: rgba(163, 0, 255, 0.2);
+      color: #a300ff;
+      border: 1px solid #a300ff;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .navbar button:hover {
+      background: #a300ff;
+      color: white;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding: 2rem;
+      background: linear-gradient(135deg, rgba(163,0,255,0.1), rgba(163,0,255,0.05));
+      border-radius: 8px;
+      border: 1px solid rgba(163,0,255,0.2);
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      color: #a300ff;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    .hero p {
+      color: #b0b0b0;
+      font-size: 1.1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .product-card {
+      background: rgba(20, 26, 53, 0.8);
+      border: 1px solid rgba(163, 0, 255, 0.2);
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .product-card:hover {
+      border-color: #a300ff;
+      box-shadow: 0 0 20px rgba(163, 0, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .product-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 1rem;
+    }
+
+    .product-icon {
+      font-size: 2.5rem;
+    }
+
+    .toggle-bundle {
+      background: rgba(163, 0, 255, 0.2);
+      border: 1px solid #a300ff;
+      color: #a300ff;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.8rem;
+      transition: all 0.3s ease;
+    }
+
+    .toggle-bundle.active {
+      background: #a300ff;
+      color: white;
+    }
+
+    .product-title {
+      color: #a300ff;
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-price {
+      font-size: 1.3rem;
+      color: #00ffaa;
+      font-weight: bold;
+      margin-bottom: 0.8rem;
+    }
+
+    .product-features {
+      list-style: none;
+      margin-bottom: 1rem;
+    }
+
+    .product-features li {
+      padding: 0.4rem 0;
+      color: #b0b0b0;
+      font-size: 0.9rem;
+    }
+
+    .product-features li:before {
+      content: "✓ ";
+      color: #00ffaa;
+      font-weight: bold;
+    }
+
+    .roi-section {
+      background: rgba(0, 255, 170, 0.05);
+      border: 1px solid rgba(0, 255, 170, 0.2);
+      border-radius: 6px;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+
+    .roi-section h4 {
+      color: #00ffaa;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .roi-item {
+      padding: 0.4rem 0;
+      color: #b0b0b0;
+      font-size: 0.85rem;
+    }
+
+    .roi-value {
+      color: #00ffaa;
+      font-weight: bold;
+    }
+
+    .comparison {
+      background: rgba(20, 26, 53, 0.8);
+      border: 1px solid rgba(163, 0, 255, 0.2);
+      border-radius: 8px;
+      padding: 2rem;
+      margin: 2rem 0;
+      overflow-x: auto;
+    }
+
+    .comparison h3 {
+      color: #a300ff;
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      background: rgba(163, 0, 255, 0.1);
+      color: #a300ff;
+      padding: 1rem;
+      text-align: left;
+      font-weight: bold;
+      border-bottom: 2px solid rgba(163, 0, 255, 0.2);
+    }
+
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(163, 0, 255, 0.1);
+      color: #b0b0b0;
+    }
+
+    tr:hover {
+      background: rgba(163, 0, 255, 0.05);
+    }
+
+    .check {
+      color: #00ffaa;
+      font-weight: bold;
+    }
+
+    .x {
+      color: #ff1744;
+    }
+
+    .summary {
+      background: linear-gradient(135deg, rgba(163,0,255,0.1), rgba(0,255,170,0.05));
+      border: 1px solid rgba(163, 0, 255, 0.2);
+      border-radius: 8px;
+      padding: 2rem;
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    .summary h2 {
+      color: #a300ff;
+      margin-bottom: 1rem;
+    }
+
+    .summary-stat {
+      display: inline-block;
+      margin: 1rem;
+    }
+
+    .summary-value {
+      font-size: 2rem;
+      color: #00ffaa;
+      font-weight: bold;
+    }
+
+    .summary-label {
+      color: #b0b0b0;
+      font-size: 0.9rem;
+    }
+
+    .btn {
+      background: rgba(163, 0, 255, 0.2);
+      color: #a300ff;
+      border: 1px solid #a300ff;
+      padding: 0.8rem 1.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+      width: 100%;
+      margin-top: 1rem;
+    }
+
+    .btn:hover {
+      background: #a300ff;
+      color: white;
+    }
+
+    .btn-secondary {
+      background: rgba(0, 255, 170, 0.2);
+      color: #00ffaa;
+      border: 1px solid #00ffaa;
+    }
+
+    .btn-secondary:hover {
+      background: #00ffaa;
+      color: #0a0e27;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #606060;
+      border-top: 1px solid rgba(163, 0, 255, 0.2);
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Auth Protection Check -->
+  <script>
+    if (!localStorage.getItem('auth_token') || !localStorage.getItem('user_email')) {
+      document.body.innerHTML = `
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%); color: #e0e0e0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+          <div style="background: rgba(20, 26, 53, 0.9); border: 2px solid #ff6b6b; border-radius: 8px; padding: 3rem; max-width: 500px; text-align: center;">
+            <h1 style="color: #ff6b6b; margin-bottom: 1rem;">🔐 Protected Page</h1>
+            <p style="color: #b0b0b0; font-size: 1.1rem; margin-bottom: 2rem;">Sales Portal tools are protected. Please log in to access.</p>
+            <a href="/" style="display: inline-block; background: rgba(255, 107, 107, 0.2); color: #ff6b6b; border: 1px solid #ff6b6b; padding: 0.8rem 2rem; border-radius: 4px; text-decoration: none; font-weight: bold; font-size: 1rem; transition: all 0.3s ease;" onmouseover="this.style.background='#ff6b6b'; this.style.color='#0a0e27';" onmouseout="this.style.background='rgba(255, 107, 107, 0.2)'; this.style.color='#ff6b6b';">← Go to Login</a>
+          </div>
+        </div>
+      `;
+      throw new Error('Not authenticated');
+    }
+  </script>
+  <div class="navbar">
+    <h1>⚡ Nexum SNOCc Supercharger</h1>
+    <button onclick="goHome()">← Back Home</button>
+  </div>
+
+  <div class="container">
+    <div class="hero">
+      <h1>⚡ Nexum Managed Security Services</h1>
+      <p>Enterprise-grade security services & solutions from Nexum - trusted since 2002</p>
+    </div>
+
+    <h2 style="color: #ff6b6b; margin: 2rem 0; text-align: center;">🛡️ Nexum Service Portfolio</h2>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-value">23+</div>
+        <div class="stat-label">Years in Cybersecurity</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">SOC 2</div>
+        <div class="stat-label">Type 2 Compliant</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">SDVOSB</div>
+        <div class="stat-label">Verified Status</div>
+      </div>
+    </div>
+
+    <!-- Core Services -->
+    <div class="section">
+      <h2>Core Services</h2>
+      
+      <div class="product-grid">
+        <div class="product-card">
+          <h3>🎯 Managed Security Services (MSSP)</h3>
+          <p>SOC 2 Type 2-compliant MSSP with 24/7 monitoring and vendor-agnostic approach</p>
+          <div class="features">
+            <ul>
+              <li>24/7 Security Operations Center (SOC)</li>
+              <li>Threat monitoring and detection</li>
+              <li>Incident response and management</li>
+              <li>Highly experienced security engineers</li>
+              <li>Best-of-breed technology integration</li>
+            </ul>
+          </div>
+          <div class="roi-metrics">
+            <span>Cost: Enterprise</span> | <span>ROI: 40-60% vs DIY</span>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <h3>🔍 Security Assessment & Consulting</h3>
+          <p>Multi-point holistic security health checks and vulnerability remediation</p>
+          <div class="features">
+            <ul>
+              <li>Security posture evaluation</li>
+              <li>Risk identification & rating</li>
+              <li>Vulnerability remediation planning</li>
+              <li>Continuity planning</li>
+              <li>Industry-specific expertise</li>
+            </ul>
+          </div>
+          <div class="roi-metrics">
+            <span>Cost: $5K-15K per engagement</span> | <span>ROI: Immediate risk reduction</span>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <h3>☁️ Cloud Security Solutions</h3>
+          <p>Identify and remediate gaps in cloud security posture</p>
+          <div class="features">
+            <ul>
+              <li>Cloud misconfig scanning</li>
+              <li>Compliance validation</li>
+              <li>Multi-cloud support (AWS, Azure, GCP)</li>
+              <li>Infrastructure-as-code scanning</li>
+              <li>Zero-trust cloud architecture</li>
+            </ul>
+          </div>
+          <div class="roi-metrics">
+            <span>Cost: $3K-10K/month</span> | <span>ROI: 35% reduction in incidents</span>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <h3>🔐 Identity & Access Management</h3>
+          <p>Remote work security with identity-aware access controls</p>
+          <div class="features">
+            <ul>
+              <li>MFA/2FA implementation</li>
+              <li>Zero-trust access policies</li>
+              <li>Privileged access management</li>
+              <li>SASE/ZTNA integration</li>
+              <li>Remote worker protection</li>
+            </ul>
+          </div>
+          <div class="roi-metrics">
+            <span>Cost: $2K-8K/month</span> | <span>ROI: 50% breach risk reduction</span>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <h3>🛡️ Endpoint Security</h3>
+          <p>Comprehensive endpoint protection across hybrid environments</p>
+          <div class="features">
+            <ul>
+              <li>EDR (Endpoint Detection & Response)</li>
+              <li>XDR (Extended Detection & Response)</li>
+              <li>Behavioral threat detection</li>
+              <li>Ransomware protection</li>
+              <li>Vulnerability patching</li>
+            </ul>
+          </div>
+          <div class="roi-metrics">
+            <span>Cost: $15-30 per endpoint/month</span> | <span>ROI: 60% faster incident response</span>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <h3>📊 Security Operations & Monitoring</h3>
+          <p>Detect, assess, and respond to threats 24/7</p>
+          <div class="features">
+            <ul>
+              <li>SIEM management</li>
+              <li>Log analysis & correlation</li>
+              <li>Alert triage & escalation</li>
+              <li>Threat hunting</li>
+              <li>Forensics & investigation</li>
+            </ul>
+          </div>
+          <div class="roi-metrics">
+            <span>Cost: $5K-20K/month</span> | <span>ROI: 70% faster MTTR</span>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <h3>🔒 Information Protection</h3>
+          <p>Data encryption and loss prevention</p>
+          <div class="features">
+            <ul>
+              <li>Data loss prevention (DLP)</li>
+              <li>Encryption at rest & in transit</li>
+              <li>Tokenization</li>
+              <li>File integrity monitoring</li>
+              <li>Privacy compliance (PII, PHI)</li>
+            </ul>
+          </div>
+          <div class="roi-metrics">
+            <span>Cost: $1K-5K/month</span> | <span>ROI: Compliance assurance</span>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <h3>🔧 Manufacturer-Authorized Support</h3>
+          <p>24/7 vendor-certified technical support</p>
+          <div class="features">
+            <ul>
+              <li>Authorized support engineers</li>
+              <li>Vendor certifications (Palo Alto, Fortinet, etc)</li>
+              <li>Phone, email, web portal support</li>
+              <li>Enhanced SLA agreements</li>
+              <li>Escalation routing</li>
+            </ul>
+          </div>
+          <div class="roi-metrics">
+            <span>Cost: $2K-8K/month</span> | <span>ROI: 50% faster issue resolution</span>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <h3>📚 Professional Services & Training</h3>
+          <p>Expert implementation and authorized training courses</p>
+          <div class="features">
+            <ul>
+              <li>System deployment & configuration</li>
+              <li>Policy development</li>
+              <li>Staff training programs</li>
+              <li>Authorized certification courses</li>
+              <li>Best practices consulting</li>
+            </ul>
+          </div>
+          <div class="roi-metrics">
+            <span>Cost: $150-250/hour</span> | <span>ROI: Faster time-to-value</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bundle Builder -->
+    <div class="section" style="margin-top: 3rem;">
+      <h2>🎯 Build Your Security Bundle</h2>
+      <p style="color: #b0b0b0; margin-bottom: 2rem;">Combine Nexum services to create a comprehensive security program tailored to your organization</p>
+      
+      <div style="background: rgba(255,107,107,0.05); border: 1px solid rgba(255,107,107,0.2); border-radius: 8px; padding: 2rem;">
+        <h3 style="color: #ff6b6b; margin-bottom: 1rem;">Typical Enterprise Bundle</h3>
+        <ul style="color: #b0b0b0; margin-left: 1.5rem; line-height: 2;">
+          <li>✅ Managed Security Services (MSSP) - $15K/month</li>
+          <li>✅ Cloud Security Solutions - $8K/month</li>
+          <li>✅ Identity & Access Management - $5K/month</li>
+          <li>✅ Security Operations & Monitoring - $10K/month</li>
+          <li>✅ Endpoint Security - $3K/month</li>
+          <li>✅ Manufacturer Support - $3K/month</li>
+          <li><strong style="color: #ff6b6b;">Total: $44K/month = $528K/year</strong></li>
+          <li><strong style="color: #00ffaa;">Bundle Discount: 25% = $396K/year</strong></li>
+          <li><strong style="color: #00ffaa;">Est. ROI: 3.5x within 12 months</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Why Nexum -->
+    <div class="section" style="margin-top: 3rem;">
+      <h2>Why Choose Nexum?</h2>
+      <table class="positioning-table">
+        <tr>
+          <th>Feature</th>
+          <th>Nexum</th>
+          <th>Traditional MSS</th>
+          <th>DIY Approach</th>
+        </tr>
+        <tr>
+          <td><strong>24/7 SOC</strong></td>
+          <td>✅ Included</td>
+          <td>⚠️ Limited hours</td>
+          <td>❌ No</td>
+        </tr>
+        <tr>
+          <td><strong>SOC 2 Type 2</strong></td>
+          <td>✅ Certified</td>
+          <td>✅ Most major providers</td>
+          <td>❌ No</td>
+        </tr>
+        <tr>
+          <td><strong>Vendor-Agnostic</strong></td>
+          <td>✅ Best-of-breed</td>
+          <td>⚠️ Limited partners</td>
+          <td>✅ Your choice</td>
+        </tr>
+        <tr>
+          <td><strong>Industry Expertise</strong></td>
+          <td>✅ Multi-vertical</td>
+          <td>⚠️ Varies by partner</td>
+          <td>❌ Self-service</td>
+        </tr>
+        <tr>
+          <td><strong>Authorized Support</strong></td>
+          <td>✅ Vendor-certified</td>
+          <td>⚠️ Limited scope</td>
+          <td>❌ No</td>
+        </tr>
+        <tr>
+          <td><strong>Cost Efficiency</strong></td>
+          <td>✅ 40-60% savings vs DIY</td>
+          <td>✅ Competitive</td>
+          <td>❌ Highest capex</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+    <div class="summary">
+      <h2>Your Nexum Bundle Configuration</h2>
+      <div class="summary-stat">
+        <div class="summary-value" id="selectedCount">0</div>
+        <div class="summary-label">Products Selected</div>
+      </div>
+      <div class="summary-stat">
+        <div class="summary-value" id="totalRoi">$0K</div>
+        <div class="summary-label">Annual ROI</div>
+      </div>
+      <div class="summary-stat">
+        <div class="summary-value" id="discountPercent">0%</div>
+        <div class="summary-label">Bundle Discount</div>
+      </div>
+      <button class="btn btn-secondary" onclick="generateProposal()">📋 Generate Proposal</button>
+    </div>
+
+    <h2 style="color: #a300ff; margin: 2rem 0 1rem 0;">🛡️ Nexum Core + Partner Products</h2>
+
+    <div class="grid" id="productGrid"></div>
+
+    <div class="comparison">
+      <h3>📊 Single-Vendor vs. Multi-Vendor Comparison</h3>
+      <table>
+        <tr>
+          <th>Capability</th>
+          <th>Multi-Vendor (Fragmented)</th>
+          <th>Nexum SNOCc (Integrated)</th>
+        </tr>
+        <tr>
+          <td>Unified Dashboard</td>
+          <td><span class="x">✗</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Single Threat Correlation</td>
+          <td><span class="x">✗</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>24/7 Managed Response</td>
+          <td><span class="x">✗</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Integration Support</td>
+          <td><span class="x">✗</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Vendor Management Overhead</td>
+          <td><span class="x">5-10 vendors</span></td>
+          <td><span class="check">1 vendor (Nexum)</span></td>
+        </tr>
+        <tr>
+          <td>Average Implementation Time</td>
+          <td><span class="x">4-6 months</span></td>
+          <td><span class="check">4-8 weeks</span></td>
+        </tr>
+        <tr>
+          <td>Year 1 Cost (for similar coverage)</td>
+          <td><span class="x">$800K-$1.2M</span></td>
+          <td><span class="check">$500K-$700K</span></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    <p>Nexum SNOCc Supercharger | Nexum Security Labs | Contact: sales@nexuminc.com</p>
+  </footer>
+
+  <script>
+    const products = [
+      {name: "Nexum MSS (24/7 SOC)", icon: "🛡️", price: "$200K", roi: "150K", features: ["24/7 monitoring", "Incident response", "Threat hunting"], category: "Core"},
+      {name: "Palo Alto Prisma Access", icon: "🔒", price: "$85K", roi: "45K", features: ["Zero Trust access", "SASE platform", "Cloud native"], discount: "25%"},
+      {name: "CrowdStrike Falcon XDR", icon: "🦅", price: "$95K", roi: "60K", features: ["EDR/XDR", "Threat intel", "Response"], discount: "20%"},
+      {name: "Zscaler Zero Trust", icon: "🔐", price: "$75K", roi: "50K", features: ["Network access", "DLP controls", "Policy mgmt"], discount: "20%"},
+      {name: "Wiz Cloud Security", icon: "☁️", price: "$65K", roi: "55K", features: ["CSPM", "Vulnerability mgmt", "Compliance"], discount: "15%"},
+      {name: "F5 Distributed Cloud", icon: "☁️", price: "$70K", roi: "48K", features: ["App delivery", "DDoS protection", "Bot defense"], discount: "15%"},
+      {name: "Microsoft Sentinel", icon: "👁️", price: "$55K", roi: "40K", features: ["SIEM", "Log analytics", "Threat detection"], discount: "10%"},
+      {name: "Google Chronicle", icon: "📊", price: "$60K", roi: "42K", features: ["Security analytics", "Threat intel", "Investigation"], discount: "10%"},
+      {name: "Okta Identity Cloud", icon: "🔑", price: "$50K", roi: "35K", features: ["IAM", "MFA", "Governance"], discount: "15%"},
+      {name: "Check Point CloudGuard", icon: "☁️", price: "$55K", roi: "38K", features: ["Cloud security", "Container security", "Compliance"], discount: "12%"},
+    ];
+
+    let selectedProducts = [];
+
+    function renderProducts() {
+      const grid = document.getElementById('productGrid');
+      grid.innerHTML = products.map((p, idx) => `
+        <div class="product-card">
+          <div class="product-header">
+            <div class="product-icon">${p.icon}</div>
+            <button class="toggle-bundle" onclick="toggleProduct(${idx})" id="btn-${idx}">+ Add</button>
+          </div>
+          <div class="product-title">${p.name}</div>
+          <div class="product-price">${p.price}/year</div>
+          <ul class="product-features">
+            ${p.features.map(f => `<li>${f}</li>`).join('')}
+          </ul>
+          <div class="roi-section">
+            <h4>Annual ROI</h4>
+            <div class="roi-item">Savings: <span class="roi-value">${p.roi}</span></div>
+            <div class="roi-item">Bundle: <span class="roi-value">${p.discount || '10%'}</span> off</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleProduct(idx) {
+      const product = products[idx];
+      const btn = document.getElementById(`btn-${idx}`);
+
+      if (selectedProducts.includes(idx)) {
+        selectedProducts = selectedProducts.filter(i => i !== idx);
+        btn.textContent = '+ Add';
+        btn.classList.remove('active');
+      } else {
+        selectedProducts.push(idx);
+        btn.textContent = '✓ Added';
+        btn.classList.add('active');
+      }
+
+      updateSummary();
+    }
+
+    function updateSummary() {
+      let totalRoi = 0;
+      let totalPrice = 0;
+
+      selectedProducts.forEach(idx => {
+        const roi = parseInt(products[idx].roi) * 1000;
+        totalRoi += roi;
+        const price = parseInt(products[idx].price) * 1000;
+        totalPrice += price;
+      });
+
+      const discount = Math.min(selectedProducts.length * 3, 30);
+      const discountedTotal = totalPrice * (1 - discount / 100);
+      const finalRoi = totalRoi - (totalPrice - discountedTotal);
+
+      document.getElementById('selectedCount').textContent = selectedProducts.length;
+      document.getElementById('totalRoi').textContent = '$' + Math.round(finalRoi / 1000) + 'K';
+      document.getElementById('discountPercent').textContent = discount + '%';
+    }
+
+    function generateProposal() {
+      if (selectedProducts.length === 0) {
+        alert('Please select at least one product to include in your proposal!');
+        return;
+      }
+
+      const selected = selectedProducts.map(i => products[i]);
+      const summary = `
+Bundle Proposal Summary:
+
+Products Selected (${selected.length}):
+${selected.map(p => `- ${p.name}: ${p.price}/year`).join('\n')}
+
+Total Annual Value: $${selected.reduce((sum, p) => sum + parseInt(p.price), 0)}K
+
+Bundle Discount: ${Math.min(selected.length * 3, 30)}%
+
+This proposal provides integrated security across your hybrid infrastructure with Nexum's 24/7 SOC oversight.
+
+Download your detailed proposal to share with your team.
+      `;
+
+      alert(summary);
+    }
+
+    // Initialize
+    renderProducts();
+  </script>
+</body>
+</html>

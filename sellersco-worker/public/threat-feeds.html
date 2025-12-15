@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Threat Feeds - US-Centered Threat Map | Nexum Security Lab</title>
+  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-marker-cluster@1.5.0/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-marker-cluster@1.5.0/dist/MarkerCluster.Default.css" />
+  <style>
+    :root {
+      --bg: #0a1628;
+      --surface: #1a2f45;
+      --text: #f0f4f8;
+      --text-dim: #b8c5d6;
+      --accent: #52b2ff;
+      --primary: #0066cc;
+      --border: #2d4563;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body { font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); }
+    
+    #mapContainer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+    #map { width: 100%; height: 100%; }
+    
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 350px;
+      height: 100vh;
+      background: rgba(10, 22, 40, 0.95);
+      backdrop-filter: blur(12px);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      z-index: 100;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .sidebar h2 { color: #ff4444; font-size: 1.5rem; margin-bottom: 8px; }
+    .sidebar p { font-size: 13px; color: var(--text-dim); margin-bottom: 16px; }
+    
+    .controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.3s;
+    }
+    
+    .btn:hover { background: rgba(255,255,255,0.1); border-color: var(--accent); }
+    .btn.active { background: #ff4444; border-color: #ff4444; color: #fff; }
+    
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    
+    .stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 12px;
+      border-radius: 6px;
+      text-align: center;
+    }
+    
+    .stat-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px; }
+    .stat-value { font-size: 24px; font-weight: 700; color: var(--accent); }
+    
+    .feeds-list {
+      flex: 1;
+      overflow-y: auto;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+    }
+    
+    .feed-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid #ff4444;
+      padding: 12px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 12px;
+    }
+    
+    .feed-item:hover { background: #24395a; transform: translateX(4px); }
+    .feed-source { color: #ff4444; font-weight: 700; font-size: 10px; text-transform: uppercase; margin-bottom: 4px; }
+    .feed-title { color: var(--text); margin-bottom: 4px; line-height: 1.4; }
+    .feed-time { color: var(--text-dim); font-size: 11px; }
+    
+    .map-legend {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(10,22,40,0.95);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      font-size: 13px;
+      z-index: 50;
+    }
+    
+    .legend-item { display: flex; align-items: center; gap: 8px; margin: 8px 0; }
+    .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+    
+    @media (max-width: 768px) {
+      .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border); }
+      #mapContainer { margin-top: auto; }
+    }
+    
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    .pulse { animation: pulse 2s infinite; }
+  </style>
+</head>
+<body>
+
+<div class="sidebar">
+  <h2><span style="display: inline-block; width: 10px; height: 10px; background: #ff4444; border-radius: 50%; margin-right: 8px; animation: pulse 1s infinite;"></span>Threat Feeds</h2>
+  <p>Real-time threat intelligence from OTX, RSS feeds, and security sources</p>
+  
+  <div class="controls">
+    <button class="btn active" onclick="toggleSound()">🔊 Sound ON</button>
+    <button class="btn" onclick="toggleRefresh()">🔄 Auto-Refresh</button>
+    <a href="/" class="btn" style="text-decoration: none; text-align: center;">← Back</a>
+  </div>
+  
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-label">Live Attacks</div>
+      <div class="stat-value" id="statAttacks">0</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Sources</div>
+      <div class="stat-value" id="statSources">10</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">US Targets</div>
+      <div class="stat-value" id="statTargets">10</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Feeds</div>
+      <div class="stat-value" id="statFeeds">0</div>
+    </div>
+  </div>
+  
+  <h3 style="font-size: 1rem; margin-top: 16px; color: var(--accent);">Latest Threat Intelligence</h3>
+  <div class="feeds-list" id="feedsList">
+    <div style="color: var(--text-dim); text-align: center; padding: 20px; font-size: 12px;">Loading threat feeds...</div>
+  </div>
+</div>
+
+<div id="mapContainer">
+  <div id="map"></div>
+  <div class="map-legend">
+    <strong style="color: var(--accent);">Threat Severity</strong>
+    <div class="legend-item">
+      <div class="legend-dot" style="background: #ff0040;"></div>
+      <span>Critical</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background: #ff6600;"></div>
+      <span>High</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background: #ffcc00;"></div>
+      <span>Medium</span>
+    </div>
+    <div class="legend-item" style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border);">
+      <span style="font-size: 11px; color: var(--text-dim);">Source → US Target</span>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-marker-cluster@1.5.0/dist/leaflet.markercluster.js"></script>
+<script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+
+<script>
+let soundEnabled = true;
+let autoRefresh = true;
+let totalAttacks = 0;
+
+// Create map centered on US
+const map = L.map('map', {
+  center: [39.8283, -98.5795],
+  zoom: 4,
+  minZoom: 2,
+  maxZoom: 8,
+  zoomControl: true,
+  attributionControl: false
+});
+
+// Dark satellite tiles
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+  opacity: 0.5
+}).addTo(map);
+
+// Dark labels overlay
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png', {
+  opacity: 0.8
+}).addTo(map);
+
+// Define threat sources (global)
+const sources = [
+  { lat: 55.75, lng: 37.62, name: 'Russia', weight: 25 },
+  { lat: 39.90, lng: 116.41, name: 'China', weight: 30 },
+  { lat: 39.03, lng: 125.75, name: 'North Korea', weight: 10 },
+  { lat: 35.68, lng: 51.39, name: 'Iran', weight: 12 },
+  { lat: 52.52, lng: 13.41, name: 'Germany', weight: 6 },
+  { lat: 51.51, lng: -0.13, name: 'UK', weight: 5 },
+  { lat: -33.87, lng: 151.21, name: 'Australia', weight: 4 },
+  { lat: 28.61, lng: 77.21, name: 'India', weight: 8 },
+  { lat: 14.60, lng: 120.98, name: 'Philippines', weight: 4 },
+  { lat: 1.35, lng: 103.82, name: 'Singapore', weight: 3 }
+];
+
+// US targets
+const targets = [
+  { lat: 40.71, lng: -74.01, name: 'New York' },
+  { lat: 34.05, lng: -118.24, name: 'Los Angeles' },
+  { lat: 41.88, lng: -87.63, name: 'Chicago' },
+  { lat: 29.76, lng: -95.37, name: 'Houston' },
+  { lat: 33.45, lng: -112.07, name: 'Phoenix' },
+  { lat: 39.74, lng: -104.99, name: 'Denver' },
+  { lat: 47.61, lng: -122.33, name: 'Seattle' },
+  { lat: 25.76, lng: -80.19, name: 'Miami' },
+  { lat: 38.91, lng: -77.04, name: 'Washington DC' },
+  { lat: 37.77, lng: -122.42, name: 'San Francisco' }
+];
+
+const feeds = [];
+const lines = [];
+
+// Sample threat feeds for demo
+const threatFeeds = [
+  { source: 'AlienVault OTX', title: 'Malicious IP Activity Spike in Financial Sector', severity: 'critical' },
+  { source: 'Krebs Security', title: 'New Ransomware Variant Targeting Healthcare', severity: 'critical' },
+  { source: 'ESET WeLiveSecurity', title: 'Phishing Campaign Against Government Agencies', severity: 'high' },
+  { source: 'Cisco Talos', title: 'APT29 Infrastructure Recon Activity Detected', severity: 'high' },
+  { source: 'BleepingComputer', title: 'Zero-Day Vulnerability in Popular Web Framework', severity: 'critical' },
+  { source: 'Dark Reading', title: 'DDoS Attack Volume Increases 40% YoY', severity: 'high' },
+  { source: 'Threatpost', title: 'Supply Chain Compromise Affecting Multiple Vendors', severity: 'high' },
+  { source: 'Hacker News', title: 'Critical BGP Hijacking Campaign Ongoing', severity: 'medium' },
+];
+
+function createAttack() {
+  // Weighted random source
+  const totalWeight = sources.reduce((a, s) => a + s.weight, 0);
+  let rand = Math.random() * totalWeight;
+  let source = sources[0];
+  for (const s of sources) {
+    rand -= s.weight;
+    if (rand <= 0) { source = s; break; }
+  }
+  
+  // Random US target
+  const target = targets[Math.floor(Math.random() * targets.length)];
+  
+  // Random severity
+  const severities = ['critical', 'critical', 'high', 'high', 'medium'];
+  const severity = severities[Math.floor(Math.random() * severities.length)];
+  const color = severity === 'critical' ? '#ff0040' : severity === 'high' ? '#ff6600' : '#ffcc00';
+  
+  // Create animated line
+  const line = L.polyline(
+    [[source.lat, source.lng], [target.lat, target.lng]],
+    {
+      color: color,
+      weight: 2,
+      opacity: 0.8,
+      dashArray: '8,4',
+      className: 'attack-line'
+    }
+  ).addTo(map);
+  
+  // Add arrow marker at target
+  const marker = L.circleMarker([target.lat, target.lng], {
+    radius: 6,
+    fillColor: color,
+    color: '#fff',
+    weight: 2,
+    fillOpacity: 0.9,
+    className: 'pulse'
+  }).addTo(map);
+  
+  lines.push(line);
+  totalAttacks++;
+  document.getElementById('statAttacks').textContent = totalAttacks.toLocaleString();
+  
+  // Play sound if enabled
+  if (soundEnabled) {
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+    oscillator.frequency.value = 440 + Math.random() * 200;
+    oscillator.type = 'sine';
+    gain.gain.setValueAtTime(0.1, audioContext.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.2);
+  }
+  
+  // Remove after animation
+  setTimeout(() => {
+    if (map.hasLayer(line)) map.removeLayer(line);
+    if (map.hasLayer(marker)) map.removeLayer(marker);
+  }, 3000);
+  
+  // Add to feed
+  const feed = threatFeeds[Math.floor(Math.random() * threatFeeds.length)];
+  addFeed({...feed, timestamp: new Date()});
+}
+
+function addFeed(feed) {
+  feeds.unshift(feed);
+  if (feeds.length > 20) feeds.pop();
+  document.getElementById('statFeeds').textContent = feeds.length;
+  renderFeeds();
+}
+
+function renderFeeds() {
+  const html = feeds.map(f => `
+    <div class="feed-item" onclick="alert('${f.title}\\n\\nSource: ${f.source}\\n\\nSeverity: ${f.severity.toUpperCase()}\\n\\nTime: ${f.timestamp.toLocaleTimeString()}')">
+      <div class="feed-source">${f.source}</div>
+      <div class="feed-title">${f.title}</div>
+      <div class="feed-time">${f.timestamp.toLocaleTimeString()}</div>
+    </div>
+  `).join('');
+  document.getElementById('feedsList').innerHTML = html || '<div style="color: var(--text-dim); text-align: center; padding: 20px;">No feeds yet...</div>';
+}
+
+function toggleSound() {
+  soundEnabled = !soundEnabled;
+  event.target.textContent = soundEnabled ? '🔊 Sound ON' : '🔇 Sound OFF';
+  event.target.classList.toggle('active');
+}
+
+function toggleRefresh() {
+  autoRefresh = !autoRefresh;
+  event.target.classList.toggle('active');
+}
+
+// Initial attacks
+for (let i = 0; i < 5; i++) {
+  setTimeout(createAttack, i * 300);
+}
+
+// Continuous attacks every 1s
+if (autoRefresh) {
+  setInterval(createAttack, 1000);
+}
+
+// Heatmap
+const heatData = targets.map(t => [t.lat, t.lng, 0.8]);
+sources.forEach(s => heatData.push([s.lat, s.lng, s.weight / 50]));
+L.heatLayer(heatData, { radius: 30, blur: 20, maxZoom: 10, gradient: { 0.2: '#0000ff', 0.5: '#00ffff', 0.7: '#ffff00', 1.0: '#ff0000' } }).addTo(map);
+</script>
+
+</body>
+</html>

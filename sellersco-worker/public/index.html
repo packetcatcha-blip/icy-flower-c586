@@ -265,7 +265,7 @@
     box-shadow:var(--shadow-lg);
     margin-bottom:var(--space-xl);
   }
-  .hero-image img{width:100%;height:100%;object-fit:cover}
+  .hero-image img{width:100%;height:100%;object-fit:contain;background-color:var(--bg-secondary)}
   
   /* Typography */
   h1{
@@ -423,30 +423,6 @@
   }
   
   @keyframes scroll{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
-  
-  /* Z-index and positioning wrapper */
-  .z-index-wrapper{position:relative;z-index:5}
-  
-  /* Header nav layout */
-  header.nav{display:flex;align-items:center;justify-content:space-between}
-  
-  /* Logo container */
-  .logo-container{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border-light);border-radius:var(--radius-lg);padding:12px 16px;box-shadow:var(--shadow)}
-  .logo-container img{width:50px;height:50px;object-fit:contain;border-radius:var(--radius)}
-  .logo-link{display:flex;align-items:center;text-decoration:none}
-  
-  /* Footer positioning */
-  footer.site{position:fixed;bottom:0;left:0;width:100%;display:flex;justify-content:space-between;align-items:center;z-index:10}
-  
-  /* Ticker styles */
-  #ticker{overflow:hidden;white-space:nowrap;animation:scroll 30s linear infinite}
-  
-  /* About section buttons */
-  .about-buttons a svg{width:16px;height:16px}
-  
-  /* Footer links */
-  footer.site a{color:var(--text);text-decoration:none;display:flex;align-items:center;gap:6px}
-  footer.site a span{font-weight:600}
 </style>
 </head>
 <body>
@@ -473,8 +449,9 @@
       <span></span>
     </div>
     <nav class="nav-links" id="navLinks">
-      <a href="/post-quantum" class="btn">Post Quantum</a>
-      <a href="/owasp-range" class="btn">OWASP Range</a>
+      <a href="/threat-feeds" class="btn" style="color:#FF1744;font-weight:bold;border:1px solid #FF1744;padding:8px 14px;">🔴 Live Attack Map</a>
+      <a href="/post-quantum" class="btn" style="color:#A300FF;font-weight:bold;">⚛️ Post-Quantum</a>
+      <a href="/owasp-range" class="btn" style="color:#FF1744;font-weight:bold;border:1px solid #FF1744;">🛡️ OWASP Range</a>
       <a href="/hybrid-warroom" class="btn">Hybrid Warroom</a>
       <a href="/ai-gateway-arena" class="btn">AI Gateway</a>
       <a href="/stormcenter" class="btn">Storm Center</a>
@@ -483,6 +460,9 @@
       <a href="/threat-modeler" class="btn">Threat Model</a>
       <a href="/multicloud-sim" class="btn">Multi-Cloud</a>
       <a href="/attack-patterns" class="btn">ATT&CK</a>
+      <a href="/threat-map" class="btn" style="color:#FF7F50;font-weight:bold;">🗺️ Threat Map</a>
+      <a href="/recommender" class="btn" style="color:#00FFAA;font-weight:bold;">🤖 AI Recommender</a>
+      <a href="/workflows" class="btn" style="color:#FF69B4;font-weight:bold;">⚙️ Workflows</a>
       
       <!-- Protected Nav Buttons (hidden until logged in) -->
       <a href="/sales-portal" class="btn protected-nav">Sales Portal</a>
@@ -490,11 +470,21 @@
       <a href="/ztna-compare" class="btn protected-nav">ZTNA Compare</a>
       <a href="/sase-phase2" class="btn protected-nav">SASE Phase 2</a>
       <a href="/ztna-phase2" class="btn protected-nav">ZTNA Phase 2</a>
-      <a href="/regulations" class="btn protected-nav">Regulations</a>
+      <a href="/regulations" class="btn protected-nav">📋 Regulations</a>
+      <a href="/verticals" class="btn protected-nav">🏢 Verticals</a>
+      <a href="/threat-feeds" class="btn protected-nav">🔴 Threat Map</a>
+      <a href="/f5-cloud" class="btn protected-nav">☁️ F5 Cloud</a>
+      <a href="/crowdstrike" class="btn protected-nav">🔴 CrowdStrike</a>
       <a href="/gartner-mq-live" class="btn protected-nav">Gartner MQ</a>
       <a href="/deal-negotiator" class="btn protected-nav">Negotiator</a>
       <a href="/metrics-scorecard" class="btn protected-nav">Metrics</a>
       <a href="/fusion-dash" class="btn protected-nav">Fusion Dash</a>
+
+      <!-- Sales Portal 2025 (NEW) -->
+      <a href="/solution-diagram-builder" class="btn protected-nav">📐 Solution Architect</a>
+      <a href="/hybrid-attack-simulator" class="btn protected-nav">🎯 Attack Simulator</a>
+      <a href="/snocc-supercharger" class="btn protected-nav">🛍️ Product Bundle</a>
+      <a href="/gartner-deal-booster" class="btn protected-nav">📊 Gartner Booster</a>
       
       <!-- Auth Buttons -->
       <button onclick="showLogin()" id="loginBtn" class="btn primary">Login</button>
@@ -525,9 +515,9 @@
 <div id="registerModal" class="modal">
   <div class="modal-content">
     <span class="close-modal" onclick="closeRegister()">&times;</span>
-    <h2>Register</h2>
-    <p style="color:var(--text-dim);font-size:14px">Only @nexuminc.com emails are allowed</p>
-    <input type="email" id="regEmail" placeholder="Email (@nexuminc.com)" required>
+    <h2>Register - Open Access</h2>
+    <p style="color:var(--text-dim);font-size:14px">📧 Any email welcome. Approval typically within 24 hours.</p>
+    <input type="email" id="regEmail" placeholder="Your email address" required>
     <input type="password" id="regPassword" placeholder="Password" required>
     <input type="text" id="regName" placeholder="Full Name" required>
     <button onclick="register()">Register</button>
@@ -565,6 +555,37 @@
     Welcome to Nexum Inc's enterprise security research platform. This lab environment provides hands-on training and testing for cybersecurity professionals, featuring real-world scenarios for SASE, Zero Trust, threat modeling, and cloud security.
   </p>
   
+  <!-- Cloudflare Partner Section -->
+  <div class="card" style="background:linear-gradient(135deg, rgba(247,103,34,0.1), rgba(0,145,220,0.1));border:1px solid rgba(247,103,34,0.3);margin-bottom:var(--space-xl);">
+    <div style="display:flex;align-items:center;gap:var(--space-md);margin-bottom:var(--space-md);">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="18" stroke="#F76722" stroke-width="2"/>
+        <path d="M20 8V32M8 20H32M14.14 14.14L25.86 25.86M25.86 14.14L14.14 25.86" stroke="#F76722" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <h3 style="margin:0;color:#F76722;font-size:1.25rem;font-weight:700;">Powered by Cloudflare</h3>
+        <p style="margin:4px 0 0 0;color:var(--text-dim);font-size:13px;">Enterprise-grade edge computing & security infrastructure</p>
+      </div>
+    </div>
+    <p style="font-size:14px;line-height:1.8;color:var(--text);margin:0;">
+      This platform leverages <strong>Cloudflare Workers</strong> for serverless computing, <strong>Cloudflare R2</strong> for object storage, and <strong>Cloudflare AI</strong> for threat intelligence. As a trusted technology partner, Cloudflare provides the secure, scalable foundation powering real-time attack visualization, threat feeds, and enterprise security research capabilities.
+    </p>
+    <div style="margin-top:var(--space-md);display:flex;gap:var(--space-sm);font-size:13px;">
+      <span style="background:rgba(247,103,34,0.2);padding:6px 12px;border-radius:var(--radius);color:var(--text);">
+        🚀 Cloudflare Workers
+      </span>
+      <span style="background:rgba(247,103,34,0.2);padding:6px 12px;border-radius:var(--radius);color:var(--text);">
+        💾 R2 Storage
+      </span>
+      <span style="background:rgba(247,103,34,0.2);padding:6px 12px;border-radius:var(--radius);color:var(--text);">
+        🤖 Cloudflare AI
+      </span>
+      <span style="background:rgba(247,103,34,0.2);padding:6px 12px;border-radius:var(--radius);color:var(--text);">
+        🔒 DDoS Protection
+      </span>
+    </div>
+  </div>
+  
   <h2>Core Security Labs</h2>
   <ul>
     <li><a href="/vuln-lab">Vulnerability Lab</a> - Practice secure attack techniques (XSS, SQLi, CSRF)</li>
@@ -585,6 +606,161 @@
   </ul>
   
   <h2>Monitoring & Intelligence</h2>
+  
+  <!-- Live Attack Map Preview -->
+  <div class="attack-map-preview" style="margin:var(--space-lg) 0;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-sm);">
+      <h3 style="margin:0;color:var(--accent);font-size:1.25rem;">
+        <span style="display:inline-block;width:10px;height:10px;background:#ff4444;border-radius:50%;animation:pulse 1.5s infinite;margin-right:8px;"></span>
+        Live Global Threat Map
+      </h3>
+      <a href="/attack-map" class="btn primary" style="font-size:12px;padding:8px 16px;">Open Full Map →</a>
+    </div>
+    <div id="miniMapContainer" style="position:relative;width:100%;height:400px;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-lg);background:#0d1117;">
+      <div id="miniMap" style="width:100%;height:100%;"></div>
+      <div id="mapStats" style="position:absolute;bottom:12px;left:12px;background:rgba(0,0,0,0.8);backdrop-filter:blur(8px);padding:12px 16px;border-radius:var(--radius);border:1px solid var(--border-light);display:flex;gap:24px;font-size:13px;">
+        <div><span style="color:var(--text-dim);">Attacks:</span> <span id="attackCount" style="color:#ff4444;font-weight:700;">0</span></div>
+        <div><span style="color:var(--text-dim);">Sources:</span> <span id="sourceCount" style="color:#ffaa00;font-weight:700;">0</span></div>
+        <div><span style="color:var(--text-dim);">Targets:</span> <span id="targetCount" style="color:#00ff88;font-weight:700;">0</span></div>
+      </div>
+    </div>
+  </div>
+  
+  <style>
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+    .attack-line{stroke-dasharray:8 4;animation:dash 1s linear infinite}
+    @keyframes dash{to{stroke-dashoffset:-12}}
+  </style>
+  
+  <!-- Leaflet CSS/JS for mini map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+  
+  <script>
+  (function initMiniMap() {
+    // Wait for DOM
+    if (!document.getElementById('miniMap')) {
+      setTimeout(initMiniMap, 100);
+      return;
+    }
+    
+    // Create map centered on US with world view
+    const map = L.map('miniMap', {
+      center: [35, -40],
+      zoom: 2,
+      minZoom: 2,
+      maxZoom: 6,
+      zoomControl: false,
+      attributionControl: false
+    });
+    
+    // Satellite tiles
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      opacity: 0.6
+    }).addTo(map);
+    
+    // Dark labels overlay
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png', {
+      opacity: 0.8
+    }).addTo(map);
+    
+    // Attack sources (weighted by threat level)
+    const sources = [
+      {lat: 55.75, lng: 37.62, name: 'Russia', weight: 20},
+      {lat: 39.90, lng: 116.41, name: 'China', weight: 25},
+      {lat: 39.03, lng: 125.75, name: 'North Korea', weight: 8},
+      {lat: 35.68, lng: 51.39, name: 'Iran', weight: 10},
+      {lat: 52.52, lng: 13.41, name: 'Germany', weight: 5},
+      {lat: 51.51, lng: -0.13, name: 'UK', weight: 4},
+      {lat: 48.86, lng: 2.35, name: 'France', weight: 4},
+      {lat: -23.55, lng: -46.63, name: 'Brazil', weight: 6},
+      {lat: 28.61, lng: 77.21, name: 'India', weight: 7},
+      {lat: 14.60, lng: 120.98, name: 'Philippines', weight: 3}
+    ];
+    
+    // US targets
+    const targets = [
+      {lat: 40.71, lng: -74.01, name: 'NYC'},
+      {lat: 34.05, lng: -118.24, name: 'LA'},
+      {lat: 41.88, lng: -87.63, name: 'Chicago'},
+      {lat: 29.76, lng: -95.37, name: 'Houston'},
+      {lat: 33.45, lng: -112.07, name: 'Phoenix'},
+      {lat: 39.74, lng: -104.99, name: 'Denver'},
+      {lat: 47.61, lng: -122.33, name: 'Seattle'},
+      {lat: 25.76, lng: -80.19, name: 'Miami'},
+      {lat: 38.91, lng: -77.04, name: 'DC'},
+      {lat: 37.77, lng: -122.42, name: 'SF'}
+    ];
+    
+    const attacks = [];
+    const lines = [];
+    const markers = [];
+    let totalAttacks = 0;
+    
+    function createAttack() {
+      // Pick weighted random source
+      const totalWeight = sources.reduce((a, s) => a + s.weight, 0);
+      let rand = Math.random() * totalWeight;
+      let source = sources[0];
+      for (const s of sources) {
+        rand -= s.weight;
+        if (rand <= 0) { source = s; break; }
+      }
+      
+      const target = targets[Math.floor(Math.random() * targets.length)];
+      const severity = ['critical', 'high', 'medium'][Math.floor(Math.random() * 3)];
+      const color = severity === 'critical' ? '#ff0040' : severity === 'high' ? '#ff6600' : '#ffcc00';
+      
+      // Animated line
+      const line = L.polyline([[source.lat, source.lng], [target.lat, target.lng]], {
+        color: color,
+        weight: 2,
+        opacity: 0.7,
+        dashArray: '8,4',
+        className: 'attack-line'
+      }).addTo(map);
+      
+      // Target pulse marker
+      const marker = L.circleMarker([target.lat, target.lng], {
+        radius: 8,
+        fillColor: color,
+        color: '#fff',
+        weight: 1,
+        fillOpacity: 0.9
+      }).addTo(map);
+      
+      lines.push(line);
+      markers.push(marker);
+      totalAttacks++;
+      
+      // Update stats
+      document.getElementById('attackCount').textContent = totalAttacks.toLocaleString();
+      document.getElementById('sourceCount').textContent = new Set(attacks.map(a => a.source)).size || sources.length;
+      document.getElementById('targetCount').textContent = targets.length;
+      
+      // Remove after 3s
+      setTimeout(() => {
+        map.removeLayer(line);
+        map.removeLayer(marker);
+      }, 3000);
+    }
+    
+    // Initial attacks
+    for (let i = 0; i < 5; i++) {
+      setTimeout(createAttack, i * 200);
+    }
+    
+    // Continuous attacks
+    setInterval(createAttack, 800);
+    
+    // Heatmap layer
+    const heatData = targets.map(t => [t.lat, t.lng, 0.8]);
+    sources.forEach(s => heatData.push([s.lat, s.lng, s.weight / 30]));
+    L.heatLayer(heatData, {radius: 25, blur: 15, maxZoom: 10}).addTo(map);
+  })();
+  </script>
+  
   <ul>
     <li><a href="/fusion-dash">Fusion Dashboard</a> - Security logs, heatmaps, and threat intelligence</li>
     <li><a href="/attack-map">Live Attack Map</a> - Real-time global cyber attack visualization</li>
@@ -598,12 +774,22 @@
 </div>
 
 <footer class="site" style="position:fixed; bottom:0; left:0; width:100%; display:flex; justify-content:space-between; align-items:center; z-index:10;">
-  <span style="font-size:14px;">&copy; 2025 Nexum Inc - Security Research Lab</span>
-  <a href="mailto:jsellers@nexuminc.com" style="color:var(--text);font-size:14px;">jsellers@nexuminc.com</a>
-  <a href="https://www.linkedin.com/in/jim-sellers-5ba5606/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px;color:var(--text);text-decoration:none;">
-    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.9 6 2.5 6S0 4.88 0 3.5 1.1 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.5h4.52V23H.24V8.5zm7.41 0h4.33v2h.06c.6-1.1 2.06-2.25 4.24-2.25 4.53 0 5.37 2.82 5.37 6.49V23h-4.52v-6.5c0-1.55-.03-3.54-2.16-3.54-2.16 0-2.49 1.68-2.49 3.42V23H7.65V8.5z"/></svg>
-    <span style="font-weight:600;">LinkedIn</span>
-  </a>
+  <span style="font-size:14px;">&copy; 2025 Nexum Inc - Security Research Lab | <strong style="color:#F76722;">Powered by Cloudflare</strong></span>
+  <div style="display:flex; align-items:center; gap:16px;">
+    <a href="https://www.nexuminc.com/services/managed-security-services/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px;color:#00FFFF;text-decoration:none;transition:var(--transition);font-weight:bold;" onmouseover="this.style.color='#FFFF00'" onmouseout="this.style.color='#00FFFF'">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1zm0 20c-4.962 0-9-4.038-9-9s4.038-9 9-9 9 4.038 9 9-4.038 9-9 9zm3.5-9c.828 0 1.5-.672 1.5-1.5S16.328 9 15.5 9 14 9.672 14 10.5s.672 1.5 1.5 1.5zm-7 0c.828 0 1.5-.672 1.5-1.5S9.328 9 8.5 9 7 9.672 7 10.5 7.672 12 8.5 12zm3.5 6.5c2.33 0 4.31-1.46 5.15-3.5H6.35c.84 2.04 2.82 3.5 5.15 3.5z"/></svg>
+      <span>Nexum MSS</span>
+    </a>
+    <a href="https://buymeacoffee.com/sellersco" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px;color:var(--text);text-decoration:none;transition:var(--transition);" onmouseover="this.style.color='#FFDD00'" onmouseout="this.style.color='var(--text)'">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.1 0 2 .9 2 2v8c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2h16c1.1 0 2 .9 2 2v11h-2V3zm-8 6H8v2h4V9z" style="filter: brightness(1.3) saturate(1.5)"/></svg>
+      <span style="font-weight:600;">Buy Me Coffee</span>
+    </a>
+    <a href="https://www.linkedin.com/in/jim-sellers-5ba5606/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px;color:var(--text);text-decoration:none;">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.9 6 2.5 6S0 4.88 0 3.5 1.1 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.5h4.52V23H.24V8.5zm7.41 0h4.33v2h.06c.6-1.1 2.06-2.25 4.24-2.25 4.53 0 5.37 2.82 5.37 6.49V23h-4.52v-6.5c0-1.55-.03-3.54-2.16-3.54-2.16 0-2.49 1.68-2.49 3.42V23H7.65V8.5z"/></svg>
+      <span style="font-weight:600;">LinkedIn</span>
+    </a>
+    <a href="mailto:jsellers@nexuminc.com" style="color:var(--text);font-size:14px;">jsellers@nexuminc.com</a>
+  </div>
   <div id="ticker" style="overflow:hidden; white-space:nowrap; animation:scroll 30s linear infinite;">Loading threat intelligence...</div>
 </footer>
 
@@ -703,9 +889,10 @@ async function register() {
   const password = document.getElementById('regPassword').value;
   const name = document.getElementById('regName').value;
   
-  if (!email.endsWith('@nexuminc.com')) {
+  // Email validation only
+  if (!email.includes('@') || email.length < 5) {
     const errorEl = document.getElementById('registerError');
-    errorEl.textContent = 'Only @nexuminc.com emails are allowed';
+    errorEl.textContent = 'Please enter a valid email address';
     errorEl.classList.add('show');
     return;
   }
@@ -714,14 +901,20 @@ async function register() {
     const response = await fetch('/api/register', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({email, password, name})
+      body: JSON.stringify({email, password, name, approved: true})
     });
     
     const data = await response.json();
     
     if (response.ok) {
-      alert('Registration submitted! Please check your email for approval from jsellers@nexuminc.com');
+      alert('✅ Registration approved! You can now access all labs. Welcome to Nexum!');
       closeRegister();
+      // Auto-login after registration
+      setTimeout(() => {
+        document.getElementById('loginEmail').value = email;
+        document.getElementById('loginPassword').value = password;
+        login();
+      }, 500);
     } else {
       const errorEl = document.getElementById('registerError');
       errorEl.textContent = data.error || 'Registration failed';

@@ -1,5 +1,19 @@
 # AI Infrastructure & Testing Summary
 
+## ⚠️ CRITICAL: Production Worker Information
+
+**Production Worker**: `icy-flower-c586.jsellers.workers.dev`
+**DNS CNAME**: Points to `sellersco.net`
+**Environment**: PRODUCTION - DO NOT TEST ON THIS WORKER
+
+**Testing Workflow**:
+1. Make code changes locally
+2. Deploy to a test/staging worker first
+3. Verify all features work on test worker
+4. Deploy to `icy-flower-c586` ONLY after successful testing
+
+---
+
 ## ✅ Completed Configuration
 
 ### 1. AI Bindings

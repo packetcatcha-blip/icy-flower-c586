@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Solution Recommender - Nexum</title>
+  <meta name="description" content="AI-powered security solution recommender. Input your industry & challenges → get top 3 Nexum solutions with ROI analysis.">
+  
+  <style>
+    :root {
+      --bg: #0a0e27;
+      --bg-secondary: #0f1438;
+      --bg-tertiary: #141a35;
+      --primary: #003366;
+      --accent: #52b2ff;
+      --secondary: #00ff88;
+      --quantum: #a300ff;
+      --border: #2a3f7f;
+      --text: #e0e6ff;
+      --text-dim: #8892b0;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      background: linear-gradient(135deg, var(--bg) 0%, var(--bg-secondary) 100%);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    
+    header {
+      background: rgba(10, 14, 39, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--quantum);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+    
+    nav a:hover {
+      background: var(--primary);
+      color: var(--accent);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 16px;
+    }
+    
+    .hero {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--quantum), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .hero p {
+      font-size: 18px;
+      color: var(--text-dim);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    
+    .form-section h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: var(--quantum);
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 14px;
+    }
+    
+    select, input, textarea {
+      width: 100%;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: inherit;
+    }
+    
+    select:focus, input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--quantum);
+      box-shadow: 0 0 10px rgba(163, 0, 255, 0.2);
+    }
+    
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    
+    .button {
+      background: linear-gradient(135deg, var(--quantum), var(--accent));
+      border: none;
+      color: white;
+      padding: 14px 28px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 16px;
+      transition: all 0.3s;
+      width: 100%;
+    }
+    
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(163, 0, 255, 0.3);
+    }
+    
+    .button:active {
+      transform: translateY(0);
+    }
+    
+    .button.loading {
+      background: var(--text-dim);
+      cursor: not-allowed;
+    }
+    
+    .loading-spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .results-section {
+      display: none;
+    }
+    
+    .results-section.show {
+      display: block;
+    }
+    
+    .results-section h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: var(--secondary);
+    }
+    
+    .recommendation {
+      background: var(--bg-tertiary);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 20px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .recommendation::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--quantum);
+    }
+    
+    .recommendation.rank-1::before {
+      background: #FFD700;
+    }
+    
+    .recommendation.rank-2::before {
+      background: #C0C0C0;
+    }
+    
+    .recommendation.rank-3::before {
+      background: #CD7F32;
+    }
+    
+    .rank-badge {
+      display: inline-block;
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 40px;
+      height: 40px;
+      background: var(--quantum);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 18px;
+      color: white;
+    }
+    
+    .recommendation.rank-1 .rank-badge {
+      background: #FFD700;
+      color: #000;
+    }
+    
+    .recommendation.rank-2 .rank-badge {
+      background: #C0C0C0;
+      color: #000;
+    }
+    
+    .recommendation.rank-3 .rank-badge {
+      background: #CD7F32;
+      color: #fff;
+    }
+    
+    .rec-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      padding-right: 50px;
+    }
+    
+    .rec-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: var(--accent);
+    }
+    
+    .rec-match {
+      font-size: 14px;
+      color: var(--secondary);
+      font-weight: 600;
+    }
+    
+    .rec-description {
+      color: var(--text-dim);
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+    
+    .rec-features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    
+    .feature {
+      background: rgba(82, 178, 255, 0.1);
+      border: 1px solid rgba(82, 178, 255, 0.3);
+      padding: 10px 12px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: var(--accent);
+    }
+    
+    .rec-roi {
+      background: rgba(0, 255, 136, 0.1);
+      border-left: 3px solid var(--secondary);
+      padding: 12px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+    
+    .roi-metric {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+    
+    .roi-value {
+      color: var(--secondary);
+      font-weight: bold;
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .action-btn {
+      flex: 1;
+      background: rgba(163, 0, 255, 0.2);
+      border: 1px solid var(--quantum);
+      color: var(--quantum);
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    
+    .action-btn:hover {
+      background: rgba(163, 0, 255, 0.3);
+    }
+    
+    .score-bar {
+      height: 6px;
+      background: rgba(82, 178, 255, 0.2);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+    
+    .score-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--quantum), var(--accent));
+      transition: width 0.5s ease-out;
+    }
+    
+    footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      padding: 32px 16px;
+      text-align: center;
+      color: var(--text-dim);
+      margin-top: 60px;
+    }
+    
+    @media (max-width: 768px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .rec-features {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="logo">🤖 AI Recommender</div>
+      <nav>
+        <a href="/">← Back</a>
+      </nav>
+    </div>
+  </header>
+  
+  <div class="container">
+    <div class="hero">
+      <h1>Nexum AI Solution Recommender</h1>
+      <p>Tell us about your organization. We'll recommend the top 3 Nexum solutions tailored to your needs.</p>
+    </div>
+    
+    <div class="content-grid">
+      <!-- Form Section -->
+      <div class="form-section">
+        <h2>⚙️ Your Organization</h2>
+        
+        <div class="form-group">
+          <label for="industry">Industry Vertical:</label>
+          <select id="industry" required>
+            <option value="">Select industry...</option>
+            <option value="financial">Financial Services</option>
+            <option value="healthcare">Healthcare & Pharma</option>
+            <option value="government">Government & Defense</option>
+            <option value="energy">Energy & Utilities</option>
+            <option value="manufacturing">Manufacturing</option>
+            <option value="retail">Retail & E-Commerce</option>
+            <option value="telecom">Telecom & ISP</option>
+            <option value="technology">Technology & SaaS</option>
+            <option value="education">Education</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="size">Organization Size:</label>
+          <select id="size" required>
+            <option value="">Select size...</option>
+            <option value="startup">Startup (1-50)</option>
+            <option value="small">Small (51-500)</option>
+            <option value="medium">Medium (501-5k)</option>
+            <option value="enterprise">Enterprise (5k+)</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="challenges">Primary Security Challenges (select all that apply):</label>
+          <div style="display: grid; gap: 8px;">
+            <label style="display: flex; align-items: center; font-weight: normal;">
+              <input type="checkbox" name="challenge" value="ransomware" style="margin-right: 8px;"> Ransomware Protection
+            </label>
+            <label style="display: flex; align-items: center; font-weight: normal;">
+              <input type="checkbox" name="challenge" value="compliance" style="margin-right: 8px;"> Regulatory Compliance
+            </label>
+            <label style="display: flex; align-items: center; font-weight: normal;">
+              <input type="checkbox" name="challenge" value="cloud" style="margin-right: 8px;"> Cloud Security
+            </label>
+            <label style="display: flex; align-items: center; font-weight: normal;">
+              <input type="checkbox" name="challenge" value="zero-trust" style="margin-right: 8px;"> Zero Trust Architecture
+            </label>
+            <label style="display: flex; align-items: center; font-weight: normal;">
+              <input type="checkbox" name="challenge" value="incident" style="margin-right: 8px;"> Incident Response
+            </label>
+            <label style="display: flex; align-items: center; font-weight: normal;">
+              <input type="checkbox" name="challenge" value="supply-chain" style="margin-right: 8px;"> Supply Chain Risk
+            </label>
+            <label style="display: flex; align-items: center; font-weight: normal;">
+              <input type="checkbox" name="challenge" value="ai-security" style="margin-right: 8px;"> AI Model Security
+            </label>
+            <label style="display: flex; align-items: center; font-weight: normal;">
+              <input type="checkbox" name="challenge" value="quantum" style="margin-right: 8px;"> Post-Quantum Readiness
+            </label>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="budget">Annual Security Budget:</label>
+          <select id="budget" required>
+            <option value="">Select range...</option>
+            <option value="under-250k">Under $250K</option>
+            <option value="250k-1m">$250K - $1M</option>
+            <option value="1m-5m">$1M - $5M</option>
+            <option value="over-5m">Over $5M</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="additional">Additional Context (optional):</label>
+          <textarea id="additional" placeholder="Tell us about your specific pain points..."></textarea>
+        </div>
+        
+        <button class="button" onclick="getRecommendations()">🚀 Generate Recommendations</button>
+      </div>
+      
+      <!-- Results Section -->
+      <div class="results-section" id="resultsSection">
+        <h2>✨ Recommended Solutions</h2>
+        <div id="recommendationsContainer"></div>
+        <button class="button" onclick="resetForm()" style="margin-top: 20px; background: rgba(163, 0, 255, 0.2); color: var(--quantum); border: 1px solid var(--quantum);">← Try Another Search</button>
+      </div>
+    </div>
+  </div>
+  
+  <footer>
+    <p>&copy; 2025 Nexum Inc - AI Security Solutions | Powered by Cloudflare Workers</p>
+  </footer>
+  
+  <script>
+    const solutionsLibrary = {
+      mss: {
+        title: 'Nexum Managed Security Services (MSS)',
+        description: '24/7 SOC operations, threat monitoring, incident response',
+        features: ['24/7 SOC', 'Threat Detection', 'Incident Response', 'Compliance Reporting'],
+        roiMetrics: {
+          'Incident Response Time': '↓ 60%',
+          'False Positives': '↓ 45%',
+          'MTTR Reduction': '↓ 75%',
+          'Cost Savings': '$250K-500K/year'
+        }
+      },
+      zero_trust: {
+        title: 'Zero Trust Architecture Implementation',
+        description: 'Transition to continuous verification, microsegmentation, identity-based access',
+        features: ['Microsegmentation', 'Identity Verification', 'Encryption', 'Adaptive Access'],
+        roiMetrics: {
+          'Breach Detection Time': '↓ 80%',
+          'Lateral Movement': '↓ 90%',
+          'Insider Threats': '↓ 65%',
+          'ROI Timeline': '18-24 months'
+        }
+      },
+      cloud_security: {
+        title: 'Cloud Security Posture Management (CSPM)',
+        description: 'Continuous cloud infrastructure assessment, misconfig detection, compliance',
+        features: ['Misconfig Detection', 'Cloud Audit', 'Compliance', 'Risk Scoring'],
+        roiMetrics: {
+          'Cloud Risks Found': '500-5000+',
+          'Configuration Issues': '↓ 70%',
+          'Compliance Gap': '↓ 85%',
+          'Deployment Time': '< 1 week'
+        }
+      },
+      ransomware: {
+        title: 'Ransomware Defense & Recovery',
+        description: 'Backup integrity, air-gapped storage, encrypted vaults, recovery playbooks',
+        features: ['Air-Gapped Backup', 'Encryption', 'Recovery Automation', 'Testing'],
+        roiMetrics: {
+          'Recovery Time': '↓ 72 hours',
+          'Data Loss': '0%',
+          'Breach Probability': '↓ 85%',
+          'Insurance Discount': '10-25%'
+        }
+      },
+      incident_response: {
+        title: 'Incident Response Services (IRT)',
+        description: 'Emergency response team, forensics, root cause analysis, remediation',
+        features: ['24/7 Response', 'Forensics', 'Root Cause', 'Remediation Plan'],
+        roiMetrics: {
+          'Time to Contain': '< 2 hours',
+          'Evidence Preservation': '100%',
+          'Legal Support': 'Included',
+          'Cost vs Breach': 'Save $1M+'
+        }
+      },
+      compliance: {
+        title: 'Compliance & Regulatory Management',
+        description: 'HIPAA, PCI-DSS, SOC 2, GDPR, CMMC, NIS2 compliance automation',
+        features: ['Audit Automation', 'Compliance Mapping', 'Assessment', 'Remediation'],
+        roiMetrics: {
+          'Audit Time': '↓ 60%',
+          'Non-Conformances': '↓ 80%',
+          'Certification Time': '↓ 50%',
+          'Annual Savings': '$100K-300K'
+        }
+      },
+      ai_security: {
+        title: 'AI Model Security & Hardening',
+        description: 'Adversarial testing, poisoning detection, model monitoring, guardrails',
+        features: ['Adversarial Testing', 'Model Monitoring', 'Guardrails', 'Prompt Injection'],
+        roiMetrics: {
+          'Model Vulnerabilities': '↓ 95%',
+          'Poisoning Incidents': '↓ 90%',
+          'Deployment Confidence': '↑ 99.9%',
+          'Risk Mitigation': '$50K-200K'
+        }
+      },
+      quantum_pqc: {
+        title: 'Post-Quantum Cryptography (PQC) Migration',
+        description: 'NIST 2025 PQC migration planning, hybrid deployment, algorithm transition',
+        features: ['PQC Assessment', 'Hybrid Deployment', 'Migration Planning', 'Testing'],
+        roiMetrics: {
+          'Crypto Inventory': '100% Mapped',
+          'Hybrid Ready': '2-4 weeks',
+          'Future-Proofing': 'Until 2035+',
+          'Threat Preparation': 'Harvest-Now Risk ↓'
+        }
+      }
+    };
+    
+    function calculateMatches(industry, challenges, budget, size) {
+      const matches = {};
+      
+      // Scoring logic
+      if (challenges.includes('ransomware')) {
+        matches.ransomware = (matches.ransomware || 0) + 100;
+      }
+      if (challenges.includes('compliance')) {
+        matches.compliance = (matches.compliance || 0) + 100;
+      }
+      if (challenges.includes('cloud')) {
+        matches.cloud_security = (matches.cloud_security || 0) + 100;
+      }
+      if (challenges.includes('zero-trust')) {
+        matches.zero_trust = (matches.zero_trust || 0) + 100;
+      }
+      if (challenges.includes('incident')) {
+        matches.incident_response = (matches.incident_response || 0) + 100;
+      }
+      if (challenges.includes('supply-chain') || industry === 'manufacturing') {
+        matches.zero_trust = (matches.zero_trust || 0) + 50;
+      }
+      if (challenges.includes('ai-security')) {
+        matches.ai_security = (matches.ai_security || 0) + 100;
+      }
+      if (challenges.includes('quantum')) {
+        matches.quantum_pqc = (matches.quantum_pqc || 0) + 100;
+      }
+      
+      // Budget alignment
+      if (budget === 'under-250k') {
+        matches.compliance = (matches.compliance || 0) + 30;
+        matches.cloud_security = (matches.cloud_security || 0) + 20;
+      } else if (budget === '250k-1m') {
+        matches.mss = (matches.mss || 0) + 50;
+        matches.zero_trust = (matches.zero_trust || 0) + 40;
+      } else if (budget === '1m-5m' || budget === 'over-5m') {
+        matches.mss = (matches.mss || 0) + 100;
+        matches.incident_response = (matches.incident_response || 0) + 60;
+        matches.ai_security = (matches.ai_security || 0) + 40;
+      }
+      
+      // Size alignment
+      if (size === 'enterprise') {
+        matches.mss = (matches.mss || 0) + 80;
+      }
+      if (size === 'startup' || size === 'small') {
+        matches.cloud_security = (matches.cloud_security || 0) + 60;
+      }
+      
+      return matches;
+    }
+    
+    function getRecommendations() {
+      const industry = document.getElementById('industry').value;
+      const size = document.getElementById('size').value;
+      const budget = document.getElementById('budget').value;
+      
+      if (!industry || !size || !budget) {
+        alert('Please fill in all required fields');
+        return;
+      }
+      
+      const challenges = Array.from(document.querySelectorAll('input[name="challenge"]:checked')).map(el => el.value);
+      
+      if (challenges.length === 0) {
+        alert('Please select at least one challenge');
+        return;
+      }
+      
+      // Show loading state
+      const btn = event.target;
+      btn.innerHTML = '<span class="loading-spinner"></span> Analyzing...';
+      btn.classList.add('loading');
+      btn.disabled = true;
+      
+      // Simulate API call
+      setTimeout(() => {
+        const matches = calculateMatches(industry, challenges, budget, size);
+        const ranked = Object.entries(matches)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 3);
+        
+        const container = document.getElementById('recommendationsContainer');
+        container.innerHTML = '';
+        
+        ranked.forEach(([ key, score ], idx) => {
+          const solution = solutionsLibrary[key];
+          const scorePercent = Math.min(100, Math.round((score / 100) * 100));
+          
+          const recDiv = document.createElement('div');
+          recDiv.className = `recommendation rank-${idx + 1}`;
+          recDiv.innerHTML = `
+            <div class="rank-badge">#${idx + 1}</div>
+            <div class="rec-header">
+              <div class="rec-title">${solution.title}</div>
+              <div class="rec-match">${scorePercent}% Match</div>
+            </div>
+            <div class="rec-description">${solution.description}</div>
+            <div class="score-bar">
+              <div class="score-fill" style="width: ${scorePercent}%"></div>
+            </div>
+            <div class="rec-features">
+              ${solution.features.map(f => `<div class="feature">✓ ${f}</div>`).join('')}
+            </div>
+            <div class="rec-roi">
+              <strong style="color: var(--accent);">ROI Metrics:</strong>
+              ${Object.entries(solution.roiMetrics).map(([m, v]) => `
+                <div class="roi-metric">
+                  <span>${m}</span>
+                  <span class="roi-value">${v}</span>
+                </div>
+              `).join('')}
+            </div>
+            <div class="action-buttons">
+              <button class="action-btn" onclick="alert('Contact: sales@nexuminc.com')">📧 Request Demo</button>
+              <button class="action-btn" onclick="alert('Detailed case study loading...')">📊 Case Study</button>
+              <button class="action-btn" onclick="alert('Specialist assigned')">👨‍💼 Consult</button>
+            </div>
+          `;
+          container.appendChild(recDiv);
+        });
+        
+        document.getElementById('resultsSection').classList.add('show');
+        
+        // Restore button
+        btn.innerHTML = '🚀 Generate Recommendations';
+        btn.classList.remove('loading');
+        btn.disabled = false;
+        
+        // Scroll to results
+        document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+      }, 1500);
+    }
+    
+    function resetForm() {
+      document.getElementById('industry').value = '';
+      document.getElementById('size').value = '';
+      document.getElementById('budget').value = '';
+      document.querySelectorAll('input[name="challenge"]').forEach(el => el.checked = false);
+      document.getElementById('additional').value = '';
+      document.getElementById('resultsSection').classList.remove('show');
+      document.querySelector('.form-section').scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>

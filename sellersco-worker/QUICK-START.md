@@ -8,8 +8,47 @@
 | **R2 Storage** | ✅ Operational | None - Images working |
 | **Vectorize** | ⚠️ Configured | Create index (see below) |
 | **D1 Database** | ⚠️ Configured | Create DB (see below) |
-| **Testing Scripts** | ✅ Complete | Run before production |
+| **Testing Scripts** | ✅ Complete | Run on STAGING worker first |
 | **Documentation** | ✅ Complete | Review TESTING.md |
+| **Production Worker** | ✅ Active | `icy-flower-c586.jsellers.workers.dev` (sellersco.net DNS CNAME) |
+| **DNS Configuration** | ✅ Active | See [PRODUCTION-DNS-SETUP.md](./PRODUCTION-DNS-SETUP.md) |
+
+---
+
+## ⚠️ CRITICAL: Testing vs. Production
+
+**PRODUCTION WORKER**: `icy-flower-c586.jsellers.workers.dev` (DNS CNAME → sellersco.net)
+
+**TESTING WORKFLOW**:
+1. Make changes locally
+2. Deploy to a test/staging worker first
+3. Run full test suite on test worker
+4. Only then deploy to `icy-flower-c586.jsellers.workers.dev`
+
+---
+
+## 🚀 MANDATORY: Test Before Production
+
+**WORKFLOW** (Never skip steps!):
+
+```
+1️⃣ LOCAL TESTING
+   npx wrangler dev
+   → Test on http://localhost:8787
+
+2️⃣ STAGING TESTING
+   npx wrangler deploy --name my-test-worker
+   → Test on https://my-test-worker.jsellers.workers.dev
+   → Run complete test suite
+   → Verify ALL tests pass ✅
+
+3️⃣ PRODUCTION DEPLOYMENT (Only after #1 & #2 complete)
+   npx wrangler deploy
+   → Deploys to: icy-flower-c586.jsellers.workers.dev (sellersco.net)
+   → LIVE PRODUCTION - NO UNDO
+```
+
+**CRITICAL**: If you skip step 1 or 2, you will test on production!
 
 ---
 
@@ -52,23 +91,26 @@ CREATE TABLE IF NOT EXISTS sessions (
 "
 ```
 
-### Step 4: Run Tests
+### Step 4: Run Tests on STAGING Worker FIRST
 ```powershell
-# Windows
-.\test-links.ps1 -Environment dev  # Should show 37/37 passing
+# Windows - Deploy to test worker
+npx wrangler deploy --name test-worker  # or your staging worker name
+
+# Then test
+.\test-links.ps1 -Environment test  # Should show 37/37 passing
 
 # Linux/Mac
-./test-links.sh dev
+./test-links.sh test
 ```
 
-### Step 5: Deploy to Production
+### Step 5: Deploy to Production (After All Tests Pass)
 ```bash
 # Backup current production
-npx wrangler deployments list --env production
-curl https://sellersco.net > backup-$(Get-Date -Format "yyyyMMdd-HHmmss").html
+npx wrangler deployments list
+curl https://icy-flower-c586.jsellers.workers.dev > backup-$(Get-Date -Format "yyyyMMdd-HHmmss").html
 
-# Deploy
-npx wrangler deploy --env production
+# Deploy to PRODUCTION
+npx wrangler deploy
 
 # Test production
 .\test-links.ps1 -Environment production
