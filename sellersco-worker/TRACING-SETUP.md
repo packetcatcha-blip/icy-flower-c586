@@ -287,3 +287,5 @@ NODE_ENV=development  # Enables console span exporter
 
 **Status**: ✅ Tracing successfully configured and ready to use!
 
+**CI verification**: A GitHub Action (`.github/workflows/tracing.yml`) will verify tracing on push and pull requests by running `scripts/verify-tracing.js`.
+

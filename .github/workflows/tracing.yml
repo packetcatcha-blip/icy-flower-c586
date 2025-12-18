@@ -1,0 +1,31 @@
+name: Tracing verification
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  verify-tracing:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify tracing (emit test span)
+        env:
+          NODE_ENV: test
+          OTEL_EXPORTER_OTLP_ENDPOINT: http://localhost:4318/v1/traces
+        run: |
+          # Run the tracing verification script which starts the SDK and emits a test span
+          node ./scripts/verify-tracing.js
+
+      - name: Run tests
+        run: npm test

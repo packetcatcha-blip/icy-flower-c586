@@ -5,7 +5,7 @@
  * Apply these patterns to your actual route handlers and modules.
  */
 
-import { traceRequest, traceAICall, traceAuthOperation, traceD1Operation } from '../workers-tracing-utils.js';
+import { traceRequest, traceAICall, traceAuthOperation, traceD1Operation } from './workers-tracing-utils.js';
 
 /**
  * Example: Add tracing to your quantum module routes

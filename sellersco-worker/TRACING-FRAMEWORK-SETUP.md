@@ -138,6 +138,8 @@ Each span includes:
 
 Ready to trace these operations:
 
+**CI verification**: A GitHub Action (`.github/workflows/tracing.yml`) runs on push and pull requests to verify tracing is functional by starting the tracing SDK and emitting a test span. See `scripts/verify-tracing.js` for the verification script.
+
 1. **Route Handlers** - Add to `src/index.js` main fetch handler
 2. **Quantum Module** - Wrap handlers in `src/quantum-module.js`
 3. **Attack Map** - Trace data loading in `src/attack-map-v2.js`

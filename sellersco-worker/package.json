@@ -7,6 +7,7 @@
 		"dev": "wrangler dev",
 		"start": "wrangler dev",
 		"test": "vitest",
+		"verify-tracing": "node ./scripts/verify-tracing.js",
 		"eval": "python evaluation/cli.py"
 	},
 	"devDependencies": {
