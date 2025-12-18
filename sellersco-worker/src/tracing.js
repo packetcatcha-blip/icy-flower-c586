@@ -9,6 +9,7 @@ import { NodeSDK } from '@opentelemetry/sdk-node';
 import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
 import { ConsoleSpanExporter, SimpleSpanProcessor } from '@opentelemetry/sdk-trace-node';
+import { trace } from '@opentelemetry/api';
 
 /**
  * Initialize OpenTelemetry tracing
@@ -49,7 +50,7 @@ export function initializeTracing() {
  * @returns {Promise} Result of the function
  */
 export async function traceSpan(spanName, fn) {
-  const tracer = require('@opentelemetry/api').trace.getTracer('sellersco-worker');
+  const tracer = trace.getTracer('sellersco-worker');
   
   return tracer.startActiveSpan(spanName, async (span) => {
     try {
