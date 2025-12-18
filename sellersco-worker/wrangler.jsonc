@@ -101,6 +101,11 @@
 			],
 			"ai": {
 				"binding": "AI"
+			},
+			"vars": {
+				"OTEL_EXPORTER_OTLP_ENDPOINT": "http://localhost:4318/v1/traces",
+				"OTEL_SERVICE_NAME": "sellersco-worker",
+				"NODE_ENV": "development"
 			}
 		},
 		"production": {
@@ -116,6 +121,11 @@
 			],
 			"ai": {
 				"binding": "AI"
+			},
+			"vars": {
+				"OTEL_EXPORTER_OTLP_ENDPOINT": "https://collector.example/v1/traces",
+				"OTEL_SERVICE_NAME": "sellersco-worker",
+				"NODE_ENV": "production"
 			}
 		}
 	}

@@ -113,7 +113,7 @@ See [DEPLOYMENT.md](DEPLOYMENT.md) for complete procedures.
 ### 📋 DOCUMENTED BUT NOT BUILT (20 Features)
 
 See [FEATURE-AUDIT-MATRIX.md](FEATURE-AUDIT-MATRIX.md) for complete list:
-- Sales Portal (Nexum 102 vendors) - CRITICAL
+- Sales Portal (102 partner vendors) - CRITICAL
 - OWASP Top 10 Labs
 - Hybrid Cloud War Room
 - AI Gateway Arena
@@ -189,7 +189,7 @@ export async function handle[Feature]Route(pathname, request, env, ctx) {
 Use JSON files for clean data management:
 ```
 src/data/
-├── vendors.json (102 Nexum partners)
+├── vendors.json (102 partners)
 ├── objections.json (50 issues + scripts)
 ├── gartner.json (Magic Quadrant positioning)
 └── case-studies.json (customer wins)
@@ -209,7 +209,7 @@ npx wrangler tail     # Monitor logs
 ### **From Grok Conversation**
 - OWASP Top 10:2025 specifications
 - NIST CSF 2.0 framework
-- Nexum 102 partners list
+- 102 partners list
 - 50 common objections/scripts
 - Attack Patterns simulator prompts
 - Real customer case studies

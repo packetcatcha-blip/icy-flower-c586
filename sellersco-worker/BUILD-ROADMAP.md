@@ -42,7 +42,7 @@ Create JSON data files from Grok conversation:
 # Create data directory
 mkdir -p src/data
 
-# File 1: src/data/vendors.json (102 Nexum partners)
+# File 1: src/data/vendors.json (102 partner vendors)
 # Extract from Grok: name, features, category, strength_verticals, typical_cost
 # Example structure:
 [
@@ -53,7 +53,7 @@ mkdir -p src/data
     "features": ["EDR", "SIEM", "SOAR", "Cloud DLP"],
     "strength_verticals": ["finance", "government", "healthcare"],
     "typical_cost": "$500K-$2M/year",
-    "win_rate_vs_nexum": 0.35
+    "win_rate_vs_company": 0.35
   },
   ... (101 more)
 ]
@@ -65,7 +65,7 @@ mkdir -p src/data
     "id": "ransomware-detection-lag",
     "title": "Ransomware detection lag",
     "script": "Current tool takes too long to detect encrypted files",
-    "nexum_response": "Our EDR detects via real-time behavioral analysis",
+    "company_response": "Our EDR detects via real-time behavioral analysis",
     "severity": "CRITICAL"
   },
   ... (49 more)
@@ -86,7 +86,7 @@ mkdir -p src/data
   {
     "customer": "Fortune 500 Financial Services",
     "challenge": "ransomware detection",
-    "solution": "Nexum EDR + Palo Alto",
+    "solution": "Company EDR + Palo Alto",
     "result": "2-hour detection vs 228-day industry avg"
   },
   ... (more)
@@ -102,7 +102,7 @@ Use GitHub Copilot to generate the module:
 3. **Copy this prompt**:
 
 ```
-Create a Nexum Ultimate Sales Portal module for a Cloudflare Worker.
+Create an Ultimate Sales Portal module for a Cloudflare Worker.
 
 CRITICAL REQUIREMENTS:
 1. Email/password + TOTP MFA login (use Speakeasy npm package)

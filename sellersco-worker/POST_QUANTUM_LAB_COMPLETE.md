@@ -35,7 +35,7 @@ A comprehensive, production-ready page featuring:
    - **F5 CalypsoAI:** Quantum-safe AI guardrails
    - **Palo Alto Networks:** Quantum-ready endpoint protection (ADSP)
    - **CrowdStrike Falcon:** PQC-aware EDR & monitoring
-   - **Nexum MSS:** Managed PQC migration services
+   - **Company MSS:** Managed PQC migration services
 
 #### 5. **Hands-On Lab Simulators**
 
@@ -64,7 +64,7 @@ A comprehensive, production-ready page featuring:
 ## Design & Styling
 
 ### Theme
-- **Dark Cyber Professional:** Nexum blue (#003366) + quantum purple (#A300FF)
+- **Dark Cyber Professional:** Company blue (#003366) + quantum purple (#A300FF)
 - **Color Scheme:**
   - Primary: Quantum Purple (#A300FF) for headings
   - Accent: Cyan (#52b2ff) for secondary elements
@@ -156,7 +156,7 @@ OWASP Range
 | **CrowdStrike** | https://sellersco.net/crowdstrike | 🔒 PROTECTED* |
 | **Regulations** | https://sellersco.net/regulations | 🔒 PROTECTED* |
 
-*Protected pages: Login required (@nexuminc.com domain)
+*Protected pages: Login required (@example.com domain)
 
 ---
 
@@ -234,7 +234,7 @@ OWASP Range
 ## Contact & Support
 
 - **Domain:** https://sellersco.net (LIVE)
-- **Primary Contact:** James Sellers (jsellers@nexuminc.com)
+- **Primary Contact:** James Sellers (jsellers@example.com)
 - **Worker URL:** https://icy-flower-c586.jsellers.workers.dev
 - **Deployment:** Cloudflare Workers + R2 Storage
 

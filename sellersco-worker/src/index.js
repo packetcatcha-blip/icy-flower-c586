@@ -23,6 +23,17 @@ import { handleSASEPhase2 } from './sase-phase2.js';
 import { handleZTNAPhase2 } from './ztna-phase2.js';
 import { handleSalesPortal } from './sales-portal-module.js';
 import { handleOWASPLabs } from './owasp-labs-module.js';
+import initializeTracing from './tracing.js';
+import { traceRequest } from './workers-tracing-utils.js';
+
+// Initialize tracing SDK at module startup
+try {
+	const tracingSdk = initializeTracing();
+	// Start the SDK and capture errors
+	tracingSdk.start().catch(err => console.error('Tracing SDK start error:', err));
+} catch (err) {
+	console.error('Tracing initialization failed:', err);
+}
 
 // Sales-related routes that require authentication
 const PROTECTED_ROUTES = [
@@ -41,12 +52,13 @@ const PROTECTED_ROUTES = [
 
 export default {
 	async fetch(request, env, ctx) {
-		const url = new URL(request.url);
-		
-		// Handle attack patterns routes
-		if (url.pathname === '/attack-patterns' || url.pathname.startsWith('/attack-patterns/')) {
-			return handleAttackPatternsRoute(url.pathname, request, env, ctx);
-		}
+		return traceRequest(request, async () => {
+			const url = new URL(request.url);
+			
+			// Handle attack patterns routes
+			if (url.pathname === '/attack-patterns' || url.pathname.startsWith('/attack-patterns/')) {
+				return handleAttackPatternsRoute(url.pathname, request, env, ctx);
+			}
 
 		// Handle hybrid cloud war room routes
 		if (url.pathname === '/hybrid-cloud-war-room' || url.pathname.startsWith('/hybrid-cloud-war-room/')) {
@@ -441,11 +453,7 @@ ${contextText ? `Use the following context to inform your answers:\n\n${contextT
 				}
 				return new Response('Not Found', { status: 404 });
 		}
-	},
-};
-
-// Export Durable Object
-export { QuantumDurableObject };
+		});
 
 async function sendApprovalEmail(env, userData) {
 	const { name, email } = userData;
@@ -453,7 +461,7 @@ async function sendApprovalEmail(env, userData) {
 	
 	// Email body with approval buttons
 	const emailBody = `
-		<h2>New Access Request - Nexum Inc Lab</h2>
+		<h2>New Access Request - Company Lab</h2>
 		<p><strong>Name:</strong> ${name}</p>
 		<p><strong>Email:</strong> ${email}</p>
 		<p><strong>Requested:</strong> ${new Date().toISOString()}</p>
@@ -469,7 +477,7 @@ async function sendApprovalEmail(env, userData) {
 			</a>
 		</div>
 		
-		<p style="color:#666;font-size:12px;">This request was automatically generated from the Nexum Inc Lab registration system.</p>
+		<p style="color:#666;font-size:12px;">This request was automatically generated from the registration system.</p>
 	`;
 
 	// Using MailChannels (free email service for Cloudflare Workers)
@@ -479,11 +487,11 @@ async function sendApprovalEmail(env, userData) {
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({
 				personalizations: [{
-					to: [{ email: 'jsellers@nexuminc.com', name: 'James Sellers' }]
-				}],
+to: [{ email: 'jsellers@example.com', name: 'James Sellers' }]
+				},
 				from: { 
 					email: 'noreply@sellersco.net', 
-					name: 'Nexum Inc Lab' 
+					name: 'Company Lab' 
 				},
 				subject: `Access Request: ${name} (${email})`,
 				content: [{

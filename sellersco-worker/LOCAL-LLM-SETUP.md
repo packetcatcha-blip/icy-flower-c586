@@ -300,4 +300,4 @@ curl http://localhost:11434/api/tags
 ---
 
 **Last Updated:** December 14, 2025  
-**Maintainer:** James Sellers (jsellers@nexuminc.com)
+**Maintainer:** James Sellers (jsellers@example.com)

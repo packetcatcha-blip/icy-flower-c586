@@ -241,6 +241,7 @@ NODE_ENV=development  # Enables console span exporter
 |------|---------|
 | `src/tracing.js` | Core OpenTelemetry configuration |
 | `src/workers-tracing-utils.js` | Cloudflare Workers-specific tracing utilities |
+| `src/index.js` | **Instrumented**: tracing initialized and `fetch` wrapped with `traceRequest` |
 | `package.json` | Added OpenTelemetry dependencies |
 
 ---

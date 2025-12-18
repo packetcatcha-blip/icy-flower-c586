@@ -251,7 +251,7 @@
             "name": "Keyword Optimization",
             "description": "Target keywords in title, H1, meta description, and body",
             "target_keywords": {
-              "/": ["cybersecurity", "threat intelligence", "Nexum"],
+              "/": ["cybersecurity", "threat intelligence", "Company"],
               "/sales-portal": ["vendor comparison", "security solutions", "partner"],
               "/regulations": ["compliance framework", "HIPAA", "PCI-DSS", "GDPR"],
               "/attack-patterns": ["threat patterns", "attack types", "cybersecurity"]

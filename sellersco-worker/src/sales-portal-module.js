@@ -1,4 +1,4 @@
-// Nexum Ultimate Sales Portal Module
+// Ultimate Sales Portal Module
 // Comprehensive B2B security sales enablement platform
 
 const VENDORS = [
@@ -12,7 +12,7 @@ const VENDORS = [
     "features": ["EDR", "SIEM", "SOAR", "Cloud DLP", "ZTNA", "API Security", "Threat Intelligence"],
     "strength_verticals": ["finance", "government", "healthcare"],
     "typical_cost": "$500K-$2M/year",
-    "win_rate_vs_nexum": 0.35,
+    "win_rate_vs_company": 0.35,
     "gartner_position": {"category": "SIEM", "position": "Leader", "score": 0.92},
     "description": "Enterprise-grade network and cloud security platform"
   },
@@ -24,7 +24,7 @@ const VENDORS = [
     "features": ["EDR", "Threat Intel", "Incident Response", "Managed Threat Hunting"],
     "strength_verticals": ["finance", "healthcare", "enterprise"],
     "typical_cost": "$200K-$800K/year",
-    "win_rate_vs_nexum": 0.42,
+    "win_rate_vs_company": 0.42,
     "gartner_position": {"category": "EDR", "position": "Leader", "score": 0.95},
     "description": "Cloud-native endpoint protection and response"
   },
@@ -36,7 +36,7 @@ const VENDORS = [
     "features": ["SASE", "Cloud DLP", "Firewall", "Web Isolation", "Zero Trust"],
     "strength_verticals": ["finance", "retail", "technology"],
     "typical_cost": "$150K-$600K/year",
-    "win_rate_vs_nexum": 0.48,
+    "win_rate_vs_company": 0.48,
     "gartner_position": {"category": "SASE", "position": "Leader", "score": 0.91},
     "description": "Zero Trust network access and cloud security"
   },
@@ -48,7 +48,7 @@ const VENDORS = [
     "features": ["SASE", "Cloud DLP", "App Security", "Threat Protection", "Data Loss Prevention"],
     "strength_verticals": ["finance", "healthcare", "government"],
     "typical_cost": "$180K-$700K/year",
-    "win_rate_vs_nexum": 0.45,
+    "win_rate_vs_company": 0.45,
     "gartner_position": {"category": "SASE", "position": "Leader", "score": 0.88},
     "description": "Cloud-native security with DLP and threat protection"
   },
@@ -60,7 +60,7 @@ const VENDORS = [
     "features": ["NGFW", "SASE", "Threat Protection", "VPN", "Endpoint Protection"],
     "strength_verticals": ["manufacturing", "retail", "government"],
     "typical_cost": "$120K-$500K/year",
-    "win_rate_vs_nexum": 0.38,
+    "win_rate_vs_company": 0.38,
     "gartner_position": {"category": "NGFW", "position": "Leader", "score": 0.87},
     "description": "Integrated network security and SASE platform"
   },
@@ -72,7 +72,7 @@ const VENDORS = [
     "features": ["NGFW", "Threat Prevention", "Endpoint Protection", "Mobile Security"],
     "strength_verticals": ["finance", "government", "healthcare"],
     "typical_cost": "$200K-$800K/year",
-    "win_rate_vs_nexum": 0.33,
+    "win_rate_vs_company": 0.33,
     "gartner_position": {"category": "NGFW", "position": "Leader", "score": 0.86},
     "description": "Unified network and endpoint security"
   },
@@ -84,7 +84,7 @@ const VENDORS = [
     "features": ["Web Application Firewall", "DDoS Protection", "Bot Management", "API Security"],
     "strength_verticals": ["finance", "ecommerce", "government"],
     "typical_cost": "$250K-$1M/year",
-    "win_rate_vs_nexum": 0.40,
+    "win_rate_vs_company": 0.40,
     "gartner_position": {"category": "WAF", "position": "Leader", "score": 0.89},
     "description": "Advanced application security and DDoS protection"
   },
@@ -96,7 +96,7 @@ const VENDORS = [
     "features": ["EDR", "XDR", "Threat Hunting", "Mobile Security", "IoT Security"],
     "strength_verticals": ["enterprise", "government", "healthcare"],
     "typical_cost": "$150K-$600K/year",
-    "win_rate_vs_nexum": 0.44,
+    "win_rate_vs_company": 0.44,
     "gartner_position": {"category": "EDR", "position": "Leader", "score": 0.90},
     "description": "Autonomous endpoint protection and response"
   },
@@ -108,7 +108,7 @@ const VENDORS = [
     "features": ["NGFW", "Cloud Security", "Threat Defense", "Secure Access"],
     "strength_verticals": ["enterprise", "finance", "government"],
     "typical_cost": "$300K-$1.2M/year",
-    "win_rate_vs_nexum": 0.37,
+    "win_rate_vs_company": 0.37,
     "gartner_position": {"category": "NGFW", "position": "Visionary", "score": 0.82},
     "description": "Enterprise network and cloud security platform"
   },
@@ -120,7 +120,7 @@ const VENDORS = [
     "features": ["DNS/DHCP/IPAM", "Threat Prevention", "DDoS Protection"],
     "strength_verticals": ["finance", "healthcare", "government"],
     "typical_cost": "$100K-$400K/year",
-    "win_rate_vs_nexum": 0.52,
+    "win_rate_vs_company": 0.52,
     "gartner_position": {"category": "DDI", "position": "Leader", "score": 0.91},
     "description": "DNS/DHCP/IPAM security and threat prevention"
   },
@@ -132,7 +132,7 @@ const VENDORS = [
     "features": ["SSO", "MFA", "Access Management", "Identity Verification"],
     "strength_verticals": ["saas", "enterprise", "finance"],
     "typical_cost": "$50K-$300K/year",
-    "win_rate_vs_nexum": 0.55,
+    "win_rate_vs_company": 0.55,
     "gartner_position": {"category": "IAM", "position": "Leader", "score": 0.93},
     "description": "Cloud identity and access management"
   },
@@ -146,8 +146,8 @@ const VENDORS = [
     "features": ["Feature A", "Feature B"],
     "strength_verticals": ["finance", "healthcare"],
     "typical_cost": "$50K-$200K/year",
-    "win_rate_vs_nexum": 0.4,
-    "description": "Demo vendor 1"
+    "win_rate_vs_company": 0.4,
+    "description": "Demo vendor 1"}
   },
   {
     "id": "vendor-002",
@@ -157,8 +157,8 @@ const VENDORS = [
     "features": ["Feature A", "Feature B"],
     "strength_verticals": ["enterprise", "retail"],
     "typical_cost": "$40K-$150K/year",
-    "win_rate_vs_nexum": 0.35,
-    "description": "Demo vendor 2"
+    "win_rate_vs_company": 0.35,
+    "description": "Demo vendor 2"}
   },
   {
     "id": "vendor-003",
@@ -168,8 +168,8 @@ const VENDORS = [
     "features": ["Feature A", "Feature B"],
     "strength_verticals": ["government", "finance"],
     "typical_cost": "$60K-$220K/year",
-    "win_rate_vs_nexum": 0.45,
-    "description": "Demo vendor 3"
+    "win_rate_vs_company": 0.45,
+    "description": "Demo vendor 3"}
   },
   {
     "id": "vendor-004",
@@ -179,8 +179,8 @@ const VENDORS = [
     "features": ["Feature A", "Feature B"],
     "strength_verticals": ["healthcare", "enterprise"],
     "typical_cost": "$70K-$300K/year",
-    "win_rate_vs_nexum": 0.5,
-    "description": "Demo vendor 4"
+    "win_rate_vs_company": 0.5,
+    "description": "Demo vendor 4"}
   },
   {
     "id": "vendor-005",
@@ -190,8 +190,8 @@ const VENDORS = [
     "features": ["Feature A", "Feature B"],
     "strength_verticals": ["finance", "retail"],
     "typical_cost": "$80K-$320K/year",
-    "win_rate_vs_nexum": 0.42,
-    "description": "Demo vendor 5"
+    "win_rate_vs_company": 0.42,
+    "description": "Demo vendor 5"}
   },
   {
     "id": "vendor-006",
@@ -201,8 +201,8 @@ const VENDORS = [
     "features": ["Feature A", "Feature B"],
     "strength_verticals": ["government", "enterprise"],
     "typical_cost": "$90K-$350K/year",
-    "win_rate_vs_nexum": 0.38,
-    "description": "Demo vendor 6"
+    "win_rate_vs_company": 0.38,
+    "description": "Demo vendor 6"}
   },
   {
     "id": "vendor-007",
@@ -212,8 +212,8 @@ const VENDORS = [
     "features": ["Feature A", "Feature B"],
     "strength_verticals": ["healthcare", "finance"],
     "typical_cost": "$55K-$210K/year",
-    "win_rate_vs_nexum": 0.36,
-    "description": "Demo vendor 7"
+    "win_rate_vs_company": 0.36,
+    "description": "Demo vendor 7"}
   },
   {
     "id": "vendor-008",
@@ -223,7 +223,7 @@ const VENDORS = [
     "features": ["Feature A", "Feature B"],
     "strength_verticals": ["manufacturing", "energy"],
     "typical_cost": "$65K-$240K/year",
-    "win_rate_vs_nexum": 0.39,
+    "win_rate_vs_company": 0.39,
     "description": "Demo vendor 8"
   },
   {
@@ -234,7 +234,7 @@ const VENDORS = [
     "features": ["Feature A", "Feature B"],
     "strength_verticals": ["enterprise", "government"],
     "typical_cost": "$30K-$120K/year",
-    "win_rate_vs_nexum": 0.33,
+    "win_rate_vs_company": 0.33,
     "description": "Demo vendor 9"
   },
   {
@@ -245,7 +245,7 @@ const VENDORS = [
     "features": ["Feature A", "Feature B"],
     "strength_verticals": ["finance", "technology"],
     "typical_cost": "$70K-$260K/year",
-    "win_rate_vs_nexum": 0.41,
+    "win_rate_vs_company": 0.41,
     "description": "Demo vendor 10"
   },
   {
@@ -361,7 +361,8 @@ const VENDORS = [
   // Auto-generated additional vendors to reach 80 total
   
   /* Vendors 21-80 */
-  
+  // ...additional vendors...
+];
 
 const OBJECTIONS = [
   {
@@ -1103,7 +1104,7 @@ function renderSalesPortalUI() {
           document.getElementById('objectionsCount').textContent = objections.length;
           document.getElementById('caseStudiesCount').textContent = caseStudies.length;
           document.getElementById('gartnerCount').textContent = Object.keys(gartner).length;
-          document.getElementById('portalSummary').textContent = `${vendors.length} Partners | ${objections.length} Objections | Gartner Intelligence`;
+          document.getElementById('portalSummary').textContent = vendors.length + ' Partners | ' + objections.length + ' Objections | Gartner Intelligence';
           const vh = document.getElementById('vendorsHeadingCount'); if (vh) vh.textContent = vendors.length;
           const oh = document.getElementById('objectionsHeadingCount'); if (oh) oh.textContent = objections.length;
         } catch (err) { /* ignore DOM update errors */ }

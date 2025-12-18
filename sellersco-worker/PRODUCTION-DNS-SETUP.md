@@ -114,7 +114,7 @@ Accessible via `env.AI` in worker code:
 
 - ⚠️ **Public routes:** Anyone can access
 - 🔐 **Protected routes:** Require authentication
-  - Email must end with `@nexuminc.com`
+  - Email must end with `@example.com`
   - Token stored in localStorage
   - Session expires after 24 hours
 
@@ -320,4 +320,4 @@ npx wrangler deploy
 **Date:** December 15, 2025  
 **By:** GitHub Copilot  
 **Status:** ✅ Production DNS verified and operational  
-**Footer Links:** ✅ Buy Me a Coffee + Nexum MSS links deployed and visible
+**Footer Links:** ✅ Buy Me a Coffee + Company MSS links deployed and visible

@@ -1,0 +1,41 @@
+name: Evaluation
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  evaluation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r evaluation/requirements-evaluation.txt
+
+      - name: Run unit tests
+        run: |
+          pytest evaluation/tests -q
+
+      - name: Run evaluation
+        env:
+          WORKER_URL: ${{ secrets.WORKER_URL }}
+        run: |
+          echo "Running evaluation against $WORKER_URL"
+          python evaluation/cli.py
+
+      - name: Upload evaluation results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evaluation-results
+          path: evaluation/evaluation-results

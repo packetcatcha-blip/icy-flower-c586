@@ -92,7 +92,7 @@ These routes exist in `index.js` and return basic HTML, but need full feature im
 
 ### Priority 1: CRITICAL (Revenue Impact)
 
-#### **1. Nexum Ultimate Sales Portal** 💼
+#### **1. Ultimate Sales Portal** 💼
 - **Route**: `/sales-portal`
 - **Current State**: 401 Unauthorized (no implementation)
 - **Implementation Status**: **NEEDS BUILD**
@@ -101,7 +101,7 @@ These routes exist in `index.js` and return basic HTML, but need full feature im
   - ✅ Email/password + MFA login (NextAuth-compatible, but custom for Workers)
   - ✅ Dark cyber theme UI (Tailwind inline CSS)
   - ✅ **Verticals Intelligence**: Dropdown for Healthcare, Finance, Manufacturing, Government, Retail, Education with Gartner 2025 Magic Quadrant charts per vertical
-  - ✅ **Product Database**: 102 Nexum partners (Palo Alto, Crowdstrike, F5, Infoblox, Zscaler, Netskope, Fortinet, Check Point, Cisco, Juniper, Okta, Tenable, Wiz, SentinelOne, etc.)
+  - ✅ **Product Database**: 102 partner vendors (Palo Alto, Crowdstrike, F5, Infoblox, Zscaler, Netskope, Fortinet, Check Point, Cisco, Juniper, Okta, Tenable, Wiz, SentinelOne, etc.)
   - ✅ **Problem Selector**: 50 common customer issues/objections:
     - Ransomware detection lag
     - SASE deployment complexity
@@ -121,7 +121,7 @@ These routes exist in `index.js` and return basic HTML, but need full feature im
   - ✅ **Proposal Generator**: Auto-generate PDF with executive summary, architecture, case studies, pricing
   - ✅ **Demo Dashboard**: 5 product demo iframes + downloadable competitive battlecards
   - ✅ **Vertical-Specific Intelligence**: Market share data, typical budgets, compliance requirements per industry
-- **Data Source**: Grok conversation specifies 102 Nexum partners
+- **Data Source**: Grok conversation specifies 102 partner vendors
 - **Documentation**: `SALES-PORTAL-IMPLEMENTATION-GUIDE.md` (just created with all user stories)
 - **Deployment Priority**: **FIRST - Deploy next**
 
@@ -281,7 +281,7 @@ Deploy both
 To build the above features, we need:
 
 ### **Sales Portal Data**
-- [ ] 102 Nexum partner vendor list (name, logo, category, features, pricing)
+- [ ] 102 partner vendor list (name, logo, category, features, pricing)
   - Scrape from: nexuminc.com/partners or Grok conversation
   - Status: **Partially available in Grok, needs compilation**
   

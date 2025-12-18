@@ -55,7 +55,7 @@ Test all navigation links from the main page:
 - [ ] `/attack-patterns` - Attack Patterns (NOW WORKING ✅)
 - [ ] `/attack-map` - Live Attack Map (with heatmap)
 
-**Protected Navigation Links (requires @nexuminc.com auth):**
+**Protected Navigation Links (requires @example.com auth):**
 - [ ] `/sales-portal` - Sales Portal
 - [ ] `/sase-compare` - SASE Comparison
 - [ ] `/ztna-compare` - ZTNA Comparison
@@ -77,7 +77,7 @@ Test all navigation links from the main page:
 - [ ] `/trace` - Multi-Colo Trace
 
 **External Links:**
-- [ ] `mailto:jsellers@nexuminc.com` - Email contact
+- [ ] `mailto:jsellers@example.com` - Email contact
 - [ ] LinkedIn profile link
 
 ---
@@ -105,16 +105,16 @@ curl https://[YOUR-TEST-WORKER].jsellers.workers.dev/get-ticker
 ```bash
 # Replace [YOUR-TEST-WORKER] with your staging worker name
 
-# Test registration (requires @nexuminc.com email)
+# Test registration (requires @example.com email)
 curl -X POST https://[YOUR-TEST-WORKER].jsellers.workers.dev/api/register \
   -H "Content-Type: application/json" \
-  -d '{"name":"Test User","email":"test@nexuminc.com","password":"test123"}'
+  -d '{"name":"Test User","email":"test@example.com","password":"test123"}'
 # Expected: {"success":true,"message":"Registration request submitted..."}
 
 # Test login
 curl -X POST https://[YOUR-TEST-WORKER].jsellers.workers.dev/api/login \
   -H "Content-Type: application/json" \
-  -d '{"email":"test@nexuminc.com","password":"test123"}'
+  -d '{"email":"test@example.com","password":"test123"}'
 # Expected: {"success":true,"token":"..."}
 
 # Test protected route without auth
@@ -244,10 +244,10 @@ Test on major browsers:
 ## 🔒 Security Testing
 
 ### Authentication Flow
-1. [ ] Registration requires @nexuminc.com email
-2. [ ] Non-nexuminc emails are rejected
+1. [ ] Registration requires @example.com email
+2. [ ] Non-@example.com emails are rejected
 3. [ ] Protected routes return 401 without token
-4. [ ] Email approval workflow triggers (check jsellers@nexuminc.com inbox)
+4. [ ] Email approval workflow triggers (check jsellers@example.com inbox)
 5. [ ] Approval links work correctly
 
 ### CORS & Headers
@@ -439,4 +439,4 @@ Make executable: `chmod +x test-links.sh`
 ---
 
 **Last Updated:** December 14, 2025
-**Maintainer:** James Sellers (jsellers@nexuminc.com)
+**Maintainer:** James Sellers (jsellers@example.com)

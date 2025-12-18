@@ -5,6 +5,8 @@
         }
     ],
     "settings": {
-        "python.analysis.typeCheckingMode": "standard"
+        "python.analysis.typeCheckingMode": "standard",
+        "windowsaistudio.enableRemoteFine-tuningAndInference": false,
+        "cloudflareDevTools.api.key": "e33c0de99e73317e152aba486aa1d30e7db07"
     }
 }

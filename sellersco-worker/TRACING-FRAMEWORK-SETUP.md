@@ -30,6 +30,7 @@ Your Cloudflare Workers security platform now has comprehensive observability th
 | `src/tracing.js` | Core OpenTelemetry initialization and configuration |
 | `src/workers-tracing-utils.js` | Cloudflare Workers-specific tracing utilities |
 | `src/tracing-examples.js` | Integration examples showing how to use tracing |
+| `src/index.js` | **Instrumented**: tracing initialized and `fetch` wrapped with `traceRequest` |
 | `TRACING-SETUP.md` | Comprehensive tracing setup and usage guide |
 | `package.json` | Updated with OpenTelemetry dependencies |
 
