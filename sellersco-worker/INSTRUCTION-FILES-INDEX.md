@@ -316,7 +316,7 @@
 
 ### Footer Links
 - ☕ **Buy Me a Coffee:** https://buymeacoffee.com/sellersco (✅ LIVE)
-- 🛡️ **Nexum MSS:** https://www.nexuminc.com/services/managed-security-services/ (✅ LIVE)
+- 🛡️ **Company MSS:** https://example.com/services/managed-security-services/ (✅ LIVE)
 
 ---
 

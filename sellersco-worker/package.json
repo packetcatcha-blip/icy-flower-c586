@@ -8,6 +8,7 @@
 		"start": "wrangler dev",
 		"test": "vitest",
 		"verify-tracing": "node ./scripts/verify-tracing.js",
+		"prefer-local-llms": "node ./scripts/apply-llm-preference.js",
 		"eval": "python evaluation/cli.py"
 	},
 	"devDependencies": {

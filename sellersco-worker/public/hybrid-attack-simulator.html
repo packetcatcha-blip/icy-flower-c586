@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hybrid Attack Path Simulator - Nexum Sales Portal</title>
+  <title>Hybrid Attack Path Simulator - Sellersco Sales Portal</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
   <style>
     * {
@@ -198,7 +198,7 @@
       margin-bottom: 0.8rem;
     }
 
-    .nexum-product {
+    .sellersco-product {
       background: rgba(0, 255, 170, 0.1);
       border-left: 3px solid #00ffaa;
       padding: 1rem;
@@ -207,7 +207,7 @@
       color: #b0b0b0;
     }
 
-    .nexum-product strong {
+    .sellersco-product strong {
       color: #00ffaa;
     }
 
@@ -373,31 +373,31 @@
       </div>
 
       <div class="recommendation">
-        <h4>🛡️ Nexum Recommended Stack to Block These Paths</h4>
+        <h4>🛡️ Recommended Stack to Block These Paths</h4>
         
-        <div class="nexum-product">
+        <div class="partner-product">
           <strong>1. Zscaler Zero Trust Network</strong> - Replace VPN with zero trust. Every request verified by identity + device + context. Blocks lateral movement across hybrid.
         </div>
 
-        <div class="nexum-product">
+        <div class="partner-product">
           <strong>2. Wiz Cloud Security Posture</strong> - Discover all SaaS apps + misconfigurations. Auto-remediate shadow IT risks before they're exploited.
         </div>
 
-        <div class="nexum-product">
+        <div class="partner-product">
           <strong>3. CrowdStrike Falcon XDR</strong> - Detects & blocks lateral movement in seconds. Prevents persistence with behavioral AI.
         </div>
 
-        <div class="nexum-product">
+        <div class="partner-product">
           <strong>4. Palo Alto Cortex XSIAM</strong> - Single-pane-of-glass across on-prem + cloud + SaaS. Correlates attacks across domains.
         </div>
 
-        <div class="nexum-product">
-          <strong>5. Nexum Managed Security Services (MSS)</strong> - 24/7 SOC team monitors your hybrid stack. Instant incident response.
+        <div class="partner-product">
+          <strong>5. Managed Security Services (MSS)</strong> - 24/7 SOC team monitors your hybrid stack. Instant incident response.
         </div>
       </div>
 
       <div style="background: rgba(0, 255, 170, 0.05); border: 1px solid #00ffaa; border-radius: 8px; padding: 1.5rem; margin-top: 2rem;">
-        <h3 style="color: #00ffaa; margin-bottom: 1rem;">📊 Expected Impact with Nexum Stack</h3>
+        <h3 style="color: #00ffaa; margin-bottom: 1rem;">📊 Expected Impact with Sellersco Stack</h3>
         <ul style="color: #b0b0b0; line-height: 2;">
           <li>✅ Attack Path Risk: <strong style="color: #00ffaa;">85% → 15%</strong> (82% risk reduction)</li>
           <li>✅ Shadow IT Discovery: <strong style="color: #00ffaa;">100%</strong> visibility (previously <span id="shadowPercent">0</span>%)</li>
@@ -412,13 +412,13 @@
       </div>
 
       <div style="text-align: center; margin-top: 2rem;">
-        <button class="btn" onclick="scheduleConsultation()">📞 Schedule Nexum Consultation</button>
+        <button class="btn" onclick="scheduleConsultation()">📞 Schedule Consultation</button>
       </div>
     </div>
   </div>
 
   <footer>
-    <p>Hybrid Attack Path Simulator | Nexum Security Labs</p>
+    <p>Hybrid Attack Path Simulator | Sellersco Lab</p>
   </footer>
 
   <script>
@@ -474,7 +474,7 @@
       window.riskChart = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: ['Current Risk', 'With Nexum Stack'],
+          labels: ['Current Risk', 'With Sellersco Stack'],
           datasets: [
             {
               label: 'Attack Path #1: Lateral Movement',
@@ -517,7 +517,7 @@
     }
 
     function scheduleConsultation() {
-      alert('✅ Consultation request sent! Nexum team will contact you within 24 hours.');
+      alert('✅ Consultation request submitted! Sellersco team will contact you within 24 hours.');
     }
 
     function goHome() {

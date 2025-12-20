@@ -256,8 +256,8 @@ case '/api/register':
     const { name, email, password } = body;
     
     // Validate email domain
-    if (!email.endsWith('@nexuminc.com')) {
-      return Response.json({ error: 'Only @nexuminc.com emails allowed' }, { status: 400 });
+    if (!email.endsWith('@example.com')) {
+      return Response.json({ error: 'Only @example.com emails allowed' }, { status: 400 });
     }
     
     // Validate password strength
@@ -501,7 +501,7 @@ async function handleLogin(email, password) {
 ```bash
 curl -X POST https://sellersco-worker-dev.application-services-implementation-lab-zippy-operand.workers.dev/api/register \
   -H "Content-Type: application/json" \
-  -d '{"name":"Test User","email":"test@nexuminc.com","password":"SecurePass123"}'
+  -d '{"name":"Test User","email":"test@example.com","password":"SecurePass123"}'
 ```
 
 Expected: Registration success, approval email sent
@@ -519,7 +519,7 @@ Expected: User record with `approved=0`
 Visit the approval link from the email or manually update:
 
 ```bash
-npx wrangler d1 execute security_lab_db --command="UPDATE users SET approved=1 WHERE email='test@nexuminc.com'"
+npx wrangler d1 execute security_lab_db --command="UPDATE users SET approved=1 WHERE email='test@example.com'"
 ```
 
 ### 4. Test Login
@@ -527,7 +527,7 @@ npx wrangler d1 execute security_lab_db --command="UPDATE users SET approved=1 W
 ```bash
 curl -X POST https://sellersco-worker-dev.application-services-implementation-lab-zippy-operand.workers.dev/api/login \
   -H "Content-Type: application/json" \
-  -d '{"email":"test@nexuminc.com","password":"SecurePass123"}'
+  -d '{"email":"test@example.com","password":"SecurePass123"}'
 ```
 
 Expected: Login success with session token
@@ -644,4 +644,4 @@ If issues occur after deployment:
 
 ---
 
-**For questions or issues, contact:** jsellers@nexuminc.com
+**For questions or issues, contact:** packetcatcha@gmail.com

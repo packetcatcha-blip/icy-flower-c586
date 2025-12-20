@@ -27,16 +27,16 @@ Navigation Order:
 ... (protected nav items)
 ```
 
-### 2. ✅ Footer Links Reorganized - Nexum MSS Prioritized
+### 2. ✅ Footer Links Reorganized - Company MSS Prioritized
 - **New Priority Order:**
-  1. **Nexum MSS** (Cyan highlight with hover effects - primary CTA)
+  1. **Company MSS** (Cyan highlight with hover effects - primary CTA)
   2. Buy Me Coffee (Golden yellow on hover)
   3. LinkedIn (White text, professional link)
-  4. Email (jsellers@nexuminc.com)
+  4. Email (packetcatcha@gmail.com)
   5. Ticker (Live threat intelligence feed)
 
 #### Footer Link Styling:
-- **Nexum MSS:** `color:#00FFFF` (cyan) with bold font-weight, hover transition to `#FFFF00` (yellow)
+- **Company MSS:** `color:#00FFFF` (cyan) with bold font-weight, hover transition to `#FFFF00` (yellow)
 - **Buy Me Coffee:** Golden yellow on hover (`#FFDD00`)
 - **LinkedIn:** Professional white text with SVG icon
 - **Email:** Standard text link
@@ -44,12 +44,12 @@ Navigation Order:
 
 #### Before (Old Order):
 ```
-Email | LinkedIn | Buy Me Coffee | Nexum MSS | Ticker
+Email | LinkedIn | Buy Me Coffee | Company MSS | Ticker
 ```
 
 #### After (New Order):
 ```
-Nexum MSS | Buy Me Coffee | LinkedIn | Email | Ticker
+Company MSS | Buy Me Coffee | LinkedIn | Email | Ticker
 ```
 
 ---
@@ -66,7 +66,7 @@ Nexum MSS | Buy Me Coffee | LinkedIn | Email | Ticker
 - **Responsive Design:** Button scales properly on mobile (tested at 480px, 768px, 1024px)
 - **Accessibility:** All links have proper SVG icons, alt text, and semantic HTML
 - **Performance:** No additional HTTP requests or scripts required
-- **Styling:** Consistent with existing Nexum dark cyber theme
+- **Styling:** Consistent with existing Company dark cyber theme
 - **Hover Effects:** Smooth color transitions on all footer links
 
 ---
@@ -84,7 +84,7 @@ Nexum MSS | Buy Me Coffee | LinkedIn | Email | Ticker
 ### Live Test URLs:
 - **Main Page:** https://sellersco.net
 - **Live Attack Map:** https://sellersco.net/threat-feeds (linked from new button)
-- **Nexum MSS:** https://www.nexuminc.com/services/managed-security-services/
+- **Company MSS:** https://example.com/services/managed-security-services/
 
 ---
 
@@ -93,8 +93,8 @@ Nexum MSS | Buy Me Coffee | LinkedIn | Email | Ticker
 ### For Visitors:
 1. **Prominent Threat Map Access:** 🔴 Live Attack Map button immediately visible in top navigation
 2. **Enhanced Visual Hierarchy:** Red button draws eye to real-time threat visualization capability
-3. **Business Partnership Visibility:** Nexum MSS link now first in footer, emphasizing core service offering
-4. **Better CTA Flow:** Nexum MSS link with cyan highlight creates natural visual progression
+3. **Business Partnership Visibility:** Company MSS link now first in footer, emphasizing core service offering
+4. **Better CTA Flow:** Company MSS link with cyan highlight creates natural visual progression
 
 ### For Cybersecurity Professionals:
 - Quick access to live threat intelligence dashboard
@@ -120,7 +120,7 @@ Multi-Cloud
 ATT&CK
 ```
 
-### Protected Labs (Hidden Until Login with @nexuminc.com):
+### Protected Labs (Hidden Until Login with @example.com):
 ```html
 Sales Portal
 SASE Compare
@@ -154,14 +154,14 @@ Register Button
 style="color:#FF1744;font-weight:bold;border:1px solid #FF1744;padding:8px 14px;"
 ```
 
-### Nexum MSS Link Styling:
+### Company MSS Link Styling:
 ```css
 style="display:flex;align-items:center;gap:6px;color:#00FFFF;text-decoration:none;transition:var(--transition);font-weight:bold;"
 onmouseover="this.style.color='#FFFF00'"
 onmouseout="this.style.color='#00FFFF'"
 ```
 
-### Color Palette (Nexum Theme):
+### Color Palette (Company Theme):
 - **Primary Blue:** `#003366`
 - **Cyan Accent:** `#52b2ff` / `#00FFFF`
 - **Red Alert:** `#FF1744`
@@ -195,7 +195,7 @@ onmouseout="this.style.color='#00FFFF'"
 - [x] Hover effects work on desktop
 - [x] Link navigates to `/threat-feeds` correctly
 - [x] Footer links maintain proper spacing on all breakpoints
-- [x] Nexum MSS link hover color transitions smoothly
+- [x] Company MSS link hover color transitions smoothly
 - [x] No console errors or warnings
 - [x] Wrangler deployment validation passed
 - [x] Production DNS configuration verified
@@ -207,7 +207,7 @@ onmouseout="this.style.color='#00FFFF'"
 
 If needed, rollback can be performed by reverting the index.html changes:
 1. Remove Live Attack Map button from navigation (line 452)
-2. Restore original footer link order (revert Nexum MSS to end of links)
+2. Restore original footer link order (revert Company MSS to end of links)
 
 **Backup Location:** `c:\demo\nuke-demo\icy-flower-c586.worktrees\` (contains git history)
 
@@ -215,7 +215,7 @@ If needed, rollback can be performed by reverting the index.html changes:
 
 ## Contact & Support
 
-- **Primary Contact:** James Sellers (jsellers@nexuminc.com)
+- **Primary Contact:** James Sellers (packetcatcha@gmail.com)
 - **Production Domain:** https://sellersco.net
 - **Worker URL:** https://icy-flower-c586.jsellers.workers.dev
 - **Repository:** Cloudflare Workers Environment

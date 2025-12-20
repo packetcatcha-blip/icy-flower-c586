@@ -7,7 +7,7 @@
     "features": ["EDR", "SIEM", "SOAR", "Cloud DLP", "ZTNA", "API Security", "Threat Intelligence"],
     "strength_verticals": ["finance", "government", "healthcare"],
     "typical_cost": "$500K-$2M/year",
-    "win_rate_vs_nexum": 0.35,
+    "win_rate_vs_sellersco": 0.35,
     "gartner_position": {"category": "SIEM", "position": "Leader", "score": 0.92},
     "description": "Enterprise-grade network and cloud security platform"
   },
@@ -19,7 +19,7 @@
     "features": ["EDR", "Threat Intel", "Incident Response", "Managed Threat Hunting"],
     "strength_verticals": ["finance", "healthcare", "enterprise"],
     "typical_cost": "$200K-$800K/year",
-    "win_rate_vs_nexum": 0.42,
+    "win_rate_vs_sellersco": 0.42,
     "gartner_position": {"category": "EDR", "position": "Leader", "score": 0.95},
     "description": "Cloud-native endpoint protection and response"
   },
@@ -31,7 +31,7 @@
     "features": ["SASE", "Cloud DLP", "Firewall", "Web Isolation", "Zero Trust"],
     "strength_verticals": ["finance", "retail", "technology"],
     "typical_cost": "$150K-$600K/year",
-    "win_rate_vs_nexum": 0.48,
+    "win_rate_vs_sellersco": 0.48,
     "gartner_position": {"category": "SASE", "position": "Leader", "score": 0.91},
     "description": "Zero Trust network access and cloud security"
   },
@@ -43,7 +43,7 @@
     "features": ["SASE", "Cloud DLP", "App Security", "Threat Protection", "Data Loss Prevention"],
     "strength_verticals": ["finance", "healthcare", "government"],
     "typical_cost": "$180K-$700K/year",
-    "win_rate_vs_nexum": 0.45,
+    "win_rate_vs_sellersco": 0.45,
     "gartner_position": {"category": "SASE", "position": "Leader", "score": 0.88},
     "description": "Cloud-native security with DLP and threat protection"
   },
@@ -55,7 +55,7 @@
     "features": ["NGFW", "SASE", "Threat Protection", "VPN", "Endpoint Protection"],
     "strength_verticals": ["manufacturing", "retail", "government"],
     "typical_cost": "$120K-$500K/year",
-    "win_rate_vs_nexum": 0.38,
+    "win_rate_vs_sellersco": 0.38,
     "gartner_position": {"category": "NGFW", "position": "Leader", "score": 0.87},
     "description": "Integrated network security and SASE platform"
   },
@@ -67,7 +67,7 @@
     "features": ["NGFW", "Threat Prevention", "Endpoint Protection", "Mobile Security"],
     "strength_verticals": ["finance", "government", "healthcare"],
     "typical_cost": "$200K-$800K/year",
-    "win_rate_vs_nexum": 0.33,
+    "win_rate_vs_sellersco": 0.33,
     "gartner_position": {"category": "NGFW", "position": "Leader", "score": 0.86},
     "description": "Unified network and endpoint security"
   },
@@ -79,7 +79,7 @@
     "features": ["Web Application Firewall", "DDoS Protection", "Bot Management", "API Security"],
     "strength_verticals": ["finance", "ecommerce", "government"],
     "typical_cost": "$250K-$1M/year",
-    "win_rate_vs_nexum": 0.40,
+    "win_rate_vs_sellersco": 0.40,
     "gartner_position": {"category": "WAF", "position": "Leader", "score": 0.89},
     "description": "Advanced application security and DDoS protection"
   },
@@ -91,7 +91,7 @@
     "features": ["EDR", "XDR", "Threat Hunting", "Mobile Security", "IoT Security"],
     "strength_verticals": ["enterprise", "government", "healthcare"],
     "typical_cost": "$150K-$600K/year",
-    "win_rate_vs_nexum": 0.44,
+    "win_rate_vs_sellersco": 0.44,
     "gartner_position": {"category": "EDR", "position": "Leader", "score": 0.90},
     "description": "Autonomous endpoint protection and response"
   },
@@ -103,7 +103,7 @@
     "features": ["NGFW", "Cloud Security", "Threat Defense", "Secure Access"],
     "strength_verticals": ["enterprise", "finance", "government"],
     "typical_cost": "$300K-$1.2M/year",
-    "win_rate_vs_nexum": 0.37,
+    "win_rate_vs_sellersco": 0.37,
     "gartner_position": {"category": "NGFW", "position": "Visionary", "score": 0.82},
     "description": "Enterprise network and cloud security platform"
   },
@@ -115,7 +115,7 @@
     "features": ["DNS/DHCP/IPAM", "Threat Prevention", "DDoS Protection"],
     "strength_verticals": ["finance", "healthcare", "government"],
     "typical_cost": "$100K-$400K/year",
-    "win_rate_vs_nexum": 0.52,
+    "win_rate_vs_sellersco": 0.52,
     "gartner_position": {"category": "DDI", "position": "Leader", "score": 0.91},
     "description": "DNS/DHCP/IPAM security and threat prevention"
   },
@@ -127,7 +127,7 @@
     "features": ["SSO", "MFA", "Access Management", "Identity Verification"],
     "strength_verticals": ["saas", "enterprise", "finance"],
     "typical_cost": "$50K-$300K/year",
-    "win_rate_vs_nexum": 0.55,
+    "win_rate_vs_sellersco": 0.55,
     "gartner_position": {"category": "IAM", "position": "Leader", "score": 0.93},
     "description": "Cloud identity and access management"
   }

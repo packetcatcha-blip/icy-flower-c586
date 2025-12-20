@@ -1,15 +1,11 @@
 {
-	"files.associations": {
-		"wrangler.json": "jsonc"
-	},
-	"github.copilot.enableMatrixRain": false,
-	"github.copilot.enableSnowfall": false,
-	"github.copilot.enableExperiments": false,
-	"continue.enableTabAutocomplete": true,
-	"cline.allowFileEdits": true,
-	// Auto-deployment settings
-	"workbench.autoDeployOnSave": true,
-	"deployment.autoConfirm": true,
-	"deployment.requireTests": true,
-	"deployment.testScript": "./scripts/test-all-links.ps1"
+  "continue.telemetryEnabled": false,
+  "continue.defaultModel": "llama3", // Or your LM Studio model
+  "continue.models": [
+    {
+      "model": "llama3",
+      "provider": "ollama",
+      "apiBase": "http://localhost:11434"
+    }
+  ]
 }

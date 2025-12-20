@@ -1,4 +1,4 @@
-# Nexum Security Lab - Production Deployment
+# Sellersco Security Lab - Production Deployment
 
 **Live at:** https://sellersco.net | https://icy-flower-c586.jsellers.workers.dev
 
@@ -249,7 +249,7 @@ curl https://sellersco.net/regulations
 - No authentication required
 
 ### Protected Routes
-- Require `@nexuminc.com` email
+- Require `@example.com` email
 - Token stored in localStorage
 - Session expires after 24 hours
 - Example protected routes:
@@ -265,7 +265,7 @@ curl https://sellersco.net/regulations
 - ✅ Mobile optimized
 - ✅ Tablet responsive
 - ✅ Desktop enhanced
-- ✅ Dark theme (Nexum Blue)
+- ✅ Dark theme (Company Blue)
 - ✅ Fast performance (<200ms)
 
 ---
@@ -386,9 +386,9 @@ curl https://sellersco.net/regulations
 ## 🎯 Footer Links (Production)
 
 ✅ **Updated December 15, 2025**
-- Email: jsellers@nexuminc.com
+- Email: packetcatcha@gmail.com
 - LinkedIn: https://www.linkedin.com/in/jim-sellers-5ba5606/
 - Buy Me a Coffee: https://buymeacoffee.com/sellersco (gold hover)
-- Nexum MSS: https://www.nexuminc.com/services/managed-security-services/ (cyan hover)
+- Managed Security Services: https://example.com/services/managed-security-services/ (cyan hover)
 
 All links verified and live on https://sellersco.net

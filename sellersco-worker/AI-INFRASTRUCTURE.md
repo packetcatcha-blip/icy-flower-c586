@@ -345,7 +345,7 @@ const results = await env.VECTORIZE_INDEX.query(queryEmbedding.data[0], {
 // Get user
 const user = await env.DB.prepare(
   'SELECT * FROM users WHERE email = ? AND approved = 1'
-).bind('jsellers@nexuminc.com').first();
+).bind('packetcatcha@gmail.com').first();
 
 // Create session
 await env.DB.prepare(
@@ -385,6 +385,6 @@ await env.DB.prepare(
 ---
 
 **Last Updated:** December 14, 2025  
-**Maintainer:** James Sellers (jsellers@nexuminc.com)  
+**Maintainer:** James Sellers (packetcatcha@gmail.com)  
 **Dev Status:** ✅ All tests passing (100%)  
 **Production Status:** ⏳ Ready for deployment after Vectorize/D1 creation

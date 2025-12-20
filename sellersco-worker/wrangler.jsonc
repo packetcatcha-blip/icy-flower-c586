@@ -122,6 +122,9 @@
 			"ai": {
 				"binding": "AI"
 			},
+			"routes": [
+				"sellersco.net/*"
+			],
 			"vars": {
 				"OTEL_EXPORTER_OTLP_ENDPOINT": "https://collector.example/v1/traces",
 				"OTEL_SERVICE_NAME": "sellersco-worker",

@@ -1,0 +1,9 @@
+﻿{
+  "name": "Cloudflare Worker Dev with Portal",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/devcontainers/features/python:1": {}
+  },
+  "postCreateCommand": "npm install -g wrangler && wrangler login && pip install faiss-cpu sentence-transformers"
+}

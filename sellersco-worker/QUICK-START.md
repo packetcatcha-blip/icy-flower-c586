@@ -179,7 +179,7 @@ await env.VECTORIZE_INDEX.query(queryEmbedding, { topK: 5 });
 ```javascript
 // Query users
 await env.DB.prepare('SELECT * FROM users WHERE email = ?')
-  .bind('user@nexuminc.com').first();
+  .bind('user@example.com').first();
 
 // Insert session
 await env.DB.prepare('INSERT INTO sessions (user_id, token, expires_at) VALUES (?, ?, ?)')

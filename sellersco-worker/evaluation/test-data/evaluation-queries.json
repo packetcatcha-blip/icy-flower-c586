@@ -92,7 +92,7 @@
       "id": "feature_solution_builder",
       "category": "feature_completeness",
       "endpoint": "/solution-diagram-builder.html",
-      "expected_contains": ["nexum", "diagram", "vendor", "pdf"],
+      "expected_contains": ["company", "diagram", "vendor", "pdf"],
       "expected_status": 200,
       "description": "Solution diagram builder contains product/vendor text"
     },

@@ -10,14 +10,14 @@
 ## 📋 Project Overview
 
 ### Objective
-Transform the static OWASP Range page into an **ultimate interactive security lab** for identifying, understanding, and remediating OWASP Top 10 2025 vulnerabilities with **AI-powered Nexum partner recommendations**.
+Transform the static OWASP Range page into an **ultimate interactive security lab** for identifying, understanding, and remediating OWASP Top 10 2025 vulnerabilities with **AI-powered partner recommendations**.
 
 ### Scope
 - **10 Critical Security Risks** with full descriptions, root causes, examples, and fixes
 - **Tech-specific remediation code** for Node.js, Java, and Python
-- **92+ Nexum partner products** with efficacy matching
+- **92+ partner products** with efficacy matching
 - **Interactive UI** with dark cyber theme, accordions, charts, filtering, and search
-- **AI recommender system** matching tech stack to best Nexum solutions
+- **AI recommender system** matching tech stack to best partner solutions
 - **Responsive design** (mobile-optimized)
 - **Real-time deployment** to production
 
@@ -79,13 +79,13 @@ Per risk, users select their technology → **Auto-display code examples**:
 - **Interactive:** Hover for exact percentages
 - **Responsive:** Adapts to screen size
 
-### 5. **AI-Powered Nexum Partner Recommender**
+### 5. **AI-Powered Partner Recommender**
 
 #### System Architecture:
 1. User selects **Tech Stack** (Node.js, Java, Python, AWS, Azure, Kubernetes, etc.)
 2. User clicks **"Get Recommendations"**
 3. System analyzes selected risk + tech stack
-4. AI generates **Top 3 Nexum partner recommendations**
+4. AI generates **Top 3 partner recommendations**
 5. Each recommendation includes:
    - Partner product name & brand
    - Specific use case description
@@ -102,12 +102,12 @@ Per risk, users select their technology → **Auto-display code examples**:
 - 🥉 CrowdStrike - Falcon Identity (Identity threat protection)
 
 **A04 (Injection):**
-- 🥇 Nexum - SQL Injection Prevention (MSS - 24/7 SOC WAF integration)
+- 🥇 Company - SQL Injection Prevention (MSS - 24/7 SOC WAF integration)
 - 🥈 Palo Alto Networks - Advanced Threat Prevention (App-layer inspection)
 - 🥉 F5 - Web Application Firewall (Enterprise OWASP protection)
 
 **A09 (Logging):**
-- 🥇 Nexum - Security Operations Center (MSS - 24/7 monitoring)
+- 🥇 Company - Security Operations Center (MSS - 24/7 monitoring)
 - 🥈 CrowdStrike - Falcon LogScale (Cloud SIEM + threat hunting)
 - 🥉 Splunk - Enterprise Security (Advanced correlation & analytics)
 
@@ -234,7 +234,7 @@ Per risk, users select their technology → **Auto-display code examples**:
 }
 ```
 
-### Nexum Partner Recommendation Object
+### Partner Recommendation Object
 
 ```javascript
 {
@@ -294,7 +294,7 @@ User arrives at https://sellersco.net/owasp-range
 ↓
 Sees 10 risk cards with prevalence chart
 ↓
-Clicks "🛡️ OWASP Range" from any Nexum page
+Clicks "🛡️ OWASP Range" from any Company page
 ```
 
 **2. Learn About Risk**
@@ -316,9 +316,9 @@ Clicks "🚀 Get Recommendations" button
 ↓
 Waits 1.5 seconds (loading animation)
 ↓
-Sees top 3 Nexum partner products with efficacy
+Sees top 3 partner products with efficacy
 ↓
-Clicks "📞 Schedule Nexum Consultation"
+Clicks "📞 Schedule Consultation"
 ```
 
 **4. Filter & Search**
@@ -420,7 +420,7 @@ Transitions: 0.3s ease (smooth animations)
 - [ ] ML-based risk prioritization (personalized)
 - [ ] Real-time CVSS scoring updates
 - [ ] Interactive vulnerability simulator
-- [ ] Nexum case study embeddings
+- [ ] Case study embeddings
 - [ ] ROI calculator per recommendation
 
 ### Phase 4 (Strategic)
@@ -485,7 +485,7 @@ Transitions: 0.3s ease (smooth animations)
 | **Live Lab** | https://sellersco.net/owasp-range |
 | **Homepage** | https://sellersco.net |
 | **OWASP Ref** | https://owasp.org/Top10 |
-| **Nexum Home** | https://nexuminc.com |
+| **Company Home** | https://example.com |
 
 ---
 
@@ -541,7 +541,7 @@ After using this lab, users will understand:
 1. **What is the OWASP Top 10?** - Critical vulnerabilities
 2. **Why each risk matters** - Real-world impact
 3. **How to prevent each risk** - Code examples
-4. **What solutions exist** - 92+ Nexum partner options
+4. **What solutions exist** - 92+ partner options
 5. **How to choose a solution** - Tech-aware recommendations
 
 ### For Sales Team
@@ -578,12 +578,12 @@ This lab converts **technical curiosity → qualified leads**:
 ## 📞 Support & Maintenance
 
 ### Issue Reporting
-Report issues to: james.sellers@nexuminc.com
+Report issues to: james.sellers@example.com
 
 ### Updates
 - Check owasp-range.html for latest risk data
 - OWASP publishes updates annually (next: 2026)
-- Nexum partner list updated quarterly
+- Partner list updated quarterly
 
 ### Maintenance
 - Monthly: Check link validity
@@ -595,5 +595,5 @@ Report issues to: james.sellers@nexuminc.com
 **Status:** ✅ **COMPLETE & LIVE**  
 **Date:** December 15, 2025  
 **Version:** 1.0  
-**Team:** Nexum Security Labs  
+**Team:** Company Security Labs  
 **Next Update:** January 15, 2026

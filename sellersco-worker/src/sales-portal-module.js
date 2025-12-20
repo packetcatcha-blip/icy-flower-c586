@@ -147,7 +147,7 @@ const VENDORS = [
     "strength_verticals": ["finance", "healthcare"],
     "typical_cost": "$50K-$200K/year",
     "win_rate_vs_company": 0.4,
-    "description": "Demo vendor 1"}
+    "description": "Demo vendor 1"
   },
   {
     "id": "vendor-002",
@@ -158,7 +158,7 @@ const VENDORS = [
     "strength_verticals": ["enterprise", "retail"],
     "typical_cost": "$40K-$150K/year",
     "win_rate_vs_company": 0.35,
-    "description": "Demo vendor 2"}
+    "description": "Demo vendor 2"
   },
   {
     "id": "vendor-003",
@@ -169,7 +169,7 @@ const VENDORS = [
     "strength_verticals": ["government", "finance"],
     "typical_cost": "$60K-$220K/year",
     "win_rate_vs_company": 0.45,
-    "description": "Demo vendor 3"}
+    "description": "Demo vendor 3"
   },
   {
     "id": "vendor-004",
@@ -180,7 +180,7 @@ const VENDORS = [
     "strength_verticals": ["healthcare", "enterprise"],
     "typical_cost": "$70K-$300K/year",
     "win_rate_vs_company": 0.5,
-    "description": "Demo vendor 4"}
+    "description": "Demo vendor 4"
   },
   {
     "id": "vendor-005",
@@ -191,7 +191,7 @@ const VENDORS = [
     "strength_verticals": ["finance", "retail"],
     "typical_cost": "$80K-$320K/year",
     "win_rate_vs_company": 0.42,
-    "description": "Demo vendor 5"}
+    "description": "Demo vendor 5"
   },
   {
     "id": "vendor-006",
@@ -202,7 +202,7 @@ const VENDORS = [
     "strength_verticals": ["government", "enterprise"],
     "typical_cost": "$90K-$350K/year",
     "win_rate_vs_company": 0.38,
-    "description": "Demo vendor 6"}
+    "description": "Demo vendor 6"
   },
   {
     "id": "vendor-007",
@@ -213,7 +213,7 @@ const VENDORS = [
     "strength_verticals": ["healthcare", "finance"],
     "typical_cost": "$55K-$210K/year",
     "win_rate_vs_company": 0.36,
-    "description": "Demo vendor 7"}
+    "description": "Demo vendor 7"
   },
   {
     "id": "vendor-008",
@@ -256,7 +256,7 @@ const VENDORS = [
     "features": ["Feature A", "Feature B"],
     "strength_verticals": ["enterprise", "smb"],
     "typical_cost": "$20K-$90K/year",
-    "win_rate_vs_nexum": 0.25,
+    "win_rate_vs_sellersco": 0.25,
     "description": "Demo vendor 11"
   },
   {
@@ -267,7 +267,7 @@ const VENDORS = [
     "features": ["Feature A", "Feature B"],
     "strength_verticals": ["finance", "technology"],
     "typical_cost": "$45K-$160K/year",
-    "win_rate_vs_nexum": 0.30,
+    "win_rate_vs_sellersco": 0.30,
     "description": "Demo vendor 12"
   },
   {
@@ -278,7 +278,7 @@ const VENDORS = [
     "features": ["Feature A", "Feature B"],
     "strength_verticals": ["technology", "finance"],
     "typical_cost": "$35K-$140K/year",
-    "win_rate_vs_nexum": 0.29,
+    "win_rate_vs_sellersco": 0.29,
     "description": "Demo vendor 13"
   },
   {
@@ -289,7 +289,7 @@ const VENDORS = [
     "features": ["Feature A", "Feature B"],
     "strength_verticals": ["retail", "enterprise"],
     "typical_cost": "$40K-$150K/year",
-    "win_rate_vs_nexum": 0.34,
+    "win_rate_vs_sellersco": 0.34,
     "description": "Demo vendor 14"
   },
   {
@@ -300,7 +300,7 @@ const VENDORS = [
     "features": ["Feature A", "Feature B"],
     "strength_verticals": ["enterprise", "government"],
     "typical_cost": "$60K-$220K/year",
-    "win_rate_vs_nexum": 0.37,
+    "win_rate_vs_sellersco": 0.37,
     "description": "Demo vendor 15"
   },
   {
@@ -311,7 +311,7 @@ const VENDORS = [
     "features": ["Feature A", "Feature B"],
     "strength_verticals": ["all"],
     "typical_cost": "$25K-$100K/year",
-    "win_rate_vs_nexum": 0.22,
+    "win_rate_vs_sellersco": 0.22,
     "description": "Demo vendor 16"
   },
   {
@@ -322,7 +322,7 @@ const VENDORS = [
     "features": ["Feature A", "Feature B"],
     "strength_verticals": ["manufacturing", "retail"],
     "typical_cost": "$50K-$190K/year",
-    "win_rate_vs_nexum": 0.31,
+    "win_rate_vs_sellersco": 0.31,
     "description": "Demo vendor 17"
   },
   {
@@ -333,7 +333,7 @@ const VENDORS = [
     "features": ["Feature A", "Feature B"],
     "strength_verticals": ["government", "finance"],
     "typical_cost": "$55K-$210K/year",
-    "win_rate_vs_nexum": 0.28,
+    "win_rate_vs_sellersco": 0.28,
     "description": "Demo vendor 18"
   },
   {
@@ -344,7 +344,7 @@ const VENDORS = [
     "features": ["Feature A", "Feature B"],
     "strength_verticals": ["technology", "enterprise"],
     "typical_cost": "$70K-$260K/year",
-    "win_rate_vs_nexum": 0.36,
+    "win_rate_vs_sellersco": 0.36,
     "description": "Demo vendor 19"
   },
   {
@@ -355,7 +355,7 @@ const VENDORS = [
     "features": ["Feature A", "Feature B"],
     "strength_verticals": ["saas", "enterprise"],
     "typical_cost": "$30K-$120K/year",
-    "win_rate_vs_nexum": 0.27,
+    "win_rate_vs_sellersco": 0.27,
     "description": "Demo vendor 20"
   },
   // Auto-generated additional vendors to reach 80 total
@@ -577,7 +577,7 @@ const CASE_STUDIES = [
     "vertical": "Finance",
     "challenge": "Ransomware detection too slow (228-day industry avg dwell time)",
     "previous_solution": "Palo Alto NGFW + basic EDR",
-    "nexum_solution": "EDR with behavioral analysis",
+    "solution": "EDR with behavioral analysis",
     "results": "2-hour detection vs 228-day avg. Saved $40M in potential ransom + downtime",
     "roi": "340% Year 1"
   },
@@ -587,7 +587,7 @@ const CASE_STUDIES = [
     "vertical": "Healthcare",
     "challenge": "HIPAA compliance burden, manual audit process",
     "previous_solution": "Multiple point solutions (Splunk, EDR, Firewall)",
-    "nexum_solution": "Unified platform with audit logging",
+    "solution": "Unified platform with audit logging",
     "results": "Reduced audit time from 8 weeks to 2 weeks. Auto-compliance reporting",
     "roi": "$150K savings in consulting fees"
   },
@@ -597,7 +597,7 @@ const CASE_STUDIES = [
     "vertical": "SaaS/Technology",
     "challenge": "Tool sprawl (15+ vendors), SOC team only 3 people",
     "previous_solution": "Wazuh (OSS) + multiple point solutions",
-    "nexum_solution": "Consolidated platform + Wazuh integration",
+    "solution": "Consolidated platform + Wazuh integration",
     "results": "Reduced alerts by 70% via automation, team productivity +3x",
     "roi": "Avoided $600K hiring 3 additional SOC staff"
   },
@@ -607,7 +607,7 @@ const CASE_STUDIES = [
     "vertical": "Manufacturing",
     "challenge": "IoT/OT network visibility, cloud misconfig risks",
     "previous_solution": "Legacy firewall, no cloud monitoring",
-    "nexum_solution": "DDI + cloud security",
+    "solution": "DDI + cloud security",
     "results": "Discovered 247 misconfigurations, fixed before breach. Real-time IoT visibility",
     "roi": "Prevented estimated $5M breach impact"
   },
@@ -617,7 +617,7 @@ const CASE_STUDIES = [
     "vertical": "Government",
     "challenge": "Zero Trust transition from traditional perimeter",
     "previous_solution": "Perimeter-based Cisco + Check Point",
-    "nexum_solution": "Zero Trust with device verification",
+    "solution": "Zero Trust with device verification",
     "results": "Implemented ZT policy for 10,000 users in 6 months vs estimated 18 months",
     "roi": "2 years saved, $3M in consulting"
   },
@@ -627,7 +627,7 @@ const CASE_STUDIES = [
     "vertical": "Retail",
     "challenge": "PCI-DSS compliance across distributed network",
     "previous_solution": "Manual compliance checks",
-    "nexum_solution": "Automated compliance with continuous monitoring",
+    "solution": "Automated compliance with continuous monitoring",
     "results": "From manual to real-time compliance. 0 findings on audit",
     "roi": "$2M operational efficiency"
   },
@@ -637,7 +637,7 @@ const CASE_STUDIES = [
     "vertical": "Education",
     "challenge": "Ransomware attacks targeting student data",
     "previous_solution": "Basic antivirus + basic firewall",
-    "nexum_solution": "EDR + threat intel + DDI",
+    "solution": "EDR + threat intel + DDI",
     "results": "6 ransomware attacks detected in 30 mins, all blocked pre-execution",
     "roi": "$50M+ student data protected"
   },
@@ -647,7 +647,7 @@ const CASE_STUDIES = [
     "vertical": "Finance",
     "challenge": "Insider threat detection, compliance requirements",
     "previous_solution": "SIEM + basic endpoint monitoring",
-    "nexum_solution": "XDR with behavioral analytics + user risk scoring",
+    "solution": "XDR with behavioral analytics + user risk scoring",
     "results": "Detected 12 insider threats before data exfiltration",
     "roi": "Prevented $200M in potential fraud/data loss"
   },
@@ -657,7 +657,7 @@ const CASE_STUDIES = [
     "vertical": "Healthcare",
     "challenge": "Multi-region SASE deployment, compliance complexity",
     "previous_solution": "Multiple regional firewalls + VPNs",
-    "nexum_solution": "Global SASE + unified compliance",
+    "solution": "Global SASE + unified compliance",
     "results": "Deployed 3 regions in 8 weeks vs 6 months estimated. Compliance simplified",
     "roi": "4 months accelerated time-to-market"
   },
@@ -667,7 +667,7 @@ const CASE_STUDIES = [
     "vertical": "Finance",
     "challenge": "Threat detection must be < 5 minutes for regulatory requirements",
     "previous_solution": "Palo Alto + Splunk (latency issues)",
-    "nexum_solution": "Real-time EDR + streaming SIEM",
+    "solution": "Real-time EDR + streaming SIEM",
     "results": "Average detection time: 2 minutes (vs 47-minute avg previously)",
     "roi": "Maintained trading license, avoided $50M+ regulatory fines"
   }
@@ -724,21 +724,27 @@ export async function handleSalesPortal(pathname, request, env, ctx) {
         }
 
         const vertical = (params.vertical || '').toLowerCase();
-        const issue = (params.issue || '').toLowerCase();
+        // Support both single 'issue' string and plural 'issues' array
+        const issue = params.issue ? (params.issue || '').toLowerCase() : null;
+        const issues = Array.isArray(params.issues) ? params.issues.map(i => (i || '').toLowerCase()) : (issue ? [issue] : []);
 
         // Score vendors by matching vertical and keywords in features
         const scored = VENDORS.map(v => {
           let score = 0;
           if (v.strength_verticals && v.strength_verticals.map(s => s.toLowerCase()).includes(vertical)) score += 2;
           const features = (v.features || []).join(' ').toLowerCase();
-          if (issue && features.includes(issue)) score += 1;
+          // Award points for matching any issue keywords
+          if (issues.length > 0) {
+            issues.forEach(it => { if (it && features.includes(it)) score += 1; });
+          }
           return { vendor: v, score };
         }).filter(s => s.score > 0)
           .sort((a, b) => b.score - a.score)
           .slice(0, 5)
           .map(s => ({ id: s.vendor.id, name: s.vendor.name, score: s.score, category: s.vendor.category, vendor: { id: s.vendor.id, name: s.vendor.name } }));
 
-        return jsonResponse({ recommendations: scored });
+        // Provide both plural and singular keys for compatibility with tests/clients
+        return jsonResponse({ recommendations: scored, recommendation: scored.length ? scored[0] : null });
       } catch (err) {
         return jsonResponse({ error: 'Recommendation failed', details: err.message }, 500);
       }
@@ -758,7 +764,7 @@ function renderSalesPortalUI() {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nexum Ultimate Sales Portal</title>
+  <title>Sellersco Ultimate Sales Portal</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -959,7 +965,7 @@ function renderSalesPortalUI() {
 </head>
 <body>
   <div class="header">
-    <h1>⚡ Nexum Ultimate Sales Portal</h1>
+    <h1>⚡ Ultimate Sales Portal</h1>
     <p id="portalSummary">Loading portal stats...</p>
   </div>
   
@@ -978,11 +984,11 @@ function renderSalesPortalUI() {
       <div class="card">
         <h2>📈 Sales Portal Overview</h2>
         <p style="margin-top: 15px; color: #999;">
-          Welcome to the Nexum Ultimate Sales Portal. Use the tabs above to:
+          Welcome to the Ultimate Sales Portal. Use the tabs above to:
         </p>
         <ul style="margin-left: 20px; margin-top: 10px; color: #999;">
           <li>Match customer problems to solutions</li>
-          <li>Browse <span id="overviewVendorsCount">0</span> Nexum partner vendors</li>
+          <li>Browse <span id="overviewVendorsCount">0</span> partner vendors</li>
           <li>View pre-written objection scripts</li>
           <li>Calculate ROI and business impact</li>
           <li>Access case studies and competitive positioning</li>
@@ -1036,7 +1042,7 @@ function renderSalesPortalUI() {
     <!-- Vendors Tab -->
     <div id="vendors" class="tab-content">
       <div class="card">
-        <h2>🏢 <span id="vendorsHeadingCount">0</span> Nexum Partner Vendors</h2>
+        <h2>🏢 <span id="vendorsHeadingCount">0</span> Partner Vendors</h2>
         <input type="text" id="vendorSearch" placeholder="Search vendors..." style="margin-bottom: 15px;"
                onkeyup="filterVendors()">
         <div id="vendorList" class="grid"></div>
@@ -1202,13 +1208,13 @@ function renderSalesPortalUI() {
       // Assumptions
       const detectionSpeedup = 0.6; // 60% faster detection
       const breachReduction = 0.3; // 30% fewer breaches
-      const nexumCost = budget * 0.8; // 20% cheaper
+      const companyCost = budget * 0.8; // 20% cheaper
       
       const currentRisk = incidents * incidentCost;
       const mitigatedRisk = currentRisk * breachReduction;
-      const savings = mitigatedRisk + (budget - nexumCost);
-      const roi = (savings / nexumCost) * 100;
-      const paybackDays = (nexumCost / (savings / 365));
+      const savings = mitigatedRisk + (budget - companyCost);
+      const roi = (savings / companyCost) * 100;
+      const paybackDays = (companyCost / (savings / 365));
       
       document.getElementById('roiResults').innerHTML = \`
         <div class="roi-result">

@@ -94,6 +94,12 @@ Contains Continue-specific settings:
 4. Use `@` to reference files/folders
 5. Use `/` for slash commands
 
+### Prefer Local Models (Agent Policy)
+- Run `.	estscripts\detect-llms.ps1` (or `.\scripts\detect-llms.ps1`) to probe for local LLMs (Ollama, LM Studio, Foundry, Docker). The detection script writes `scripts/detected-llms.json`.
+- Run `npm run prefer-local-llms` to reorder `.continue/config.json` so local models are preferred by the toolchain and AI agents.
+- AI agents should always prefer local inference/providers when available and meet task requirements; use cloud-hosted models only as a fallback or when explicitly requested.
+- For CI or headless automation, keep `preferLocal` disabled (CI will run a collector and basic verification but cannot access local LLMs by default).
+
 ### Custom Commands
 Pre-configured commands available:
 - `/test` - Generate comprehensive tests
@@ -300,4 +306,4 @@ curl http://localhost:11434/api/tags
 ---
 
 **Last Updated:** December 14, 2025  
-**Maintainer:** James Sellers (jsellers@example.com)
+**Maintainer:** James Sellers (packetcatcha@gmail.com)

@@ -19,6 +19,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Start OTLP Collector (local)
+        run: |
+          docker run -d --name otel-collector -p 4318:4318 -v ${{ github.workspace }}/.github/otlp-collector-config.yaml:/etc/otel/config.yaml otel/opentelemetry-collector-contrib:0.78.0 --config /etc/otel/config.yaml
+
+      - name: Wait for collector
+        run: |
+          n=0
+          until curl -sS http://localhost:4318/ ; do n=$((n+1)); if [ $n -ge 15 ]; then echo "Collector failed to start"; docker logs otel-collector; exit 1; fi; sleep 1; done
+
       - name: Verify tracing (emit test span)
         env:
           NODE_ENV: test
@@ -27,5 +36,15 @@ jobs:
           # Run the tracing verification script which starts the SDK and emits a test span
           node ./scripts/verify-tracing.js
 
+      - name: Collect collector logs (for debug)
+        if: failure()
+        run: docker logs otel-collector || true
+
       - name: Run tests
         run: npm test
+
+      - name: Stop OTLP Collector
+        if: always()
+        run: |
+          docker logs otel-collector | sed -n '1,200p' || true
+          docker stop otel-collector || true

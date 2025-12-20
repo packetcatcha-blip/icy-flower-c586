@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>OWASP Range — Nexum Labs</title>
+  <title>OWASP Range — Sellersco Lab</title>
   <style>
     :root{--bg:#0b1020;--card:#0f1724;--muted:#94a3b8;--accent:#7c3aed}
     html,body{height:100%;margin:0;background:linear-gradient(180deg,#05060a, #071025);color:#e6eef8;font-family:Inter,system-ui,Segoe UI,Arial}
@@ -27,7 +27,7 @@
 <body>
   <div class="container">
     <h1>OWASP Range — Top Risks 2025</h1>
-    <div class="lead">Interactive overview of the OWASP Top Risks with examples, fixes, and partner recommendations. Choose your customer stack to get tailored Nexum partner suggestions.</div>
+    <div class="lead">Interactive overview of the OWASP Top Risks with examples, fixes, and partner recommendations. Choose your customer stack to get tailored partner suggestions.</div>
 
     <div class="card controls">
       <label class="muted">Customer stack:</label>
@@ -46,7 +46,7 @@
     <div id="accordion" class="card accordion"></div>
 
     <div class="card">
-      <h3>Recommended Nexum Partners</h3>
+      <h3>Recommended Partners</h3>
       <div id="recommendations" class="partners"></div>
       <div class="muted">These recommendations are generated from a local mapping placeholder. Replace with your AI recommender for production.</div>
     </div>
@@ -62,7 +62,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OWASP Top 10 2025 Range - Nexum Security Labs</title>
+  <title>OWASP Top 10 2025 Range - Sellersco Lab</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <style>
     * {
@@ -551,8 +551,8 @@
     <!-- Hero Section -->
     <div class="hero">
       <h1>OWASP Top 10 2025</h1>
-      <p>Interactive security risk assessment lab with Nexum partner recommendations</p>
-      <div class="hero-subtitle">💡 Select your tech stack → Get AI-powered Nexum solutions</div>
+      <p>Interactive security risk assessment lab with partner recommendations</p>
+      <div class="hero-subtitle">💡 Select your tech stack → Get AI-powered partner recommendations</div>
     </div>
 
     <!-- Stats -->
@@ -626,7 +626,7 @@
     <!-- Recommendations -->
     <div id="recommendationsPanel" style="display: none;">
       <div class="recommendations">
-        <h3>🎯 Recommended Nexum Partners for Your Stack</h3>
+        <h3>🎯 Recommended Partners for Your Stack</h3>
         <div id="recommendationsContent"></div>
       </div>
     </div>
@@ -634,8 +634,8 @@
 
   <!-- Footer -->
   <footer>
-    <p>🔒 OWASP Top 10 2025 Range | Nexum Security Labs | <a href="https://owasp.org" target="_blank">OWASP.org</a></p>
-    <p style="font-size: 0.9rem; margin-top: 0.5rem; color: #606060;">Real-time threat intelligence powered by Nexum MSS</p>
+    <p>🔒 OWASP Top 10 2025 Range | Sellersco Lab | <a href="https://owasp.org" target="_blank">OWASP.org</a></p>
+    <p style="font-size: 0.9rem; margin-top: 0.5rem; color: #606060;">Real-time threat intelligence powered by Sellersco threat feeds</p>
   </footer>
 
   <script>
@@ -1285,8 +1285,8 @@ def is_valid_url(user_url):
       }
     ];
 
-    // Nexum Partner Solutions Database (92+ partners mapped)
-    const nexumPartners = {
+    // Partner Solutions Database (92+ partners mapped)
+    const partnersData = {
       a01: [
         {rank: 1, name: "Palo Alto Networks - Prisma Access", description: "Zero Trust Network Access with identity-aware segmentation and conditional access policies", features: ["Identity verification", "Micro-segmentation", "Conditional policies"], efficacy: "Prevents unauthorized escalation and IDOR attacks by enforcing identity context"},
         {rank: 2, name: "Zscaler - Zero Trust Exchange", description: "Cloud-native zero trust security platform for access control and threat prevention", features: ["Cloud-native architecture", "Role-based access", "Real-time threat detection"], efficacy: "Blocks lateral movement and unauthorized access attempts"},
@@ -1303,12 +1303,12 @@ def is_valid_url(user_url):
         {rank: 3, name: "Fortinet - FortiSource", description: "Supply chain security intelligence and vulnerability management", features: ["Source verification", "Risk scoring", "Threat intelligence"], efficacy: "Identifies compromised packages before deployment"}
       ],
       a04: [
-        {rank: 1, name: "Nexum - SQL Injection Prevention (MSS)", description: "24/7 managed SQL injection detection and blocking via WAF integration", features: ["Real-time WAF", "Injection blocking", "24/7 SOC"], efficacy: "Blocks 99.9% of SQL injection attempts at network layer"},
+        {rank: 1, name: "SQL Injection Prevention (MSS)", description: "24/7 managed SQL injection detection and blocking via WAF integration", features: ["Real-time WAF", "Injection blocking", "24/7 SOC"], efficacy: "Blocks 99.9% of SQL injection attempts at network layer"},
         {rank: 2, name: "Palo Alto Networks - Advanced Threat Prevention", description: "Application-layer attack prevention including injection attacks", features: ["Signature-based blocking", "Behavioral detection", "Threat correlation"], efficacy: "Prevents injection attacks via application inspection"},
         {rank: 3, name: "F5 - Web Application Firewall (WAF)", description: "Enterprise WAF preventing OWASP Top 10 attacks including injection", features: ["OWASP protection", "Custom rules", "Real-time updates"], efficacy: "Blocks injection attacks with ML-based detection"}
       ],
       a05: [
-        {rank: 1, name: "Nexum - Vulnerability Assessment & Penetration Testing", description: "Regular security assessments identifying misconfigurations and hardening gaps", features: ["Continuous scanning", "Config audit", "Remediation guidance"], efficacy: "Discovers and fixes configuration issues proactively"},
+        {rank: 1, name: "Vulnerability Assessment & Penetration Testing", description: "Regular security assessments identifying misconfigurations and hardening gaps", features: ["Continuous scanning", "Config audit", "Remediation guidance"], efficacy: "Discovers and fixes configuration issues proactively"},
         {rank: 2, name: "Check Point - SmartConsole", description: "Centralized management platform ensuring consistent security configurations", features: ["Policy management", "Compliance enforcement", "Audit logging"], efficacy: "Enforces hardened security policies across infrastructure"},
         {rank: 3, name: "Fortinet - FortiManager", description: "Network security management preventing misconfiguration across domains", features: ["Centralized mgmt", "Config backup", "Change tracking"], efficacy: "Prevents and recovers from security misconfigurations"}
       ],
@@ -1328,7 +1328,7 @@ def is_valid_url(user_url):
         {rank: 3, name: "CrowdStrike - Falcon Code Security", description: "Application security with SAST/DAST and supply chain protection", features: ["Code analysis", "Dependency check", "CI/CD integration"], efficacy: "Catches integrity issues during development"}
       ],
       a09: [
-        {rank: 1, name: "Nexum - Security Operations Center (MSS)", description: "24/7 managed security monitoring with SIEM and threat detection", features: ["Log monitoring", "Alert response", "Incident investigation"], efficacy: "24/7 monitoring catches attacks in real-time"},
+        {rank: 1, name: "Security Operations Center (MSS)", description: "24/7 managed security monitoring with SIEM and threat detection", features: ["Log monitoring", "Alert response", "Incident investigation"], efficacy: "24/7 monitoring catches attacks in real-time"},
         {rank: 2, name: "CrowdStrike - Falcon LogScale", description: "Cloud-native SIEM for log analysis, threat detection and investigation", features: ["Log aggregation", "Threat hunting", "Compliance reports"], efficacy: "Detects attacks through comprehensive log analysis"},
         {rank: 3, name: "Splunk - Enterprise Security", description: "SIEM platform for security monitoring, detection and response", features: ["Log correlation", "Anomaly detection", "Automation"], efficacy: "Identifies security incidents through advanced analytics"}
       ],
@@ -1490,8 +1490,8 @@ def is_valid_url(user_url):
         
         // Collect relevant recommendations based on selected risks
         owaspRisks.forEach(risk => {
-          if (nexumPartners[risk.code.toLowerCase()]) {
-            recommendations.push(...nexumPartners[risk.code.toLowerCase()]);
+          if (partnersData[risk.code.toLowerCase()]) {
+            recommendations.push(...partnersData[risk.code.toLowerCase()]);
           }
         });
 
@@ -1523,7 +1523,7 @@ def is_valid_url(user_url):
             `).join('')}
           </div>
           <div style="text-align: center; margin-top: 1.5rem;">
-            <button class="btn btn-secondary" onclick="requestConsultation()">📞 Schedule Nexum Consultation</button>
+            <button class="btn btn-secondary" onclick="requestConsultation()">📞 Schedule Consultation</button>
           </div>
         `;
       }, 1500);
@@ -1531,7 +1531,7 @@ def is_valid_url(user_url):
 
     // Request consultation
     function requestConsultation() {
-      alert('✅ Consultation request submitted! Nexum team will contact you within 24 hours.');
+      alert('✅ Consultation request submitted! Sellersco team will contact you within 24 hours.');
       document.getElementById('recommendationsPanel').style.display = 'none';
     }
 

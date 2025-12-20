@@ -262,7 +262,7 @@
     "category": "auth",
     "expected_status": 200,
     "body": {
-      "email": "test@nexuminc.com",
+      "email": "test@example.com",
       "name": "Test User",
       "password": "TestPassword123!"
     },
@@ -276,7 +276,7 @@
     "category": "auth",
     "expected_status": 200,
     "body": {
-      "email": "test@nexuminc.com",
+      "email": "test@example.com",
       "password": "TestPassword123!"
     },
     "expected_content": ["token", "success"]

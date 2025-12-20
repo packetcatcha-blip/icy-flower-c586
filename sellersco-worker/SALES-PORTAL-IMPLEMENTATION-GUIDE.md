@@ -1,5 +1,5 @@
 # 💼 Sales Portal Module - Implementation Guide
-## Nexum Ultimate Sales Portal (102 Partners)
+## Sellersco Ultimate Sales Portal (102 Partners)
 
 **Status**: Ready for implementation
 **Route**: `/sales-portal` (protected) + sub-routes
@@ -14,7 +14,7 @@
 ```
 AS a sales rep
 I WANT to log in with email/password + MFA
-SO THAT I can access protected Nexum portal with my company credentials
+SO THAT I can access protected Sellersco portal with my company credentials
 ```
 
 **Implementation**:
@@ -32,7 +32,7 @@ SO THAT I can access protected Nexum portal with my company credentials
 AS a sales rep in healthcare
 I WANT to see Gartner 2025 Magic Quadrant for my vertical
 WITH benchmark data vs competitors
-SO THAT I can position Nexum solutions correctly
+SO THAT I can position Sellersco solutions correctly
 ```
 
 **Implementation**:
@@ -56,7 +56,7 @@ SO THAT I get the top 3 alternatives with why-to-switch scripts
 
 **Flow**:
 ```
-1. Dropdown: Select customer's current product (102 Nexum partners)
+1. Dropdown: Select customer's current product (102 Sellersco partners)
    "What security solution does customer have?"
    Options: Palo Alto, Fortinet, Check Point, etc.
 
@@ -105,7 +105,7 @@ const SOLUTION_MATCH = {
 ### **Story 4: Feature Overlap Matrix**
 ```
 AS a sales manager
-I WANT to see which Nexum solutions overlap in capabilities
+I WANT to see which company solutions overlap in capabilities
 SO THAT I can avoid feature duplication in RFPs
 ```
 
@@ -146,7 +146,7 @@ SO THAT I can counter customer concerns in real-time calls
 - **Output**: Modal with:
   - Acknowledge customer concern
   - Reframe the problem
-  - Nexum solution advantage
+  - Company solution advantage
   - Questions to ask customer
   - Case study example
   - Next steps
@@ -159,7 +159,7 @@ ACKNOWLEDGE: "Palo Alto is a strong foundational tool. Many of our customers sta
 
 REFRAME: "The question isn't replace—it's augment. Palo Alto's strength is network perimeter. Where they struggle is endpoint detection and post-breach response."
 
-ADVANTAGE: "Nexum + Palo Alto = Defense-in-depth. You keep your network investment AND get enterprise-grade EDR/XDR visibility that Palo Alto's EDR leaves gaps."
+ADVANTAGE: "Sellersco + Palo Alto = Defense-in-depth. You keep your network investment AND get enterprise-grade EDR/XDR visibility that Palo Alto's EDR leaves gaps."
 
 QUESTIONS:
 - What's your average dwell time (days to detect compromise)?
@@ -167,7 +167,7 @@ QUESTIONS:
 - How's Palo Alto's EDR handling polymorphic malware?
 
 CASE STUDY:
-"Fortune 500 financial services company: Palo Alto + Nexum EDR combo detected Conti ransomware in 2 hours (vs industry avg 228 days). Saved $40M in potential ransom + downtime."
+"Fortune 500 financial services company: Palo Alto + Company EDR combo detected Conti ransomware in 2 hours (vs industry avg 228 days). Saved $40M in potential ransom + downtime."
 
 NEXT STEPS:
 1. Send ROI calculator
@@ -180,7 +180,7 @@ NEXT STEPS:
 ### **Story 6: AI Sales Assistant**
 ```
 AS a sales rep (user)
-I WANT to chat with an AI assistant about Nexum's positioning
+I WANT to chat with an AI assistant about Sellersco's positioning
 SO THAT I get instant answers without hunting through docs
 ```
 
@@ -189,21 +189,21 @@ SO THAT I get instant answers without hunting through docs
 - **Context**: Pre-load vendor database + objections + verticals
 - **Queries**:
   - "What's the best alternative to Fortinet for healthcare?"
-  - "How do we position Nexum EDR against Crowdstrike?"
+  - "How do we position Company EDR against Crowdstrike?"
   - "Generate an RFP response for SASE evaluation"
   - "What's our win rate vs Palo Alto in financial services?"
-  - "Show me the ROI calculation for replacing Check Point with Nexum"
+  - "Show me the ROI calculation for replacing Check Point with Company"
   
 - **Implementation**: Use Workers AI (Llama 2) with custom system prompt:
   ```
-  You are a Nexum sales assistant. You have deep knowledge of:
-  - 102 Nexum partner solutions (Palo Alto, Crowdstrike, F5, Infoblox, Zscaler, etc.)
+  You are a Sellersco sales assistant. You have deep knowledge of:
+  - 102 Sellersco partner solutions (Palo Alto, Crowdstrike, F5, Infoblox, Zscaler, etc.)
   - Customer verticals (Healthcare, Finance, Manufacturing, Government, Retail, Education)
   - 50 common objections and their rebuttals
   - Gartner positioning for SASE, EDR, NDR, SIEM, Cloud Security
   
   Your job is to:
-  1. Help sales reps position Nexum solutions
+  1. Help sales reps position company solutions
   2. Provide objection-handling scripts
   3. Generate ROI/TCO calculations
   4. Create competitive positioning documents
@@ -217,7 +217,7 @@ SO THAT I get instant answers without hunting through docs
 ### **Story 7: ROI/TCO Calculator**
 ```
 AS a customer (or sales engineer)
-I WANT to calculate ROI/TCO for Nexum solutions
+I WANT to calculate ROI/TCO for company solutions
 SO THAT I can justify the purchase to finance/CFO
 ```
 
@@ -237,7 +237,7 @@ SO THAT I can justify the purchase to finance/CFO
     - Fewer false positives = Y FTE hours saved
     - Automation = Z hours/week saved
   - **Total cost of ownership**:
-    - Nexum solution cost
+    - Company solution cost
     - Implementation (consulting)
     - Year 1 total
   - **ROI**: (Savings - Cost) / Cost × 100
@@ -257,7 +257,7 @@ Current State:
 - Security incidents/year: 12
 - Average incident cost: $500K
 
-With Nexum Solution:
+With Company Solution:
 - Faster detection (-60% dwell time)
 - 30% fewer successful breaches (9/year → 6/year)
 - Reduced MTTR (mean time to respond)
@@ -268,7 +268,7 @@ SAVINGS:
 - Total Year 1 Savings: $1.8M
 
 COSTS:
-- Nexum solution: $500K/year
+- Company solution: $500K/year
 - Implementation: $200K (one-time)
 - Training: $50K
 - Total Year 1 Cost: $750K
@@ -298,9 +298,9 @@ SO THAT sales reps can demo during calls without switching apps
   - Zscaler Zero Trust Exchange demo
   
 - **Battlecards**: PDF downloads (embedded in modal) for:
-  - "Nexum vs Palo Alto" comparison
-  - "Nexum vs Fortinet" positioning
-  - "Nexum vs Check Point" win arguments
+  - "Company vs Palo Alto" comparison
+  - "Company vs Fortinet" positioning
+  - "Company vs Check Point" win arguments
   - etc.
 
 ---
@@ -347,7 +347,7 @@ const VENDORS = [
     strength_verticals: ['finance', 'government', 'healthcare'],
     gartner_position: { category: 'SIEM', position: 'leader', score: 0.92 },
     typical_cost: '$500K-$2M/year',
-    win_rate_vs_nexum: 0.35,
+    win_rate_vs_company: 0.35,
     case_studies: [
       { title: '..', vertical: 'finance', outcome: '...' },
     ],
@@ -369,7 +369,7 @@ const VERTICALS = [
     top_threats: ['ransomware', 'data-exfil', 'insider-threats'],
     gartner_leaders: ['Crowdstrike', 'Palo Alto', 'Zscaler'],
     avg_budget_per_1000_employees: '$150K',
-    top_vendors_in_vertical: ['Crowdstrike', 'Fortinet', 'Nexum'],
+    top_vendors_in_vertical: ['Crowdstrike', 'Fortinet', 'Sellersco'],
   },
   // Healthcare, Finance, Manufacturing, Government, Retail, Education
 ]
@@ -386,7 +386,7 @@ const OBJECTIONS = [
     severity: 'CRITICAL',
     affected_verticals: ['healthcare', 'finance', 'manufacturing'],
     solution_script: 'Our EDR detects...',
-    nexum_advantage: 'Real-time behavioral analysis + heuristic detection',
+    sellersco_advantage: 'Real-time behavioral analysis + heuristic detection',
     case_study_link: '/case-study/ransomware-defense',
     avg_resolution_time: '2 calls',
     win_rate: 0.78,
@@ -429,7 +429,7 @@ const OBJECTIONS = [
 
 ┌─ CHAT WIDGET (bottom-right) ────────────────────────────┐
 │ 💬 "What's the best SASE for healthcare?"              │
-│    [Nexum AI Assistant is typing...]                  │
+│    [Company AI Assistant is typing...]                  │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -506,11 +506,11 @@ const verifyAuth = async (request, env) => {
 ## 📞 Prompt for GitHub Copilot
 
 ```
-Create a Nexum Ultimate Sales Portal module for a Cloudflare Worker.
+Create an Ultimate Sales Portal module for a Cloudflare Worker.
 
 FEATURES:
 1. Email/password + TOTP MFA login (use Speakeasy, store users in KV)
-2. Dark cyber theme dashboard with Nexum branding
+2. Dark cyber theme dashboard with Company branding
 3. Vertical selector (Healthcare, Finance, Manufacturing, Government, Retail, Education) with Gartner 2025 Magic Quadrant charts
 4. Problem→Solution matcher: Select current vendor + pain point → get top 3 alternatives with why-to-switch scripts
 5. Feature overlap matrix: Interactive table showing which vendors have which capabilities
@@ -521,7 +521,7 @@ FEATURES:
 10. Demo dashboard: Embed 5 product demo iframes + downloadable battlecards
 
 DATA:
-- 102 Nexum partner vendors (Palo Alto, Crowdstrike, F5, Infoblox, Zscaler, etc.) with features/pricing
+- 102 partner vendors (Palo Alto, Crowdstrike, F5, Infoblox, Zscaler, etc.) with features/pricing
 - 50 common objections with handling scripts
 - Gartner 2025 data for SASE, EDR, SIEM, NDR, Cloud Security categories
 - Real case studies from 10+ customers
@@ -538,7 +538,7 @@ Export: async function handleSalesPortal(pathname, request, env, ctx)
 ## 🎓 Links for Reference
 
 - [Gartner 2025 Security Quadrants](https://www.gartner.com/)
-- [Nexum Partner Directory](https://nexuminc.com/partners) (scrape for vendor list)
+- [Sellersco Partner Directory](https://sellersco.net/partners) (scrape for vendor list)
 - [MITRE ATT&CK Framework](https://attack.mitre.org/)
 - [Palo Alto Networks](https://www.paloaltonetworks.com/)
 

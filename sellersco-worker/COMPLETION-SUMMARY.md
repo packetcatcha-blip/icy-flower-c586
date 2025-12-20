@@ -85,7 +85,7 @@
 **❌ NEEDS IMPLEMENTATION (20)**
 
 **CRITICAL Priority (1)**
-- Nexum Ultimate Sales Portal (💼) - 102 vendors, objections engine, AI assistant, ROI calculator
+- Sellersco Ultimate Sales Portal (💼) - 102 vendors, objections engine, AI assistant, ROI calculator
 
 **HIGH Priority (4)**
 - OWASP Top 10:2025 Labs (🛡️) - A01-A10 interactive
@@ -144,7 +144,7 @@ src/
 **Grok Conversation Contents Extracted:**
 - ✅ OWASP Top 10:2025 (A01-A10 with code examples)
 - ✅ NIST CSF 2.0 (6 Functions framework)
-- ✅ Nexum 102 partner vendors list
+- ✅ Sellersco 102 partner vendors list
 - ✅ 50 common customer objections/issues
 - ✅ Attack Patterns 5-phase framework (Recon, Initial Access, Exploitation, Infiltration, Exfiltration)
 - ✅ AI scenario generation prompts

@@ -39,7 +39,7 @@
 ---
 
 ### 2. 🤖 **AI Solution Recommender** (`/recommender`)
-**Vertical-Specific Nexum Solution Matching**
+**Vertical-Specific Solution Matching**
 
 **Features:**
 - **Input Form:**
@@ -63,7 +63,7 @@
   - Action buttons: Request Demo, Case Study, Consult
 
 - **Solutions Library (8 options):**
-  1. **Nexum MSS** - 24/7 SOC, threat monitoring, incident response
+  1. **Company MSS** - 24/7 SOC, threat monitoring, incident response
   2. **Zero Trust Architecture** - Microsegmentation, identity verification
   3. **Cloud Security Posture** - CSPM, misconfig detection
   4. **Ransomware Defense** - Air-gapped backup, recovery automation
@@ -87,7 +87,7 @@
 **Changes:**
 - Register modal now says "Register - Open Access"
 - Message: "📧 Any email welcome. Approval typically within 24 hours."
-- Email validation: Any email accepted (no @nexuminc.com restriction)
+- Email validation: Any email accepted (no domain restriction)
 - Auto-login after registration
 - Status: **APPROVED = true** for all new signups
 - Access to all protected labs immediately upon registration
@@ -142,7 +142,7 @@
 - Regulations page already deployed from Phase 1 (11 frameworks)
 - Admin panel infrastructure ready for:
   - Edit 2025 compliance deadlines
-  - Update Nexum partner mappings
+  - Update partner mappings
   - Add new regulations
   - Modify market share charts
   - Update compliance gaps
@@ -251,7 +251,7 @@ Fusion Dash
 
 ### All Pages:
 - Pure HTML/CSS/JavaScript (no external dependencies except CDNs)
-- Dark cyber theme (Nexum blue #003366, purple #A300FF)
+- Dark cyber theme (Company blue #003366, purple #A300FF)
 - Fully responsive (tested 480px, 768px, 1024px+)
 - Mobile-touch optimized
 - No build process required
@@ -354,7 +354,7 @@ Fusion Dash
 
 - **Primary Domain:** https://sellersco.net
 - **Worker URL:** https://icy-flower-c586.jsellers.workers.dev
-- **Contact:** James Sellers (jsellers@nexuminc.com)
+- **Contact:** James Sellers (packetcatcha@gmail.com)
 - **Deployment:** Cloudflare Workers + R2 Storage
 
 ---

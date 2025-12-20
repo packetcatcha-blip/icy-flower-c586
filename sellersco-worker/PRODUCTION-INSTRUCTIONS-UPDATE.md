@@ -130,13 +130,13 @@ Serves public/index.html + dynamic routes
 - **Deployed:** December 15, 2025
 - **Status:** ✅ Active
 - **Changes:** 
-  - Footer links added (Buy Me a Coffee + Nexum MSS)
+  - Footer links added (Buy Me a Coffee + Company MSS)
   - All links verified on sellersco.net
   - Instruction files updated
 
 ### Test Results ✅
 - **Production Routes:** 18+ working
-- **Protected Routes:** Operational (requires @nexuminc.com)
+- **Protected Routes:** Operational (requires @example.com)
 - **API Endpoints:** Operational
 - **Static Assets:** Serving correctly
 
@@ -232,7 +232,7 @@ Worker URL: https://icy-flower-c586.jsellers.workers.dev
 ```
 
 ### Recent Updates (Dec 15, 2025)
-- ✅ Footer links added (Buy Me a Coffee + Nexum MSS)
+- ✅ Footer links added (Buy Me a Coffee + Company MSS)
 - ✅ Links verified on production (sellersco.net)
 - ✅ Instruction files created/updated
 - ✅ DNS configuration documented

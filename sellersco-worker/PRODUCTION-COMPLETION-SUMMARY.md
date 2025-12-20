@@ -18,7 +18,7 @@
 
 - [x] **Footer Links Deployed & Verified**
   - Buy Me a Coffee: https://buymeacoffee.com/sellersco (Gold hover)
-  - Nexum MSS: https://www.nexuminc.com/services/managed-security-services/ (Cyan hover)
+  - Company MSS: https://example.com/services/managed-security-services/ (Cyan hover)
   - Both links verified live on sellersco.net ✅
 
 - [x] **Production Deployment Successful**
@@ -122,7 +122,7 @@ Queues:                 ⚠️ Not available on free plan
 - CDN cached at edge
 
 ### Protected Routes
-- Require `@nexuminc.com` email
+- Require `@example.com` email
 - Token-based authentication
 - Session expires: 24 hours
 - Example protected routes:
@@ -237,9 +237,9 @@ Status: ✅ WORKING
 $ curl -s https://sellersco.net | grep buymeacoffee
 # ✅ FOUND: https://buymeacoffee.com/sellersco
 
-# Nexum MSS link found
+# Company MSS link found
 $ curl -s https://sellersco.net | grep "managed-security-services"
-# ✅ FOUND: https://www.nexuminc.com/services/managed-security-services/
+# ✅ FOUND: https://example.com/services/managed-security-services/
 ```
 
 ### Both URLs Identical ✅
@@ -286,14 +286,14 @@ c:\demo\nuke-demo\icy-flower-c586\sellersco-worker\
 ```
 **Status:** ✅ Live on sellersco.net
 
-### Nexum MSS Link 🛡️
+### Company MSS Link 🛡️
 ```html
-<a href="https://www.nexuminc.com/services/managed-security-services/" target="_blank" rel="noopener"
+<a href="https://example.com/services/managed-security-services/" target="_blank" rel="noopener"
    style="display:flex;align-items:center;gap:6px;color:var(--text);text-decoration:none;transition:all 0.3s ease;" 
    onmouseover="this.style.color='#00FFFF'" 
    onmouseout="this.style.color='var(--text)'">
   <svg>...</svg>
-  <span style="font-weight:600;">Nexum MSS</span>
+  <span style="font-weight:600;">Company MSS</span>
 </a>
 ```
 **Status:** ✅ Live on sellersco.net
@@ -375,7 +375,7 @@ All documentation is production-ready and comprehensive.
 **PRODUCTION IS LIVE AND DOCUMENTED**
 
 ✅ **Production DNS:** sellersco.net → icy-flower-c586.jsellers.workers.dev  
-✅ **Footer Links:** Buy Me a Coffee + Nexum MSS visible on sellersco.net  
+✅ **Footer Links:** Buy Me a Coffee + Company MSS visible on sellersco.net  
 ✅ **Documentation:** Complete instruction files for team members  
 ✅ **Procedures:** All deployment/testing procedures documented  
 ✅ **Verification:** All links and configuration verified working  

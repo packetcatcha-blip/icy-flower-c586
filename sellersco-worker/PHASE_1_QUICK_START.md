@@ -19,21 +19,21 @@
 - 11 compliance frameworks
 - Compliance scores + 2025 deadlines
 - Q1-Q4 deadline tracking
-- Nexum MSS partnership CTAs
+- Company MSS partnership CTAs
 - **Covers:** HIPAA, PCI, NIST, GDPR, CMMC, NIS2, DORA, SEC, ISO, CCPA, SOC2
 
 ### 3. 🏢 **Verticals Intelligence** `/verticals`
 - 8 industry markets ($13.3T TAM)
 - Market leaders + threat levels
 - Compliance requirements per vertical
-- Nexum MSS partners documented
+- Company MSS partners documented
 - **Covers:** Banking, Healthcare, Gov, Telecom, Retail, Mfg, Energy, Media
 
 ### 4. ☁️ **F5 Distributed Cloud** `/f5-cloud`
 - 6 platform capabilities
 - 3 strategic acquisitions (CalypsoAI, MantisNet, Fletch)
 - 6 ADSP partner integrations
-- Nexum implementation services
+- Company implementation services
 - **Partners:** CrowdStrike, Splunk, Fortinet, Palo Alto, Microsoft, Elastic
 
 ### 5. 🔴 **CrowdStrike Falcon** `/crowdstrike`
@@ -63,7 +63,7 @@ All pages added to **Protected Navigation** (visible after login):
 ```
 
 ### Authentication
-- **Requirement:** @nexuminc.com email (current setup)
+- **Requirement:** @example.com email (current setup)
 - **Phase 2:** Open signup with approval workflow
 
 ---
@@ -76,7 +76,7 @@ All pages added to **Protected Navigation** (visible after login):
 - Key requirements (5-7 each)
 - 2025 deadline tracking (URGENT deadlines flagged)
 - Interactive modal deep-dives
-- Nexum consultation CTA
+- Company consultation CTA
 
 **Urgent 2025 Deadlines:**
 - 🔴 PCI DSS 4.0: March 31, 2025
@@ -91,7 +91,7 @@ All pages added to **Protected Navigation** (visible after login):
 - Threat level assessment
 - Market leaders (capital/revenue)
 - Regional market share
-- 2-3 Nexum MSS partnerships
+- 2-3 Company MSS partnerships
 - Security focus areas
 - Tab-based quick switching
 
@@ -117,7 +117,7 @@ All pages added to **Protected Navigation** (visible after login):
 - 6 core capabilities (Zero Trust, Multi-Cloud LB, API Protection, Analytics, Edge, Compliance)
 - 3 recent acquisitions (2024-2025)
 - 6 ADSP partner integrations
-- Nexum DC deployment services
+- Company DC deployment services
 - Consultation CTA
 
 ### CrowdStrike Page
@@ -127,7 +127,7 @@ All pages added to **Protected Navigation** (visible after login):
 - 99.99% uptime SLA
 - F5 BIG-IP EDR embedding
 - ADSP partnership details
-- Nexum Falcon MSS services
+- Company Falcon MSS services
 - Consultation CTA
 
 ---
@@ -135,7 +135,7 @@ All pages added to **Protected Navigation** (visible after login):
 ## Technical Details
 
 ### Design System
-✅ All pages use existing Nexum design tokens:
+✅ All pages use existing Company design tokens:
 - Dark cyber theme: `#0a1628` background
 - Primary blue: `#0066cc`
 - Cyan accent: `#52b2ff`
@@ -191,39 +191,39 @@ PCI DSS 4.0:     72% ⚠️ URGENT CUTOFF
 
 ## Vertical Market Quick Reference
 
-### Market Leaders & Nexum Partners
+### Market Leaders & Partner Network
 
 **🏦 Banking ($184B)**
 - Leaders: JPMorgan, BofA, Citi, Wells Fargo
-- Nexum Partners: JPMorgan, Goldman Sachs, Morgan Stanley
+- Partners: JPMorgan, Goldman Sachs, Morgan Stanley
 
 **🏥 Healthcare ($287B)**
 - Leaders: UnitedHealth, Pfizer, Johnson & Johnson
-- Nexum Partners: Mayo Clinic, Kaiser Permanente, CVS Health
+- Partners: Mayo Clinic, Kaiser Permanente, CVS Health
 
 **🇺🇸 Government ($156B)**
 - Leaders: DoD, NSA, FBI, CISA
-- Nexum Partners: DoD, GSA, CISA (direct partnerships)
+- Partners: DoD, GSA, CISA (direct partnerships)
 
 **📡 Telecom ($2.1T)**
 - Leaders: AT&T, Verizon, Deutsche Telekom
-- Nexum Partners: AT&T, Orange, BT Group
+- Partners: AT&T, Orange, BT Group
 
 **🛒 Retail ($5.8T)**
 - Leaders: Walmart, Amazon, Alibaba
-- Nexum Partners: Walmart, Target, Costco
+- Partners: Walmart, Target, Costco
 
 **🏭 Manufacturing ($1.2T)**
 - Leaders: Siemens, GE, Bosch
-- Nexum Partners: Siemens, ABB, Schneider Electric
+- Partners: Siemens, ABB, Schneider Electric
 
 **⚡ Energy ($2.3T)**
 - Leaders: Saudi Aramco, Shell, Exxon Mobil
-- Nexum Partners: NextEra, Duke Energy, Southern Company
+- Partners: NextEra, Duke Energy, Southern Company
 
 **📺 Media ($725B)**
 - Leaders: Disney, Warner Bros, Netflix
-- Nexum Partners: Disney+, Paramount+, Max
+- Partners: Disney+, Paramount+, Max
 
 ---
 
@@ -310,7 +310,7 @@ Intelligence sharing       | 100% environment coverage
 
 ---
 
-## Nexum MSS Services
+## MSS Services
 
 ### Offered Services
 
@@ -348,11 +348,11 @@ Intelligence sharing       | 100% environment coverage
 
 ## Contact & Support
 
-### Nexum Inc Security Lab
-📧 **Email:** jsellers@nexuminc.com  
+### Company Security Lab
+📧 **Email:** packetcatcha@gmail.com  
 🔗 **LinkedIn:** linkedin.com/in/jim-sellers-5ba5606/  
 ☕ **Support:** buymeacoffee.com/sellersco  
-🌐 **MSS:** nexuminc.com/services/managed-security-services/
+🌐 **MSS:** example.com/services/managed-security-services/
 
 ### Documentation
 - **Phase 1 Complete:** PHASE_1_IMPLEMENTATION_COMPLETE.md

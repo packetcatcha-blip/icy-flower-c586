@@ -79,6 +79,7 @@
       "method": "GET",
       "category": "data_freshness",
       "expected_status": 200,
+      "min_vendor_count": 10,
       "expected_contains": ["name", "features"]
     },
     {

@@ -47,11 +47,11 @@
     - Key requirements (5-7 per framework)
     - Upcoming changes with Q-specific dates
     - Scope and deadline information
-    - Nexum MSS partnership call-to-action
+    - MSS partnership call-to-action
   - Interactive modal system for detailed exploration
   - Responsive grid layout (1-3 columns based on screen size)
 - **Styling:** Dark cyber professional with accent colors
-- **Integration:** Nexum compliance consulting link
+- **Integration:** Compliance consulting link
 
 #### 3. **🏢 Verticals Intelligence - Industry-Specific Security**
 - **URL:** `/verticals.html`
@@ -71,13 +71,13 @@
     - 3-4 critical compliance requirements with 2025 deadlines
     - Regional/segment market share breakdown
     - 3-4 market leaders with capital/revenue figures
-    - 2-3 Nexum MSS partnerships with specific services
+    - 2-3 MSS partnerships with specific services
     - Key security focus areas (3-5 per vertical)
   - Tab-based selector for quick switching
   - Smooth animations on vertical changes
   - Detailed partner integration information
 - **Styling:** Dynamic market cards with gradient accents
-- **Integration:** Nexum verticals partnership messaging
+- **Integration:** verticals partnership messaging
 
 #### 4. **☁️ F5 Distributed Cloud - Platform Deep Dive**
 - **URL:** `/f5-cloud.html`
@@ -101,10 +101,10 @@
     - 🟠 Palo Alto Networks (Cloud security)
     - 🟣 Microsoft Defender (XDR/M365)
     - 🟡 Elastic Security (Log analysis)
-  - Nexum integration services (4 capability areas)
+  - Integration services (4 capability areas)
   - Consultation CTA button
 - **Styling:** F5 blue gradient headers with feature cards
-- **Integration:** Nexum MSS for F5 DC deployment
+- **Integration:** MSS for F5 DC deployment
 
 #### 5. **🔴 CrowdStrike Falcon - EDR Platform Overview**
 - **URL:** `/crowdstrike.html`
@@ -127,9 +127,9 @@
     - 1000s of IOCs tracked daily
   - CrowdStrike + F5 BIG-IP integration (3 features)
   - ADSP partnership details
-  - Nexum MSS integration services
+  - MSS integration services
 - **Styling:** Red/accent color scheme matching CrowdStrike branding
-- **Integration:** Nexum Falcon MSS services
+- **Integration:** Falcon MSS services
 
 ---
 
@@ -164,7 +164,7 @@ All new pages added to protected navigation bar:
 
 ### Design System Consistency
 
-✅ All pages use existing Nexum design tokens:
+✅ All pages use existing Company design tokens:
 - Dark cyber theme: `--bg: #0a1628`
 - Primary blue: `--primary: #0066cc`
 - Cyan accent: `--accent: #52b2ff`
@@ -219,9 +219,9 @@ All new pages added to protected navigation bar:
 | Energy | $2.3T | CRITICAL | Saudi Aramco, Shell, Exxon |
 | Media | $725B | MEDIUM | Disney, Warner, Netflix |
 
-### Nexum Partnerships Documented
+### Partnerships Documented
 
-✅ Nexum MSS partners specified for each vertical:
+✅ MSS partners specified for each vertical:
 - Banking: JPMorgan Chase, Goldman Sachs, Morgan Stanley
 - Healthcare: Mayo Clinic, Kaiser Permanente, CVS Health
 - Government: DoD, GSA, CISA
@@ -386,7 +386,7 @@ model ThreatFeed {
 - ☁️ F5 Distributed Cloud (Platform overview, ADSP partnerships)
 - 🔴 CrowdStrike Falcon (EDR capabilities, OverWatch service)
 
-All pages are **LIVE & PRODUCTION-READY** with Nexum MSS partnership CTAs.
+All pages are **LIVE & PRODUCTION-READY** with MSS partnership CTAs.
 
 **Next Phase:** Backend APIs, database schema, threat feed integration
 
@@ -394,7 +394,7 @@ All pages are **LIVE & PRODUCTION-READY** with Nexum MSS partnership CTAs.
 
 ## Questions?
 
-Contact: **jsellers@nexuminc.com**
+Contact: **packetcatcha@gmail.com**
 
 ---
 

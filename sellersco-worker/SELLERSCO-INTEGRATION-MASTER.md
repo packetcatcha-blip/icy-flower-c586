@@ -42,7 +42,7 @@
 
 ## ⚠️ FEATURES FROM GROK CONVERSATION - NEEDS IMPLEMENTATION
 
-### 1. **Nexum Ultimate Sales Portal** 💼
+### 1. **Sellersco Ultimate Sales Portal** 💼
 - **Route**: `/sales-portal` (currently protected but empty)
 - **Priority**: **CRITICAL** - Most revenue-impacting
 - **What's Needed**:
@@ -51,7 +51,7 @@
   - ✅ Verticals page (Healthcare, Finance, Manufacturing, Government, Retail, Education)
   - ✅ Gartner 2025 Magic Quadrant visualizations (Chart.js)
   - ✅ Customer Products → Issues → Better Options flow
-  - ✅ 102 Nexum partner database with features/strengths
+  - ✅ 102 Sellersco partner database with features/strengths
   - ✅ 50 common objection/issue selector
   - ✅ Feature overlap matrix (Zscaler vs Netskope vs Cato, etc.)
   - ✅ Market share intelligence per vertical
@@ -188,13 +188,13 @@ src/
 **Prompt for GitHub Copilot/Cursor:**
 
 ```
-"Create a Nexum Ultimate Sales Portal module for a Cloudflare Worker.
+"Create a Sellersco Ultimate Sales Portal module for a Cloudflare Worker.
 Features:
 - NextAuth.js login with email/password + MFA (use speakeasy)
 - Dark cyber theme (Tailwind CSS compatible inline HTML)
 - Verticals page: Dropdown for Healthcare, Finance, Manufacturing, Government, Retail, Education. Show Gartner 2025 positioning with Chart.js
 - Customer Products → Issues → Better Options:
-  * Dropdown 1: 102 Nexum partner products (Palo Alto, F5, Infoblox, Crowdstrike, Zscaler, etc.)
+  * Dropdown 1: 102 Sellersco partner products (Palo Alto, F5, Infoblox, Crowdstrike, Zscaler, etc.)
   * Dropdown 2: 20 top issues (ransomware, SASE, DDI visibility, cloud misconfig, zero trust gaps, compliance, budget)
   * Output: Top 3-5 alternatives with feature overlap matrix, why-better scripts, MSSP advantages
 - AI Sales Assistant: Use Workers AI (Vercel AI SDK equivalent) to answer 'Best alternative to X for vertical Y?', objection handling

@@ -27,6 +27,7 @@
 <meta property="twitter:image" content="https://sellersco.net/images/mainpage.png">
 
 <!-- JSON-LD Structured Data -->
+<link rel="stylesheet" href="/site.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -428,19 +429,19 @@
 <body>
 <div id="bg">
   <div class="lines">
-    <i style="left:15%; animation-delay:0s"></i>
-    <i class="alt" style="left:35%; animation-delay:2s"></i>
-    <i style="left:55%; animation-delay:4s"></i>
-    <i class="alt" style="left:75%; animation-delay:6s"></i>
-    <i style="left:90%; animation-delay:8s"></i>
+    <i class="line-1"></i>
+    <i class="alt line-2"></i>
+    <i class="line-3"></i>
+    <i class="alt line-4"></i>
+    <i class="line-5"></i>
   </div>
 </div>
 
-<div style="position:relative; z-index:5;">
-  <header class="nav" style="display:flex;align-items:center;justify-content:space-between;">
-    <a href="/" style="display:flex;align-items:center;">
-      <div style="display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border-light);border-radius:var(--radius-lg);padding:12px 16px;box-shadow:var(--shadow);">
-        <img src="/images/sellerrco.png" alt="Security Lab Logo" style="width:50px;height:50px;object-fit:contain;border-radius:var(--radius);" />
+<div class="nav-container">
+  <header class="nav nav-flex">
+    <a href="/" class="nav-logo-link">
+      <div class="nav-logo-box">
+        <img src="/images/sellerrco.png" alt="Security Lab Logo" class="nav-logo-img" />
       </div>
     </a>
     <div class="hamburger" onclick="toggleMenu()">
@@ -449,9 +450,9 @@
       <span></span>
     </div>
     <nav class="nav-links" id="navLinks">
-      <a href="/threat-feeds" class="btn" style="color:#FF1744;font-weight:bold;border:1px solid #FF1744;padding:8px 14px;">🔴 Live Attack Map</a>
-      <a href="/post-quantum" class="btn" style="color:#A300FF;font-weight:bold;">⚛️ Post-Quantum</a>
-      <a href="/owasp-range" class="btn" style="color:#FF1744;font-weight:bold;border:1px solid #FF1744;">🛡️ OWASP Range</a>
+      <a href="/threat-feeds" class="btn btn-live">🔴 Live Attack Map</a>
+      <a href="/post-quantum" class="btn btn-quantum">⚛️ Post-Quantum</a>
+      <a href="/owasp-range" class="btn btn-owasp">🛡️ OWASP Range</a>
       <a href="/hybrid-warroom" class="btn">Hybrid Warroom</a>
       <a href="/ai-gateway-arena" class="btn">AI Gateway</a>
       <a href="/stormcenter" class="btn">Storm Center</a>
@@ -460,9 +461,9 @@
       <a href="/threat-modeler" class="btn">Threat Model</a>
       <a href="/multicloud-sim" class="btn">Multi-Cloud</a>
       <a href="/attack-patterns" class="btn">ATT&CK</a>
-      <a href="/threat-map" class="btn" style="color:#FF7F50;font-weight:bold;">🗺️ Threat Map</a>
-      <a href="/recommender" class="btn" style="color:#00FFAA;font-weight:bold;">🤖 AI Recommender</a>
-      <a href="/workflows" class="btn" style="color:#FF69B4;font-weight:bold;">⚙️ Workflows</a>
+      <a href="/threat-map" class="btn btn-threatmap">🗺️ Threat Map</a>
+      <a href="/recommender" class="btn btn-ai">🤖 AI Recommender</a>
+      <a href="/workflows" class="btn btn-workflows">⚙️ Workflows</a>
       
       <!-- Protected Nav Buttons (hidden until logged in) -->
       <a href="/sales-portal" class="btn protected-nav">Sales Portal</a>
@@ -486,74 +487,35 @@
       <a href="/snocc-supercharger" class="btn protected-nav">🛍️ Product Bundle</a>
       <a href="/gartner-deal-booster" class="btn protected-nav">📊 Gartner Booster</a>
       
-      <!-- Auth Buttons -->
-      <button onclick="showLogin()" id="loginBtn" class="btn primary">Login</button>
-      <button onclick="showRegister()" id="registerBtn" class="btn primary">Register</button>
-      
-      <!-- User Info (hidden until logged in) -->
-      <div class="user-info" id="userInfo">
-        <span class="email" id="userEmail"></span>
-        <button onclick="logout()" class="btn">Logout</button>
-      </div>
+      <!-- Auth Buttons (now just for show, always visible) -->
+      <button class="btn primary btn-login">Login</button>
+      <button class="btn primary btn-register">Register</button>
     </nav>
   </header>
 </div>
 
-<!-- Login Modal -->
-<div id="loginModal" class="modal">
-  <div class="modal-content">
-    <span class="close-modal" onclick="closeLogin()">&times;</span>
-    <h2>Login</h2>
-    <input type="email" id="loginEmail" placeholder="Email (required)" required>
-    <input type="password" id="loginPassword" placeholder="Password" required>
-    <button onclick="login()">Login</button>
-    <div class="error-msg" id="loginError"></div>
-  </div>
-</div>
 
-<!-- Register Modal -->
-<div id="registerModal" class="modal">
-  <div class="modal-content">
-    <span class="close-modal" onclick="closeRegister()">&times;</span>
-    <h2>Register - Open Access</h2>
-    <p style="color:var(--text-dim);font-size:14px">📧 Any email welcome. Approval typically within 24 hours.</p>
-    <input type="email" id="regEmail" placeholder="Your email address" required>
-    <input type="password" id="regPassword" placeholder="Password" required>
-    <input type="text" id="regName" placeholder="Full Name" required>
-    <button onclick="register()">Register</button>
-    <div class="error-msg" id="registerError"></div>
-  </div>
-</div>
 
 <div class="main-content">
   <div class="hero-image">
     <img src="/images/mainpage.png" alt="Security Lab" />
-  </div>
-  
-  <!-- About Me Section -->
-  <div class="about-section">
-    <h2 style="margin-top:0;">About James Sellers</h2>
-    <p style="font-size:16px;line-height:1.8;color:var(--text);">
-      Security architect and researcher, specializing in enterprise cybersecurity solutions, zero trust architecture, and cloud security. Creator of this security research lab environment designed to provide hands-on training and real-world testing scenarios for cybersecurity professionals.
-    </p>
-    <p style="font-size:16px;line-height:1.8;color:var(--text);">
-      With extensive experience in managed security services, SASE implementations, and threat intelligence, I focus on building practical tools and training environments that help security teams defend against evolving cyber threats.
-    </p>
-    <div class="about-buttons">
-      <a href="mailto:packetcatcha@gmail.com" class="primary">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-        Contact Me
-      </a>
-      <a href="https://www.linkedin.com/in/jim-sellers-5ba5606/" target="_blank" rel="noopener" class="secondary">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.9 6 2.5 6S0 4.88 0 3.5 1.1 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.5h4.52V23H.24V8.5zm7.41 0h4.33v2h.06c.6-1.1 2.06-2.25 4.24-2.25 4.53 0 5.37 2.82 5.37 6.49V23h-4.52v-6.5c0-1.55-.03-3.54-2.16-3.54-2.16 0-2.49 1.68-2.49 3.42V23H7.65V8.5z"/></svg>
-        LinkedIn Profile
-      </a>
+    <div class="hero-overlay">
+      <h1 class="hero-title">Security Lab</h1>
+      <div class="hero-desc">Advanced Cybersecurity Research & Training Platform for Enterprise Security Teams</div>
     </div>
   </div>
-  
-  <p style="font-size:16px;line-height:1.8;color:var(--text);margin-bottom:var(--space-xl);">
-    Welcome to the enterprise security research platform. This lab environment provides hands-on training and testing for cybersecurity professionals, featuring real-world scenarios for SASE, Zero Trust, threat modeling, and cloud security.
-  </p>
+  <hr class="section-divider">
+  <div class="about-section about-flex">
+    <img src="/images/sellerrco.png" alt="James Sellers" class="about-img" />
+    <div>
+      <h2 class="about-title">James Sellers</h2>
+      <div class="about-desc">Security architect & researcher. Building practical tools and training environments for enterprise security teams. Specializing in zero trust, SASE, and threat intelligence. <br><br>Contact: <a href="mailto:packetcatcha@gmail.com" class="about-link">packetcatcha@gmail.com</a> &nbsp;|&nbsp; <a href="https://www.linkedin.com/in/jim-sellers-5ba5606/" target="_blank" rel="noopener" class="about-link">LinkedIn</a></div>
+    </div>
+  </div>
+  <hr class="section-divider">
+  <div style="font-size:16px;line-height:1.8;color:var(--text);margin-bottom:var(--space-xl);text-align:center;max-width:800px;margin-left:auto;margin-right:auto;">
+    Welcome to the enterprise security research platform. This lab provides hands-on training and real-world scenarios for SASE, Zero Trust, threat modeling, and cloud security. <br>Explore the labs and tools below.
+  </div>
   
   <!-- Partner Section -->
   <div class="card" style="background:linear-gradient(135deg, rgba(247,103,34,0.1), rgba(0,145,220,0.1));border:1px solid rgba(247,103,34,0.3);margin-bottom:var(--space-xl);">
@@ -629,47 +591,24 @@
     // Wait for DOM
     if (!document.getElementById('miniMap')) {
       setTimeout(initMiniMap, 100);
-      return;
-    }
-    
-    // Create map centered on US with world view
-    const map = L.map('miniMap', {
-      center: [35, -40],
-      zoom: 2,
-      minZoom: 2,
-      maxZoom: 6,
-      zoomControl: false,
-      attributionControl: false
-    });
-    
-    // Satellite tiles
-    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-      opacity: 0.6
-    }).addTo(map);
-    
-    // Dark labels overlay
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png', {
-      opacity: 0.8
-    }).addTo(map);
-    
-    // Attack sources (weighted by threat level)
-    const sources = [
-      {lat: 55.75, lng: 37.62, name: 'Russia', weight: 20},
-      {lat: 39.90, lng: 116.41, name: 'China', weight: 25},
-      {lat: 39.03, lng: 125.75, name: 'North Korea', weight: 8},
-      {lat: 35.68, lng: 51.39, name: 'Iran', weight: 10},
-      {lat: 52.52, lng: 13.41, name: 'Germany', weight: 5},
-      {lat: 51.51, lng: -0.13, name: 'UK', weight: 4},
-      {lat: 48.86, lng: 2.35, name: 'France', weight: 4},
-      {lat: -23.55, lng: -46.63, name: 'Brazil', weight: 6},
-      {lat: 28.61, lng: 77.21, name: 'India', weight: 7},
-      {lat: 14.60, lng: 120.98, name: 'Philippines', weight: 3}
-    ];
-    
-    // US targets
-    const targets = [
-      {lat: 40.71, lng: -74.01, name: 'NYC'},
-      {lat: 34.05, lng: -118.24, name: 'LA'},
+    </div>
+    <nav class="nav-links" id="navLinks">
+      <a href="/post-quantum" class="btn">⚛️ Post-Quantum</a>
+      <a href="/owasp-range" class="btn">🛡️ OWASP Range</a>
+      <a href="/attack-patterns" class="btn">ATT&CK</a>
+      <a href="/threat-map" class="btn">🗺️ Threat Map</a>
+      <a href="/threat-feeds" class="btn">🔴 Live Attack Map</a>
+      <a href="/ai-gateway-arena" class="btn">AI Gateway</a>
+      <a href="/hybrid-warroom" class="btn">Hybrid Warroom</a>
+      <a href="/stormcenter" class="btn">Storm Center</a>
+      <a href="/troubletoolbox" class="btn">Tools</a>
+      <a href="/traps-lab" class="btn">Deception Lab</a>
+      <a href="/threat-modeler" class="btn">Threat Modeler</a>
+      <a href="/multicloud-sim" class="btn">Multi-Cloud</a>
+      <a href="/recommender" class="btn">🤖 AI Recommender</a>
+      <a href="/workflows" class="btn">⚙️ Workflows</a>
+    </nav>
+  </header>
       {lat: 41.88, lng: -87.63, name: 'Chicago'},
       {lat: 29.76, lng: -95.37, name: 'Houston'},
       {lat: 33.45, lng: -112.07, name: 'Phoenix'},
@@ -760,158 +699,13 @@
   </div>
 </div>
 
-<footer class="site" style="position:fixed; bottom:0; left:0; width:100%; display:flex; justify-content:space-between; align-items:center; z-index:10;">
-  <span style="font-size:14px;">&copy; 2025 Sellersco Lab - Security Research Lab</span>
-  <div style="display:flex; align-items:center; gap:16px;">
-    <!-- Former Nexum MSS link removed -->
-      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1zm0 20c-4.962 0-9-4.038-9-9s4.038-9 9-9 9 4.038 9 9-4.038 9-9 9zm3.5-9c.828 0 1.5-.672 1.5-1.5S16.328 9 15.5 9 14 9.672 14 10.5s.672 1.5 1.5 1.5zm-7 0c.828 0 1.5-.672 1.5-1.5S9.328 9 8.5 9 7 9.672 7 10.5 7.672 12 8.5 12zm3.5 6.5c2.33 0 4.31-1.46 5.15-3.5H6.35c.84 2.04 2.82 3.5 5.15 3.5z"/></svg>
-      <span>Sellersco Lab</span>
-    </a>
-    <a href="https://buymeacoffee.com/sellersco" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px;color:var(--text);text-decoration:none;transition:var(--transition);" onmouseover="this.style.color='#FFDD00'" onmouseout="this.style.color='var(--text)'">
-      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.1 0 2 .9 2 2v8c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2h16c1.1 0 2 .9 2 2v11h-2V3zm-8 6H8v2h4V9z" style="filter: brightness(1.3) saturate(1.5)"/></svg>
-      <span style="font-weight:600;">Buy Me Coffee</span>
-    </a>
-    <a href="https://www.linkedin.com/in/jim-sellers-5ba5606/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px;color:var(--text);text-decoration:none;">
-      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.9 6 2.5 6S0 4.88 0 3.5 1.1 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.5h4.52V23H.24V8.5zm7.41 0h4.33v2h.06c.6-1.1 2.06-2.25 4.24-2.25 4.53 0 5.37 2.82 5.37 6.49V23h-4.52v-6.5c0-1.55-.03-3.54-2.16-3.54-2.16 0-2.49 1.68-2.49 3.42V23H7.65V8.5z"/></svg>
-      <span style="font-weight:600;">LinkedIn</span>
-    </a>
-    <a href="mailto:packetcatcha@gmail.com" style="color:var(--text);font-size:14px;">packetcatcha@gmail.com</a>
-  </div>
-  <div id="ticker" style="overflow:hidden; white-space:nowrap; animation:scroll 30s linear infinite;">Loading threat intelligence...</div>
-</footer>
+
 
 <script>
 // Hamburger Menu Toggle
 function toggleMenu() {
   document.querySelector('.hamburger').classList.toggle('active');
   document.getElementById('navLinks').classList.toggle('active');
-}
-
-// Auth State Management
-function checkAuth() {
-  const token = localStorage.getItem('auth_token');
-  const email = localStorage.getItem('user_email');
-  if (token && email) {
-    showAuthenticatedState(email);
-  }
-}
-
-function showAuthenticatedState(email) {
-  document.getElementById('loginBtn').style.display = 'none';
-  document.getElementById('registerBtn').style.display = 'none';
-  document.getElementById('userInfo').classList.add('show');
-  document.getElementById('userEmail').textContent = email;
-  document.querySelectorAll('.protected-nav').forEach(el => el.classList.add('show'));
-}
-
-function logout() {
-  localStorage.removeItem('auth_token');
-  localStorage.removeItem('user_email');
-  document.getElementById('loginBtn').style.display = 'inline-block';
-  document.getElementById('registerBtn').style.display = 'inline-block';
-  document.getElementById('userInfo').classList.remove('show');
-  document.querySelectorAll('.protected-nav').forEach(el => el.classList.remove('show'));
-}
-
-// Modal Functions
-function showLogin() {
-  document.getElementById('loginModal').classList.add('show');
-}
-
-function closeLogin() {
-  document.getElementById('loginModal').classList.remove('show');
-  document.getElementById('loginError').classList.remove('show');
-}
-
-function showRegister() {
-  document.getElementById('registerModal').classList.add('show');
-}
-
-function closeRegister() {
-  document.getElementById('registerModal').classList.remove('show');
-  document.getElementById('registerError').classList.remove('show');
-}
-
-// Login Function
-async function login() {
-  const email = document.getElementById('loginEmail').value;
-  const password = document.getElementById('loginPassword').value;
-  
-  // Email domain check removed for Sellersco Lab
-    const errorEl = document.getElementById('loginError');
-    errorEl.textContent = 'Please enter a valid email address';
-    errorEl.classList.add('show');
-    return;
-  }
-  
-  try {
-    const response = await fetch('/api/login', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({email, password})
-    });
-    
-    const data = await response.json();
-    
-    if (response.ok) {
-      localStorage.setItem('auth_token', data.token);
-      localStorage.setItem('user_email', email);
-      showAuthenticatedState(email);
-      closeLogin();
-    } else {
-      const errorEl = document.getElementById('loginError');
-      errorEl.textContent = data.error || 'Login failed';
-      errorEl.classList.add('show');
-    }
-  } catch (error) {
-    const errorEl = document.getElementById('loginError');
-    errorEl.textContent = 'Network error';
-    errorEl.classList.add('show');
-  }
-}
-
-// Register Function
-async function register() {
-  const email = document.getElementById('regEmail').value;
-  const password = document.getElementById('regPassword').value;
-  const name = document.getElementById('regName').value;
-  
-  // Email validation only
-  if (!email.includes('@') || email.length < 5) {
-    const errorEl = document.getElementById('registerError');
-    errorEl.textContent = 'Please enter a valid email address';
-    errorEl.classList.add('show');
-    return;
-  }
-  
-  try {
-    const response = await fetch('/api/register', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({email, password, name, approved: true})
-    });
-    
-    const data = await response.json();
-    
-    if (response.ok) {
-      alert('✅ Registration approved! You can now access all labs. Welcome to Sellersco Lab!');
-      closeRegister();
-      // Auto-login after registration
-      setTimeout(() => {
-        document.getElementById('loginEmail').value = email;
-        document.getElementById('loginPassword').value = password;
-        login();
-      }, 500);
-    } else {
-      const errorEl = document.getElementById('registerError');
-      errorEl.textContent = data.error || 'Registration failed';
-      errorEl.classList.add('show');
-    }
-  } catch (error) {
-    const errorEl = document.getElementById('registerError');
-    errorEl.textContent = 'Network error';
-    errorEl.classList.add('show');
-  }
 }
 
 // Ticker
@@ -926,17 +720,10 @@ async function loadTicker() {
 }
 
 // Initialize
-checkAuth();
 loadTicker();
-
-// Close modals on background click
-window.onclick = function(event) {
-  if (event.target.classList.contains('modal')) {
-    event.target.classList.remove('show');
-  }
-}
 </script>
 
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"5dc3f7ae5bec40e6933a5a728bd7f020","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfOrigin":true}}' crossorigin="anonymous"></script>
 </body>
 </html>
+

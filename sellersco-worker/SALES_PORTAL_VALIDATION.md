@@ -137,7 +137,7 @@ Sales Portal tools are protected. Please log in to access.
 
 **Expected Result:**
 ```
-✅ Registration approved! You can now access all labs. Welcome to Nexum!
+✅ Registration approved! You can now access all labs. Welcome!
 ```
 Then:
 - Modal closes
@@ -258,12 +258,12 @@ Response on Error:
 
 ### 2. **Hybrid Attack Simulator** (`/hybrid-attack-simulator`)
 - **Purpose:** Visualize attack paths across hybrid environments
-- **Features:** Environment builder, attack sim, risk scoring, Nexum recommendations
+- **Features:** Environment builder, attack sim, risk scoring, partner recommendations
 - **Protection:** ✅ Requires auth_token + user_email
 - **Status:** ✅ Live & Protected
 
 ### 3. **SNOCc Supercharger** (`/snocc-supercharger`)
-- **Purpose:** Bundle Nexum products with ROI calculator
+- **Purpose:** Bundle partner products with ROI calculator
 - **Features:** 40+ products, bundle calc, competitor matrix, proposal generation
 - **Protection:** ✅ Requires auth_token + user_email
 - **Status:** ✅ Live & Protected

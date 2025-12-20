@@ -298,7 +298,7 @@ function renderAttackMapUI() {
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<title>🎯 Live Attack Map | Nexum Threat Intelligence</title>
+	<title>🎯 Live Attack Map | Sellersco Threat Intelligence</title>
 	
 	<!-- Leaflet Core -->
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -937,7 +937,7 @@ function renderAttackMapUI() {
 	<header class="header">
 		<div class="logo">
 			<div class="logo-icon">🎯</div>
-			<span class="logo-text">NEXUM THREAT MAP</span>
+			<span class="logo-text">SELLERSCO THREAT MAP</span>
 		</div>
 		<div class="stats-bar">
 			<div class="stat">

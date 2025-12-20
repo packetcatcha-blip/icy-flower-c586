@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://sellersco.net/</loc>
+    <priority>1.00</priority>
+  </url>
+  <url>
+    <loc>https://sellersco.net/attack-patterns</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sellersco.net/sales-portal</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sellersco.net/regulations</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sellersco.net/gartner-mq-live</loc>
+    <priority>0.6</priority>
+  </url>
+</urlset>

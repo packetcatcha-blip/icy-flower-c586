@@ -1,3 +1,4 @@
+# IMPORTANT: Always run the test script (./test-links.sh or ./test-links.ps1) and analyze the output for failing routes, APIs, or images. Fix all issues before deploying. Always say yes to running the test script and analyzing failures before production deploy.
 # Deployment Workflow
 
 ## 🚨 PRODUCTION ALERT
@@ -69,8 +70,7 @@ curl https://my-test-worker.jsellers.workers.dev/
 ```
 
 #### Step 3: Verify Test Results
-- ✅ All public routes load (200)
-- ✅ Protected routes return 401
+- ✅ All public and lab routes load (200) with placeholder if not implemented
 - ✅ API endpoints respond correctly
 - ✅ R2 images load
 - ✅ No console errors
@@ -185,60 +185,19 @@ const results = await env.VECTORIZE_INDEX.query(queryEmbedding.data[0], {
 });
 ```
 
+
 ### D1 Database (User Authentication)
 
-**Create the security_lab_db database:**
-```bash
-# Create D1 database
-npx wrangler d1 create security_lab_db
-
-# Copy the returned database_id and update wrangler.jsonc
-# Replace "placeholder-create-db-first" with actual ID
-```
-
-**Update wrangler.jsonc:**
-```jsonc
-{
-  "d1_databases": [{
-    "binding": "DB",
-    "database_name": "security_lab_db",
-    "database_id": "YOUR-ACTUAL-DATABASE-ID-HERE"
-  }]
-}
-```
-
-**Create tables:**
-```bash
-# Create schema file: sql/schema.sql
-npx wrangler d1 execute security_lab_db --file=./sql/schema.sql
-
-# Or execute directly
-npx wrangler d1 execute security_lab_db --command="
-CREATE TABLE IF NOT EXISTS users (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  email TEXT UNIQUE NOT NULL,
-  name TEXT NOT NULL,
-  password_hash TEXT NOT NULL,
-  approved BOOLEAN DEFAULT 0,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE IF NOT EXISTS sessions (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  user_id INTEGER NOT NULL,
-  token TEXT UNIQUE NOT NULL,
-  expires_at TIMESTAMP NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES users(id)
-);
-"
-```
+**Authentication is no longer required.**
+- All registration and login endpoints have been removed.
+- All routes are public and accessible without authentication.
 
 **Query database:**
 ```javascript
 // In worker code
 const user = await env.DB.prepare(
   'SELECT * FROM users WHERE email = ?'
-).bind('jsellers@nexuminc.com').first();
+).bind('packetcatcha@gmail.com').first();
 ```
 
 ### R2 Storage (Images/Assets)

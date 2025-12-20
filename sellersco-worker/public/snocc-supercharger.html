@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nexum SNOCc Supercharger - Sales Portal</title>
+  <title>SNOCc Supercharger - Sales Portal</title>
   <style>
     * {
       margin: 0;
@@ -319,17 +319,17 @@
     }
   </script>
   <div class="navbar">
-    <h1>⚡ Nexum SNOCc Supercharger</h1>
+    <h1>⚡ SNOCc Supercharger</h1>
     <button onclick="goHome()">← Back Home</button>
   </div>
 
   <div class="container">
     <div class="hero">
-      <h1>⚡ Nexum Managed Security Services</h1>
-      <p>Enterprise-grade security services & solutions from Nexum - trusted since 2002</p>
+      <h1>⚡ Managed Security Services</h1>
+      <p>Enterprise-grade security services & solutions - trusted since 2002</p>
     </div>
 
-    <h2 style="color: #ff6b6b; margin: 2rem 0; text-align: center;">🛡️ Nexum Service Portfolio</h2>
+    <h2 style="color: #ff6b6b; margin: 2rem 0; text-align: center;">🛡️ Service Portfolio</h2>
 
     <div class="stat-grid">
       <div class="stat-card">
@@ -509,7 +509,7 @@
     <!-- Bundle Builder -->
     <div class="section" style="margin-top: 3rem;">
       <h2>🎯 Build Your Security Bundle</h2>
-      <p style="color: #b0b0b0; margin-bottom: 2rem;">Combine Nexum services to create a comprehensive security program tailored to your organization</p>
+      <p style="color: #b0b0b0; margin-bottom: 2rem;">Combine managed services to create a comprehensive security program tailored to your organization</p>
       
       <div style="background: rgba(255,107,107,0.05); border: 1px solid rgba(255,107,107,0.2); border-radius: 8px; padding: 2rem;">
         <h3 style="color: #ff6b6b; margin-bottom: 1rem;">Typical Enterprise Bundle</h3>
@@ -527,13 +527,13 @@
       </div>
     </div>
 
-    <!-- Why Nexum -->
+    <!-- Why Company -->
     <div class="section" style="margin-top: 3rem;">
-      <h2>Why Choose Nexum?</h2>
+      <h2>Why Choose Our Services?</h2>
       <table class="positioning-table">
         <tr>
           <th>Feature</th>
-          <th>Nexum</th>
+          <th>Company</th>
           <th>Traditional MSS</th>
           <th>DIY Approach</th>
         </tr>
@@ -578,7 +578,7 @@
   </div>
 
     <div class="summary">
-      <h2>Your Nexum Bundle Configuration</h2>
+      <h2>Your Bundle Configuration</h2>
       <div class="summary-stat">
         <div class="summary-value" id="selectedCount">0</div>
         <div class="summary-label">Products Selected</div>
@@ -594,7 +594,7 @@
       <button class="btn btn-secondary" onclick="generateProposal()">📋 Generate Proposal</button>
     </div>
 
-    <h2 style="color: #a300ff; margin: 2rem 0 1rem 0;">🛡️ Nexum Core + Partner Products</h2>
+    <h2 style="color: #a300ff; margin: 2rem 0 1rem 0;">🛡️ Core + Partner Products</h2>
 
     <div class="grid" id="productGrid"></div>
 
@@ -604,7 +604,7 @@
         <tr>
           <th>Capability</th>
           <th>Multi-Vendor (Fragmented)</th>
-          <th>Nexum SNOCc (Integrated)</th>
+          <th>SNOCc (Integrated)</th>
         </tr>
         <tr>
           <td>Unified Dashboard</td>
@@ -629,7 +629,7 @@
         <tr>
           <td>Vendor Management Overhead</td>
           <td><span class="x">5-10 vendors</span></td>
-          <td><span class="check">1 vendor (Nexum)</span></td>
+          <td><span class="check">1 vendor</span></td>
         </tr>
         <tr>
           <td>Average Implementation Time</td>
@@ -646,12 +646,12 @@
   </div>
 
   <footer>
-    <p>Nexum SNOCc Supercharger | Nexum Security Labs | Contact: sales@nexuminc.com</p>
+    <p>SNOCc Supercharger | Sellersco Lab | Contact: packetcatcha@gmail.com</p>
   </footer>
 
   <script>
     const products = [
-      {name: "Nexum MSS (24/7 SOC)", icon: "🛡️", price: "$200K", roi: "150K", features: ["24/7 monitoring", "Incident response", "Threat hunting"], category: "Core"},
+      {name: "MSS (24/7 SOC)", icon: "🛡️", price: "$200K", roi: "150K", features: ["24/7 monitoring", "Incident response", "Threat hunting"], category: "Core"},
       {name: "Palo Alto Prisma Access", icon: "🔒", price: "$85K", roi: "45K", features: ["Zero Trust access", "SASE platform", "Cloud native"], discount: "25%"},
       {name: "CrowdStrike Falcon XDR", icon: "🦅", price: "$95K", roi: "60K", features: ["EDR/XDR", "Threat intel", "Response"], discount: "20%"},
       {name: "Zscaler Zero Trust", icon: "🔐", price: "$75K", roi: "50K", features: ["Network access", "DLP controls", "Policy mgmt"], discount: "20%"},
@@ -741,7 +741,7 @@ Total Annual Value: $${selected.reduce((sum, p) => sum + parseInt(p.price), 0)}K
 
 Bundle Discount: ${Math.min(selected.length * 3, 30)}%
 
-This proposal provides integrated security across your hybrid infrastructure with Nexum's 24/7 SOC oversight.
+This proposal provides integrated security across your hybrid infrastructure with 24/7 SOC oversight.
 
 Download your detailed proposal to share with your team.
       `;

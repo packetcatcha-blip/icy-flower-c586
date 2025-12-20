@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Solution Diagram Builder - Nexum Sales Portal</title>
+  <title>Solution Diagram Builder - Sellersco Sales Portal</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
     * {
@@ -488,7 +488,7 @@
     <!-- Left: Vendors -->
     <div class="vendor-panel">
       <div class="panel-header">
-        <h3>80+ Nexum Partners</h3>
+        <h3>80+ Partner Firms</h3>
         <input type="text" id="vendorSearch" class="search-box" placeholder="Search vendors...">
       </div>
       <div class="vendor-list" id="vendorList"></div>
@@ -509,7 +509,7 @@
       </div>
       <div class="chat-body" id="chatBody">
         <div class="message ai">
-          <strong>Nexum AI:</strong> Tell me about your hybrid infrastructure and security goals. I'll help you build the perfect solution.
+          <strong>Sellersco AI:</strong> Tell me about your hybrid infrastructure and security goals. I'll help you build the perfect solution.
         </div>
       </div>
       <div class="chat-input-area">
@@ -535,7 +535,7 @@
   </div>
 
   <script>
-    // 80+ Nexum Partner Database with Icons
+    // 80+ Partner Database with Icons
     const vendors = [
       // Palo Alto Networks Suite
       {name: "Palo Alto Networks - Prisma Access", icon: "🔒", category: "SASE"},
@@ -688,10 +688,10 @@
       // Entrust
       {name: "Entrust - Identity", icon: "🔑", category: "PKI"},
       
-      // Nexum (Self)
-      {name: "Nexum - MSS (24/7 SOC)", icon: "🛡️", category: "Nexum"},
-      {name: "Nexum - Threat Intelligence", icon: "🎯", category: "Nexum"},
-      {name: "Nexum - Compliance", icon: "✅", category: "Nexum"},
+      // Sellersco (Self)
+      {name: "MSS (24/7 SOC)", icon: "🛡️", category: "Sellersco"},
+      {name: "Threat Intelligence", icon: "🎯", category: "Sellersco"},
+      {name: "Compliance", icon: "✅", category: "Sellersco"},
     ];
 
     // Initialize
@@ -830,7 +830,7 @@
       const msg = document.createElement('div');
       msg.className = `message ${sender}`;
       msg.innerHTML = sender === 'ai' ? 
-        `<strong>Nexum AI:</strong> ${text}` : 
+        `<strong>Sellersco AI:</strong> ${text}` : 
         `<strong>You:</strong> ${text}`;
       body.appendChild(msg);
       body.scrollTop = body.scrollHeight;
@@ -896,7 +896,7 @@
           </style>
         </head>
         <body>
-          <h1>Proposed Solution Architecture - Nexum</h1>
+          <h1>Proposed Solution Architecture - Sellersco</h1>
           <p><strong>Generated:</strong> ${new Date().toLocaleDateString()}</p>
           
           <div class="section">
@@ -944,7 +944,7 @@
               <tr>
                 <td>Monitoring & Response</td>
                 <td>24/7 threat monitoring</td>
-                <td>${solutions.filter(s => s.includes('MSS') || s.includes('LogScale') || s.includes('Sentinel'))[0] || 'Nexum MSS / LogScale'}</td>
+                <td>${solutions.filter(s => s.includes('MSS') || s.includes('LogScale') || s.includes('Sentinel'))[0] || 'Managed Services / LogScale' }</td>
               </tr>
             </table>
           </div>
@@ -956,7 +956,7 @@
               <li><strong>Phase 2 (Weeks 5-8):</strong> Network segmentation (ZTNA rollout)</li>
               <li><strong>Phase 3 (Weeks 9-12):</strong> Threat detection (Endpoint/SIEM deployment)</li>
               <li><strong>Phase 4 (Weeks 13-16):</strong> Cloud hardening (CSPM + continuous monitoring)</li>
-              <li><strong>Phase 5 (Ongoing):</strong> 24/7 managed services (Nexum SOC integration)</li>
+              <li><strong>Phase 5 (Ongoing):</strong> 24/7 managed services (SOC integration)</li>
             </ol>
           </div>
 
@@ -967,13 +967,13 @@
               <li>✅ 99.9% attack detection rate with automated response</li>
               <li>✅ 50% reduction in security incidents</li>
               <li>✅ Full compliance with NIST, PCI-DSS, and industry standards</li>
-              <li>✅ 24/7 managed security operations (Nexum SOC)</li>
+              <li>✅ 24/7 managed security operations (SOC)</li>
             </ul>
           </div>
 
           <div class="footer">
-            <p>This proposal is valid for 30 days. For questions or modifications, contact your Nexum sales representative.</p>
-            <p><strong>Nexum Security Labs</strong> | www.nexuminc.com | sales@nexuminc.com</p>
+            <p>This proposal is valid for 30 days. For questions or modifications, contact your Sellersco sales representative.</p>
+            <p><strong>Sellersco Lab</strong> | https://sellersco.net | packetcatcha@gmail.com</p>
           </div>
         </body>
         </html>
@@ -985,7 +985,7 @@
       
       const opt = {
         margin: 10,
-        filename: `Nexum-Solution-${Date.now()}.pdf`,
+        filename: `Sellersco-Solution-${Date.now()}.pdf`,
         image: {type: 'jpeg', quality: 0.98},
         html2canvas: {scale: 2},
         jsPDF: {orientation: 'portrait', unit: 'mm', format: 'a4'}

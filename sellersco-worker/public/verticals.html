@@ -173,7 +173,7 @@
 <div class="container">
   <div class="intro">
     <h2>Industry-Specific Security Solutions</h2>
-    <p>Explore security frameworks, compliance requirements, market leaders, and Nexum MSS partnership opportunities across 8 critical verticals. Market data informed by Gartner, IDC, and industry research.</p>
+    <p>Explore security frameworks, compliance requirements, market leaders, and Sellersco Lab partnership opportunities across 8 critical verticals. Market data informed by Gartner, IDC, and industry research.</p>
   </div>
   
   <div class="vertical-selector" id="verticalSelector"></div>
@@ -206,7 +206,7 @@ const verticals = {
       { name: 'Citigroup', capital: '$130B', security: 'Tier-1' },
       { name: 'Wells Fargo', capital: '$110B', security: 'Tier-1' }
     ],
-    nexumPartners: [
+    partnersList: [
       { name: 'JPMorgan Chase', services: 'Threat intelligence, SIEM, IR' },
       { name: 'Goldman Sachs', services: 'Zero-trust architecture, hardening' },
       { name: 'Morgan Stanley', services: 'Cloud security, incident response' }
@@ -235,7 +235,7 @@ const verticals = {
       { name: 'Pfizer', revenue: '$58B', security: 'R&D data protection' },
       { name: 'Johnson & Johnson', revenue: '$94B', security: 'Supply chain security' }
     ],
-    nexumPartners: [
+    partnersList: [
       { name: 'Mayo Clinic', services: 'HIPAA compliance, ransomware defense' },
       { name: 'Kaiser Permanente', services: 'Supply chain security, audit support' },
       { name: 'CVS Health', services: 'Insider threat program, SOC 2 compliance' }
@@ -263,7 +263,7 @@ const verticals = {
       { name: 'NSA', budget: 'Classified', security: 'Zero-trust pioneer' },
       { name: 'FBI', divisions: 'Multi-agency', security: 'Threat intel leader' }
     ],
-    nexumPartners: [
+    partnersList: [
       { name: 'DoD', services: 'CMMC assessment, risk management' },
       { name: 'GSA', services: 'Federal compliance, FedRAMP support' },
       { name: 'CISA', services: 'Threat intelligence sharing' }
@@ -292,7 +292,7 @@ const verticals = {
       { name: 'Verizon', revenue: '$134B', security: 'Quantum-ready infrastructure' },
       { name: 'Deutsche Telekom', revenue: '$102B', security: 'NIS2 leader' }
     ],
-    nexumPartners: [
+    partnersList: [
       { name: 'AT&T', services: '5G security, DDoS mitigation' },
       { name: 'Orange', services: 'Network slicing security' },
       { name: 'BT Group', services: 'Critical infrastructure protection' }
@@ -320,7 +320,7 @@ const verticals = {
       { name: 'Amazon', revenue: '$575B', security: 'Cloud-native security' },
       { name: 'Alibaba', revenue: '$110B', security: 'Payment security leader' }
     ],
-    nexumPartners: [
+    partners: [
       { name: 'Walmart', services: 'PCI compliance, threat detection' },
       { name: 'Target', services: 'Data protection, incident response' },
       { name: 'Costco', services: 'Supply chain security, audit support' }
@@ -348,7 +348,7 @@ const verticals = {
       { name: 'General Electric', revenue: '$80B', security: 'Predictive security' },
       { name: 'Bosch', revenue: '$85B', security: 'Supply chain embedded' }
     ],
-    nexumPartners: [
+    partners: [
       { name: 'Siemens', services: 'ICS hardening, risk assessment' },
       { name: 'ABB', services: 'Automation security, OT/IT integration' },
       { name: 'Schneider Electric', services: 'Industrial firewall deployment' }
@@ -376,7 +376,7 @@ const verticals = {
       { name: 'Shell', revenue: '$211B', security: 'Energy sector leader' },
       { name: 'Exxon Mobil', revenue: '$413B', security: 'Global operations security' }
     ],
-    nexumPartners: [
+    partners: [
       { name: 'NextEra Energy', services: 'NERC CIP compliance, grid protection' },
       { name: 'Duke Energy', services: 'Renewable security, grid modernization' },
       { name: 'Southern Company', services: 'Distributed generation security' }
@@ -405,7 +405,7 @@ const verticals = {
       { name: 'Warner Bros', revenue: '$55B', security: 'Content protection DRM' },
       { name: 'Netflix', revenue: '$34B', security: 'Cloud-native playback security' }
     ],
-    nexumPartners: [
+    partners: [
       { name: 'Disney+', services: 'Streaming DRM, credential stuffing defense' },
       { name: 'Paramount+', services: 'Content protection, subscriber privacy' },
       { name: 'Max', services: 'Account takeover prevention, regional licensing' }
@@ -464,13 +464,13 @@ function selectVertical(key) {
     </div>
     
     <div class="partners-list">
-      <h3>🤝 Nexum MSS Partnership</h3>
-      <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 12px;">Nexum Inc provides end-to-end managed security services for ${key} organizations:</p>
-      ${v.nexumPartners.map(p => `
+      <h3>🤝 Sellersco Lab Partnership</h3>
+      <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 12px;">Sellersco Lab provides end-to-end managed security services for ${key} organizations:</p>
+      ${v.partnersList.map(p => `
         <div class="partner-item">
           <strong>${p.name}</strong>
           <span>${p.services}</span>
-          <div class="partner-badge">Nexum MSS Provider</div>
+          <div class="partner-badge">Sellersco Lab Provider</div>
         </div>
       `).join('')}
     </div>

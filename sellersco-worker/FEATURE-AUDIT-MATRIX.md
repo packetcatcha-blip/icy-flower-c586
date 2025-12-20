@@ -282,7 +282,7 @@ To build the above features, we need:
 
 ### **Sales Portal Data**
 - [ ] 102 partner vendor list (name, logo, category, features, pricing)
-  - Scrape from: nexuminc.com/partners or Grok conversation
+  - Scrape from: sellersco.net/partners or Grok conversation
   - Status: **Partially available in Grok, needs compilation**
   
 - [ ] 50 Common objections/issues with scripts

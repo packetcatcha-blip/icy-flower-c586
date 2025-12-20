@@ -1,0 +1,21 @@
+{
+    "models": [
+        {
+            "title": "Local Llama3",
+            "provider": "ollama",
+            "model": "llama3"
+        }
+    ],
+    "slashCommands": [
+        {
+            "name": "rag",
+            "description": "Query vectorized docs",
+            "run": "python C:\\demo\\nuke-demo\\icy-flower-c586\\rag_query.py"
+        },
+        {
+            "name": "scanllm",
+            "description": "Scan all ports for local LLMs",
+            "run": "python C:\\demo\\nuke-demo\\icy-flower-c586\\scan_llm_ports.py"
+        }
+    ]
+}

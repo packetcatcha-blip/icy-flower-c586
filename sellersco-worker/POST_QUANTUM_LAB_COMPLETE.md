@@ -234,7 +234,7 @@ OWASP Range
 ## Contact & Support
 
 - **Domain:** https://sellersco.net (LIVE)
-- **Primary Contact:** James Sellers (jsellers@example.com)
+- **Primary Contact:** James Sellers (packetcatcha@gmail.com)
 - **Worker URL:** https://icy-flower-c586.jsellers.workers.dev
 - **Deployment:** Cloudflare Workers + R2 Storage
 

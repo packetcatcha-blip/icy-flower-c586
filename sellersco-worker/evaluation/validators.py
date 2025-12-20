@@ -105,7 +105,8 @@ class SEOValidator:
             
             if seo_checks.get("has_website_schema"):
                 scripts = soup.find_all("script", attrs={"type": "application/ld+json"})
-                has_website_schema = any("Website" in str(s) for s in scripts)
+                # Case-insensitive check for Website/WebSite
+                has_website_schema = any("website" in str(s).lower() for s in scripts)
                 results["checks"]["has_website_schema"] = has_website_schema
             
             # Check responsiveness
